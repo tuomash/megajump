@@ -9,4 +9,3 @@ steam/
 .settings/
 *.~lock*
 lib/java/*
-detective.iml
