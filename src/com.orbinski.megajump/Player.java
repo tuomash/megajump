@@ -2,38 +2,48 @@ package com.orbinski.megajump;
 
 class Player
 {
-  enum Direction
-  {
-    UP,
-    LEFT,
-    RIGHT,
-    DOWN
-  }
-
-  private float x = 0.0f;
-  private float y = -25.0f;
+  private float x = -75.0f;
+  private float y = -30.0f;
+  private float gravity = -0.01f;
+  private float velocityX = 0.0f;
+  private float velocityY = 0.0f;
   float rx;
   float ry = y;
-  float width = 20.0f;
-  float height = 10.0f;
-  Direction direction;
+  float width = 5.0f;
+  float widthOffset = width / 2.0f;
+  float height = 5.0f;
+  boolean moving;
 
   void update()
   {
-    if (direction != null)
+    if (moving)
     {
-      switch (direction)
-      {
-        case LEFT -> x = -50.0f;
-        case RIGHT -> x = 50.0f;
-      }
-    }
-    else
-    {
-      x = 0.0f;
+      velocityY = velocityY + gravity;
+
+      x = x + velocityX;
+      y = y + velocityY;
     }
 
-    // TODO: calculate offset before?
-    rx = x - (width / 2.0f);
+    rx = x - widthOffset;
+    ry = y;
+  }
+
+  void shoot()
+  {
+    if (!moving)
+    {
+      moving = true;
+      velocityX = 0.0f;
+      velocityY = 0.5f;
+    }
+  }
+
+  void reset()
+  {
+    moving = false;
+    x = -75.0f;
+    y = -30.0f;
+    velocityX = 0.0f;
+    velocityY = 0.0f;
   }
 }

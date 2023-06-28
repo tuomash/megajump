@@ -36,15 +36,14 @@ class Controller
 
   void handlePlayerControls()
   {
-    game.player.direction = null;
-
-    if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+    if (Gdx.input.isKeyPressed(Input.Keys.UP))
     {
-      game.player.direction = Player.Direction.LEFT;
+      game.player.shoot();
     }
-    else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+
+    if (Gdx.input.isKeyJustPressed(Input.Keys.R))
     {
-      game.player.direction = Player.Direction.RIGHT;
+      game.player.reset();
     }
   }
 }
