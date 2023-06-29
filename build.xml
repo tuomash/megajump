@@ -1,5 +1,5 @@
-<project name="detective" default="dist-all" basedir=".">
-    <description>Build file for Detective.</description>
+<project name="megajump" default="dist-all" basedir=".">
+    <description>Build file for Orndorf's Megajump.</description>
 
     <tstamp/>
 
