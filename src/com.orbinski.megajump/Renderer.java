@@ -44,6 +44,18 @@ class Renderer
 
   void renderPlayer()
   {
+    renderQuad(game.player.centerX,
+               game.player.centerY,
+               game.player.centerWidth,
+               game.player.centerHeight,
+               Color.WHITE);
+
+    renderQuad(game.player.topLeftCornerX,
+               game.player.topLeftCornerY,
+               game.player.width,
+               game.player.height,
+               Color.RED);
+
     if (game.player.targeting)
     {
       renderQuad(game.player.mouseWorld.x,
@@ -57,18 +69,6 @@ class Renderer
                  game.player.y,
                  Color.WHITE);
     }
-
-    renderQuad(game.player.centerX,
-               game.player.centerY,
-               game.player.centerWidth,
-               game.player.centerHeight,
-               Color.WHITE);
-
-    renderQuad(game.player.topLeftCornerX,
-               game.player.topLeftCornerY,
-               game.player.width,
-               game.player.height,
-               Color.RED);
   }
 
   void renderQuad(float x,

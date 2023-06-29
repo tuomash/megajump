@@ -7,8 +7,8 @@ class Player
   float x = -75.0f;
   float y = -30.0f;
   float gravity = -0.01f;
-  float maxVelocityX = 3.0f;
-  float maxVelocityY = 3.0f;
+  float maxVelocityX = 2.0f;
+  float maxVelocityY = 2.0f;
   float velocityX = 0.0f;
   float velocityY = 0.0f;
   float topLeftCornerX;
@@ -59,32 +59,50 @@ class Player
     {
       moving = true;
 
-      if (mouseWorld.x > x)
+      final float maxDiffX = 50.0f;
+      final float mouseWorldX = mouseWorld.x;
+      final float playerWorldX = x;
+      float diffX = Math.abs(mouseWorldX - playerWorldX);
+
+      if (diffX > maxDiffX)
       {
-        velocityX = 0.5f;
+        diffX = maxDiffX;
       }
-      else if (mouseWorld.x < x)
-      {
-        velocityX = -0.5f;
-      }
+
+      final float percentageX = diffX / maxDiffX;
+      velocityX = maxVelocityX * percentageX;
 
       if (velocityX > maxVelocityX)
       {
         velocityX = maxVelocityX;
       }
 
-      if (mouseWorld.y > y)
+      if (mouseWorldX < x)
       {
-        velocityY = 3.5f;
+        velocityX = -velocityX;
       }
-      else if (mouseWorld.y < y)
+
+      final float maxDiffY = 50.0f;
+      final float mouseWorldY = mouseWorld.y;
+      final float playerWorldY = y;
+      float diffY = Math.abs(mouseWorldY - playerWorldY);
+
+      if (diffY > maxDiffY)
       {
-        velocityY = -0.5f;
+        diffY = maxDiffY;
       }
+
+      final float percentageY = diffY / maxDiffY;
+      velocityY = maxVelocityY * percentageY;
 
       if (velocityY > maxVelocityY)
       {
         velocityY = maxVelocityY;
+      }
+
+      if (mouseWorldY < y)
+      {
+        velocityY = -velocityY;
       }
     }
   }
