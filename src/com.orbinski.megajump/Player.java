@@ -6,9 +6,9 @@ class Player
 {
   float x = -75.0f;
   float y = -30.0f;
-  float gravity = -0.01f;
-  float maxVelocityX = 2.0f;
-  float maxVelocityY = 2.0f;
+  float gravity = -0.4f;
+  float maxVelocityX = 70.0f;
+  float maxVelocityY = 70.0f;
   float velocityX = 0.0f;
   float velocityY = 0.0f;
   float topLeftCornerX;
@@ -30,14 +30,14 @@ class Player
   boolean moving;
   boolean targeting;
 
-  void update()
+  void update(float delta)
   {
     if (moving)
     {
       velocityY = velocityY + gravity;
 
-      x = x + velocityX;
-      y = y + velocityY;
+      x = x + (velocityX * delta);
+      y = y + (velocityY * delta);
     }
 
     topLeftCornerX = x - widthOffset;

@@ -43,7 +43,7 @@ class Listener implements ApplicationListener
 
     while (accumulator > TIME_STEP_SECONDS)
     {
-      game.update();
+      game.update(delta);
       accumulator = accumulator - TIME_STEP_SECONDS;
       updates++;
 
