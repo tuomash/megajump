@@ -36,8 +36,19 @@ class Controller
 
   void handlePlayerControls()
   {
-    if (Gdx.input.isKeyPressed(Input.Keys.UP))
+    if (Gdx.input.isTouched())
     {
+      if (!game.player.targeting)
+      {
+        game.player.targeting = true;
+      }
+
+      game.player.mouseScreen.x = Gdx.input.getX();
+      game.player.mouseScreen.y = Gdx.input.getY();
+    }
+    else if (game.player.targeting)
+    {
+      game.player.targeting = false;
       game.player.shoot();
     }
 
