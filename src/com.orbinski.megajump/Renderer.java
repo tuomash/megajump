@@ -4,11 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.io.File;
 
 import static com.orbinski.megajump.Globals.*;
 
@@ -20,6 +24,9 @@ class Renderer
   final Viewport viewport;
   final OrthographicCamera camera;
   final ShapeRenderer shapeRenderer;
+  final SpriteBatch spriteBatch;
+  final Texture dwarf;
+  final Color background;
 
   Renderer(Game game)
   {
@@ -34,6 +41,14 @@ class Renderer
     shapeRenderer = new ShapeRenderer();
     shapeRenderer.setProjectionMatrix(camera.combined);
     shapeRenderer.setAutoShapeType(true);
+
+    spriteBatch = new SpriteBatch();
+    spriteBatch.setProjectionMatrix(camera.combined);
+
+    final File file = new File(System.getProperty("user.dir") + File.separator + "dwarf.png");
+    dwarf = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+
+    background = new Color(173.0f / 255.0f, 216.0f / 255.0f, 230.0f / 255.0f, 1.0f);
   }
 
   void render()
@@ -44,6 +59,15 @@ class Renderer
 
   void renderPlayer()
   {
+    spriteBatch.begin();
+    spriteBatch.draw(dwarf,
+                     game.player.topLeftCornerX,
+                     game.player.topLeftCornerY,
+                     game.player.width,
+                     game.player.height);
+    spriteBatch.end();
+
+    /*
     renderQuad(game.player.centerX,
                game.player.centerY,
                game.player.centerWidth,
@@ -55,6 +79,7 @@ class Renderer
                game.player.width,
                game.player.height,
                Color.RED);
+     */
 
     if (game.player.targeting)
     {
