@@ -23,7 +23,7 @@ class Player
   float centerHeight = 1.0f;
   float centerWidthOffset = centerWidth / 2.0f;
   float centerHeightOffset = centerHeight / 2.0f;
-  Vector3 mouseScreen = new Vector3();
+  private Vector3 mouseScreen = new Vector3();
   Vector3 mouseWorld = new Vector3();
   float cursorWidth = 0.5f;
   float cursorHeight = 0.5f;
@@ -44,7 +44,12 @@ class Player
     topLeftCornerY = y - heightOffset;
     centerX = x - centerWidthOffset;
     centerY = y - centerHeightOffset;
+  }
 
+  void updateMouseLocation(final int x, final int y)
+  {
+    mouseScreen.x = x;
+    mouseScreen.y = y;
     final Vector3 result = Renderer.unproject(mouseScreen);
 
     if (result != null)
@@ -53,13 +58,13 @@ class Player
     }
   }
 
-  void shoot()
+  void jump()
   {
     if (!moving)
     {
       moving = true;
 
-      final float maxDiffX = 50.0f;
+      final float maxDiffX = 40.0f;
       final float mouseWorldX = mouseWorld.x;
       final float playerWorldX = x;
       float diffX = Math.abs(mouseWorldX - playerWorldX);
@@ -82,7 +87,7 @@ class Player
         velocityX = -velocityX;
       }
 
-      final float maxDiffY = 50.0f;
+      final float maxDiffY = 40.0f;
       final float mouseWorldY = mouseWorld.y;
       final float playerWorldY = y;
       float diffY = Math.abs(mouseWorldY - playerWorldY);

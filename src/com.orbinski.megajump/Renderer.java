@@ -63,6 +63,8 @@ class Renderer
                  game.player.cursorWidth,
                  game.player.cursorHeight,
                  Color.WHITE);
+
+
       renderLine(game.player.mouseWorld.x,
                  game.player.mouseWorld.y,
                  game.player.x,
