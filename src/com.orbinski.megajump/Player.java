@@ -6,6 +6,8 @@ class Player
 {
   float x = -75.0f;
   float y = -30.0f;
+  float prevX = x;
+  float prevY = y;
   float gravity = -0.4f;
   float maxVelocityX = 70.0f;
   float maxVelocityY = 70.0f;
@@ -34,6 +36,9 @@ class Player
   {
     if (moving)
     {
+      prevX = x;
+      prevY = y;
+
       velocityY = velocityY + gravity;
 
       x = x + (velocityX * delta);
@@ -118,6 +123,8 @@ class Player
     targeting = false;
     x = -75.0f;
     y = -30.0f;
+    prevX = x;
+    prevY = y;
     velocityX = 0.0f;
     velocityY = 0.0f;
   }

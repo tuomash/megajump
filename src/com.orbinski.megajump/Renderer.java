@@ -28,6 +28,8 @@ class Renderer
   final Texture dwarf;
   final Color background;
 
+  float alpha = 1.0f;
+
   Renderer(Game game)
   {
     this.game = game;
@@ -51,18 +53,24 @@ class Renderer
     background = new Color(173.0f / 255.0f, 216.0f / 255.0f, 230.0f / 255.0f, 1.0f);
   }
 
-  void render()
+  void render(final float alpha)
   {
     ScreenUtils.clear(Color.BLACK);
+    this.alpha = alpha;
     renderPlayer();
   }
 
   void renderPlayer()
   {
+    final float x = game.player.x * alpha + game.player.prevX * (1.0f - alpha);
+    final float y = game.player.y * alpha + game.player.prevY * (1.0f - alpha);
+    final float topLeftCornerX = x - game.player.widthOffset;
+    final float topLeftCornerY = y - game.player.heightOffset;
+
     spriteBatch.begin();
     spriteBatch.draw(dwarf,
-                     game.player.topLeftCornerX,
-                     game.player.topLeftCornerY,
+                     topLeftCornerX,
+                     topLeftCornerY,
                      game.player.width,
                      game.player.height);
     spriteBatch.end();

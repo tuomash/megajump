@@ -53,8 +53,9 @@ class Listener implements ApplicationListener
       }
     }
 
+    final float alpha = accumulator / TIME_STEP_SECONDS;
     updates = 0;
-    renderer.render();
+    renderer.render(alpha);
   }
 
   @Override
