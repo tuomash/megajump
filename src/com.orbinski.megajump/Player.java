@@ -1,16 +1,14 @@
 package com.orbinski.megajump;
 
-import com.badlogic.gdx.math.Vector3;
-
 class Player extends Entity
 {
   final float maxVelocityX = 70.0f;
   final float maxVelocityY = 70.0f;
-  private final Vector3 mouseScreen = new Vector3();
+  final float cursorWidth = 0.5f;
+  final float cursorHeight = 0.5f;
 
-  Vector3 mouseWorld = new Vector3();
-  float cursorWidth = 0.5f;
-  float cursorHeight = 0.5f;
+  float cursorX;
+  float cursorY;
   boolean targeting;
 
   Player()
@@ -23,16 +21,10 @@ class Player extends Entity
     super.update(delta);
   }
 
-  void updateMouseLocation(final int x, final int y)
+  void updateCursorLocation(final float x, final float y)
   {
-    mouseScreen.x = x;
-    mouseScreen.y = y;
-    final Vector3 result = Renderer.unproject(mouseScreen);
-
-    if (result != null)
-    {
-      mouseWorld = result;
-    }
+    this.cursorX = x;
+    this.cursorY = y;
   }
 
   void jump()
@@ -42,9 +34,8 @@ class Player extends Entity
       moving = true;
 
       final float maxDiffX = 40.0f;
-      final float mouseWorldX = mouseWorld.x;
       final float playerWorldX = getX();
-      float diffX = Math.abs(mouseWorldX - playerWorldX);
+      float diffX = Math.abs(cursorX - playerWorldX);
 
       if (diffX > maxDiffX)
       {
@@ -59,15 +50,14 @@ class Player extends Entity
         velocityX = maxVelocityX;
       }
 
-      if (mouseWorldX < getX())
+      if (cursorX < getX())
       {
         velocityX = -velocityX;
       }
 
       final float maxDiffY = 40.0f;
-      final float mouseWorldY = mouseWorld.y;
       final float playerWorldY = getY();
-      float diffY = Math.abs(mouseWorldY - playerWorldY);
+      float diffY = Math.abs(cursorY - playerWorldY);
 
       if (diffY > maxDiffY)
       {
@@ -82,7 +72,7 @@ class Player extends Entity
         velocityY = maxVelocityY;
       }
 
-      if (mouseWorldY < getY())
+      if (cursorY < getY())
       {
         velocityY = -velocityY;
       }

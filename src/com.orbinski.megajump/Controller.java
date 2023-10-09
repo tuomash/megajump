@@ -3,10 +3,12 @@ package com.orbinski.megajump;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector3;
 
 class Controller
 {
   final Game game;
+  private final Vector3 mouseScreen = new Vector3();
 
   Controller(final Game game)
   {
@@ -36,6 +38,16 @@ class Controller
 
   void handlePlayerControls()
   {
+    mouseScreen.x = Gdx.input.getX();
+    mouseScreen.y = Gdx.input.getY();
+
+    final Vector3 result = Renderer.unproject(mouseScreen);
+
+    if (result == null)
+    {
+      return;
+    }
+
     if (Gdx.input.isTouched() && !game.player.moving)
     {
       if (!game.player.targeting)
@@ -43,7 +55,7 @@ class Controller
         game.player.targeting = true;
       }
 
-      game.player.updateMouseLocation(Gdx.input.getX(), Gdx.input.getY());
+      game.player.updateCursorLocation(result.x, result.y);
     }
     else if (game.player.targeting)
     {

@@ -86,15 +86,15 @@ class Renderer
 
     if (player.targeting)
     {
-      renderQuad(player.mouseWorld.x,
-                 player.mouseWorld.y,
+      renderQuad(player.cursorX,
+                 player.cursorY,
                  player.cursorWidth,
                  player.cursorHeight,
                  Color.WHITE);
 
 
-      renderLine(player.mouseWorld.x,
-                 player.mouseWorld.y,
+      renderLine(player.cursorX,
+                 player.cursorY,
                  player.getX(),
                  player.getY(),
                  Color.WHITE);
