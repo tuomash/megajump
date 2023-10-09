@@ -126,16 +126,11 @@ class Renderer
                   final float blue,
                   final float alpha)
   {
-    Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
-    Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-
     shapeRenderer.setProjectionMatrix(camera.combined);
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
     shapeRenderer.setColor(red, green, blue, alpha);
     shapeRenderer.rect(x, y, width, height);
     shapeRenderer.end();
-
-    Gdx.gl.glDisable(GL20.GL_BLEND);
   }
 
   void renderLine(final float x1,
@@ -163,16 +158,11 @@ class Renderer
                   final float blue,
                   final float alpha)
   {
-    Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
-    Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-
     shapeRenderer.setProjectionMatrix(camera.combined);
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
     shapeRenderer.setColor(red, green, blue, alpha);
     shapeRenderer.line(x1, y1, x2, y2);
     shapeRenderer.end();
-
-    Gdx.gl.glDisable(GL20.GL_BLEND);
   }
 
   void dispose()
