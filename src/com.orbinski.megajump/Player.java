@@ -79,6 +79,16 @@ class Player extends Entity
     }
   }
 
+  void moveLeft()
+  {
+    velocityX = velocityX - 0.5f;
+  }
+
+  void moveRight()
+  {
+    velocityX = velocityX + 0.5f;
+  }
+
   void reset()
   {
     moving = false;

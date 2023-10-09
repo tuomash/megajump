@@ -65,7 +65,41 @@ class Controller
 
     if (Gdx.input.isKeyJustPressed(Input.Keys.R))
     {
-      game.player.reset();
+      game.reset();
+    }
+
+    // Player aerial controls
+    if (game.player.moving)
+    {
+      if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+      {
+        game.player.moveLeft();
+      }
+      else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+      {
+        game.player.moveRight();
+      }
+    }
+    // Camera controls
+    else
+    {
+      if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
+      {
+        game.cameraState.moveUp();
+      }
+      else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
+      {
+        game.cameraState.moveDown();
+      }
+
+      if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+      {
+        game.cameraState.moveLeft();
+      }
+      else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+      {
+        game.cameraState.moveRight();
+      }
     }
   }
 }
