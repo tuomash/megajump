@@ -10,7 +10,6 @@ class Listener implements ApplicationListener
   Game game;
   Controller controller;
   Renderer renderer;
-  float accumulator;
   int updates;
 
   @Override
@@ -22,7 +21,7 @@ class Listener implements ApplicationListener
   }
 
   @Override
-  public void resize(int width, int height)
+  public void resize(final int width, final int height)
   {
     renderer.viewport.update(width, height);
   }
@@ -30,21 +29,14 @@ class Listener implements ApplicationListener
   @Override
   public void render()
   {
-    float delta = Gdx.graphics.getDeltaTime();
-
-    if (delta > MAX_TIME_STEP_SECONDS)
-    {
-      delta = MAX_TIME_STEP_SECONDS;
-    }
-
-    accumulator = accumulator + delta;
-
+    float frameTime = Gdx.graphics.getDeltaTime();
     controller.update();
 
-    while (accumulator > TIME_STEP_SECONDS)
+    while (frameTime > 0.0f)
     {
+      final float delta = Math.min(frameTime, TIME_STEP_SECONDS);
       game.update(delta);
-      accumulator = accumulator - TIME_STEP_SECONDS;
+      frameTime = frameTime - delta;
       updates++;
 
       if (updates >= MAX_UPDATES)
@@ -53,9 +45,8 @@ class Listener implements ApplicationListener
       }
     }
 
-    final float alpha = accumulator / TIME_STEP_SECONDS;
     updates = 0;
-    renderer.render(alpha);
+    renderer.render();
   }
 
   @Override
