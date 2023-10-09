@@ -26,6 +26,7 @@ class Renderer
   final ShapeRenderer shapeRenderer;
   final SpriteBatch spriteBatch;
   final Texture dwarf;
+  final Texture door;
   final Color background;
 
   Renderer(final Game game)
@@ -45,8 +46,11 @@ class Renderer
     spriteBatch = new SpriteBatch();
     spriteBatch.setProjectionMatrix(camera.combined);
 
-    final File file = new File(System.getProperty("user.dir") + File.separator + "dwarf-2.png");
+    File file = new File(System.getProperty("user.dir") + File.separator + "dwarf-2.png");
     dwarf = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+
+    file = new File(System.getProperty("user.dir") + File.separator + "door.png");
+    door = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
     background = new Color(173.0f / 255.0f, 216.0f / 255.0f, 230.0f / 255.0f, 1.0f);
   }
@@ -60,6 +64,7 @@ class Renderer
     spriteBatch.setProjectionMatrix(camera.combined);
 
     renderPlayer();
+    renderDoor();
   }
 
   void renderPlayer()
@@ -98,6 +103,17 @@ class Renderer
                  player.getY(),
                  Color.WHITE);
     }
+  }
+
+  void renderDoor()
+  {
+    spriteBatch.begin();
+    spriteBatch.draw(door,
+                     game.door.getBottomLeftCornerX(),
+                     game.door.getBottomLeftCornerY(),
+                     game.door.getWidth(),
+                     game.door.getHeight());
+    spriteBatch.end();
   }
 
   void renderQuad(final float x,

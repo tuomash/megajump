@@ -3,7 +3,7 @@ package com.orbinski.megajump;
 class Player extends Entity
 {
   final float maxVelocityX = 70.0f;
-  final float maxVelocityY = 70.0f;
+  final float maxVelocityY = 80.0f;
   final float cursorWidth = 0.5f;
   final float cursorHeight = 0.5f;
 

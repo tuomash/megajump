@@ -5,17 +5,25 @@ import com.badlogic.gdx.graphics.Camera;
 class Game
 {
   final Player player;
+  final Door door;
   final CameraState cameraState;
 
   Game()
   {
     player = new Player();
+    door = new Door(25.0f, 25.0f, 5.0f, 5.0f);
     cameraState = new CameraState();
   }
 
   void update(final float delta)
   {
     player.update(delta);
+
+    if (Entity.overlaps(player, door))
+    {
+      reset();
+    }
+
     updateCameraState(delta);
   }
 
