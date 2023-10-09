@@ -54,6 +54,11 @@ class Renderer
   void render()
   {
     ScreenUtils.clear(Color.BLACK);
+
+    viewport.apply();
+    shapeRenderer.setProjectionMatrix(camera.combined);
+    spriteBatch.setProjectionMatrix(camera.combined);
+
     renderPlayer();
   }
 

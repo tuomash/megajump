@@ -36,7 +36,7 @@ class Controller
 
   void handlePlayerControls()
   {
-    if (Gdx.input.isTouched())
+    if (Gdx.input.isTouched() && !game.player.moving)
     {
       if (!game.player.targeting)
       {
