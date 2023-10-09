@@ -2,53 +2,25 @@ package com.orbinski.megajump;
 
 import com.badlogic.gdx.math.Vector3;
 
-class Player
+class Player extends Entity
 {
-  float x = -75.0f;
-  float y = -30.0f;
-  float prevX = x;
-  float prevY = y;
-  float gravity = -0.4f;
-  float maxVelocityX = 70.0f;
-  float maxVelocityY = 70.0f;
-  float velocityX = 0.0f;
-  float velocityY = 0.0f;
-  float topLeftCornerX;
-  float topLeftCornerY;
-  float width = 5.0f;
-  float widthOffset = width / 2.0f;
-  float height = 5.0f;
-  float heightOffset = height / 2.0f;
-  float centerX;
-  float centerY;
-  float centerWidth = 1.0f;
-  float centerHeight = 1.0f;
-  float centerWidthOffset = centerWidth / 2.0f;
-  float centerHeightOffset = centerHeight / 2.0f;
-  private Vector3 mouseScreen = new Vector3();
+  final float maxVelocityX = 70.0f;
+  final float maxVelocityY = 70.0f;
+  private final Vector3 mouseScreen = new Vector3();
+
   Vector3 mouseWorld = new Vector3();
   float cursorWidth = 0.5f;
   float cursorHeight = 0.5f;
-  boolean moving;
   boolean targeting;
 
-  void update(float delta)
+  Player()
   {
-    if (moving)
-    {
-      prevX = x;
-      prevY = y;
+    super(-75.0f, -30.0f, 5.0f, 5.0f);
+  }
 
-      velocityY = velocityY + gravity;
-
-      x = x + (velocityX * delta);
-      y = y + (velocityY * delta);
-    }
-
-    topLeftCornerX = x - widthOffset;
-    topLeftCornerY = y - heightOffset;
-    centerX = x - centerWidthOffset;
-    centerY = y - centerHeightOffset;
+  void update(final float delta)
+  {
+    super.update(delta);
   }
 
   void updateMouseLocation(final int x, final int y)
@@ -71,7 +43,7 @@ class Player
 
       final float maxDiffX = 40.0f;
       final float mouseWorldX = mouseWorld.x;
-      final float playerWorldX = x;
+      final float playerWorldX = getX();
       float diffX = Math.abs(mouseWorldX - playerWorldX);
 
       if (diffX > maxDiffX)
@@ -87,14 +59,14 @@ class Player
         velocityX = maxVelocityX;
       }
 
-      if (mouseWorldX < x)
+      if (mouseWorldX < getX())
       {
         velocityX = -velocityX;
       }
 
       final float maxDiffY = 40.0f;
       final float mouseWorldY = mouseWorld.y;
-      final float playerWorldY = y;
+      final float playerWorldY = getY();
       float diffY = Math.abs(mouseWorldY - playerWorldY);
 
       if (diffY > maxDiffY)
@@ -110,7 +82,7 @@ class Player
         velocityY = maxVelocityY;
       }
 
-      if (mouseWorldY < y)
+      if (mouseWorldY < getY())
       {
         velocityY = -velocityY;
       }
@@ -121,10 +93,8 @@ class Player
   {
     moving = false;
     targeting = false;
-    x = -75.0f;
-    y = -30.0f;
-    prevX = x;
-    prevY = y;
+    setX(-75.0f);
+    setY(-30.0f);
     velocityX = 0.0f;
     velocityY = 0.0f;
   }

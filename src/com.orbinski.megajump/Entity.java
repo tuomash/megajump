@@ -71,6 +71,7 @@ abstract class Entity
   private float height;
   private float heightOffset;
 
+  float gravity = -0.6f;
   boolean applyWidthOffset = true;
   boolean applyHeightOffset = true;
   float targetX;
@@ -98,10 +99,10 @@ abstract class Entity
 
   Entity(final float x, final float y, final float width, final float height)
   {
-    setX(x);
-    setY(y);
     setWidth(width);
     setHeight(height);
+    setX(x);
+    setY(y);
   }
 
   void update(final float delta)
@@ -113,23 +114,12 @@ abstract class Entity
 
     if (moving)
     {
-      final float distanceToTarget = MathUtils.distance(getX(), getY(), targetX, targetY);
+      velocityY = velocityY + gravity;
 
-      if (distanceToTarget < 0.5)
-      {
-        moving = false;
-      }
-
-      final float toTargetX = (targetX - getX()) / distanceToTarget;
-      final float toTargetY = (targetY - getY()) / distanceToTarget;
-
-      float velocityX = this.velocityX;
-      float velocityY = this.velocityY;
       final float distanceX = velocityX * delta;
       final float distanceY = velocityY * delta;
-
-      setX(getX() + (toTargetX * distanceX));
-      setY(getY() + (toTargetY * distanceY));
+      setX(getX() + distanceX);
+      setY(getY() + distanceY);
     }
   }
 

@@ -14,7 +14,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.io.File;
 
-import static com.orbinski.megajump.Globals.*;
+import static com.orbinski.megajump.Globals.WORLD_HEIGHT;
+import static com.orbinski.megajump.Globals.WORLD_WIDTH;
 
 class Renderer
 {
@@ -28,7 +29,7 @@ class Renderer
   final Texture dwarf;
   final Color background;
 
-  Renderer(Game game)
+  Renderer(final Game game)
   {
     this.game = game;
 
@@ -64,55 +65,47 @@ class Renderer
 
   void renderPlayer()
   {
-    final float x = game.player.x;
-    final float y = game.player.y;
-    final float topLeftCornerX = x - game.player.widthOffset;
-    final float topLeftCornerY = y - game.player.heightOffset;
+    final Player player = game.player;
 
     spriteBatch.begin();
     spriteBatch.draw(dwarf,
-                     topLeftCornerX,
-                     topLeftCornerY,
-                     game.player.width,
-                     game.player.height);
+                     player.getBottomLeftCornerX(),
+                     player.getBottomLeftCornerY(),
+                     player.getWidth(),
+                     player.getHeight());
     spriteBatch.end();
 
-    /*
-    renderQuad(game.player.centerX,
-               game.player.centerY,
-               game.player.centerWidth,
-               game.player.centerHeight,
-               Color.WHITE);
-
-    renderQuad(game.player.topLeftCornerX,
-               game.player.topLeftCornerY,
-               game.player.width,
-               game.player.height,
-               Color.RED);
-     */
-
-    if (game.player.targeting)
+    if (player.showBorder)
     {
-      renderQuad(game.player.mouseWorld.x,
-                 game.player.mouseWorld.y,
-                 game.player.cursorWidth,
-                 game.player.cursorHeight,
+      renderQuad(player.getBottomLeftCornerX(),
+                 player.getBottomLeftCornerY(),
+                 player.getWidth(),
+                 player.getHeight(),
+                 Color.RED);
+    }
+
+    if (player.targeting)
+    {
+      renderQuad(player.mouseWorld.x,
+                 player.mouseWorld.y,
+                 player.cursorWidth,
+                 player.cursorHeight,
                  Color.WHITE);
 
 
-      renderLine(game.player.mouseWorld.x,
-                 game.player.mouseWorld.y,
-                 game.player.x,
-                 game.player.y,
+      renderLine(player.mouseWorld.x,
+                 player.mouseWorld.y,
+                 player.getX(),
+                 player.getY(),
                  Color.WHITE);
     }
   }
 
-  void renderQuad(float x,
-                  float y,
-                  float width,
-                  float height,
-                  Color color)
+  void renderQuad(final float x,
+                  final float y,
+                  final float width,
+                  final float height,
+                  final Color color)
   {
     renderQuad(x,
                y,
@@ -124,14 +117,14 @@ class Renderer
                color.a);
   }
 
-  void renderQuad(float x,
-                  float y,
-                  float width,
-                  float height,
-                  float red,
-                  float green,
-                  float blue,
-                  float alpha)
+  void renderQuad(final float x,
+                  final float y,
+                  final float width,
+                  final float height,
+                  final float red,
+                  final float green,
+                  final float blue,
+                  final float alpha)
   {
     Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
     Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -145,11 +138,11 @@ class Renderer
     Gdx.gl.glDisable(GL20.GL_BLEND);
   }
 
-  void renderLine(float x1,
-                  float y1,
-                  float x2,
-                  float y2,
-                  Color color)
+  void renderLine(final float x1,
+                  final float y1,
+                  final float x2,
+                  final float y2,
+                  final Color color)
   {
     renderLine(x1,
                y1,
@@ -161,14 +154,14 @@ class Renderer
                color.a);
   }
 
-  void renderLine(float x1,
-                  float y1,
-                  float x2,
-                  float y2,
-                  float red,
-                  float green,
-                  float blue,
-                  float alpha)
+  void renderLine(final float x1,
+                  final float y1,
+                  final float x2,
+                  final float y2,
+                  final float red,
+                  final float green,
+                  final float blue,
+                  final float alpha)
   {
     Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
     Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);

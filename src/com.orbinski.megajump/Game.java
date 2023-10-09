@@ -9,7 +9,7 @@ class Game
     player = new Player();
   }
 
-  void update(float delta)
+  void update(final float delta)
   {
     player.update(delta);
   }
