@@ -63,8 +63,8 @@ class Renderer
     shapeRenderer.setProjectionMatrix(camera.combined);
     spriteBatch.setProjectionMatrix(camera.combined);
 
-    renderPlayer();
     renderDoor();
+    renderPlayer();
   }
 
   void renderPlayer()
