@@ -15,7 +15,7 @@ class Player extends Entity
 
   Player()
   {
-    super(-75.0f, -30.0f, 5.0f, 5.0f);
+    super(-75.0f, -30.0f, 2.5f, 5.0f);
   }
 
   void update(final float delta)

@@ -46,7 +46,7 @@ class Renderer
     spriteBatch = new SpriteBatch();
     spriteBatch.setProjectionMatrix(camera.combined);
 
-    final File file = new File(System.getProperty("user.dir") + File.separator + "dwarf.png");
+    final File file = new File(System.getProperty("user.dir") + File.separator + "dwarf-2.png");
     dwarf = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
     background = new Color(173.0f / 255.0f, 216.0f / 255.0f, 230.0f / 255.0f, 1.0f);
