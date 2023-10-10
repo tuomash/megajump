@@ -7,24 +7,34 @@ import com.badlogic.gdx.graphics.Camera;
 class Game
 {
   final Player player;
-  final Door door;
+  final Levels levels;
   final CameraState cameraState;
 
+  Level level;
   boolean movementPressedAfterReset;
 
   Game()
   {
     player = new Player();
-    door = new Door(25.0f, 25.0f, 5.0f, 5.0f);
+    levels = new Levels();
     cameraState = new CameraState();
+
+    level = levels.getNext();
   }
 
   void update(final float delta)
   {
     player.update(delta);
+    level.update(delta, player);
 
-    if (Entity.overlaps(player, door))
+    if (level.finished)
     {
+      if (levels.isAtEnd())
+      {
+        levels.reset();
+      }
+
+      level = levels.getNext();
       reset();
     }
 
@@ -83,6 +93,11 @@ class Game
     else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
     {
       movementPressedAfterReset = true;
+    }
+
+    if (level != null)
+    {
+      level.reset();
     }
   }
 }

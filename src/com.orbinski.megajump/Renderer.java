@@ -109,10 +109,10 @@ class Renderer
   {
     spriteBatch.begin();
     spriteBatch.draw(door,
-                     game.door.getBottomLeftCornerX(),
-                     game.door.getBottomLeftCornerY(),
-                     game.door.getWidth(),
-                     game.door.getHeight());
+                     game.level.door.getBottomLeftCornerX(),
+                     game.level.door.getBottomLeftCornerY(),
+                     game.level.door.getWidth(),
+                     game.level.door.getHeight());
     spriteBatch.end();
   }
 
