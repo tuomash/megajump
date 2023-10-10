@@ -21,7 +21,7 @@ class Listener implements ApplicationListener
     renderer = new Renderer(game);
     uiRenderer = new UIRenderer(game);
 
-    UserInterface.load();
+    UserInterface.create();
   }
 
   @Override

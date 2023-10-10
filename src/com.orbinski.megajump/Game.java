@@ -28,17 +28,6 @@ class Game
     player.update(delta);
     level.update(delta, player);
 
-    if (level.finished)
-    {
-      if (levels.isAtEnd())
-      {
-        levels.reset();
-      }
-
-      level = levels.getNext();
-      reset();
-    }
-
     updateCameraState(delta);
   }
 
@@ -79,6 +68,20 @@ class Game
     }
   }
 
+  void nextLevel()
+  {
+    if (level.cleared)
+    {
+      if (levels.isAtEnd())
+      {
+        levels.reset();
+      }
+
+      level = levels.getNext();
+      reset();
+    }
+  }
+
   void reset()
   {
     player.reset();
@@ -103,7 +106,26 @@ class Game
     if (level != null)
     {
       level.reset();
-      UserInterface.updateLevelName(level.name);
+
+      if (level.bestTime > 0.0f)
+      {
+        UserInterface.updateBestTimeText(level.bestTime);
+      }
+      else
+      {
+        UserInterface.clearBestTimeText();
+      }
+
+      if (level.lastElapsed > 0.0f)
+      {
+        UserInterface.updateElapsedTimeText(level.lastElapsed);
+      }
+      else
+      {
+        UserInterface.clearElapsedTimeText();
+      }
+
+      UserInterface.updateLevelNameText(level.name);
     }
   }
 }

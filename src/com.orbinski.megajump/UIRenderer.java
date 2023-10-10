@@ -59,6 +59,8 @@ class UIRenderer
     spriteBatch.setProjectionMatrix(camera.combined);
 
     renderText(UserInterface.levelNameText);
+    renderText(UserInterface.elapsedTimeText);
+    renderText(UserInterface.bestTimeText);
   }
 
   void renderText(final Text text)

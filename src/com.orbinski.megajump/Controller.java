@@ -67,6 +67,10 @@ class Controller
     {
       game.reset();
     }
+    else if (Gdx.input.isKeyJustPressed(Input.Keys.N))
+    {
+      game.nextLevel();
+    }
 
     if (game.movementPressedAfterReset)
     {
