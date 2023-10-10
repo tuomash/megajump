@@ -7,8 +7,11 @@ class Level
   boolean finished;
   boolean cleared;
   float elapsed;
-  float lastElapsed = -1.0f;
-  float bestTime = -1.0f;
+  int millisecondsElapsed;
+  int seconds;
+  int milliseconds;
+  int lastTimeMilliseconds = -1;
+  int bestTimeMilliseconds = -1;
 
   Level()
   {
@@ -24,21 +27,48 @@ class Level
     if (player.moving)
     {
       elapsed = elapsed + delta;
-      UserInterface.updateElapsedTimeText(elapsed);
+      millisecondsElapsed = (int) (elapsed * 1000.0f);
+      seconds = millisecondsElapsed / 1000;
+      milliseconds = millisecondsElapsed % 1000;
+
+      UserInterface.updateElapsedTimeText(seconds, milliseconds);
     }
 
     if (door != null && Entity.overlaps(player, door))
     {
       finished = true;
       cleared = true;
-      lastElapsed = elapsed;
+      lastTimeMilliseconds = milliseconds;
 
-      if (bestTime < 0.0f || elapsed < bestTime)
+      if (bestTimeMilliseconds < 0 || milliseconds < bestTimeMilliseconds)
       {
-        bestTime = elapsed;
-        UserInterface.updateBestTimeText(bestTime);
+        bestTimeMilliseconds = milliseconds;
+        UserInterface.updateBestTimeText(bestTimeMilliseconds / 1000, bestTimeMilliseconds % 1000);
       }
     }
+  }
+
+  void updateUI()
+  {
+    if (bestTimeMilliseconds > 0)
+    {
+      UserInterface.updateBestTimeText(bestTimeMilliseconds / 1000, bestTimeMilliseconds % 1000);
+    }
+    else
+    {
+      UserInterface.clearBestTimeText();
+    }
+
+    if (lastTimeMilliseconds > 0)
+    {
+      UserInterface.updateBestTimeText(lastTimeMilliseconds / 1000, lastTimeMilliseconds % 1000);
+    }
+    else
+    {
+      UserInterface.clearElapsedTimeText();
+    }
+
+    UserInterface.updateLevelNameText(name);
   }
 
   void setDoor(final Door door)
@@ -50,5 +80,7 @@ class Level
   {
     finished = false;
     elapsed = 0.0f;
+    seconds = 0;
+    millisecondsElapsed = 0;
   }
 }

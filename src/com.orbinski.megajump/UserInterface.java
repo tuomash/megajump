@@ -28,9 +28,9 @@ class UserInterface
     levelNameText.text = "Level: " + levelName;
   }
 
-  static void updateElapsedTimeText(final float time)
+  static void updateElapsedTimeText(final int seconds, final int milliseconds)
   {
-    elapsedTimeText.text = "Elapsed: " + time + "s";
+    elapsedTimeText.text = "Elapsed: " + seconds + "s" + milliseconds + "ms";
   }
 
   static void clearElapsedTimeText()
@@ -38,9 +38,9 @@ class UserInterface
     elapsedTimeText.text = "Elapsed:";
   }
 
-  static void updateBestTimeText(final float time)
+  static void updateBestTimeText(final int seconds, final int milliseconds)
   {
-    bestTimeText.text = "Best time: " + time + "s";
+    bestTimeText.text = "Best time: " + seconds + "s" + milliseconds + "ms";
   }
 
   static void clearBestTimeText()

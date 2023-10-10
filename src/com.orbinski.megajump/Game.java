@@ -106,26 +106,7 @@ class Game
     if (level != null)
     {
       level.reset();
-
-      if (level.bestTime > 0.0f)
-      {
-        UserInterface.updateBestTimeText(level.bestTime);
-      }
-      else
-      {
-        UserInterface.clearBestTimeText();
-      }
-
-      if (level.lastElapsed > 0.0f)
-      {
-        UserInterface.updateElapsedTimeText(level.lastElapsed);
-      }
-      else
-      {
-        UserInterface.clearElapsedTimeText();
-      }
-
-      UserInterface.updateLevelNameText(level.name);
+      level.updateUI();
     }
   }
 }
