@@ -55,6 +55,7 @@ class Controller
         if (!game.player.targeting)
         {
           game.player.targeting = true;
+          game.cameraState.active = false;
         }
 
         game.player.updateCursorLocation(result.x, result.y);
@@ -75,23 +76,8 @@ class Controller
       game.nextLevel();
     }
 
-    if (game.movementPressedAfterReset)
-    {
-      if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
-      {
-        game.movementPressedAfterReset = true;
-      }
-      else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-      {
-        game.movementPressedAfterReset = true;
-      }
-      else
-      {
-        game.movementPressedAfterReset = false;
-      }
-    }
     // Player aerial controls
-    else if (game.player.moving && !game.player.targeting)
+    if (game.player.moving && !game.player.targeting)
     {
       if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
       {

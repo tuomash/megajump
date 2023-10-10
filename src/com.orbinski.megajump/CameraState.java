@@ -5,6 +5,7 @@ class CameraState
   private static final float SPEED = 50.0f;
 
   boolean moving;
+  boolean active = true;
   float velocityX;
   float velocityY;
 
@@ -35,6 +36,7 @@ class CameraState
   void reset()
   {
     moving = false;
+    active = true;
     velocityX = 0.0f;
     velocityY = 0.0f;
   }
