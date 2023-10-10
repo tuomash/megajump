@@ -48,19 +48,22 @@ class Controller
       return;
     }
 
-    if (Gdx.input.isTouched() && !game.player.moving)
+    if (!game.level.finished)
     {
-      if (!game.player.targeting)
+      if (Gdx.input.isTouched() && !game.player.moving)
       {
-        game.player.targeting = true;
-      }
+        if (!game.player.targeting)
+        {
+          game.player.targeting = true;
+        }
 
-      game.player.updateCursorLocation(result.x, result.y);
-    }
-    else if (game.player.targeting)
-    {
-      game.player.targeting = false;
-      game.player.jump();
+        game.player.updateCursorLocation(result.x, result.y);
+      }
+      else if (game.player.targeting)
+      {
+        game.player.targeting = false;
+        game.player.jump();
+      }
     }
 
     if (Gdx.input.isKeyJustPressed(Input.Keys.R))
