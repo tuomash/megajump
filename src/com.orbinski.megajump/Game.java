@@ -20,6 +20,7 @@ class Game
     cameraState = new CameraState();
 
     level = levels.getNext();
+    reset();
   }
 
   void update(final float delta)
@@ -82,9 +83,13 @@ class Game
   {
     player.reset();
     cameraState.reset();
-    final Camera camera = Renderer.staticViewport.getCamera();
-    camera.position.x = 0.0f;
-    camera.position.y = 0.0f;
+
+    if (Renderer.staticViewport != null)
+    {
+      final Camera camera = Renderer.staticViewport.getCamera();
+      camera.position.x = 0.0f;
+      camera.position.y = 0.0f;
+    }
 
     if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
     {
@@ -98,6 +103,7 @@ class Game
     if (level != null)
     {
       level.reset();
+      UserInterface.updateLevelName(level.name);
     }
   }
 }

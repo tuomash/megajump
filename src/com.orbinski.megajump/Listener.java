@@ -10,6 +10,7 @@ class Listener implements ApplicationListener
   Game game;
   Controller controller;
   Renderer renderer;
+  UIRenderer uiRenderer;
   int updates;
 
   @Override
@@ -18,12 +19,16 @@ class Listener implements ApplicationListener
     game = new Game();
     controller = new Controller(game);
     renderer = new Renderer(game);
+    uiRenderer = new UIRenderer(game);
+
+    UserInterface.load();
   }
 
   @Override
   public void resize(final int width, final int height)
   {
     renderer.viewport.update(width, height);
+    uiRenderer.viewport.update(width, height, true);
   }
 
   @Override
@@ -47,6 +52,7 @@ class Listener implements ApplicationListener
 
     updates = 0;
     renderer.render();
+    uiRenderer.render();
   }
 
   @Override

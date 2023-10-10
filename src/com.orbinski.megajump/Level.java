@@ -2,6 +2,7 @@ package com.orbinski.megajump;
 
 class Level
 {
+  String name = "Level";
   Door door;
   boolean finished;
 

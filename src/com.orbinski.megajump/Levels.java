@@ -15,6 +15,7 @@ class Levels
 
     {
       final Level level = new Level();
+      level.name = "Tutorial 1";
       final Door door = new Door(-55.0f, -30.0f, 5.0f, 5.0f);
       level.setDoor(door);
       levels.add(level);
@@ -22,6 +23,7 @@ class Levels
 
     {
       final Level level = new Level();
+      level.name = "Tutorial 2";
       final Door door = new Door(-45.0f, -20.0f, 5.0f, 5.0f);
       level.setDoor(door);
       levels.add(level);
@@ -29,6 +31,7 @@ class Levels
 
     {
       final Level level = new Level();
+      level.name = "Tutorial 3";
       final Door door = new Door(-25.0f, -10.0f, 5.0f, 5.0f);
       level.setDoor(door);
       levels.add(level);
@@ -36,6 +39,7 @@ class Levels
 
     {
       final Level level = new Level();
+      level.name = "Tutorial 4";
       final Door door = new Door(10.0f, 10.0f, 5.0f, 5.0f);
       level.setDoor(door);
       levels.add(level);
@@ -43,6 +47,7 @@ class Levels
 
     {
       final Level level = new Level();
+      level.name = "Tutorial 5";
       final Door door = new Door(25.0f, 25.0f, 5.0f, 5.0f);
       level.setDoor(door);
       levels.add(level);
@@ -62,6 +67,11 @@ class Levels
   boolean isAtEnd()
   {
     return levelIndex == levels.size() - 1;
+  }
+
+  int getLevelIndex()
+  {
+    return levelIndex;
   }
 
   void reset()
