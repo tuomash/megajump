@@ -32,6 +32,7 @@ class Player extends Entity
     if (!moving)
     {
       moving = true;
+      UserInterface.retryText.visible = false;
 
       final float maxDiffX = 40.0f;
       final float playerWorldX = getX();

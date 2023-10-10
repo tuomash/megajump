@@ -34,6 +34,8 @@ class Level
     if (door != null && Entity.overlaps(player, door))
     {
       player.moving = false;
+      UserInterface.retryText.visible = true;
+      UserInterface.nextLevelText.visible = true;
       finished = true;
       cleared = true;
 

@@ -6,6 +6,9 @@ class UserInterface
   static final Text elapsedTimeText = new Text();
   static final Text bestTimeText = new Text();
 
+  static final Text retryText = new Text();
+  static final Text nextLevelText = new Text();
+
   static void create()
   {
     levelNameText.setX(20);
@@ -21,6 +24,18 @@ class UserInterface
     bestTimeText.setX(20);
     bestTimeText.setY(120);
     bestTimeText.font = UIRenderer.font24White;
+
+    retryText.text = "Press R to retry";
+    retryText.setX(320);
+    retryText.setY(40);
+    retryText.font = UIRenderer.font24White;
+    retryText.visible = false;
+
+    nextLevelText.text = "Press N for next level";
+    nextLevelText.setX(320);
+    nextLevelText.setY(80);
+    nextLevelText.font = UIRenderer.font24White;
+    nextLevelText.visible = false;
   }
 
   static void updateLevelNameText(final String levelName)

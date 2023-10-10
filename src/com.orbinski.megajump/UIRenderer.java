@@ -61,6 +61,9 @@ class UIRenderer
     renderText(UserInterface.levelNameText);
     renderText(UserInterface.elapsedTimeText);
     renderText(UserInterface.bestTimeText);
+
+    renderText(UserInterface.retryText);
+    renderText(UserInterface.nextLevelText);
   }
 
   void renderText(final Text text)

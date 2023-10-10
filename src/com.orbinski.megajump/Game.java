@@ -25,6 +25,11 @@ class Game
     player.update(delta);
     level.update(delta, player);
 
+    if (player.getY() < -70.0f)
+    {
+      UserInterface.retryText.visible = true;
+    }
+
     updateCameraState(delta);
   }
 
@@ -95,6 +100,17 @@ class Game
     {
       level.reset();
       level.updateUI();
+
+      if (level.cleared)
+      {
+        UserInterface.nextLevelText.visible = true;
+      }
+      else
+      {
+        UserInterface.nextLevelText.visible = false;
+      }
     }
+
+    UserInterface.retryText.visible = false;
   }
 }
