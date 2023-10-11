@@ -125,7 +125,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Elevator";
-      level.goldTimeInMilliseconds = 700;
+      level.goldTimeInMilliseconds = 750;
       level.silverTimeInMilliseconds = 1000;
       level.bronzeTimeInMilliseconds = 1500;
 
@@ -138,6 +138,42 @@ class Levels
       door.endY = 40.0f;
       level.setDoor(door);
       levels.add(level);
+    }
+
+    {
+      final Level level = new Level();
+      level.name = "Blocks";
+      level.goldTimeInMilliseconds = 1500;
+      level.silverTimeInMilliseconds = 2000;
+      level.bronzeTimeInMilliseconds = 2500;
+
+      final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+
+      final Block block1 = new Block(-25.0f, -10.0f, 2.5f, 2.5f);
+      level.blocks.add(block1);
+
+      final Block block2 = new Block(-25.0f, -12.5f, 2.5f, 2.5f);
+      level.blocks.add(block2);
+
+      final Block block3 = new Block(-25.0f, -7.5f, 2.5f, 2.5f);
+      level.blocks.add(block3);
+
+      final Block block4 = new Block(-25.0f, -15.0f, 2.5f, 2.5f);
+      level.blocks.add(block4);
+
+      final Block block5 = new Block(-27.5f, -15.0f, 2.5f, 2.5f);
+      level.blocks.add(block5);
+
+      final Block block6 = new Block(-30.0f, -15.0f, 2.5f, 2.5f);
+      level.blocks.add(block6);
+
+      final Block block7 = new Block(-25.0f, -5.0f, 2.5f, 2.5f);
+      level.blocks.add(block7);
+
+      final Block block8 = new Block(-25.0f, -2.5f, 2.5f, 2.5f);
+      level.blocks.add(block8);
     }
   }
 

@@ -143,6 +143,12 @@ abstract class Entity
     }
   }
 
+  void moveToPreviousLocation()
+  {
+    setX(prevX);
+    setY(prevY);
+  }
+
   float getX()
   {
     return x;

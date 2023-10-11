@@ -16,6 +16,7 @@ class Level
   String name = "Level";
   Door door;
   List<Decoration> decorations = new ArrayList<>();
+  List<Block> blocks = new ArrayList<>();
   boolean finished;
   boolean cleared;
 
@@ -118,6 +119,20 @@ class Level
             setTrophy(Trophy.BRONZE);
           }
 
+          break;
+        }
+      }
+    }
+    else
+    {
+      for (int i = 0; i < blocks.size(); i++)
+      {
+        final Block block = blocks.get(i);
+
+        if (Entity.overlaps(player, block))
+        {
+          player.moveToPreviousLocation();
+          player.moving = false;
           break;
         }
       }

@@ -19,6 +19,7 @@ import static com.orbinski.megajump.Globals.WORLD_WIDTH;
 class Renderer
 {
   static Viewport staticViewport;
+  static Texture block;
   static Texture candle;
 
   final Game game;
@@ -53,6 +54,9 @@ class Renderer
     file = new File(System.getProperty("user.dir") + File.separator + "door.png");
     door = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
+    file = new File(System.getProperty("user.dir") + File.separator + "block.png");
+    block = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+
     file = new File(System.getProperty("user.dir") + File.separator + "candle.png");
     candle = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
@@ -68,6 +72,7 @@ class Renderer
     spriteBatch.setProjectionMatrix(camera.combined);
 
     renderDoor();
+    renderBlocks();
     renderDecorations();
     renderPlayer();
   }
@@ -81,6 +86,26 @@ class Renderer
                      game.level.door.getWidth(),
                      game.level.door.getHeight());
     spriteBatch.end();
+  }
+
+  void renderBlocks()
+  {
+    if (!game.level.blocks.isEmpty())
+    {
+      spriteBatch.begin();
+
+      for (int i = 0; i < game.level.blocks.size(); i++)
+      {
+        final Block block = game.level.blocks.get(i);
+        spriteBatch.draw(Renderer.block,
+                         block.getBottomLeftCornerX(),
+                         block.getBottomLeftCornerY(),
+                         block.getWidth(),
+                         block.getHeight());
+      }
+
+      spriteBatch.end();
+    }
   }
 
   void renderDecorations()
