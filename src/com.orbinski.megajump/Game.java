@@ -28,6 +28,7 @@ class Game
     if (player.getY() < -70.0f)
     {
       UserInterface.retryText.visible = true;
+      player.moving = false;
     }
 
     if (level.moveCamera && player.moving)
