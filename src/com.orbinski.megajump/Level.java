@@ -1,5 +1,8 @@
 package com.orbinski.megajump;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Level
 {
   enum Trophy
@@ -12,8 +15,10 @@ class Level
 
   String name = "Level";
   Door door;
+  List<Decoration> decorations = new ArrayList<>();
   boolean finished;
   boolean cleared;
+
   float elapsed;
   int millisecondsElapsed;
   int lastTimeMillisecondsElapsed = -1;
@@ -23,6 +28,8 @@ class Level
   int goldTimeInMilliseconds;
   int silverTimeInMilliseconds;
   int bronzeTimeInMilliseconds;
+
+  boolean moveCamera;
 
   Level()
   {

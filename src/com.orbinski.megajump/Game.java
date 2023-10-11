@@ -30,7 +30,16 @@ class Game
       UserInterface.retryText.visible = true;
     }
 
-    updateCameraState(delta);
+    if (level.moveCamera && player.moving)
+    {
+      final Camera camera = Renderer.staticViewport.getCamera();
+      camera.position.x = camera.position.x + delta * player.velocityX;
+      // camera.position.y = camera.position.y + delta * player.velocityY;
+    }
+    else
+    {
+      updateCameraState(delta);
+    }
   }
 
   private void updateCameraState(final float delta)

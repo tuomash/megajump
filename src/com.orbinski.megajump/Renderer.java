@@ -19,6 +19,7 @@ import static com.orbinski.megajump.Globals.WORLD_WIDTH;
 class Renderer
 {
   static Viewport staticViewport;
+  static Texture candle;
 
   final Game game;
   final Viewport viewport;
@@ -52,6 +53,9 @@ class Renderer
     file = new File(System.getProperty("user.dir") + File.separator + "door.png");
     door = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
+    file = new File(System.getProperty("user.dir") + File.separator + "candle.png");
+    candle = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+
     background = new Color(173.0f / 255.0f, 216.0f / 255.0f, 230.0f / 255.0f, 1.0f);
   }
 
@@ -64,7 +68,39 @@ class Renderer
     spriteBatch.setProjectionMatrix(camera.combined);
 
     renderDoor();
+    renderDecorations();
     renderPlayer();
+  }
+
+  void renderDoor()
+  {
+    spriteBatch.begin();
+    spriteBatch.draw(door,
+                     game.level.door.getBottomLeftCornerX(),
+                     game.level.door.getBottomLeftCornerY(),
+                     game.level.door.getWidth(),
+                     game.level.door.getHeight());
+    spriteBatch.end();
+  }
+
+  void renderDecorations()
+  {
+    if (!game.level.decorations.isEmpty())
+    {
+      spriteBatch.begin();
+
+      for (int i = 0; i < game.level.decorations.size(); i++)
+      {
+        final Decoration decoration = game.level.decorations.get(i);
+        spriteBatch.draw(candle,
+                         decoration.getBottomLeftCornerX(),
+                         decoration.getBottomLeftCornerY(),
+                         decoration.getWidth(),
+                         decoration.getHeight());
+      }
+
+      spriteBatch.end();
+    }
   }
 
   void renderPlayer()
@@ -103,17 +139,6 @@ class Renderer
                  player.getY(),
                  Color.WHITE);
     }
-  }
-
-  void renderDoor()
-  {
-    spriteBatch.begin();
-    spriteBatch.draw(door,
-                     game.level.door.getBottomLeftCornerX(),
-                     game.level.door.getBottomLeftCornerY(),
-                     game.level.door.getWidth(),
-                     game.level.door.getHeight());
-    spriteBatch.end();
   }
 
   void renderQuad(final float x,

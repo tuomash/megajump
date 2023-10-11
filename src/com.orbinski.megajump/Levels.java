@@ -78,6 +78,31 @@ class Levels
       level.setDoor(door);
       levels.add(level);
     }
+
+    {
+      final Level level = new Level();
+      level.name = "Orndorf's Jump";
+      level.goldTimeInMilliseconds = 3000;
+      level.silverTimeInMilliseconds = 3500;
+      level.bronzeTimeInMilliseconds = 4000;
+      level.moveCamera = true;
+
+      final Door door = new Door(190.0f, -30.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+
+      final Decoration decoration1 = new Decoration(5.0f, 5.0f, 1.5f, 2.5f);
+      level.decorations.add(decoration1);
+
+      final Decoration decoration2 = new Decoration(55.0f, 5.0f, 1.5f, 2.5f);
+      level.decorations.add(decoration2);
+
+      final Decoration decoration3 = new Decoration(95.0f, 5.0f, 1.5f, 2.5f);
+      level.decorations.add(decoration3);
+
+      final Decoration decoration4 = new Decoration(145.0f, 5.0f, 1.5f, 2.5f);
+      level.decorations.add(decoration4);
+    }
   }
 
   Level getNext()
