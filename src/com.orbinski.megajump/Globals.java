@@ -10,5 +10,7 @@ class Globals
   static final float TIME_STEP_SECONDS = 1 / 60.0f;
   static final int MAX_UPDATES = 20;
 
-  static Random random = new Random();
+  static final Random random = new Random();
+
+  static boolean debug;
 }

@@ -13,6 +13,14 @@ class Boot
     config.setForegroundFPS(60);
     config.setIdleFPS(30);
 
+    for (int i = 0; i < args.length; i++)
+    {
+      if (args[i].equalsIgnoreCase("debug"))
+      {
+        Globals.debug = true;
+      }
+    }
+
     try
     {
       new Lwjgl3Application(new Listener(), config)
@@ -24,7 +32,7 @@ class Boot
         }
       };
     }
-    catch (Exception e)
+    catch (final Exception e)
     {
       e.printStackTrace();
     }

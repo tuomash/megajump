@@ -67,6 +67,17 @@ class Levels
       level.setDoor(door);
       levels.add(level);
     }
+
+    {
+      final Level level = new Level();
+      level.name = "Dwarves Can't Jump";
+      level.goldTimeInMilliseconds = 900;
+      level.silverTimeInMilliseconds = 1200;
+      level.bronzeTimeInMilliseconds = 1600;
+      final Door door = new Door(-75.0f, 33.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+    }
   }
 
   Level getNext()

@@ -26,20 +26,22 @@ class UserInterface
     bestTimeText.setY(120);
     bestTimeText.font = UIRenderer.font24White;
 
+    final int secondHelpX = 460;
+
     retryText.text = "Press R to retry";
-    retryText.setX(320);
+    retryText.setX(secondHelpX);
     retryText.setY(40);
     retryText.font = UIRenderer.font24White;
     retryText.visible = false;
 
     nextLevelText.text = "Press N for next level";
-    nextLevelText.setX(320);
+    nextLevelText.setX(secondHelpX);
     nextLevelText.setY(80);
     nextLevelText.font = UIRenderer.font24White;
     nextLevelText.visible = false;
 
     trophyLevelText.text = "Trophy:";
-    trophyLevelText.setX(320);
+    trophyLevelText.setX(secondHelpX);
     trophyLevelText.setY(120);
     trophyLevelText.font = UIRenderer.font24White;
     trophyLevelText.visible = true;

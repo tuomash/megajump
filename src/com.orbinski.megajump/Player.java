@@ -80,6 +80,11 @@ class Player extends Entity
     }
   }
 
+  void moveUp()
+  {
+    velocityY = velocityY + 0.5f;
+  }
+
   void moveLeft()
   {
     velocityX = velocityX - 0.5f;
@@ -88,6 +93,11 @@ class Player extends Entity
   void moveRight()
   {
     velocityX = velocityX + 0.5f;
+  }
+
+  void moveDown()
+  {
+    velocityY = velocityY - 0.5f;
   }
 
   void reset()

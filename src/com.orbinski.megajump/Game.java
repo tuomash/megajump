@@ -72,7 +72,7 @@ class Game
 
   void nextLevel()
   {
-    if (level.cleared)
+    if (level.cleared || Globals.debug)
     {
       if (levels.isAtEnd())
       {

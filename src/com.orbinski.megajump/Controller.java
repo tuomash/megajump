@@ -79,6 +79,15 @@ class Controller
     // Player aerial controls
     if (game.player.moving && !game.player.targeting)
     {
+      if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
+      {
+        game.player.moveUp();
+      }
+      else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
+      {
+        game.player.moveDown();
+      }
+
       if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
       {
         game.player.moveLeft();
