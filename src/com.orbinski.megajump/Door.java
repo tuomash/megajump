@@ -35,10 +35,18 @@ class Door extends Entity
         {
           targetX = endX;
         }
+        else
+        {
+          targetX = getX();
+        }
 
         if (endY != null)
         {
           targetY = endY;
+        }
+        else
+        {
+          targetY = getY();
         }
       }
       else
@@ -47,14 +55,22 @@ class Door extends Entity
         {
           targetX = startX;
         }
+        else
+        {
+          targetX = getX();
+        }
 
         if (startY != null)
         {
           targetY = startY;
+
+        }
+        else
+        {
+          targetY = getY();
         }
       }
 
-      targetY = getY();
       movingToTarget = true;
     }
   }

@@ -121,6 +121,24 @@ class Levels
       level.setDoor(door);
       levels.add(level);
     }
+
+    {
+      final Level level = new Level();
+      level.name = "Elevator";
+      level.goldTimeInMilliseconds = 700;
+      level.silverTimeInMilliseconds = 1000;
+      level.bronzeTimeInMilliseconds = 1500;
+
+      final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
+      door.type = Door.Type.MOVING;
+      door.movingToTarget = false;
+      door.velocityX = 10.0f;
+      door.velocityY = 10.0f;
+      door.startY = door.getY();
+      door.endY = 40.0f;
+      level.setDoor(door);
+      levels.add(level);
+    }
   }
 
   Level getNext()
