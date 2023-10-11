@@ -107,9 +107,9 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Da Moving PF";
-      level.goldTimeInMilliseconds = 3000;
-      level.silverTimeInMilliseconds = 3500;
-      level.bronzeTimeInMilliseconds = 4000;
+      level.goldTimeInMilliseconds = 1000;
+      level.silverTimeInMilliseconds = 1500;
+      level.bronzeTimeInMilliseconds = 2000;
 
       final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
       door.type = Door.Type.MOVING;
