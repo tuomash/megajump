@@ -8,6 +8,7 @@ class UserInterface
 
   static final Text retryText = new Text();
   static final Text nextLevelText = new Text();
+  static final Text trophyLevelText = new Text();
 
   static void create()
   {
@@ -36,6 +37,12 @@ class UserInterface
     nextLevelText.setY(80);
     nextLevelText.font = UIRenderer.font24White;
     nextLevelText.visible = false;
+
+    trophyLevelText.text = "Trophy:";
+    trophyLevelText.setX(320);
+    trophyLevelText.setY(120);
+    trophyLevelText.font = UIRenderer.font24White;
+    trophyLevelText.visible = true;
   }
 
   static void updateLevelNameText(final String levelName)
@@ -61,5 +68,10 @@ class UserInterface
   static void clearBestTimeText()
   {
     bestTimeText.text = "Best time:";
+  }
+
+  static void updateTrophyLevelText(final Level.Trophy trophy)
+  {
+    trophyLevelText.text = "Trophy: " + trophy;
   }
 }

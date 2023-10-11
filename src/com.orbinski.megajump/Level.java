@@ -2,6 +2,14 @@ package com.orbinski.megajump;
 
 class Level
 {
+  enum Trophy
+  {
+    GOLD,
+    SILVER,
+    BRONZE,
+    NONE
+  }
+
   String name = "Level";
   Door door;
   boolean finished;
@@ -11,8 +19,14 @@ class Level
   int lastTimeMillisecondsElapsed = -1;
   int bestTimeMillisecondsElapsed = -1;
 
+  Trophy trophy;
+  int goldTimeInMilliseconds;
+  int silverTimeInMilliseconds;
+  int bronzeTimeInMilliseconds;
+
   Level()
   {
+    setTrophy(Trophy.NONE);
   }
 
   void update(final float delta, final Player player)
@@ -44,6 +58,57 @@ class Level
         bestTimeMillisecondsElapsed = millisecondsElapsed;
         UserInterface.updateBestTimeText(bestTimeMillisecondsElapsed / 1000, bestTimeMillisecondsElapsed % 1000);
       }
+
+      switch (trophy)
+      {
+        case GOLD:
+        {
+          // Do nothing
+          break;
+        }
+
+        case SILVER:
+        {
+          if (millisecondsElapsed <= goldTimeInMilliseconds)
+          {
+            setTrophy(Trophy.GOLD);
+          }
+
+          break;
+        }
+
+        case BRONZE:
+        {
+          if (millisecondsElapsed <= goldTimeInMilliseconds)
+          {
+            setTrophy(Trophy.GOLD);
+          }
+          else if (millisecondsElapsed <= silverTimeInMilliseconds)
+          {
+            setTrophy(Trophy.SILVER);
+          }
+
+          break;
+        }
+
+        default:
+        {
+          if (millisecondsElapsed <= goldTimeInMilliseconds)
+          {
+            setTrophy(Trophy.GOLD);
+          }
+          else if (millisecondsElapsed <= silverTimeInMilliseconds)
+          {
+            setTrophy(Trophy.SILVER);
+          }
+          else if (millisecondsElapsed <= bronzeTimeInMilliseconds)
+          {
+            setTrophy(Trophy.BRONZE);
+          }
+
+          break;
+        }
+      }
     }
   }
 
@@ -68,11 +133,21 @@ class Level
     }
 
     UserInterface.updateLevelNameText(name);
+    UserInterface.updateTrophyLevelText(trophy);
   }
 
   void setDoor(final Door door)
   {
     this.door = door;
+  }
+
+  public void setTrophy(final Trophy trophy)
+  {
+    if (trophy != null)
+    {
+      this.trophy = trophy;
+      UserInterface.updateTrophyLevelText(trophy);
+    }
   }
 
   void reset()
