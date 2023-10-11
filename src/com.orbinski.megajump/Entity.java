@@ -82,6 +82,7 @@ abstract class Entity
   boolean showBorder = false;
   boolean visible = true;
   boolean moving;
+  boolean movingToTarget;
   boolean dead;
   Sound moveSound;
   Sound deathSound;
@@ -122,6 +123,23 @@ abstract class Entity
       final float distanceY = velocityY * delta;
       setX(getX() + distanceX);
       setY(getY() + distanceY);
+    }
+    else if (movingToTarget)
+    {
+      final float distanceToTarget = MathUtils.distance(getX(), getY(), targetX, targetY);
+
+      if (distanceToTarget < 0.5)
+      {
+        movingToTarget = false;
+      }
+
+      final float toTargetX = (targetX - getX()) / distanceToTarget;
+      final float toTargetY = (targetY - getY()) / distanceToTarget;
+      final float distanceX = this.velocityX * delta;
+      final float distanceY = this.velocityY * delta;
+
+      setX(getX() + (toTargetX * distanceX));
+      setY(getY() + (toTargetY * distanceY));
     }
   }
 

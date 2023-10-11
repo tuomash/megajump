@@ -103,6 +103,24 @@ class Levels
       final Decoration decoration4 = new Decoration(145.0f, 5.0f, 1.5f, 2.5f);
       level.decorations.add(decoration4);
     }
+
+    {
+      final Level level = new Level();
+      level.name = "Da Moving PF";
+      level.goldTimeInMilliseconds = 3000;
+      level.silverTimeInMilliseconds = 3500;
+      level.bronzeTimeInMilliseconds = 4000;
+
+      final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
+      door.type = Door.Type.MOVING;
+      door.movingToTarget = false;
+      door.velocityX = 10.0f;
+      door.velocityY = 10.0f;
+      door.startX = door.getX();
+      door.endX = 25.0f;
+      level.setDoor(door);
+      levels.add(level);
+    }
   }
 
   Level getNext()

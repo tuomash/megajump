@@ -52,6 +52,11 @@ class Level
       UserInterface.updateElapsedTimeText(millisecondsElapsed / 1000, millisecondsElapsed % 1000);
     }
 
+    if (door != null && door.type == Door.Type.MOVING)
+    {
+      door.update(delta);
+    }
+
     if (door != null && Entity.overlaps(player, door))
     {
       player.moving = false;
@@ -162,5 +167,10 @@ class Level
     finished = false;
     elapsed = 0.0f;
     millisecondsElapsed = 0;
+
+    if (door != null)
+    {
+      door.reset();
+    }
   }
 }
