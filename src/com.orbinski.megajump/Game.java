@@ -29,6 +29,7 @@ class Game
     {
       UserInterface.retryText.visible = true;
       player.moving = false;
+      level.finished = true;
     }
 
     if (level.moveCamera && player.moving)
@@ -97,6 +98,13 @@ class Game
   void loadTextureReferences()
   {
     player.texture = Renderer.dwarfRight;
+  }
+
+  void jump()
+  {
+    player.targeting = false;
+    player.jump();
+    level.started = true;
   }
 
   void reset()

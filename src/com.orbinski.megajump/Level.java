@@ -17,6 +17,7 @@ class Level
   Door door;
   List<Decoration> decorations = new ArrayList<>();
   List<Block> blocks = new ArrayList<>();
+  boolean started;
   boolean finished;
   boolean cleared;
 
@@ -44,7 +45,7 @@ class Level
       return;
     }
 
-    if (player.moving)
+    if (started)
     {
       elapsed = elapsed + delta;
       millisecondsElapsed = (int) (elapsed * 1000.0f);
@@ -180,6 +181,7 @@ class Level
 
   void reset()
   {
+    started = false;
     finished = false;
     elapsed = 0.0f;
     millisecondsElapsed = 0;

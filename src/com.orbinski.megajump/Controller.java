@@ -62,8 +62,7 @@ class Controller
       }
       else if (game.player.targeting)
       {
-        game.player.targeting = false;
-        game.player.jump();
+        game.jump();
       }
     }
 
