@@ -58,7 +58,7 @@ class Level
       door.update(delta);
     }
 
-    if (door != null && Entity.overlaps(player, door))
+    if (door != null && player.overlaps(door))
     {
       player.moving = false;
       UserInterface.retryText.visible = true;
@@ -129,7 +129,7 @@ class Level
       {
         final Block block = blocks.get(i);
 
-        if (Entity.overlaps(player, block))
+        if (player.overlaps(block))
         {
           player.moveToPreviousLocation();
           player.moving = false;

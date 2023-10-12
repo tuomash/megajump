@@ -8,59 +8,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 abstract class Entity
 {
-  private static final Rectangle entityA = new Rectangle();
-  private static final Rectangle entityB = new Rectangle();
-
-  static boolean overlaps(final Entity a, final Entity b)
-  {
-    if (a == null || b == null)
-    {
-      return false;
-    }
-
-    entityA.x = a.bottomLeftCornerX;
-    entityA.y = a.bottomLeftCornerY;
-    entityA.width = a.width;
-    entityA.height = a.height;
-
-    entityB.x = b.bottomLeftCornerX;
-    entityB.y = b.bottomLeftCornerY;
-    entityB.width = b.width;
-    entityB.height = b.height;
-
-    return entityA.overlaps(entityB);
-  }
-
-  static boolean contains(final Entity a, final float x, final float y)
-  {
-    if (a == null)
-    {
-      return false;
-    }
-
-    entityA.x = a.bottomLeftCornerX;
-    entityA.y = a.bottomLeftCornerY;
-    entityA.width = a.width;
-    entityA.height = a.height;
-
-    return entityA.contains(x, y);
-  }
-
-  static boolean overlaps(final Circle circle, final Entity a)
-  {
-    if (circle == null || a == null)
-    {
-      return false;
-    }
-
-    entityA.x = a.bottomLeftCornerX;
-    entityA.y = a.bottomLeftCornerY;
-    entityA.width = a.width;
-    entityA.height = a.height;
-
-    return Intersector.overlaps(circle, entityA);
-  }
-
   private float x;
   private float y;
   private float prevX;
@@ -147,6 +94,11 @@ abstract class Entity
   {
     setX(prevX);
     setY(prevY);
+  }
+
+  boolean overlaps(final Entity another)
+  {
+    return EntityUtils.overlaps(this, another);
   }
 
   float getX()
