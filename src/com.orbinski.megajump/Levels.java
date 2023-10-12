@@ -15,7 +15,7 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "So Close";
+      level.name = "Small Jump";
       level.goldTimeInMilliseconds = 233;
       level.silverTimeInMilliseconds = 500;
       level.bronzeTimeInMilliseconds = 1000;
@@ -26,7 +26,7 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Tutorial 2";
+      level.name = "Medium Jump";
       level.goldTimeInMilliseconds = 390;
       level.silverTimeInMilliseconds = 500;
       level.bronzeTimeInMilliseconds = 1000;
@@ -37,7 +37,7 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Tutorial 3";
+      level.name = "Long Jump";
       level.goldTimeInMilliseconds = 600;
       level.silverTimeInMilliseconds = 700;
       level.bronzeTimeInMilliseconds = 1500;
@@ -48,7 +48,7 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Tutorial 4";
+      level.name = "Big Jump";
       level.goldTimeInMilliseconds = 1000;
       level.silverTimeInMilliseconds = 1200;
       level.bronzeTimeInMilliseconds = 1800;
@@ -59,7 +59,7 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Tutorial 5";
+      level.name = "Even Bigger Jump";
       level.goldTimeInMilliseconds = 1200;
       level.silverTimeInMilliseconds = 1500;
       level.bronzeTimeInMilliseconds = 2000;
@@ -106,7 +106,7 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Da Moving PF";
+      level.name = "It Moves";
       level.goldTimeInMilliseconds = 1000;
       level.silverTimeInMilliseconds = 1500;
       level.bronzeTimeInMilliseconds = 2000;
@@ -142,7 +142,7 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Blocks";
+      level.name = "Blocked";
       level.goldTimeInMilliseconds = 1500;
       level.silverTimeInMilliseconds = 2000;
       level.bronzeTimeInMilliseconds = 2500;
