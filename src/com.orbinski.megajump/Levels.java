@@ -142,7 +142,7 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Blocked";
+      level.name = "Blocked 2";
       level.goldTimeInMilliseconds = 1500;
       level.silverTimeInMilliseconds = 2000;
       level.bronzeTimeInMilliseconds = 2500;
