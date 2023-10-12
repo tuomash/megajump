@@ -177,14 +177,43 @@ class Levels
     }
   }
 
-  Level getNext()
+  void selectPreviousLevel()
   {
-    if (!isAtEnd())
+    if (isAtBeginning())
+    {
+      goToEnd();
+    }
+    else
+    {
+      levelIndex--;
+    }
+  }
+
+  void selectNextLevel()
+  {
+    if (isAtEnd())
+    {
+      goToBeginning();
+    }
+    else
     {
       levelIndex++;
     }
+  }
 
-    return levels.get(levelIndex);
+  Level getLevel()
+  {
+    if (levelIndex >= 0 && levelIndex < levels.size())
+    {
+      return levels.get(levelIndex);
+    }
+
+    return null;
+  }
+
+  boolean isAtBeginning()
+  {
+    return levelIndex == 0;
   }
 
   boolean isAtEnd()
@@ -197,8 +226,13 @@ class Levels
     return levelIndex;
   }
 
-  void reset()
+  void goToBeginning()
   {
-    levelIndex = -1;
+    levelIndex = 0;
+  }
+
+  void goToEnd()
+  {
+    levelIndex = levels.size() - 1;
   }
 }

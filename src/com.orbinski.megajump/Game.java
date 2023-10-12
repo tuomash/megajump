@@ -16,7 +16,8 @@ class Game
     levels = new Levels();
     cameraState = new CameraState();
 
-    level = levels.getNext();
+    levels.goToBeginning();
+    level = levels.getLevel();
     reset();
   }
 
@@ -81,16 +82,19 @@ class Game
     }
   }
 
-  void nextLevel()
+  void selectPreviousLevel()
+  {
+    levels.selectPreviousLevel();
+    level = levels.getLevel();
+    reset();
+  }
+
+  void selectNextLevel()
   {
     if (level.cleared || Globals.debug)
     {
-      if (levels.isAtEnd())
-      {
-        levels.reset();
-      }
-
-      level = levels.getNext();
+      levels.selectNextLevel();
+      level = levels.getLevel();
       reset();
     }
   }

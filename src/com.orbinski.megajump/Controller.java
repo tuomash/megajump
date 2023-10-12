@@ -70,9 +70,13 @@ class Controller
     {
       game.reset();
     }
+    else if (Gdx.input.isKeyJustPressed(Input.Keys.P))
+    {
+      game.selectPreviousLevel();
+    }
     else if (Gdx.input.isKeyJustPressed(Input.Keys.N))
     {
-      game.nextLevel();
+      game.selectNextLevel();
     }
 
     // Player aerial controls
