@@ -94,6 +94,11 @@ class Game
     }
   }
 
+  void loadTextureReferences()
+  {
+    player.texture = Renderer.dwarfRight;
+  }
+
   void reset()
   {
     player.reset();

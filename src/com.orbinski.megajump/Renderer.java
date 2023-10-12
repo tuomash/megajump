@@ -21,13 +21,14 @@ class Renderer
   static Viewport staticViewport;
   static Texture block;
   static Texture candle;
+  static Texture dwarfLeft;
+  static Texture dwarfRight;
 
   final Game game;
   final Viewport viewport;
   final OrthographicCamera camera;
   final ShapeRenderer shapeRenderer;
   final SpriteBatch spriteBatch;
-  final Texture dwarf;
   final Texture door;
   final Color background;
 
@@ -48,8 +49,11 @@ class Renderer
     spriteBatch = new SpriteBatch();
     spriteBatch.setProjectionMatrix(camera.combined);
 
-    File file = new File(System.getProperty("user.dir") + File.separator + "dwarf-2.png");
-    dwarf = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+    File file = new File(System.getProperty("user.dir") + File.separator + "dwarf-left.png");
+    dwarfLeft = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+
+    file = new File(System.getProperty("user.dir") + File.separator + "dwarf-right.png");
+    dwarfRight = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
     file = new File(System.getProperty("user.dir") + File.separator + "door.png");
     door = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
@@ -132,13 +136,16 @@ class Renderer
   {
     final Player player = game.player;
 
-    spriteBatch.begin();
-    spriteBatch.draw(dwarf,
-                     player.getBottomLeftCornerX(),
-                     player.getBottomLeftCornerY(),
-                     player.getWidth(),
-                     player.getHeight());
-    spriteBatch.end();
+    if (player.texture != null)
+    {
+      spriteBatch.begin();
+      spriteBatch.draw(player.texture,
+                       player.getBottomLeftCornerX(),
+                       player.getBottomLeftCornerY(),
+                       player.getWidth(),
+                       player.getHeight());
+      spriteBatch.end();
+    }
 
     if (player.showBorder)
     {

@@ -21,6 +21,7 @@ class Listener implements ApplicationListener
     renderer = new Renderer(game);
     uiRenderer = new UIRenderer(game);
 
+    game.loadTextureReferences();
     UserInterface.create();
   }
 
