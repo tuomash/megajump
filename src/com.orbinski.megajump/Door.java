@@ -93,4 +93,10 @@ class Door extends Entity
       }
     }
   }
+
+  @Override
+  boolean isDoor()
+  {
+    return true;
+  }
 }

@@ -109,6 +109,20 @@ class Renderer
       }
 
       spriteBatch.end();
+
+      for (int i = 0; i < game.level.blocks.size(); i++)
+      {
+        final Block block = game.level.blocks.get(i);
+
+        if (block.drawBorder)
+        {
+          renderQuad(block.getBottomLeftCornerX(),
+                     block.getBottomLeftCornerY(),
+                     block.getWidth(),
+                     block.getHeight(),
+                     Color.RED);
+        }
+      }
     }
   }
 
@@ -147,13 +161,28 @@ class Renderer
       spriteBatch.end();
     }
 
-    if (player.showBorder)
+    if (player.drawBorder)
     {
       renderQuad(player.getBottomLeftCornerX(),
                  player.getBottomLeftCornerY(),
                  player.getWidth(),
                  player.getHeight(),
                  Color.RED);
+    }
+
+    if (player.drawCollisions)
+    {
+      renderQuad(player.rightSide.x,
+                 player.rightSide.y,
+                 player.rightSide.width,
+                 player.rightSide.height,
+                 Color.YELLOW);
+
+      renderQuad(player.bottomSide.x,
+                 player.bottomSide.y,
+                 player.bottomSide.width,
+                 player.bottomSide.height,
+                 Color.YELLOW);
     }
 
     if (player.targeting)

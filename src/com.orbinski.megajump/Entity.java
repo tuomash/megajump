@@ -2,6 +2,7 @@ package com.orbinski.megajump;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 
 abstract class Entity
 {
@@ -16,14 +17,22 @@ abstract class Entity
   private float height;
   private float heightOffset;
 
+  boolean drawCollisions = false;
+  final Rectangle rightSide = new Rectangle();
+  boolean rightSideCollision;
+  final Rectangle bottomSide = new Rectangle();
+  boolean bottomSideCollision;
+
+  boolean applyGravity = true;
   float gravity = -0.6f;
+
   boolean applyWidthOffset = true;
   boolean applyHeightOffset = true;
   float targetX;
   float targetY;
   float velocityX;
   float velocityY;
-  boolean showBorder = false;
+  boolean drawBorder = false;
   boolean visible = true;
   boolean moving;
   boolean movingToTarget;
@@ -61,7 +70,10 @@ abstract class Entity
 
     if (moving)
     {
-      velocityY = velocityY + gravity;
+      if (applyGravity)
+      {
+        velocityY = velocityY + gravity;
+      }
 
       final float distanceX = velocityX * delta;
       final float distanceY = velocityY * delta;
@@ -87,15 +99,32 @@ abstract class Entity
     }
   }
 
-  void moveToPreviousLocation()
+  void clearCollisionStatus()
   {
-    setX(prevX);
-    setY(prevY);
+    applyGravity = true;
+    rightSideCollision = false;
+    bottomSideCollision = false;
   }
 
-  boolean overlaps(final Entity another)
+  void moveToPreviousLocation()
   {
-    return EntityUtils.overlaps(this, another);
+    moveToPreviousX();
+    moveToPreviousY();
+  }
+
+  void moveToPreviousX()
+  {
+    setX(prevX);
+  }
+
+  void moveToPreviousY()
+  {
+    setX(prevX);
+  }
+
+  boolean overlaps(final Entity entity)
+  {
+    return EntityUtils.overlaps(this, entity);
   }
 
   float getX()
@@ -188,5 +217,15 @@ abstract class Entity
   float getHeightOffset()
   {
     return heightOffset;
+  }
+
+  boolean isDoor()
+  {
+    return false;
+  }
+
+  boolean isBlock()
+  {
+    return false;
   }
 }

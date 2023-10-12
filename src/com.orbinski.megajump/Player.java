@@ -14,6 +14,14 @@ class Player extends Entity
   Player()
   {
     super(-75.0f, -30.0f, 2.5f, 5.0f);
+
+    // drawBorder = true;
+
+    rightSide.width = 0.5f;
+    rightSide.height = getHeight() * 0.75f;
+
+    bottomSide.width = getWidth() * 0.5f;
+    bottomSide.height = 0.5f;
   }
 
   void update(final float delta)
@@ -100,6 +108,76 @@ class Player extends Entity
   void moveDown()
   {
     velocityY = velocityY - 0.5f;
+  }
+
+  @Override
+  boolean overlaps(final Entity entity)
+  {
+    if (entity.isDoor())
+    {
+      return super.overlaps(entity);
+    }
+    else if (entity.isBlock())
+    {
+      moveToPreviousLocation();
+      return super.overlaps(entity);
+
+      /* TODO: implement proper collision detection
+      boolean overlaps = false;
+
+      if (!rightSideCollision && EntityUtils.overlaps(rightSide, entity))
+      {
+        setX(entity.getBottomLeftCornerX() - getWidthOffset());
+        velocityX = 0.0f;
+        overlaps = true;
+        rightSideCollision = true;
+      }
+      else if (!bottomSideCollision && EntityUtils.overlaps(bottomSide, entity))
+      {
+        setY(entity.getY() + entity.getHeightOffset() + getHeightOffset());
+        velocityX = 0.0f;
+        velocityY = 0.0f;
+        moving = false;
+        overlaps = true;
+        applyGravity = false;
+        bottomSideCollision = true;
+      }
+
+      return overlaps;
+       */
+    }
+
+    return false;
+  }
+
+  @Override
+  void setX(final float x)
+  {
+    super.setX(x);
+    rightSide.x = x + getWidthOffset() - rightSide.width;
+    bottomSide.x = x - bottomSide.width * 0.5f;
+  }
+
+  @Override
+  void setY(final float y)
+  {
+    super.setY(y);
+    rightSide.y = y - rightSide.height * 0.5f;
+    bottomSide.y = getBottomLeftCornerY();
+  }
+
+  @Override
+  void setWidth(final float width)
+  {
+    super.setWidth(width);
+    bottomSide.width = width * 0.5f;
+  }
+
+  @Override
+  void setHeight(final float height)
+  {
+    super.setHeight(height);
+    rightSide.height = height * 0.5f;
   }
 
   void reset()

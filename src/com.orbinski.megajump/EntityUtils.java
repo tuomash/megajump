@@ -58,4 +58,19 @@ class EntityUtils
 
     return Intersector.overlaps(circle, entityA);
   }
+
+  static boolean overlaps(final Rectangle rectangle, final Entity a)
+  {
+    if (rectangle == null || a == null)
+    {
+      return false;
+    }
+
+    entityA.x = a.getBottomLeftCornerX();
+    entityA.y = a.getBottomLeftCornerY();
+    entityA.width = a.getWidth();
+    entityA.height = a.getHeight();
+
+    return Intersector.overlaps(rectangle, entityA);
+  }
 }

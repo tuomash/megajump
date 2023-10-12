@@ -125,13 +125,14 @@ class Level
     }
     else
     {
+      player.clearCollisionStatus();
+
       for (int i = 0; i < blocks.size(); i++)
       {
         final Block block = blocks.get(i);
 
         if (player.overlaps(block))
         {
-          player.moveToPreviousLocation();
           player.moving = false;
           break;
         }
