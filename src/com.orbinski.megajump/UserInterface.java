@@ -4,6 +4,8 @@ import static com.orbinski.megajump.MathUtils.*;
 
 class UserInterface
 {
+  static final Help help = new Help();
+
   static final Text levelNameText = new Text();
   static final Text elapsedTimeText = new Text();
   static final Text bestTimeText = new Text();
@@ -18,6 +20,8 @@ class UserInterface
 
   static void create()
   {
+    help.create();
+
     levelNameText.setX(20);
     levelNameText.setY(40);
     levelNameText.font = UIRenderer.font24White;

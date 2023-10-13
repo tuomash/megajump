@@ -75,6 +75,11 @@ class Renderer
     shapeRenderer.setProjectionMatrix(camera.combined);
     spriteBatch.setProjectionMatrix(camera.combined);
 
+    if (game.help)
+    {
+      return;
+    }
+
     renderDoor();
     renderBlocks();
     renderDecorations();

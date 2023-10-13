@@ -66,7 +66,11 @@ class Controller
       }
     }
 
-    if (Gdx.input.isKeyJustPressed(Input.Keys.R))
+    if (Gdx.input.isKeyJustPressed(Input.Keys.F1))
+    {
+      game.help = !game.help;
+    }
+    else if (Gdx.input.isKeyJustPressed(Input.Keys.R))
     {
       game.reset();
     }

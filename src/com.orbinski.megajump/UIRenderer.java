@@ -1,7 +1,6 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -38,9 +37,6 @@ class UIRenderer
     shapeRenderer.setProjectionMatrix(camera.combined);
     shapeRenderer.setAutoShapeType(true);
 
-    font24White = new BitmapFont(true);
-    font24White.setColor(Color.RED);
-
     final File file = new File(System.getProperty("user.dir")
                         + File.separator
                         + "lunchds.ttf");
@@ -57,17 +53,33 @@ class UIRenderer
     shapeRenderer.setProjectionMatrix(camera.combined);
     spriteBatch.setProjectionMatrix(camera.combined);
 
-    renderText(UserInterface.levelNameText);
-    renderText(UserInterface.elapsedTimeText);
-    renderText(UserInterface.bestTimeText);
+    if (game.help)
+    {
+      renderHelp();
+    }
+    else
+    {
+      renderText(UserInterface.levelNameText);
+      renderText(UserInterface.elapsedTimeText);
+      renderText(UserInterface.bestTimeText);
 
-    renderText(UserInterface.retryText);
-    renderText(UserInterface.nextLevelText);
-    renderText(UserInterface.trophyLevelText);
+      renderText(UserInterface.retryText);
+      renderText(UserInterface.nextLevelText);
+      renderText(UserInterface.trophyLevelText);
 
-    renderText(UserInterface.goldRequirementText);
-    renderText(UserInterface.silverRequirementText);
-    renderText(UserInterface.bronzeRequirementText);
+      renderText(UserInterface.goldRequirementText);
+      renderText(UserInterface.silverRequirementText);
+      renderText(UserInterface.bronzeRequirementText);
+    }
+  }
+
+  void renderHelp()
+  {
+    for (int i = 0; i < UserInterface.help.texts.size(); i++)
+    {
+      final Text text = UserInterface.help.texts.get(i);
+      renderText(text);
+    }
   }
 
   void renderText(final Text text)

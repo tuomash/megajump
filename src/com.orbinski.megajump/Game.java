@@ -9,6 +9,7 @@ class Game
   final CameraState cameraState;
 
   Level level;
+  boolean help;
 
   Game()
   {
