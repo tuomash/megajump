@@ -38,6 +38,32 @@ class Controller
 
   void handlePlayerControls()
   {
+    if (Gdx.input.isKeyJustPressed(Input.Keys.F1))
+    {
+      game.help = !game.help;
+    }
+    else if (Gdx.input.isKeyJustPressed(Input.Keys.R))
+    {
+      game.reset();
+    }
+    else if (Gdx.input.isKeyJustPressed(Input.Keys.P))
+    {
+      game.selectPreviousLevel();
+    }
+    else if (Gdx.input.isKeyJustPressed(Input.Keys.N))
+    {
+      game.selectNextLevel();
+    }
+    else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+    {
+      game.paused = !game.paused;
+    }
+
+    if (game.help || game.paused)
+    {
+      return;
+    }
+
     mouseScreen.x = Gdx.input.getX();
     mouseScreen.y = Gdx.input.getY();
 
@@ -64,23 +90,6 @@ class Controller
       {
         game.jump();
       }
-    }
-
-    if (Gdx.input.isKeyJustPressed(Input.Keys.F1))
-    {
-      game.help = !game.help;
-    }
-    else if (Gdx.input.isKeyJustPressed(Input.Keys.R))
-    {
-      game.reset();
-    }
-    else if (Gdx.input.isKeyJustPressed(Input.Keys.P))
-    {
-      game.selectPreviousLevel();
-    }
-    else if (Gdx.input.isKeyJustPressed(Input.Keys.N))
-    {
-      game.selectNextLevel();
     }
 
     // Player aerial controls

@@ -10,6 +10,7 @@ class Game
 
   Level level;
   boolean help;
+  boolean paused;
 
   Game()
   {
@@ -25,6 +26,11 @@ class Game
 
   void update(final float delta)
   {
+    if (help || paused)
+    {
+      return;
+    }
+
     player.update(delta);
     level.update(delta, player);
 

@@ -59,6 +59,13 @@ class UIRenderer
     }
     else
     {
+      if (game.paused)
+      {
+        spriteBatch.begin();
+        font24White.draw(spriteBatch, "PAUSED", 20, 280);
+        spriteBatch.end();
+      }
+
       renderText(UserInterface.levelNameText);
       renderText(UserInterface.elapsedTimeText);
       renderText(UserInterface.bestTimeText);
