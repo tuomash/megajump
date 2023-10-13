@@ -86,7 +86,7 @@ class Levels
       level.goldTimeInMilliseconds = 3000;
       level.silverTimeInMilliseconds = 3500;
       level.bronzeTimeInMilliseconds = 4000;
-      level.moveCamera = true;
+      level.moveCameraX = true;
 
       final Door door = new Door(190.0f, -30.0f, 5.0f, 5.0f);
       level.setDoor(door);
@@ -189,6 +189,59 @@ class Levels
 
       final Block block8 = new Block(-25.0f, -2.5f, 2.5f, 2.5f);
       level.blocks.add(block8);
+    }
+
+    {
+      final Level level = new Level();
+      level.name = "Trampoline 1";
+      level.goldTimeInMilliseconds = 2800;
+      level.silverTimeInMilliseconds = 3500;
+      level.bronzeTimeInMilliseconds = 5000;
+
+      final Door door = new Door(20.0f, 15.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+
+      final Trampoline trampoline = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline);
+    }
+
+    {
+      final Level level = new Level();
+      level.name = "Trampoline 2";
+      level.goldTimeInMilliseconds = 3200;
+      level.silverTimeInMilliseconds = 3600;
+      level.bronzeTimeInMilliseconds = 5000;
+
+      final Door door = new Door(40.0f, 45.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+
+      final Trampoline trampoline = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline);
+    }
+
+    {
+      final Level level = new Level();
+      level.moveCameraX = true;
+      // level.moveCameraY = true;
+      level.name = "Trampoline 3";
+      level.goldTimeInMilliseconds = 10000;
+      level.silverTimeInMilliseconds = 12000;
+      level.bronzeTimeInMilliseconds = 15000;
+
+      final Door door = new Door(145.0f, -25.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+
+      final Trampoline trampoline1 = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline1);
+
+      final Trampoline trampoline2 = new Trampoline(45.0f, -25.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline2);
+
+      final Trampoline trampoline3 = new Trampoline(95.0f, -25.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline3);
     }
   }
 

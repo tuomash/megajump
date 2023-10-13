@@ -49,7 +49,8 @@ class Renderer
     spriteBatch = new SpriteBatch();
     spriteBatch.setProjectionMatrix(camera.combined);
 
-    File file = new File(System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "dwarf-left.png");
+    File file = new File(
+        System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "dwarf-left.png");
     dwarfLeft = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
     file = new File(System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "dwarf-right.png");
@@ -83,6 +84,7 @@ class Renderer
     renderDoor();
     renderBlocks();
     renderDecorations();
+    renderTrampolines();
     renderPlayer();
   }
 
@@ -148,6 +150,22 @@ class Renderer
       }
 
       spriteBatch.end();
+    }
+  }
+
+  void renderTrampolines()
+  {
+    if (!game.level.trampolines.isEmpty())
+    {
+      for (int i = 0; i < game.level.trampolines.size(); i++)
+      {
+        final Trampoline trampoline = game.level.trampolines.get(i);
+        renderFilledQuad(trampoline.getBottomLeftCornerX(),
+                         trampoline.getBottomLeftCornerY(),
+                         trampoline.getWidth(),
+                         trampoline.getHeight(),
+                         Color.BLUE);
+      }
     }
   }
 
@@ -234,6 +252,38 @@ class Renderer
   {
     shapeRenderer.setProjectionMatrix(camera.combined);
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+    shapeRenderer.setColor(red, green, blue, alpha);
+    shapeRenderer.rect(x, y, width, height);
+    shapeRenderer.end();
+  }
+
+  void renderFilledQuad(final float x,
+                        final float y,
+                        final float width,
+                        final float height,
+                        final Color color)
+  {
+    renderFilledQuad(x,
+                     y,
+                     width,
+                     height,
+                     color.r,
+                     color.g,
+                     color.b,
+                     color.a);
+  }
+
+  void renderFilledQuad(final float x,
+                        final float y,
+                        final float width,
+                        final float height,
+                        final float red,
+                        final float green,
+                        final float blue,
+                        final float alpha)
+  {
+    shapeRenderer.setProjectionMatrix(camera.combined);
+    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
     shapeRenderer.setColor(red, green, blue, alpha);
     shapeRenderer.rect(x, y, width, height);
     shapeRenderer.end();

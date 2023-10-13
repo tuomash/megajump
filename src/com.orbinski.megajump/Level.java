@@ -17,6 +17,7 @@ class Level
   Door door;
   List<Decoration> decorations = new ArrayList<>();
   List<Block> blocks = new ArrayList<>();
+  List<Trampoline> trampolines = new ArrayList<>();
   boolean started;
   boolean finished;
   boolean cleared;
@@ -31,7 +32,8 @@ class Level
   int silverTimeInMilliseconds;
   int bronzeTimeInMilliseconds;
 
-  boolean moveCamera;
+  boolean moveCameraX;
+  boolean moveCameraY;
 
   Level()
   {
@@ -135,6 +137,16 @@ class Level
         if (player.overlaps(block))
         {
           player.moving = false;
+          break;
+        }
+      }
+
+      for (int i = 0; i < trampolines.size(); i++)
+      {
+        final Trampoline trampoline = trampolines.get(i);
+
+        if (trampoline.apply(player))
+        {
           break;
         }
       }

@@ -41,11 +41,19 @@ class Game
       level.finished = true;
     }
 
-    if (level.moveCamera && player.moving)
+    if (player.moving)
     {
       final Camera camera = Renderer.staticViewport.getCamera();
-      camera.position.x = camera.position.x + delta * player.velocityX;
-      // camera.position.y = camera.position.y + delta * player.velocityY;
+
+      if (level.moveCameraX)
+      {
+        camera.position.x = camera.position.x + delta * player.velocityX;
+      }
+
+      if (level.moveCameraY)
+      {
+        camera.position.y = camera.position.y + delta * player.velocityY;
+      }
     }
     else
     {

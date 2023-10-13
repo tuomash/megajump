@@ -17,6 +17,7 @@ class Player extends Entity
 
     movement = Movement.REGULAR;
     // drawBorder = true;
+    // drawCollisions = true;
 
     rightSide.width = 0.5f;
     rightSide.height = getHeight() * 0.75f;
