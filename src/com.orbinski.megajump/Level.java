@@ -54,7 +54,7 @@ class Level
       UserInterface.updateElapsedTimeText(millisecondsElapsed / 1000, millisecondsElapsed % 1000);
     }
 
-    if (door != null && door.type == Door.Type.MOVING)
+    if (door != null)
     {
       door.update(delta);
     }

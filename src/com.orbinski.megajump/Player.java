@@ -15,6 +15,7 @@ class Player extends Entity
   {
     super(-75.0f, -30.0f, 2.5f, 5.0f);
 
+    movement = Movement.REGULAR;
     // drawBorder = true;
 
     rightSide.width = 0.5f;

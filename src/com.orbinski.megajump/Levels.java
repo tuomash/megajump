@@ -1,5 +1,6 @@
 package com.orbinski.megajump;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,12 +113,10 @@ class Levels
       level.bronzeTimeInMilliseconds = 2000;
 
       final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
-      door.type = Door.Type.MOVING;
-      door.movingToTarget = false;
+      door.addWaypoint(new Point2D.Float(-25.0f, -10.0f));
+      door.addWaypoint(new Point2D.Float(30.0f, -10.0f));
       door.velocityX = 10.0f;
       door.velocityY = 10.0f;
-      door.startX = door.getX();
-      door.endX = 25.0f;
       level.setDoor(door);
       levels.add(level);
     }
@@ -130,12 +129,28 @@ class Levels
       level.bronzeTimeInMilliseconds = 1500;
 
       final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
-      door.type = Door.Type.MOVING;
-      door.movingToTarget = false;
+      door.addWaypoint(new Point2D.Float(-20.0f, -10.0f));
+      door.addWaypoint(new Point2D.Float(-20.0f, 30.0f));
       door.velocityX = 10.0f;
       door.velocityY = 10.0f;
-      door.startY = door.getY();
-      door.endY = 40.0f;
+      level.setDoor(door);
+      levels.add(level);
+    }
+
+    {
+      final Level level = new Level();
+      level.name = "Rectangle";
+      level.goldTimeInMilliseconds = 750;
+      level.silverTimeInMilliseconds = 1000;
+      level.bronzeTimeInMilliseconds = 1500;
+
+      final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
+      door.addWaypoint(new Point2D.Float(-20.0f, -10.0f));
+      door.addWaypoint(new Point2D.Float(-20.0f, 20.0f));
+      door.addWaypoint(new Point2D.Float(40.0f, 20.0f));
+      door.addWaypoint(new Point2D.Float(40.0f, -10.0f));
+      door.velocityX = 17.5f;
+      door.velocityY = 17.5f;
       level.setDoor(door);
       levels.add(level);
     }

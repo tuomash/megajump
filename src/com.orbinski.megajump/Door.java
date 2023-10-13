@@ -2,96 +2,9 @@ package com.orbinski.megajump;
 
 class Door extends Entity
 {
-  enum Type
-  {
-    STATIC,
-    MOVING
-  }
-
-  Type type = Type.STATIC;
-  boolean movingToEnd;
-  Float startX;
-  Float startY;
-  Float endX;
-  Float endY;
-
   Door(final float x, final float y, final float width, final float height)
   {
     super(x, y, width, height);
-  }
-
-  @Override
-  void update(final float delta)
-  {
-    super.update(delta);
-
-    if (type == Type.MOVING && !movingToTarget)
-    {
-      movingToEnd = !movingToEnd;
-
-      if (movingToEnd)
-      {
-        if (endX != null)
-        {
-          targetX = endX;
-        }
-        else
-        {
-          targetX = getX();
-        }
-
-        if (endY != null)
-        {
-          targetY = endY;
-        }
-        else
-        {
-          targetY = getY();
-        }
-      }
-      else
-      {
-        if (startX != null)
-        {
-          targetX = startX;
-        }
-        else
-        {
-          targetX = getX();
-        }
-
-        if (startY != null)
-        {
-          targetY = startY;
-
-        }
-        else
-        {
-          targetY = getY();
-        }
-      }
-
-      movingToTarget = true;
-    }
-  }
-
-  void reset()
-  {
-    if (type == Type.MOVING)
-    {
-      movingToEnd = false;
-      movingToTarget = false;
-
-      if (startX != null)
-      {
-        setX(startX);
-      }
-
-      if (startY != null)
-      {
-        setY(startY);
-      }
-    }
   }
 
   @Override
