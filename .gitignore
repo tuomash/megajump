@@ -4,6 +4,7 @@ out/
 build/
 dist/
 steam/
+inst/
 .project
 .classpath
 .settings/
