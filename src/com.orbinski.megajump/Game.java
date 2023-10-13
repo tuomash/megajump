@@ -99,12 +99,9 @@ class Game
 
   void selectNextLevel()
   {
-    if (level.cleared || Globals.debug)
-    {
-      levels.selectNextLevel();
-      level = levels.getLevel();
-      reset();
-    }
+    levels.selectNextLevel();
+    level = levels.getLevel();
+    reset();
   }
 
   void loadTextureReferences()

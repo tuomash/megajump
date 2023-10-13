@@ -49,19 +49,19 @@ class Renderer
     spriteBatch = new SpriteBatch();
     spriteBatch.setProjectionMatrix(camera.combined);
 
-    File file = new File(System.getProperty("user.dir") + File.separator + "dwarf-left.png");
+    File file = new File(System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "dwarf-left.png");
     dwarfLeft = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
-    file = new File(System.getProperty("user.dir") + File.separator + "dwarf-right.png");
+    file = new File(System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "dwarf-right.png");
     dwarfRight = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
-    file = new File(System.getProperty("user.dir") + File.separator + "door.png");
+    file = new File(System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "door.png");
     door = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
-    file = new File(System.getProperty("user.dir") + File.separator + "block.png");
+    file = new File(System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "block.png");
     block = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
-    file = new File(System.getProperty("user.dir") + File.separator + "candle.png");
+    file = new File(System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "candle.png");
     candle = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
     background = new Color(173.0f / 255.0f, 216.0f / 255.0f, 230.0f / 255.0f, 1.0f);

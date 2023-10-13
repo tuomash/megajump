@@ -39,6 +39,8 @@ class UIRenderer
 
     final File file = new File(System.getProperty("user.dir")
                         + File.separator
+                        + "graphics"
+                        + File.separator
                         + "lunchds.ttf");
     final FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(file.getAbsolutePath()));
     final FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();

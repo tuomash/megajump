@@ -11,6 +11,7 @@ class Help
   {
     add("Your objective is to get to the exit door as fast as possible.", 20, 500);
 
+    add("Press N for next level and P for previous level", 20, 120);
     add("Use WASD or arrow keys to control Orndorf midair", 20, 80);
     add("Press, drag and release mouse button 1 to launch Orndorf  ", 20, 40);
   }
