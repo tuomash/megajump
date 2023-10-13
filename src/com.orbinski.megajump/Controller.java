@@ -101,6 +101,7 @@ class Controller
       }
     }
     // Camera controls
+    /*
     else
     {
       if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
@@ -121,5 +122,6 @@ class Controller
         game.cameraState.moveRight();
       }
     }
+     */
   }
 }
