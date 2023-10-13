@@ -18,6 +18,7 @@ class Game
 
     levels.goToBeginning();
     level = levels.getLevel();
+    level.updateUI();
     reset();
   }
 

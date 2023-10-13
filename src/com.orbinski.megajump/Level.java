@@ -51,7 +51,7 @@ class Level
       millisecondsElapsed = (int) (elapsed * 1000.0f);
       lastTimeMillisecondsElapsed = millisecondsElapsed;
 
-      UserInterface.updateElapsedTimeText(millisecondsElapsed / 1000, millisecondsElapsed % 1000);
+      UserInterface.updateElapsedTimeText(millisecondsElapsed);
     }
 
     if (door != null)
@@ -70,7 +70,7 @@ class Level
       if (bestTimeMillisecondsElapsed < 0 || millisecondsElapsed < bestTimeMillisecondsElapsed)
       {
         bestTimeMillisecondsElapsed = millisecondsElapsed;
-        UserInterface.updateBestTimeText(bestTimeMillisecondsElapsed / 1000, bestTimeMillisecondsElapsed % 1000);
+        UserInterface.updateBestTimeText(bestTimeMillisecondsElapsed);
       }
 
       switch (trophy)
@@ -145,7 +145,7 @@ class Level
   {
     if (bestTimeMillisecondsElapsed > 0)
     {
-      UserInterface.updateBestTimeText(bestTimeMillisecondsElapsed / 1000, bestTimeMillisecondsElapsed % 1000);
+      UserInterface.updateBestTimeText(bestTimeMillisecondsElapsed);
     }
     else
     {
@@ -154,7 +154,7 @@ class Level
 
     if (lastTimeMillisecondsElapsed > 0)
     {
-      UserInterface.updateElapsedTimeText(lastTimeMillisecondsElapsed / 1000, lastTimeMillisecondsElapsed % 1000);
+      UserInterface.updateElapsedTimeText(lastTimeMillisecondsElapsed);
     }
     else
     {
@@ -163,6 +163,9 @@ class Level
 
     UserInterface.updateLevelNameText(name);
     UserInterface.updateTrophyLevelText(trophy);
+    UserInterface.updateGoldRequirementText(goldTimeInMilliseconds);
+    UserInterface.updateSilverRequirementText(silverTimeInMilliseconds);
+    UserInterface.updateBronzeRequirementText(bronzeTimeInMilliseconds);
   }
 
   void setDoor(final Door door)

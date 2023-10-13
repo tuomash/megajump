@@ -18,4 +18,21 @@ class MathUtils
   {
     return random.nextInt(high - low) + low;
   }
+
+  static String toTimestamp(final int inputInMilliseconds)
+  {
+    final int seconds = toSeconds(inputInMilliseconds);
+    final int milliseconds = getMillisecondRemainders(inputInMilliseconds);
+    return seconds + "." + milliseconds + "s";
+  }
+
+  static int toSeconds(final int milliseconds)
+  {
+    return milliseconds / 1000;
+  }
+
+  static int getMillisecondRemainders(final int milliseconds)
+  {
+    return milliseconds % 1000;
+  }
 }

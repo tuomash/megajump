@@ -1,5 +1,7 @@
 package com.orbinski.megajump;
 
+import static com.orbinski.megajump.MathUtils.*;
+
 class UserInterface
 {
   static final Text levelNameText = new Text();
@@ -9,6 +11,10 @@ class UserInterface
   static final Text retryText = new Text();
   static final Text nextLevelText = new Text();
   static final Text trophyLevelText = new Text();
+
+  static final Text goldRequirementText = new Text();
+  static final Text silverRequirementText = new Text();
+  static final Text bronzeRequirementText = new Text();
 
   static void create()
   {
@@ -45,6 +51,26 @@ class UserInterface
     trophyLevelText.setY(120);
     trophyLevelText.font = UIRenderer.font24White;
     trophyLevelText.visible = true;
+
+    final int thirdHelpX = 860;
+
+    goldRequirementText.text = "Gold:";
+    goldRequirementText.setX(thirdHelpX);
+    goldRequirementText.setY(120);
+    goldRequirementText.font = UIRenderer.font24White;
+    goldRequirementText.visible = true;
+
+    silverRequirementText.text = "Silver:";
+    silverRequirementText.setX(thirdHelpX);
+    silverRequirementText.setY(80);
+    silverRequirementText.font = UIRenderer.font24White;
+    silverRequirementText.visible = true;
+
+    bronzeRequirementText.text = "Bronze:";
+    bronzeRequirementText.setX(thirdHelpX);
+    bronzeRequirementText.setY(40);
+    bronzeRequirementText.font = UIRenderer.font24White;
+    bronzeRequirementText.visible = true;
   }
 
   static void updateLevelNameText(final String levelName)
@@ -52,9 +78,9 @@ class UserInterface
     levelNameText.text = "Level: " + levelName;
   }
 
-  static void updateElapsedTimeText(final int seconds, final int milliseconds)
+  static void updateElapsedTimeText(final int milliseconds)
   {
-    elapsedTimeText.text = "Elapsed: " + seconds + "s" + milliseconds + "ms";
+    elapsedTimeText.text = "Elapsed: " + toTimestamp(milliseconds);
   }
 
   static void clearElapsedTimeText()
@@ -62,9 +88,9 @@ class UserInterface
     elapsedTimeText.text = "Elapsed:";
   }
 
-  static void updateBestTimeText(final int seconds, final int milliseconds)
+  static void updateBestTimeText(final int milliseconds)
   {
-    bestTimeText.text = "Best time: " + seconds + "s" + milliseconds + "ms";
+    bestTimeText.text = "Best time: " + toTimestamp(milliseconds);
   }
 
   static void clearBestTimeText()
@@ -75,5 +101,20 @@ class UserInterface
   static void updateTrophyLevelText(final Level.Trophy trophy)
   {
     trophyLevelText.text = "Trophy: " + trophy;
+  }
+
+  static void updateGoldRequirementText(final int milliseconds)
+  {
+    goldRequirementText.text = "Gold: " + toTimestamp(milliseconds);
+  }
+
+  static void updateSilverRequirementText(final int milliseconds)
+  {
+    silverRequirementText.text = "Silver: " + toTimestamp(milliseconds);
+  }
+
+  static void updateBronzeRequirementText(final int milliseconds)
+  {
+    bronzeRequirementText.text = "Bronze: " + toTimestamp(milliseconds);
   }
 }

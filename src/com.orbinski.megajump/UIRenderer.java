@@ -64,6 +64,10 @@ class UIRenderer
     renderText(UserInterface.retryText);
     renderText(UserInterface.nextLevelText);
     renderText(UserInterface.trophyLevelText);
+
+    renderText(UserInterface.goldRequirementText);
+    renderText(UserInterface.silverRequirementText);
+    renderText(UserInterface.bronzeRequirementText);
   }
 
   void renderText(final Text text)
