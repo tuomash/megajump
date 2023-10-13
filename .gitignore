@@ -3,6 +3,7 @@
 out/
 build/
 dist/
+dist-zip/
 steam/
 inst/
 .project
