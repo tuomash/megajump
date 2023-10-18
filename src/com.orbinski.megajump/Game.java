@@ -112,11 +112,6 @@ class Game
     reset();
   }
 
-  void loadTextureReferences()
-  {
-    player.texture = Renderer.dwarfRight;
-  }
-
   void jump()
   {
     player.targeting = false;

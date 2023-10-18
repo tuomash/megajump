@@ -16,12 +16,13 @@ class Listener implements ApplicationListener
   @Override
   public void create()
   {
+    Resources.load();
+
     game = new Game();
     controller = new Controller(game);
     renderer = new Renderer(game);
     uiRenderer = new UIRenderer(game);
 
-    game.loadTextureReferences();
     UserInterface.create();
   }
 

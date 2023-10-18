@@ -98,13 +98,13 @@ class Player extends Entity
   void moveLeft()
   {
     velocityX = velocityX - 0.5f;
-    texture = Renderer.dwarfLeft;
+    texture = Resources.dwarfLeft;
   }
 
   void moveRight()
   {
     velocityX = velocityX + 0.5f;
-    texture = Renderer.dwarfRight;
+    texture = Resources.dwarfRight;
   }
 
   void moveDown()
@@ -190,6 +190,6 @@ class Player extends Entity
     setY(-30.0f);
     velocityX = 0.0f;
     velocityY = 0.0f;
-    texture = Renderer.dwarfRight;
+    texture = Resources.dwarfRight;
   }
 }
