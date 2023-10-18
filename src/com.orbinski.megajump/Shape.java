@@ -14,7 +14,6 @@ class Shape
 
   Type type;
   ShapeRenderer.ShapeType shapeType;
-  boolean render;
 
   Color color;
 

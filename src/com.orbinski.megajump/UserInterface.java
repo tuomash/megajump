@@ -6,6 +6,8 @@ class UserInterface
 {
   static final Help help = new Help();
 
+  static final Text pausedText = new Text();
+
   static final Text levelNameText = new Text();
   static final Text elapsedTimeText = new Text();
   static final Text bestTimeText = new Text();
@@ -22,38 +24,43 @@ class UserInterface
   {
     help.create();
 
+    pausedText.text = "PAUSED";
+    pausedText.setX(20);
+    pausedText.setY(280);
+    pausedText.font = Resources.font24White;
+
     levelNameText.setX(20);
     levelNameText.setY(40);
-    levelNameText.font = UIRenderer.font24White;
+    levelNameText.font = Resources.font24White;
 
     elapsedTimeText.text = "Elapsed:";
     elapsedTimeText.setX(20);
     elapsedTimeText.setY(80);
-    elapsedTimeText.font = UIRenderer.font24White;
+    elapsedTimeText.font = Resources.font24White;
 
     bestTimeText.text = "Best time:";
     bestTimeText.setX(20);
     bestTimeText.setY(120);
-    bestTimeText.font = UIRenderer.font24White;
+    bestTimeText.font = Resources.font24White;
 
     final int secondHelpX = 460;
 
     retryText.text = "Press R to retry";
     retryText.setX(secondHelpX);
     retryText.setY(40);
-    retryText.font = UIRenderer.font24White;
+    retryText.font = Resources.font24White;
     retryText.visible = false;
 
     nextLevelText.text = "Press N for next level";
     nextLevelText.setX(secondHelpX);
     nextLevelText.setY(80);
-    nextLevelText.font = UIRenderer.font24White;
+    nextLevelText.font = Resources.font24White;
     nextLevelText.visible = false;
 
     trophyLevelText.text = "Trophy:";
     trophyLevelText.setX(secondHelpX);
     trophyLevelText.setY(120);
-    trophyLevelText.font = UIRenderer.font24White;
+    trophyLevelText.font = Resources.font24White;
     trophyLevelText.visible = true;
 
     final int thirdHelpX = 860;
@@ -61,19 +68,19 @@ class UserInterface
     goldRequirementText.text = "Gold:";
     goldRequirementText.setX(thirdHelpX);
     goldRequirementText.setY(120);
-    goldRequirementText.font = UIRenderer.font24White;
+    goldRequirementText.font = Resources.font24White;
     goldRequirementText.visible = true;
 
     silverRequirementText.text = "Silver:";
     silverRequirementText.setX(thirdHelpX);
     silverRequirementText.setY(80);
-    silverRequirementText.font = UIRenderer.font24White;
+    silverRequirementText.font = Resources.font24White;
     silverRequirementText.visible = true;
 
     bronzeRequirementText.text = "Bronze:";
     bronzeRequirementText.setX(thirdHelpX);
     bronzeRequirementText.setY(40);
-    bronzeRequirementText.font = UIRenderer.font24White;
+    bronzeRequirementText.font = Resources.font24White;
     bronzeRequirementText.visible = true;
   }
 

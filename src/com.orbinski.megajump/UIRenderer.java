@@ -1,25 +1,19 @@
 package com.orbinski.megajump;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.io.File;
-
 class UIRenderer
 {
-  static BitmapFont font24White;
-
   final Game game;
   final OrthographicCamera camera;
   final Viewport viewport;
-  final ShapeRenderer shapeRenderer;
   final SpriteBatch spriteBatch;
+
+  final Text[] texts = new Text[50];
+  int textIndex = -1;
 
   UIRenderer(final Game game)
   {
@@ -32,77 +26,87 @@ class UIRenderer
 
     spriteBatch = new SpriteBatch();
     spriteBatch.setProjectionMatrix(camera.combined);
-
-    shapeRenderer = new ShapeRenderer();
-    shapeRenderer.setProjectionMatrix(camera.combined);
-    shapeRenderer.setAutoShapeType(true);
-
-    final File file = new File(System.getProperty("user.dir")
-                        + File.separator
-                        + "graphics"
-                        + File.separator
-                        + "lunchds.ttf");
-    final FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(file.getAbsolutePath()));
-    final FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    parameter.size = 24;
-    parameter.color = com.badlogic.gdx.graphics.Color.WHITE;
-    font24White = generator.generateFont(parameter);
   }
 
   void render()
   {
     viewport.apply();
-    shapeRenderer.setProjectionMatrix(camera.combined);
     spriteBatch.setProjectionMatrix(camera.combined);
+
+    textIndex = -1;
 
     if (game.help)
     {
-      renderHelp();
+      addHelpTexts();
     }
     else
     {
       if (game.paused)
       {
-        spriteBatch.begin();
-        font24White.draw(spriteBatch, "PAUSED", 20, 280);
-        spriteBatch.end();
+        addText(UserInterface.pausedText);
       }
 
-      renderText(UserInterface.levelNameText);
-      renderText(UserInterface.elapsedTimeText);
-      renderText(UserInterface.bestTimeText);
+      addText(UserInterface.levelNameText);
+      addText(UserInterface.elapsedTimeText);
+      addText(UserInterface.bestTimeText);
 
-      renderText(UserInterface.retryText);
-      renderText(UserInterface.nextLevelText);
-      renderText(UserInterface.trophyLevelText);
+      addText(UserInterface.retryText);
+      addText(UserInterface.nextLevelText);
+      addText(UserInterface.trophyLevelText);
 
-      renderText(UserInterface.goldRequirementText);
-      renderText(UserInterface.silverRequirementText);
-      renderText(UserInterface.bronzeRequirementText);
+      addText(UserInterface.goldRequirementText);
+      addText(UserInterface.silverRequirementText);
+      addText(UserInterface.bronzeRequirementText);
     }
+
+    renderTexts();
   }
 
-  void renderHelp()
+  void addHelpTexts()
   {
     for (int i = 0; i < UserInterface.help.texts.size(); i++)
     {
       final Text text = UserInterface.help.texts.get(i);
-      renderText(text);
+      addText(text);
     }
   }
 
-  void renderText(final Text text)
+  void addText(final Text text)
   {
-    if (text != null && text.visible && text.font != null && text.text != null && !text.text.isEmpty())
+    textIndex++;
+
+    if (textIndex >= texts.length)
     {
-      renderUIElement(text);
-      spriteBatch.begin();
-      text.font.draw(spriteBatch,
-                     text.text,
-                     text.getX(),
-                     text.getY());
-      spriteBatch.end();
+      textIndex = texts.length - 1;
     }
+
+    texts[textIndex] = text;
+  }
+
+  void renderTexts()
+  {
+    if (textIndex == -1)
+    {
+      return;
+    }
+
+    spriteBatch.begin();
+
+    for (int i = 0; i <= textIndex; i++)
+    {
+      final Text text =  texts[i];
+
+      if (text != null && text.visible && text.font != null && text.text != null && !text.text.isEmpty())
+      {
+        text.font.draw(spriteBatch,
+                       text.text,
+                       text.getX(),
+                       text.getY());
+
+      }
+    }
+
+    spriteBatch.end();
   }
 
   void renderUIElement(final UIElement element)

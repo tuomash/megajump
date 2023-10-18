@@ -9,8 +9,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.Arrays;
-
 import static com.orbinski.megajump.Globals.WORLD_HEIGHT;
 import static com.orbinski.megajump.Globals.WORLD_WIDTH;
 
@@ -25,10 +23,10 @@ class Renderer
   final ShapeRenderer shapeRenderer;
 
   final Entity[] entities = new Entity[1000];
-  int entityIndex = 0;
+  int entityIndex = -1;
 
   final Shape[] shapes = new Shape[1000];
-  int shapeIndex = 0;
+  int shapeIndex = -1;
 
   Renderer(final Game game)
   {
@@ -57,8 +55,8 @@ class Renderer
   {
     ScreenUtils.clear(Color.BLACK);
 
-    clearEntities();
-    clearShapes();
+    entityIndex = -1;
+    shapeIndex = -1;
 
     viewport.apply();
     spriteBatch.setProjectionMatrix(camera.combined);
@@ -126,11 +124,7 @@ class Renderer
   void addPlayer()
   {
     final Player player = game.player;
-
-    if (player.texture != null)
-    {
-      addEntity(player);
-    }
+    addEntity(player);
 
     if (player.drawBorder)
     {
@@ -176,44 +170,41 @@ class Renderer
   {
     if (entity != null && entity.texture != null)
     {
-      entities[entityIndex] = entity;
       entityIndex++;
+
+      if (entityIndex >= entities.length)
+      {
+        entityIndex = entities.length - 1;
+      }
+
+      entities[entityIndex] = entity;
     }
   }
 
   void renderEntities()
   {
-    if (entityIndex == 0)
+    if (entityIndex == -1)
     {
       return;
     }
 
     spriteBatch.begin();
 
-    for (int i = 0; i < entities.length; i++)
+    for (int i = 0; i <= entityIndex; i++)
     {
       final Entity entity = entities[i];
 
-      // Reached end
-      if (entity == null)
+      if (entity != null && entity.visible)
       {
-        break;
+        spriteBatch.draw(entity.texture,
+                         entity.getBottomLeftCornerX(),
+                         entity.getBottomLeftCornerY(),
+                         entity.getWidth(),
+                         entity.getHeight());
       }
-
-      spriteBatch.draw(entity.texture,
-                       entity.getBottomLeftCornerX(),
-                       entity.getBottomLeftCornerY(),
-                       entity.getWidth(),
-                       entity.getHeight());
     }
 
     spriteBatch.end();
-  }
-
-  void clearEntities()
-  {
-    Arrays.fill(entities, null);
-    entityIndex = 0;
   }
 
   void addQuad(final float x,
@@ -222,6 +213,13 @@ class Renderer
                final float height,
                final Color color)
   {
+    shapeIndex++;
+
+    if (shapeIndex >= shapes.length)
+    {
+      shapeIndex = shapes.length - 1;
+    }
+
     final Shape shape = shapes[shapeIndex];
     shape.type = Shape.Type.QUAD;
     shape.shapeType = ShapeRenderer.ShapeType.Line;
@@ -230,9 +228,6 @@ class Renderer
     shape.y = y;
     shape.width = width;
     shape.height = height;
-    shape.render = true;
-
-    shapeIndex++;
   }
 
   void addFilledQuad(final float x,
@@ -241,6 +236,13 @@ class Renderer
                      final float height,
                      final Color color)
   {
+    shapeIndex++;
+
+    if (shapeIndex >= shapes.length)
+    {
+      shapeIndex = shapes.length - 1;
+    }
+
     final Shape shape = shapes[shapeIndex];
     shape.type = Shape.Type.FILLED_QUAD;
     shape.shapeType = ShapeRenderer.ShapeType.Filled;
@@ -249,9 +251,6 @@ class Renderer
     shape.y = y;
     shape.width = width;
     shape.height = height;
-    shape.render = true;
-
-    shapeIndex++;
   }
 
   void addLine(final float x1,
@@ -260,6 +259,13 @@ class Renderer
                final float y2,
                final Color color)
   {
+    shapeIndex++;
+
+    if (shapeIndex >= shapes.length)
+    {
+      shapeIndex = shapes.length - 1;
+    }
+
     final Shape shape = shapes[shapeIndex];
     shape.type = Shape.Type.LINE;
     shape.shapeType = ShapeRenderer.ShapeType.Line;
@@ -268,53 +274,38 @@ class Renderer
     shape.y1 = y1;
     shape.x2 = x2;
     shape.y2 = y2;
-    shape.render = true;
-
-    shapeIndex++;
   }
 
   void renderShapes()
   {
-    if (shapeIndex == 0)
+    if (shapeIndex == -1)
     {
       return;
     }
 
     shapeRenderer.begin();
 
-    for (int i = 0; i < shapes.length; i++)
+    for (int i = 0; i <= shapeIndex; i++)
     {
       final Shape shape = shapes[i];
 
-      if (!shape.render)
+      if (shape != null)
       {
-        break;
-      }
+        shapeRenderer.setColor(shape.color.r, shape.color.g, shape.color.b, shape.color.a);
+        shapeRenderer.set(shape.shapeType);
 
-      shapeRenderer.setColor(shape.color.r, shape.color.g, shape.color.b, shape.color.a);
-      shapeRenderer.set(shape.shapeType);
-
-      if (shape.type == Shape.Type.QUAD || shape.type == Shape.Type.FILLED_QUAD)
-      {
-        shapeRenderer.rect(shape.x, shape.y, shape.width, shape.height);
-      }
-      else if (shape.type == Shape.Type.LINE)
-      {
-        shapeRenderer.line(shape.x1, shape.y1, shape.x2, shape.y2);
+        if (shape.type == Shape.Type.QUAD || shape.type == Shape.Type.FILLED_QUAD)
+        {
+          shapeRenderer.rect(shape.x, shape.y, shape.width, shape.height);
+        }
+        else if (shape.type == Shape.Type.LINE)
+        {
+          shapeRenderer.line(shape.x1, shape.y1, shape.x2, shape.y2);
+        }
       }
     }
 
     shapeRenderer.end();
-  }
-
-  void clearShapes()
-  {
-    for (int i = 0; i < shapes.length; i++)
-    {
-      shapes[i].render = false;
-    }
-
-    shapeIndex = 0;
   }
 
   void dispose()

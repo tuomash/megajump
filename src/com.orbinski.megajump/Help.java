@@ -20,7 +20,7 @@ class Help
   {
     final Text textObj = new Text();
     textObj.text = text;
-    textObj.font = UIRenderer.font24White;
+    textObj.font = Resources.font24White;
     textObj.setX(x);
     textObj.setY(y);
     texts.add(textObj);
