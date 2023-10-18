@@ -22,7 +22,7 @@ class Player extends Entity
     rightSide.width = 0.5f;
     rightSide.height = getHeight() * 0.75f;
 
-    bottomSide.width = getWidth() * 0.5f;
+    bottomSide.width = getWidth() * 0.8f;
     bottomSide.height = 0.5f;
   }
 

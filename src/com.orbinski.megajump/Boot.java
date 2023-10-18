@@ -11,7 +11,7 @@ class Boot
     config.setMaximized(true);
     config.setTitle("Orndorf's Megajump");
     config.setForegroundFPS(60);
-    config.setIdleFPS(60);
+    config.setIdleFPS(30);
 
     for (int i = 0; i < args.length; i++)
     {

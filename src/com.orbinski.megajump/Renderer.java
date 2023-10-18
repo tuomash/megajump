@@ -194,7 +194,7 @@ class Renderer
     {
       final Entity entity = entities[i];
 
-      if (entity != null && entity.visible)
+      if (entity != null && entity.texture != null && entity.visible)
       {
         spriteBatch.draw(entity.texture,
                          entity.getBottomLeftCornerX(),
