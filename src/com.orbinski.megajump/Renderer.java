@@ -23,7 +23,6 @@ class Renderer
   final OrthographicCamera camera;
   final SpriteBatch spriteBatch;
   final ShapeRenderer shapeRenderer;
-  final Color background;
 
   final Entity[] entities = new Entity[1000];
   int entityIndex = 0;
@@ -48,8 +47,6 @@ class Renderer
     shapeRenderer.setProjectionMatrix(camera.combined);
     shapeRenderer.setAutoShapeType(true);
 
-    background = new Color(173.0f / 255.0f, 216.0f / 255.0f, 230.0f / 255.0f, 1.0f);
-
     for (int i = 0; i < shapes.length; i++)
     {
       shapes[i] = new Shape();
@@ -64,30 +61,30 @@ class Renderer
     clearShapes();
 
     viewport.apply();
-    shapeRenderer.setProjectionMatrix(camera.combined);
     spriteBatch.setProjectionMatrix(camera.combined);
+    shapeRenderer.setProjectionMatrix(camera.combined);
 
     if (game.help)
     {
       return;
     }
 
-    renderDoor();
-    renderBlocks();
-    renderDecorations();
-    renderTrampolines();
-    renderPlayer();
+    addDoor();
+    addBlocks();
+    addDecorations();
+    addTrampolines();
+    addPlayer();
 
     renderEntities();
     renderShapes();
   }
 
-  void renderDoor()
+  void addDoor()
   {
     addEntity(game.level.door);
   }
 
-  void renderBlocks()
+  void addBlocks()
   {
     for (int i = 0; i < game.level.blocks.size(); i++)
     {
@@ -105,7 +102,7 @@ class Renderer
     }
   }
 
-  void renderDecorations()
+  void addDecorations()
   {
     for (int i = 0; i < game.level.decorations.size(); i++)
     {
@@ -113,23 +110,20 @@ class Renderer
     }
   }
 
-  void renderTrampolines()
+  void addTrampolines()
   {
-    if (!game.level.trampolines.isEmpty())
+    for (int i = 0; i < game.level.trampolines.size(); i++)
     {
-      for (int i = 0; i < game.level.trampolines.size(); i++)
-      {
-        final Trampoline trampoline = game.level.trampolines.get(i);
-        addFilledQuad(trampoline.getBottomLeftCornerX(),
-                      trampoline.getBottomLeftCornerY(),
-                      trampoline.getWidth(),
-                      trampoline.getHeight(),
-                      Color.BLUE);
-      }
+      final Trampoline trampoline = game.level.trampolines.get(i);
+      addFilledQuad(trampoline.getBottomLeftCornerX(),
+                    trampoline.getBottomLeftCornerY(),
+                    trampoline.getWidth(),
+                    trampoline.getHeight(),
+                    Color.BLUE);
     }
   }
 
-  void renderPlayer()
+  void addPlayer()
   {
     final Player player = game.player;
 
@@ -230,6 +224,7 @@ class Renderer
   {
     final Shape shape = shapes[shapeIndex];
     shape.type = Shape.Type.QUAD;
+    shape.shapeType = ShapeRenderer.ShapeType.Line;
     shape.color = color;
     shape.x = x;
     shape.y = y;
@@ -248,6 +243,7 @@ class Renderer
   {
     final Shape shape = shapes[shapeIndex];
     shape.type = Shape.Type.FILLED_QUAD;
+    shape.shapeType = ShapeRenderer.ShapeType.Filled;
     shape.color = color;
     shape.x = x;
     shape.y = y;
@@ -266,6 +262,7 @@ class Renderer
   {
     final Shape shape = shapes[shapeIndex];
     shape.type = Shape.Type.LINE;
+    shape.shapeType = ShapeRenderer.ShapeType.Line;
     shape.color = color;
     shape.x1 = x1;
     shape.y1 = y1;
@@ -295,6 +292,7 @@ class Renderer
       }
 
       shapeRenderer.setColor(shape.color.r, shape.color.g, shape.color.b, shape.color.a);
+      shapeRenderer.set(shape.shapeType);
 
       if (shape.type == Shape.Type.QUAD || shape.type == Shape.Type.FILLED_QUAD)
       {

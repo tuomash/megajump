@@ -1,6 +1,7 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 class Shape
 {
@@ -12,6 +13,7 @@ class Shape
   }
 
   Type type;
+  ShapeRenderer.ShapeType shapeType;
   boolean render;
 
   Color color;
