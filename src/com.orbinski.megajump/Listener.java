@@ -31,6 +31,9 @@ class Listener implements ApplicationListener
   {
     renderer.viewport.update(width, height);
     uiRenderer.viewport.update(width, height, true);
+    screenWidth = width;
+    screenHeight = height;
+    UserInterface.layout();
   }
 
   @Override

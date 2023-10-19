@@ -12,5 +12,9 @@ class Globals
 
   static final Random random = new Random();
 
+  static int screenWidth;
+  static int screenHeight;
+
   static boolean debug;
+  static boolean watermark;
 }

@@ -19,6 +19,11 @@ class Boot
       {
         Globals.debug = true;
       }
+
+      if (args[i].equalsIgnoreCase("watermark"))
+      {
+        Globals.watermark = true;
+      }
     }
 
     try

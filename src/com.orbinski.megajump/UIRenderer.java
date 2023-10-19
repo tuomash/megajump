@@ -41,6 +41,11 @@ class UIRenderer
     }
     else
     {
+      if (Globals.watermark)
+      {
+        addText(UserInterface.waterMarkText);
+      }
+
       if (game.paused)
       {
         addText(UserInterface.pausedText);

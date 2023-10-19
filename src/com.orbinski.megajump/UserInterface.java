@@ -6,6 +6,8 @@ class UserInterface
 {
   static final Help help = new Help();
 
+  static final Text waterMarkText = new Text();
+
   static final Text pausedText = new Text();
 
   static final Text levelNameText = new Text();
@@ -23,6 +25,11 @@ class UserInterface
   static void create()
   {
     help.create();
+
+    waterMarkText.text = "Alpha Footage";
+    waterMarkText.setX(20);
+    waterMarkText.setY(Globals.screenHeight);
+    waterMarkText.font = Resources.font24White;
 
     pausedText.text = "PAUSED";
     pausedText.setX(20);
@@ -82,6 +89,11 @@ class UserInterface
     bronzeRequirementText.setY(40);
     bronzeRequirementText.font = Resources.font24White;
     bronzeRequirementText.visible = true;
+  }
+
+  static void layout()
+  {
+    waterMarkText.setY(Globals.screenHeight - 20);
   }
 
   static void updateLevelNameText(final String levelName)
