@@ -71,6 +71,10 @@
                verbose="no">
         </javac>
 
+        <copy todir="${dist}">
+            <file name="assets.txt"/>
+        </copy>
+
         <copy todir="${dist}/graphics">
             <fileset dir="graphics" includes="**"/>
         </copy>
