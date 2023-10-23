@@ -35,6 +35,8 @@ class Level
   boolean moveCameraX;
   boolean moveCameraY;
 
+  float base;
+
   Level()
   {
     setTrophy(Trophy.NONE);

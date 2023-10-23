@@ -245,6 +245,35 @@ class Levels
       final Trampoline trampoline3 = new Trampoline(95.0f, -25.0f, 5.0f, 1.5f);
       level.trampolines.add(trampoline3);
     }
+
+    {
+      final Level level = new Level();
+      level.moveCameraX = true;
+      level.moveCameraY = true;
+      level.name = "Trampoline 4";
+      level.goldTimeInMilliseconds = 10000;
+      level.silverTimeInMilliseconds = 12000;
+      level.bronzeTimeInMilliseconds = 15000;
+
+      final Trampoline trampoline1 = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline1);
+
+      final Trampoline trampoline2 = new Trampoline(45.0f, 0.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline2);
+
+      final Trampoline trampoline3 = new Trampoline(95.0f, 25.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline3);
+
+      final Trampoline trampoline4 = new Trampoline(145.0f, 50.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline4);
+
+      final Trampoline trampoline5 = new Trampoline(195.0f, 75.0f, 5.0f, 1.5f);
+      level.trampolines.add(trampoline5);
+
+      final Door door = new Door(265.0f, 110.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+    }
   }
 
   void selectPreviousLevel()
