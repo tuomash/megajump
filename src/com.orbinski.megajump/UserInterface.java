@@ -51,7 +51,7 @@ class UserInterface
 
   static void layout(final int width, final int height)
   {
-    System.out.println(width + "x" + height);
+    // System.out.println(width + "x" + height);
 
     for (int i = 0; i < texts.size(); i++)
     {
@@ -77,21 +77,21 @@ class UserInterface
 
       pausedText.setPosition(20, 280);
 
-      levelNameText.setPosition(20, 40);
-      elapsedTimeText.setPosition(20, 80);
-      bestTimeText.setPosition(20, 120);
+      levelNameText.setPosition(20, 20);
+      elapsedTimeText.setPosition(20, 40);
+      bestTimeText.setPosition(20, 60);
 
       final int secondHelpX = 260;
 
-      retryText.setPosition(secondHelpX, 40);
-      nextLevelText.setPosition(secondHelpX, 80);
-      trophyLevelText.setPosition(secondHelpX, 120);
+      retryText.setPosition(secondHelpX, 20);
+      nextLevelText.setPosition(secondHelpX, 40);
+      trophyLevelText.setPosition(secondHelpX, 60);
 
       final int thirdHelpX = 520;
 
-      goldRequirementText.setPosition(thirdHelpX, 120);
-      silverRequirementText.setPosition(thirdHelpX, 80);
-      bronzeRequirementText.setPosition(thirdHelpX, 40);
+      bronzeRequirementText.setPosition(thirdHelpX, 20);
+      silverRequirementText.setPosition(thirdHelpX, 40);
+      goldRequirementText.setPosition(thirdHelpX, 60);
     }
     else if (width <= 1920 && height <= 1080)
     {
@@ -99,21 +99,21 @@ class UserInterface
 
       pausedText.setPosition(20, 280);
 
-      levelNameText.setPosition(20, 40);
-      elapsedTimeText.setPosition(20, 80);
-      bestTimeText.setPosition(20, 120);
+      levelNameText.setPosition(20, 30);
+      elapsedTimeText.setPosition(20, 60);
+      bestTimeText.setPosition(20, 90);
 
       final int secondHelpX = 360;
 
-      retryText.setPosition(secondHelpX, 40);
-      nextLevelText.setPosition(secondHelpX, 80);
-      trophyLevelText.setPosition(secondHelpX, 120);
+      retryText.setPosition(secondHelpX, 30);
+      nextLevelText.setPosition(secondHelpX, 60);
+      trophyLevelText.setPosition(secondHelpX, 90);
 
       final int thirdHelpX = 660;
 
-      goldRequirementText.setPosition(thirdHelpX, 120);
-      silverRequirementText.setPosition(thirdHelpX, 80);
-      bronzeRequirementText.setPosition(thirdHelpX, 40);
+      bronzeRequirementText.setPosition(thirdHelpX, 30);
+      silverRequirementText.setPosition(thirdHelpX, 60);
+      goldRequirementText.setPosition(thirdHelpX, 90);
     }
     else
     {
