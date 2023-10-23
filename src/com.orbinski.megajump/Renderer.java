@@ -12,7 +12,7 @@ import static com.orbinski.megajump.Globals.*;
 
 class Renderer
 {
-  static Viewport staticViewport;
+  private static Viewport staticViewport;
 
   final Game game;
   final Viewport viewport;

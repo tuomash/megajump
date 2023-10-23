@@ -35,7 +35,7 @@ class Level
   boolean moveCameraX;
   boolean moveCameraY;
 
-  float base;
+  float floor;
 
   Level()
   {
