@@ -25,13 +25,13 @@ class UIRenderer
     viewport = new ScreenViewport(camera);
 
     spriteBatch = new SpriteBatch();
-    spriteBatch.setProjectionMatrix(camera.combined);
+    spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
   }
 
   void render()
   {
     viewport.apply();
-    spriteBatch.setProjectionMatrix(camera.combined);
+    spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
 
     textIndex = -1;
 

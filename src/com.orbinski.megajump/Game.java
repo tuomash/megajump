@@ -1,9 +1,13 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
+import static com.orbinski.megajump.Globals.*;
 
 class Game
 {
+  final OrthographicCamera camera;
   final Player player;
   final Levels levels;
   final CameraState cameraState;
@@ -14,6 +18,8 @@ class Game
 
   Game()
   {
+    camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
+    camera.update();
     player = new Player();
     levels = new Levels();
     cameraState = new CameraState();
@@ -50,7 +56,7 @@ class Game
         camera.position.x = camera.position.x + delta * player.velocityX;
       }
 
-      if (level.moveCameraY)
+      if (level.moveCameraY && player.getY() > 27.5f)
       {
         camera.position.y = camera.position.y + delta * player.velocityY;
       }
@@ -92,7 +98,6 @@ class Game
     }
     else if (player.moving)
     {
-      final Camera camera = Renderer.staticViewport.getCamera();
       // camera.position.x = player.getX() + 10.0f;
       // camera.position.y = player.getY() + 10.0f;
     }
@@ -124,12 +129,11 @@ class Game
     player.reset();
     cameraState.reset();
 
-    if (Renderer.staticViewport != null)
-    {
-      final Camera camera = Renderer.staticViewport.getCamera();
-      camera.position.x = 0.0f;
-      camera.position.y = 0.0f;
-    }
+    camera.position.x = 0.0f;
+    camera.position.y = 0.0f;
+
+    camera.position.x = player.getX() + 69.0f;
+    camera.position.y = player.getY() + 30.0f;
 
     if (level != null)
     {

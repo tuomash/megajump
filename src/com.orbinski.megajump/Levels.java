@@ -209,6 +209,8 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Trampoline 2";
+      level.moveCameraX = true;
+      level.moveCameraY = true;
       level.goldTimeInMilliseconds = 3200;
       level.silverTimeInMilliseconds = 3600;
       level.bronzeTimeInMilliseconds = 5000;

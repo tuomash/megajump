@@ -1,7 +1,6 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -9,8 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import static com.orbinski.megajump.Globals.WORLD_HEIGHT;
-import static com.orbinski.megajump.Globals.WORLD_WIDTH;
+import static com.orbinski.megajump.Globals.*;
 
 class Renderer
 {
@@ -18,7 +16,6 @@ class Renderer
 
   final Game game;
   final Viewport viewport;
-  final OrthographicCamera camera;
   final SpriteBatch spriteBatch;
   final ShapeRenderer shapeRenderer;
 
@@ -32,17 +29,14 @@ class Renderer
   {
     this.game = game;
 
-    camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
-    camera.update();
-
-    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+    viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, game.camera);
     staticViewport = viewport;
 
     spriteBatch = new SpriteBatch();
-    spriteBatch.setProjectionMatrix(camera.combined);
+    spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
 
     shapeRenderer = new ShapeRenderer();
-    shapeRenderer.setProjectionMatrix(camera.combined);
+    shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
     shapeRenderer.setAutoShapeType(true);
 
     for (int i = 0; i < shapes.length; i++)
@@ -59,8 +53,8 @@ class Renderer
     shapeIndex = -1;
 
     viewport.apply();
-    spriteBatch.setProjectionMatrix(camera.combined);
-    shapeRenderer.setProjectionMatrix(camera.combined);
+    spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
+    shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
 
     if (game.help)
     {
