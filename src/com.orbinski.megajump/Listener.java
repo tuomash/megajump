@@ -17,13 +17,12 @@ class Listener implements ApplicationListener
   public void create()
   {
     Resources.load();
+    UserInterface.create();
 
     game = new Game();
     controller = new Controller(game);
     renderer = new Renderer(game);
     uiRenderer = new UIRenderer(game);
-
-    UserInterface.create();
   }
 
   @Override
@@ -33,7 +32,7 @@ class Listener implements ApplicationListener
     uiRenderer.viewport.update(width, height, true);
     screenWidth = width;
     screenHeight = height;
-    UserInterface.layout();
+    UserInterface.layout(width, height);
   }
 
   @Override

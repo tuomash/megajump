@@ -1,99 +1,152 @@
 package com.orbinski.megajump;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.orbinski.megajump.MathUtils.*;
 
 class UserInterface
 {
   static final Help help = new Help();
+  private static final List<Text> texts = new ArrayList<>();
 
-  static final Text waterMarkText = new Text();
+  static Text waterMarkText;
 
-  static final Text pausedText = new Text();
+  static Text pausedText;
 
-  static final Text levelNameText = new Text();
-  static final Text elapsedTimeText = new Text();
-  static final Text bestTimeText = new Text();
+  static Text levelNameText;
+  static Text elapsedTimeText;
+  static Text bestTimeText;
 
-  static final Text retryText = new Text();
-  static final Text nextLevelText = new Text();
-  static final Text trophyLevelText = new Text();
+  static Text retryText;
+  static Text nextLevelText;
+  static Text trophyLevelText;
 
-  static final Text goldRequirementText = new Text();
-  static final Text silverRequirementText = new Text();
-  static final Text bronzeRequirementText = new Text();
+  static Text goldRequirementText;
+  static Text silverRequirementText;
+  static Text bronzeRequirementText;
 
   static void create()
   {
     help.create();
 
-    waterMarkText.text = "Alpha Footage";
-    waterMarkText.setX(20);
-    waterMarkText.setY(Globals.screenHeight);
-    waterMarkText.font = Resources.font24White;
+    waterMarkText = createText("Alpha Footage");
 
-    pausedText.text = "PAUSED";
-    pausedText.setX(20);
-    pausedText.setY(280);
-    pausedText.font = Resources.font24White;
+    pausedText = createText("PAUSED");
 
-    levelNameText.setX(20);
-    levelNameText.setY(40);
-    levelNameText.font = Resources.font24White;
+    levelNameText = createText(null);
+    elapsedTimeText = createText("Elapsed:");
+    bestTimeText = createText("Best time:");
 
-    elapsedTimeText.text = "Elapsed:";
-    elapsedTimeText.setX(20);
-    elapsedTimeText.setY(80);
-    elapsedTimeText.font = Resources.font24White;
-
-    bestTimeText.text = "Best time:";
-    bestTimeText.setX(20);
-    bestTimeText.setY(120);
-    bestTimeText.font = Resources.font24White;
-
-    final int secondHelpX = 460;
-
-    retryText.text = "Press R to retry";
-    retryText.setX(secondHelpX);
-    retryText.setY(40);
-    retryText.font = Resources.font24White;
+    retryText = createText("Press R to retry");
     retryText.visible = false;
-
-    nextLevelText.text = "Press N for next level";
-    nextLevelText.setX(secondHelpX);
-    nextLevelText.setY(80);
-    nextLevelText.font = Resources.font24White;
+    nextLevelText = createText("Press N for next level");
     nextLevelText.visible = false;
+    trophyLevelText = createText("Trophy:");
 
-    trophyLevelText.text = "Trophy:";
-    trophyLevelText.setX(secondHelpX);
-    trophyLevelText.setY(120);
-    trophyLevelText.font = Resources.font24White;
-    trophyLevelText.visible = true;
-
-    final int thirdHelpX = 860;
-
-    goldRequirementText.text = "Gold:";
-    goldRequirementText.setX(thirdHelpX);
-    goldRequirementText.setY(120);
-    goldRequirementText.font = Resources.font24White;
-    goldRequirementText.visible = true;
-
-    silverRequirementText.text = "Silver:";
-    silverRequirementText.setX(thirdHelpX);
-    silverRequirementText.setY(80);
-    silverRequirementText.font = Resources.font24White;
-    silverRequirementText.visible = true;
-
-    bronzeRequirementText.text = "Bronze:";
-    bronzeRequirementText.setX(thirdHelpX);
-    bronzeRequirementText.setY(40);
-    bronzeRequirementText.font = Resources.font24White;
-    bronzeRequirementText.visible = true;
+    goldRequirementText = createText("Gold:");
+    silverRequirementText = createText("Silver:");
+    bronzeRequirementText = createText("Bronze:");
   }
 
-  static void layout()
+  static void layout(final int width, final int height)
   {
-    waterMarkText.setY(Globals.screenHeight - 20);
+    System.out.println(width + "x" + height);
+
+    for (int i = 0; i < texts.size(); i++)
+    {
+      final Text text = texts.get(i);
+
+      if (width <= 1360 && height <= 768)
+      {
+        text.font = Resources.font14White;
+      }
+      else if (width <= 1920 && height <= 1080)
+      {
+        text.font = Resources.font18White;
+      }
+      else
+      {
+        text.font = Resources.font24White;
+      }
+    }
+
+    if (width <= 1360 && height <= 768)
+    {
+      waterMarkText.setPosition(20, height - 20);
+
+      pausedText.setPosition(20, 280);
+
+      levelNameText.setPosition(20, 40);
+      elapsedTimeText.setPosition(20, 80);
+      bestTimeText.setPosition(20, 120);
+
+      final int secondHelpX = 260;
+
+      retryText.setPosition(secondHelpX, 40);
+      nextLevelText.setPosition(secondHelpX, 80);
+      trophyLevelText.setPosition(secondHelpX, 120);
+
+      final int thirdHelpX = 520;
+
+      goldRequirementText.setPosition(thirdHelpX, 120);
+      silverRequirementText.setPosition(thirdHelpX, 80);
+      bronzeRequirementText.setPosition(thirdHelpX, 40);
+    }
+    else if (width <= 1920 && height <= 1080)
+    {
+      waterMarkText.setPosition(20, height - 20);
+
+      pausedText.setPosition(20, 280);
+
+      levelNameText.setPosition(20, 40);
+      elapsedTimeText.setPosition(20, 80);
+      bestTimeText.setPosition(20, 120);
+
+      final int secondHelpX = 360;
+
+      retryText.setPosition(secondHelpX, 40);
+      nextLevelText.setPosition(secondHelpX, 80);
+      trophyLevelText.setPosition(secondHelpX, 120);
+
+      final int thirdHelpX = 660;
+
+      goldRequirementText.setPosition(thirdHelpX, 120);
+      silverRequirementText.setPosition(thirdHelpX, 80);
+      bronzeRequirementText.setPosition(thirdHelpX, 40);
+    }
+    else
+    {
+      waterMarkText.setPosition(20, height - 20);
+
+      pausedText.setPosition(20, 280);
+
+      levelNameText.setPosition(20, 40);
+      elapsedTimeText.setPosition(20, 80);
+      bestTimeText.setPosition(20, 120);
+
+      final int secondHelpX = 460;
+
+      retryText.setPosition(secondHelpX, 40);
+      nextLevelText.setPosition(secondHelpX, 80);
+      trophyLevelText.setPosition(secondHelpX, 120);
+
+      final int thirdHelpX = 860;
+
+      goldRequirementText.setPosition(thirdHelpX, 120);
+      silverRequirementText.setPosition(thirdHelpX, 80);
+      bronzeRequirementText.setPosition(thirdHelpX, 40);
+    }
+  }
+
+  private static Text createText(final String text)
+  {
+    final Text textObj = new Text();
+    textObj.text = text;
+    textObj.font = Resources.font24White;
+    textObj.visible = true;
+    texts.add(textObj);
+    return textObj;
   }
 
   static void updateLevelNameText(final String levelName)

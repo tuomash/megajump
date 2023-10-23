@@ -72,6 +72,12 @@ abstract class UIElement
     return contains(this, x, y);
   }
 
+  void setPosition(final int x, final int y)
+  {
+    setX(x);
+    setY(y);
+  }
+
   int getX()
   {
     return x;
