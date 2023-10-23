@@ -56,9 +56,12 @@ class Game
         camera.position.x = camera.position.x + delta * player.velocityX;
       }
 
-      if (level.moveCameraY && player.getY() > (27.5f + level.base))
+      if (level.moveCameraY)
       {
-        camera.position.y = camera.position.y + delta * player.velocityY;
+        if (player.getY() > (27.5f + level.base))
+        {
+          camera.position.y = camera.position.y + delta * player.velocityY + delta * 1.5f;
+        }
       }
     }
     else
