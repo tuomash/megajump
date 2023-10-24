@@ -17,6 +17,10 @@ class Resources
   static MTexture door;
   static MTexture block;
   static MTexture candle;
+  static MTexture playerJumpRightAscend;
+  static MTexture playerJumpRightMax;
+  static MTexture playerJumpRightDescend;
+
   static List<MTexture> playerIdleRight;
 
   static BitmapFont font24White;
@@ -44,6 +48,24 @@ class Resources
         texture.srcHeight = 48;
         playerIdleRight.add(texture);
       }
+    }
+
+    {
+      final List<MTexture> textures = new ArrayList<>();
+      final MTexture root = loadTexture("player-jump-right.png");
+
+      for (int i = 0; i < 3; i++)
+      {
+        final MTexture texture = root.copy();
+        texture.srcX = i * 48;
+        texture.srcWidth = 48;
+        texture.srcHeight = 48;
+        textures.add(texture);
+      }
+
+      playerJumpRightAscend = textures.get(0);
+      playerJumpRightMax = textures.get(1);
+      playerJumpRightDescend = textures.get(2);
     }
 
     font24White = generateFont("lunchds.ttf", 24, Color.WHITE);

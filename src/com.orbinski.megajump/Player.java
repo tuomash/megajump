@@ -1,9 +1,16 @@
 package com.orbinski.megajump;
 
-import com.badlogic.gdx.graphics.Texture;
-
 class Player extends Entity
 {
+  enum State
+  {
+    IDLE,
+    IN_AIR,
+    LAND
+  }
+
+  State state;
+
   final float maxVelocityX = 70.0f;
   final float maxVelocityY = 80.0f;
   final float cursorWidth = 0.5f;
@@ -28,6 +35,7 @@ class Player extends Entity
     bottomSide.height = 0.5f;
 
     animation = Animations.playerIdleRight;
+    setState(State.IDLE);
   }
 
   void update(final float delta)
@@ -38,6 +46,22 @@ class Player extends Entity
     {
       animation.update(delta);
       texture = animation.getFrame().texture;
+    }
+
+    if (state == State.IN_AIR)
+    {
+      if (velocityY > 0.0f)
+      {
+        texture = Resources.playerJumpRightAscend;
+      }
+      else if (velocityY < 0.0f)
+      {
+        texture = Resources.playerJumpRightDescend;
+      }
+      else
+      {
+        texture = Resources.playerJumpRightMax;
+      }
     }
   }
 
@@ -97,6 +121,8 @@ class Player extends Entity
       {
         velocityY = -velocityY;
       }
+
+      setState(State.IN_AIR);
     }
   }
 
@@ -192,6 +218,14 @@ class Player extends Entity
     rightSide.height = height * 0.5f;
   }
 
+  public void setState(final State state)
+  {
+    if (state != null)
+    {
+      this.state = state;
+    }
+  }
+
   void reset()
   {
     moving = false;
@@ -200,6 +234,7 @@ class Player extends Entity
     setY(-30.0f);
     velocityX = 0.0f;
     velocityY = 0.0f;
+    setState(State.IDLE);
     animation = Animations.playerIdleRight;
   }
 }
