@@ -162,7 +162,7 @@ class Renderer
 
   void addEntity(final Entity entity)
   {
-    if (entity != null && entity.getTexture() != null)
+    if (entity != null && entity.texture != null)
     {
       entityIndex++;
 
@@ -188,32 +188,19 @@ class Renderer
     {
       final Entity entity = entities[i];
 
-      if (entity != null && entity.visible)
+      if (entity != null && entity.visible && entity.texture != null)
       {
-        if (entity.animation != null)
-        {
-          final AnimationFrame frame = entity.animation.getFrame();
-
-          spriteBatch.draw(frame.texture,
-                           entity.getBottomLeftCornerX(),
-                           entity.getBottomLeftCornerY(),
-                           entity.getWidth(),
-                           entity.getHeight(),
-                           frame.srcX,
-                           frame.srcY,
-                           frame.srcWidth,
-                           frame.srcHeight,
-                           false,
-                           false);
-        }
-        else if (entity.getTexture() != null)
-        {
-          spriteBatch.draw(entity.getTexture(),
-                           entity.getBottomLeftCornerX(),
-                           entity.getBottomLeftCornerY(),
-                           entity.getWidth(),
-                           entity.getHeight());
-        }
+        spriteBatch.draw(entity.texture.texture,
+                         entity.getBottomLeftCornerX(),
+                         entity.getBottomLeftCornerY(),
+                         entity.getWidth(),
+                         entity.getHeight(),
+                         entity.texture.srcX,
+                         entity.texture.srcY,
+                         entity.texture.srcWidth,
+                         entity.texture.srcHeight,
+                         false,
+                         false);
       }
     }
 

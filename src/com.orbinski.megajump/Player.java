@@ -37,6 +37,7 @@ class Player extends Entity
     if (animation != null)
     {
       animation.update(delta);
+      texture = animation.getFrame().texture;
     }
   }
 
@@ -107,13 +108,13 @@ class Player extends Entity
   void moveLeft()
   {
     velocityX = velocityX - 0.5f;
-    setTexture(Resources.dwarfLeft);
+    texture = Resources.dwarfLeft;
   }
 
   void moveRight()
   {
     velocityX = velocityX + 0.5f;
-    setTexture(Resources.dwarfRight);
+    texture = Resources.dwarfRight;
   }
 
   void moveDown()
@@ -191,17 +192,6 @@ class Player extends Entity
     rightSide.height = height * 0.5f;
   }
 
-  @Override
-  public Texture getTexture()
-  {
-    if (animation != null)
-    {
-      return animation.getFrame().texture;
-    }
-
-    return super.getTexture();
-  }
-
   void reset()
   {
     moving = false;
@@ -210,6 +200,6 @@ class Player extends Entity
     setY(-30.0f);
     velocityX = 0.0f;
     velocityY = 0.0f;
-    setTexture(Resources.dwarfRight);
+    animation = Animations.playerIdleRight;
   }
 }

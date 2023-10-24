@@ -1,7 +1,6 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.awt.geom.Point2D;
@@ -56,7 +55,7 @@ abstract class Entity
   Sound deathSound;
 
   Animation animation;
-  private Texture texture;
+  MTexture texture;
 
   Entity()
   {
@@ -314,18 +313,5 @@ abstract class Entity
   boolean isBlock()
   {
     return false;
-  }
-
-  public Texture getTexture()
-  {
-    return texture;
-  }
-
-  public void setTexture(final Texture texture)
-  {
-    if (texture != null)
-    {
-      this.texture = texture;
-    }
   }
 }
