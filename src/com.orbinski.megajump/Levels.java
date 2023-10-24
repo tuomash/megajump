@@ -274,6 +274,54 @@ class Levels
       level.setDoor(door);
       levels.add(level);
     }
+
+    {
+      final Level level = new Level();
+      level.name = "Mini-me";
+      level.goldTimeInMilliseconds = 10000;
+      level.silverTimeInMilliseconds = 12000;
+      level.bronzeTimeInMilliseconds = 15000;
+
+      final Block block1 = new Block(30.0f, -10.0f, 2.5f, 2.5f);
+      level.blocks.add(block1);
+
+      final Block block2 = new Block(30.0f, -12.5f, 2.5f, 2.5f);
+      level.blocks.add(block2);
+
+      final Block block3 = new Block(32.5f, -12.5f, 2.5f, 2.5f);
+      level.blocks.add(block3);
+
+      final Block block4 = new Block(35.0f, -12.5f, 2.5f, 2.5f);
+      level.blocks.add(block4);
+
+      final Block block5 = new Block(37.5f, -12.5f, 2.5f, 2.5f);
+      level.blocks.add(block5);
+
+      final Block block6 = new Block(40.0f, -12.5f, 2.5f, 2.5f);
+      level.blocks.add(block6);
+
+      final Block block7 = new Block(40.0f, -10.0f, 2.5f, 2.5f);
+      level.blocks.add(block7);
+
+      final Block block8 = new Block(40.0f, -7.5f, 2.5f, 2.5f);
+      level.blocks.add(block8);
+
+      final Block block9 = new Block(40.0f, -5.0f, 2.5f, 2.5f);
+      level.blocks.add(block9);
+
+      final Block block10 = new Block(40.0f, -2.5f, 2.5f, 2.5f);
+      level.blocks.add(block10);
+
+      final Block block11 = new Block(40.0f, 0.0f, 2.5f, 2.5f);
+      level.blocks.add(block11);
+
+      final Block block12 = new Block(37.5f, 0.0f, 2.5f, 2.5f);
+      level.blocks.add(block12);
+
+      final Door door = new Door(35.0f, -6.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+    }
   }
 
   void selectPreviousLevel()
