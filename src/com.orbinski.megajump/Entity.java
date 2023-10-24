@@ -54,7 +54,9 @@ abstract class Entity
   boolean dead;
   Sound moveSound;
   Sound deathSound;
-  Texture texture;
+
+  Animation animation;
+  private Texture texture;
 
   Entity()
   {
@@ -312,5 +314,18 @@ abstract class Entity
   boolean isBlock()
   {
     return false;
+  }
+
+  public Texture getTexture()
+  {
+    return texture;
+  }
+
+  public void setTexture(final Texture texture)
+  {
+    if (texture != null)
+    {
+      this.texture = texture;
+    }
   }
 }

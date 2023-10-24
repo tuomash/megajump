@@ -15,6 +15,7 @@ class Resources
   static Texture door;
   static Texture block;
   static Texture candle;
+  static Texture playerIdleRight;
 
   static BitmapFont font24White;
   static BitmapFont font18White;
@@ -37,6 +38,9 @@ class Resources
 
     file = new File(System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "candle.png");
     candle = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+
+    file = new File(System.getProperty("user.dir") + File.separator + "graphics" + File.separator + "player-idle-right.png");
+    playerIdleRight = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 
     font24White = generateFont("lunchds.ttf", 24, Color.WHITE);
     font18White = generateFont("lunchds.ttf", 18, Color.WHITE);

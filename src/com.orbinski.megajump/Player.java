@@ -1,5 +1,7 @@
 package com.orbinski.megajump;
 
+import com.badlogic.gdx.graphics.Texture;
+
 class Player extends Entity
 {
   final float maxVelocityX = 70.0f;
@@ -13,7 +15,7 @@ class Player extends Entity
 
   Player()
   {
-    super(-75.0f, -30.0f, 2.5f, 5.0f);
+    super(-75.0f, -30.0f, 10.0f, 10.0f);
 
     movement = Movement.REGULAR;
     // drawBorder = true;
@@ -24,11 +26,18 @@ class Player extends Entity
 
     bottomSide.width = getWidth() * 0.8f;
     bottomSide.height = 0.5f;
+
+    animation = Animations.playerIdleRight;
   }
 
   void update(final float delta)
   {
     super.update(delta);
+
+    if (animation != null)
+    {
+      animation.update(delta);
+    }
   }
 
   void updateCursorLocation(final float x, final float y)
@@ -98,13 +107,13 @@ class Player extends Entity
   void moveLeft()
   {
     velocityX = velocityX - 0.5f;
-    texture = Resources.dwarfLeft;
+    setTexture(Resources.dwarfLeft);
   }
 
   void moveRight()
   {
     velocityX = velocityX + 0.5f;
-    texture = Resources.dwarfRight;
+    setTexture(Resources.dwarfRight);
   }
 
   void moveDown()
@@ -182,6 +191,17 @@ class Player extends Entity
     rightSide.height = height * 0.5f;
   }
 
+  @Override
+  public Texture getTexture()
+  {
+    if (animation != null)
+    {
+      return animation.getFrame().texture;
+    }
+
+    return super.getTexture();
+  }
+
   void reset()
   {
     moving = false;
@@ -190,6 +210,6 @@ class Player extends Entity
     setY(-30.0f);
     velocityX = 0.0f;
     velocityY = 0.0f;
-    texture = Resources.dwarfRight;
+    setTexture(Resources.dwarfRight);
   }
 }
