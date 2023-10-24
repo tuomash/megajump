@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class Resources
@@ -17,10 +18,15 @@ class Resources
   static MTexture door;
   static MTexture block;
   static MTexture candle;
+
+  static MTexture playerJumpLeftAscend;
+  static MTexture playerJumpLeftMax;
+  static MTexture playerJumpLeftDescend;
   static MTexture playerJumpRightAscend;
   static MTexture playerJumpRightMax;
   static MTexture playerJumpRightDescend;
 
+  static List<MTexture> playerIdleLeft;
   static List<MTexture> playerIdleRight;
 
   static BitmapFont font24White;
@@ -51,6 +57,22 @@ class Resources
     }
 
     {
+      playerIdleLeft = new ArrayList<>();
+
+      final MTexture root = loadTexture("player-idle-left.png");
+
+      for (int i = 0; i < 10; i++)
+      {
+        final MTexture texture = root.copy();
+        texture.srcX = i * 48;
+        texture.srcWidth = 48;
+        texture.srcHeight = 48;
+        playerIdleLeft.add(texture);
+        Collections.reverse(playerIdleLeft);
+      }
+    }
+
+    {
       final List<MTexture> textures = new ArrayList<>();
       final MTexture root = loadTexture("player-jump-right.png");
 
@@ -66,6 +88,24 @@ class Resources
       playerJumpRightAscend = textures.get(0);
       playerJumpRightMax = textures.get(1);
       playerJumpRightDescend = textures.get(2);
+    }
+
+    {
+      final List<MTexture> textures = new ArrayList<>();
+      final MTexture root = loadTexture("player-jump-left.png");
+
+      for (int i = 0; i < 3; i++)
+      {
+        final MTexture texture = root.copy();
+        texture.srcX = i * 48;
+        texture.srcWidth = 48;
+        texture.srcHeight = 48;
+        textures.add(texture);
+      }
+
+      playerJumpLeftAscend = textures.get(2);
+      playerJumpLeftMax = textures.get(1);
+      playerJumpLeftDescend = textures.get(0);
     }
 
     font24White = generateFont("lunchds.ttf", 24, Color.WHITE);

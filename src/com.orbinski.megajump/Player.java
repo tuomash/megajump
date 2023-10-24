@@ -2,6 +2,12 @@ package com.orbinski.megajump;
 
 class Player extends Entity
 {
+  enum Direction
+  {
+    LEFT,
+    RIGHT
+  }
+
   enum State
   {
     IDLE,
@@ -9,6 +15,7 @@ class Player extends Entity
     LAND
   }
 
+  Direction direction;
   State state;
 
   final float maxVelocityX = 70.0f;
@@ -34,7 +41,7 @@ class Player extends Entity
     bottomSide.width = getWidth() * 0.8f;
     bottomSide.height = 0.5f;
 
-    animation = Animations.playerIdleRight;
+    setDirection(Direction.RIGHT);
     setState(State.IDLE);
   }
 
@@ -42,25 +49,48 @@ class Player extends Entity
   {
     super.update(delta);
 
-    if (animation != null)
-    {
-      animation.update(delta);
-      texture = animation.getFrame().texture;
-    }
-
     if (state == State.IN_AIR)
     {
       if (velocityY > 0.0f)
       {
-        texture = Resources.playerJumpRightAscend;
+        if (direction == Direction.LEFT)
+        {
+          texture = Resources.playerJumpLeftAscend;
+        }
+        else
+        {
+          texture = Resources.playerJumpRightAscend;
+        }
       }
       else if (velocityY < 0.0f)
       {
-        texture = Resources.playerJumpRightDescend;
+        if (direction == Direction.LEFT)
+        {
+          texture = Resources.playerJumpLeftDescend;
+        }
+        else
+        {
+          texture = Resources.playerJumpRightDescend;
+        }
       }
       else
       {
-        texture = Resources.playerJumpRightMax;
+        if (direction == Direction.LEFT)
+        {
+          texture = Resources.playerJumpLeftMax;
+        }
+        else
+        {
+          texture = Resources.playerJumpRightMax;
+        }
+      }
+    }
+    else
+    {
+      if (animation != null)
+      {
+        animation.update(delta);
+        texture = animation.getFrame().texture;
       }
     }
   }
@@ -134,13 +164,13 @@ class Player extends Entity
   void moveLeft()
   {
     velocityX = velocityX - 0.5f;
-    texture = Resources.dwarfLeft;
+    setDirection(Direction.LEFT);
   }
 
   void moveRight()
   {
     velocityX = velocityX + 0.5f;
-    texture = Resources.dwarfRight;
+    setDirection(Direction.RIGHT);
   }
 
   void moveDown()
@@ -226,11 +256,36 @@ class Player extends Entity
     rightSide.height = height * 0.5f;
   }
 
-  public void setState(final State state)
+  void setDirection(final Direction direction)
+  {
+    if (direction != null)
+    {
+      this.direction = direction;
+    }
+  }
+
+  void setState(final State state)
   {
     if (state != null)
     {
       this.state = state;
+
+      switch (state)
+      {
+        case IDLE:
+        {
+          if (direction == Direction.LEFT)
+          {
+            animation = Animations.playerIdleLeft;
+          }
+          else
+          {
+            animation = Animations.playerIdleRight;
+          }
+
+          break;
+        }
+      }
     }
   }
 
@@ -242,7 +297,7 @@ class Player extends Entity
     setY(-30.0f);
     velocityX = 0.0f;
     velocityY = 0.0f;
+    setDirection(Direction.RIGHT);
     setState(State.IDLE);
-    animation = Animations.playerIdleRight;
   }
 }

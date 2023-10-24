@@ -2,6 +2,7 @@ package com.orbinski.megajump;
 
 class Animations
 {
+  static Animation playerIdleLeft;
   static Animation playerIdleRight;
 
   public static void load()
@@ -20,6 +21,22 @@ class Animations
       }
 
       playerIdleRight = animation;
+    }
+
+    if (Resources.playerIdleLeft != null)
+    {
+      final Animation animation = new Animation();
+      animation.loop = true;
+
+      for (int i = 0; i < Resources.playerIdleLeft.size(); i++)
+      {
+        final AnimationFrame frame = new AnimationFrame();
+        frame.texture = Resources.playerIdleLeft.get(i);
+        frame.length = 0.09f;
+        animation.frames.add(frame);
+      }
+
+      playerIdleLeft = animation;
     }
   }
 }
