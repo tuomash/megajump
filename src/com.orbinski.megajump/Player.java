@@ -157,8 +157,16 @@ class Player extends Entity
     }
     else if (entity.isBlock())
     {
-      moveToPreviousLocation();
-      return super.overlaps(entity);
+      final boolean overlaps = super.overlaps(entity);
+
+      if (overlaps)
+      {
+        moving = false;
+        moveToPreviousLocation();
+        setState(State.IDLE);
+      }
+
+      return overlaps;
 
       /* TODO: implement proper collision detection
       boolean overlaps = false;

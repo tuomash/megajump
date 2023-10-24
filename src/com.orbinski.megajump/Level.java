@@ -138,7 +138,6 @@ class Level
 
         if (player.overlaps(block))
         {
-          player.moving = false;
           break;
         }
       }
