@@ -68,7 +68,6 @@ class Resources
         texture.srcWidth = 48;
         texture.srcHeight = 48;
         playerIdleLeft.add(texture);
-        Collections.reverse(playerIdleLeft);
       }
     }
 
