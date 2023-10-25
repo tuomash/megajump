@@ -33,7 +33,7 @@ class Player extends Entity
 
     movement = Movement.REGULAR;
     // drawBorder = true;
-    drawCollisions = true;
+    // drawCollisions = true;
 
     // rightSide.height = getHeight() * 0.75f;
 
@@ -176,8 +176,9 @@ class Player extends Entity
     if (moving && state == State.JUMPING)
     {
       velocityX = velocityX - 0.5f;
-      setDirection(Direction.LEFT);
     }
+
+    setDirection(Direction.LEFT);
   }
 
   void moveRight()
@@ -185,8 +186,9 @@ class Player extends Entity
     if (moving && state == State.JUMPING)
     {
       velocityX = velocityX + 0.5f;
-      setDirection(Direction.RIGHT);
     }
+
+    setDirection(Direction.RIGHT);
   }
 
   void moveDown()
@@ -248,12 +250,16 @@ class Player extends Entity
       if (!bottomSideCollision && EntityUtils.overlaps(bottomSide, entity))
       {
         overlaps = true;
-        setY(entity.getY() + entity.getHeightOffset() + collisionBox.height / 2.0f);
+        setY(entity.getY() + entity.getHeightOffset() + collisionBox.height / 2.0f - 0.5f);
         velocityY = 0.0f;
 
         if (velocityX > 0.3f)
         {
           velocityX = velocityX - 0.3f;
+        }
+        else if (velocityX < -0.3f)
+        {
+          velocityX = velocityX + 0.3f;
         }
         else
         {
@@ -292,7 +298,7 @@ class Player extends Entity
   {
     super.setY(y);
     // rightSide.y = y - rightSide.height * 0.5f;
-    bottomSide.y = getBottomLeftCornerY() + 1.0f;
+    bottomSide.y = getBottomLeftCornerY() + 1.5f;
     collisionBox.setY(y - collisionBox.height * 0.5f);
   }
 
@@ -314,7 +320,7 @@ class Player extends Entity
 
   void setDirection(final Direction direction)
   {
-    if (direction != null)
+    if (direction != null && this.direction != direction)
     {
       this.direction = direction;
     }
@@ -379,6 +385,7 @@ class Player extends Entity
     setY(-30.0f);
     velocityX = 0.0f;
     velocityY = 0.0f;
+    state = null;
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
   }
