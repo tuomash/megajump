@@ -29,6 +29,9 @@ class Resources
   static List<MTexture> playerIdleLeft;
   static List<MTexture> playerIdleRight;
 
+  static List<MTexture> playerLandLeft;
+  static List<MTexture> playerLandRight;
+
   static BitmapFont font24White;
   static BitmapFont font18White;
   static BitmapFont font14White;
@@ -42,21 +45,6 @@ class Resources
     candle = loadTexture("candle.png");
 
     {
-      playerIdleRight = new ArrayList<>();
-
-      final MTexture root = loadTexture("player-idle-right.png");
-
-      for (int i = 0; i < 10; i++)
-      {
-        final MTexture texture = root.copy();
-        texture.srcX = i * 48;
-        texture.srcWidth = 48;
-        texture.srcHeight = 48;
-        playerIdleRight.add(texture);
-      }
-    }
-
-    {
       playerIdleLeft = new ArrayList<>();
 
       final MTexture root = loadTexture("player-idle-left.png");
@@ -68,6 +56,24 @@ class Resources
         texture.srcWidth = 48;
         texture.srcHeight = 48;
         playerIdleLeft.add(texture);
+      }
+
+      // Texture is flipped from "player-idle-right" version
+      Collections.reverse(playerIdleLeft);
+    }
+
+    {
+      playerIdleRight = new ArrayList<>();
+
+      final MTexture root = loadTexture("player-idle-right.png");
+
+      for (int i = 0; i < 10; i++)
+      {
+        final MTexture texture = root.copy();
+        texture.srcX = i * 48;
+        texture.srcWidth = 48;
+        texture.srcHeight = 48;
+        playerIdleRight.add(texture);
       }
     }
 
@@ -105,6 +111,38 @@ class Resources
       playerJumpLeftAscend = textures.get(2);
       playerJumpLeftMax = textures.get(1);
       playerJumpLeftDescend = textures.get(0);
+    }
+
+    {
+      playerLandLeft = new ArrayList<>();
+
+      final MTexture root = loadTexture("player-land-left.png");
+
+      for (int i = 0; i < 9; i++)
+      {
+        final MTexture texture = root.copy();
+        texture.srcX = i * 48;
+        texture.srcWidth = 48;
+        texture.srcHeight = 48;
+        playerLandLeft.add(texture);
+      }
+
+      Collections.reverse(playerLandLeft);
+    }
+
+    {
+      playerLandRight = new ArrayList<>();
+
+      final MTexture root = loadTexture("player-land-right.png");
+
+      for (int i = 0; i < 9; i++)
+      {
+        final MTexture texture = root.copy();
+        texture.srcX = i * 48;
+        texture.srcWidth = 48;
+        texture.srcHeight = 48;
+        playerLandRight.add(texture);
+      }
     }
 
     font24White = generateFont("lunchds.ttf", 24, Color.WHITE);

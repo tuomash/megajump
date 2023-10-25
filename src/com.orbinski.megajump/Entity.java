@@ -31,11 +31,9 @@ abstract class Entity
 
   boolean drawCollisions = false;
   Rectangle collisionBox;
-  // TODO: not needed for all entities
-  final Rectangle rightSide = new Rectangle();
+  Rectangle rightSide;
   boolean rightSideCollision;
-  // TODO: not needed for all entities
-  final Rectangle bottomSide = new Rectangle();
+  Rectangle bottomSide;
   boolean bottomSideCollision;
 
   boolean applyGravity = true;
@@ -85,6 +83,8 @@ abstract class Entity
     if (collision)
     {
       collisionBox = new Rectangle();
+      // rightSide = new Rectangle();
+      bottomSide = new Rectangle();
     }
 
     setWidth(width);
@@ -347,6 +347,11 @@ abstract class Entity
   }
 
   boolean isBlock()
+  {
+    return false;
+  }
+
+  boolean isPlatform()
   {
     return false;
   }

@@ -4,9 +4,27 @@ class Animations
 {
   static Animation playerIdleLeft;
   static Animation playerIdleRight;
+  static Animation playerLandLeft;
+  static Animation playerLandRight;
 
   public static void load()
   {
+    if (Resources.playerIdleLeft != null)
+    {
+      final Animation animation = new Animation();
+      animation.loop = true;
+
+      for (int i = 0; i < Resources.playerIdleLeft.size(); i++)
+      {
+        final AnimationFrame frame = new AnimationFrame();
+        frame.texture = Resources.playerIdleLeft.get(i);
+        frame.length = 0.09f;
+        animation.frames.add(frame);
+      }
+
+      playerIdleLeft = animation;
+    }
+
     if (Resources.playerIdleRight != null)
     {
       final Animation animation = new Animation();
@@ -23,20 +41,34 @@ class Animations
       playerIdleRight = animation;
     }
 
-    if (Resources.playerIdleLeft != null)
+    if (Resources.playerLandLeft != null)
     {
       final Animation animation = new Animation();
-      animation.loop = true;
 
-      for (int i = 0; i < Resources.playerIdleLeft.size(); i++)
+      for (int i = 0; i < Resources.playerLandLeft.size(); i++)
       {
         final AnimationFrame frame = new AnimationFrame();
-        frame.texture = Resources.playerIdleLeft.get(i);
+        frame.texture = Resources.playerLandLeft.get(i);
         frame.length = 0.09f;
         animation.frames.add(frame);
       }
 
-      playerIdleLeft = animation;
+      playerLandLeft = animation;
+    }
+
+    if (Resources.playerLandRight != null)
+    {
+      final Animation animation = new Animation();
+
+      for (int i = 0; i < Resources.playerLandRight.size(); i++)
+      {
+        final AnimationFrame frame = new AnimationFrame();
+        frame.texture = Resources.playerLandRight.get(i);
+        frame.length = 0.09f;
+        animation.frames.add(frame);
+      }
+
+      playerLandRight = animation;
     }
   }
 }

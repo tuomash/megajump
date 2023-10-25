@@ -11,8 +11,8 @@ class Player extends Entity
   enum State
   {
     IDLE,
-    IN_AIR,
-    LAND
+    JUMPING,
+    LANDING
   }
 
   Direction direction;
@@ -33,12 +33,10 @@ class Player extends Entity
 
     movement = Movement.REGULAR;
     // drawBorder = true;
-    // drawCollisions = true;
+    drawCollisions = true;
 
-    rightSide.width = 0.5f;
-    rightSide.height = getHeight() * 0.75f;
+    // rightSide.height = getHeight() * 0.75f;
 
-    bottomSide.width = getWidth() * 0.8f;
     bottomSide.height = 0.5f;
 
     setDirection(Direction.RIGHT);
@@ -49,7 +47,7 @@ class Player extends Entity
   {
     super.update(delta);
 
-    if (state == State.IN_AIR)
+    if (state == State.JUMPING)
     {
       if (velocityY > 0.0f)
       {
@@ -161,30 +159,42 @@ class Player extends Entity
         setDirection(Direction.LEFT);
       }
 
-      setState(State.IN_AIR);
+      setState(State.JUMPING);
     }
   }
 
   void moveUp()
   {
-    velocityY = velocityY + 0.5f;
+    if (moving && state == State.JUMPING)
+    {
+      velocityY = velocityY + 0.5f;
+    }
   }
 
   void moveLeft()
   {
-    velocityX = velocityX - 0.5f;
-    setDirection(Direction.LEFT);
+    if (moving && state == State.JUMPING)
+    {
+      velocityX = velocityX - 0.5f;
+      setDirection(Direction.LEFT);
+    }
   }
 
   void moveRight()
   {
-    velocityX = velocityX + 0.5f;
-    setDirection(Direction.RIGHT);
+    if (moving && state == State.JUMPING)
+    {
+      velocityX = velocityX + 0.5f;
+      setDirection(Direction.RIGHT);
+    }
   }
 
   void moveDown()
   {
-    velocityY = velocityY - 0.5f;
+    if (moving && state == State.JUMPING)
+    {
+      velocityY = velocityY - 0.5f;
+    }
   }
 
   @Override
@@ -231,6 +241,39 @@ class Player extends Entity
       return overlaps;
        */
     }
+    else if (entity.isPlatform())
+    {
+      boolean overlaps = false;
+
+      if (!bottomSideCollision && EntityUtils.overlaps(bottomSide, entity))
+      {
+        overlaps = true;
+        setY(entity.getY() + entity.getHeightOffset() + collisionBox.height / 2.0f);
+        velocityY = 0.0f;
+
+        if (velocityX > 0.3f)
+        {
+          velocityX = velocityX - 0.3f;
+        }
+        else
+        {
+          moving = false;
+          setState(State.IDLE);
+          velocityX = 0.0f;
+          return overlaps;
+        }
+
+        applyGravity = false;
+        bottomSideCollision = true;
+
+        if (state != State.LANDING)
+        {
+          setState(State.LANDING);
+        }
+      }
+
+      return overlaps;
+    }
 
     return false;
   }
@@ -239,7 +282,7 @@ class Player extends Entity
   void setX(final float x)
   {
     super.setX(x);
-    rightSide.x = x + getWidthOffset() - rightSide.width;
+    // rightSide.x = x + getWidthOffset() - rightSide.width;
     bottomSide.x = x - bottomSide.width * 0.5f;
     collisionBox.setX(x - collisionBox.width * 0.5f);
   }
@@ -248,8 +291,8 @@ class Player extends Entity
   void setY(final float y)
   {
     super.setY(y);
-    rightSide.y = y - rightSide.height * 0.5f;
-    bottomSide.y = getBottomLeftCornerY();
+    // rightSide.y = y - rightSide.height * 0.5f;
+    bottomSide.y = getBottomLeftCornerY() + 1.0f;
     collisionBox.setY(y - collisionBox.height * 0.5f);
   }
 
@@ -257,7 +300,7 @@ class Player extends Entity
   void setWidth(final float width)
   {
     super.setWidth(width);
-    bottomSide.width = width * 0.5f;
+    bottomSide.width = width * 0.55f;
     collisionBox.setWidth(width * 0.55f);
   }
 
@@ -265,7 +308,7 @@ class Player extends Entity
   void setHeight(final float height)
   {
     super.setHeight(height);
-    rightSide.height = height * 0.5f;
+    // rightSide.height = height * 0.5f;
     collisionBox.setHeight(height * 0.8f);
   }
 
@@ -279,7 +322,7 @@ class Player extends Entity
 
   void setState(final State state)
   {
-    if (state != null)
+    if (state != null && this.state != state)
     {
       this.state = state;
 
@@ -298,6 +341,32 @@ class Player extends Entity
 
           break;
         }
+
+        case JUMPING:
+        {
+          animation = null;
+
+          break;
+        }
+
+        case LANDING:
+        {
+          if (direction == Direction.LEFT)
+          {
+            animation = Animations.playerLandLeft;
+          }
+          else
+          {
+            animation = Animations.playerLandRight;
+          }
+
+          break;
+        }
+      }
+
+      if (animation != null)
+      {
+        animation.reset();
       }
     }
   }

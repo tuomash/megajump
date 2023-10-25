@@ -18,6 +18,7 @@ class Level
   List<Decoration> decorations = new ArrayList<>();
   List<Block> blocks = new ArrayList<>();
   List<Trampoline> trampolines = new ArrayList<>();
+  List<Platform> platforms = new ArrayList<>();
   boolean started;
   boolean finished;
   boolean cleared;
@@ -147,6 +148,16 @@ class Level
         final Trampoline trampoline = trampolines.get(i);
 
         if (trampoline.apply(player))
+        {
+          break;
+        }
+      }
+
+      for (int i = 0; i < platforms.size(); i++)
+      {
+        final Platform platform = platforms.get(i);
+
+        if (player.overlaps(platform))
         {
           break;
         }

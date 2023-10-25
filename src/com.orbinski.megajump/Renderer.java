@@ -65,6 +65,7 @@ class Renderer
     addBlocks();
     addDecorations();
     addTrampolines();
+    addPlatforms();
     addPlayer();
 
     renderEntities();
@@ -115,6 +116,19 @@ class Renderer
     }
   }
 
+  void addPlatforms()
+  {
+    for (int i = 0; i < game.level.platforms.size(); i++)
+    {
+      final Platform platform = game.level.platforms.get(i);
+      addFilledQuad(platform.getBottomLeftCornerX(),
+                    platform.getBottomLeftCornerY(),
+                    platform.getWidth(),
+                    platform.getHeight(),
+                    Color.GRAY);
+    }
+  }
+
   void addPlayer()
   {
     final Player player = game.player;
@@ -137,11 +151,13 @@ class Renderer
               player.collisionBox.height,
               Color.YELLOW);
 
+      /*
       addQuad(player.rightSide.x,
               player.rightSide.y,
               player.rightSide.width,
               player.rightSide.height,
               Color.YELLOW);
+       */
 
       addQuad(player.bottomSide.x,
               player.bottomSide.y,

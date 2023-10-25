@@ -7,8 +7,9 @@ class Animation
 {
   final List<AnimationFrame> frames = new ArrayList<>();
 
-  int index;
-  float elapsed;
+  private int index;
+  private float elapsed;
+
   boolean loop;
   boolean playing = true;
 
@@ -49,5 +50,12 @@ class Animation
   AnimationFrame getFrame()
   {
     return frames.get(index);
+  }
+
+  void reset()
+  {
+    elapsed = 0.0f;
+    index = 0;
+    playing = true;
   }
 }

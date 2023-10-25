@@ -16,6 +16,21 @@ class Levels
 
     {
       final Level level = new Level();
+      level.name = "Platform 1";
+      level.goldTimeInMilliseconds = 10000;
+      level.silverTimeInMilliseconds = 12000;
+      level.bronzeTimeInMilliseconds = 15000;
+
+      final Platform platform1 = new Platform(10.0f, -20.0f, 40.0f, 1.5f);
+      level.platforms.add(platform1);
+
+      final Door door = new Door(35.0f, -6.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+    }
+
+    {
+      final Level level = new Level();
       level.name = "Small Jump";
       level.goldTimeInMilliseconds = 233;
       level.silverTimeInMilliseconds = 500;
