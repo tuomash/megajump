@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 class EntityUtils
 {
-  private static final Rectangle entityA = new Rectangle();
-  private static final Rectangle entityB = new Rectangle();
+  private static final Rectangle rect1 = new Rectangle();
+  private static final Rectangle rect2 = new Rectangle();
 
   static boolean overlaps(final Entity a, final Entity b)
   {
@@ -16,17 +16,30 @@ class EntityUtils
       return false;
     }
 
-    entityA.x = a.getBottomLeftCornerX();
-    entityA.y = a.getBottomLeftCornerY();
-    entityA.width = a.getWidth();
-    entityA.height = a.getHeight();
+    if (a.collisionBox != null && b.collisionBox != null)
+    {
+      return overlaps(a.collisionBox, b.collisionBox);
+    }
+    else if (a.collisionBox != null)
+    {
+      return overlaps(a.collisionBox, b);
+    }
+    else if (b.collisionBox != null)
+    {
+      return overlaps(b.collisionBox, a);
+    }
 
-    entityB.x = b.getBottomLeftCornerX();
-    entityB.y = b.getBottomLeftCornerY();
-    entityB.width = b.getWidth();
-    entityB.height = b.getHeight();
+    rect1.x = a.getBottomLeftCornerX();
+    rect1.y = a.getBottomLeftCornerY();
+    rect1.width = a.getWidth();
+    rect1.height = a.getHeight();
 
-    return entityA.overlaps(entityB);
+    rect2.x = b.getBottomLeftCornerX();
+    rect2.y = b.getBottomLeftCornerY();
+    rect2.width = b.getWidth();
+    rect2.height = b.getHeight();
+
+    return rect1.overlaps(rect2);
   }
 
   static boolean contains(final Entity a, final float x, final float y)
@@ -36,12 +49,12 @@ class EntityUtils
       return false;
     }
 
-    entityA.x = a.getBottomLeftCornerX();
-    entityA.y = a.getBottomLeftCornerY();
-    entityA.width = a.getWidth();
-    entityA.height = a.getHeight();
+    rect1.x = a.getBottomLeftCornerX();
+    rect1.y = a.getBottomLeftCornerY();
+    rect1.width = a.getWidth();
+    rect1.height = a.getHeight();
 
-    return entityA.contains(x, y);
+    return rect1.contains(x, y);
   }
 
   static boolean overlaps(final Circle circle, final Entity a)
@@ -51,12 +64,12 @@ class EntityUtils
       return false;
     }
 
-    entityA.x = a.getBottomLeftCornerX();
-    entityA.y = a.getBottomLeftCornerY();
-    entityA.width = a.getWidth();
-    entityA.height = a.getHeight();
+    rect1.x = a.getBottomLeftCornerX();
+    rect1.y = a.getBottomLeftCornerY();
+    rect1.width = a.getWidth();
+    rect1.height = a.getHeight();
 
-    return Intersector.overlaps(circle, entityA);
+    return Intersector.overlaps(circle, rect1);
   }
 
   static boolean overlaps(final Rectangle rectangle, final Entity a)
@@ -66,11 +79,21 @@ class EntityUtils
       return false;
     }
 
-    entityA.x = a.getBottomLeftCornerX();
-    entityA.y = a.getBottomLeftCornerY();
-    entityA.width = a.getWidth();
-    entityA.height = a.getHeight();
+    rect1.x = a.getBottomLeftCornerX();
+    rect1.y = a.getBottomLeftCornerY();
+    rect1.width = a.getWidth();
+    rect1.height = a.getHeight();
 
-    return Intersector.overlaps(rectangle, entityA);
+    return overlaps(rectangle, rect1);
+  }
+
+  static boolean overlaps(final Rectangle rectangle1, final Rectangle rectangle2)
+  {
+    if (rectangle1 == null || rectangle2 == null)
+    {
+      return false;
+    }
+
+    return Intersector.overlaps(rectangle1, rectangle2);
   }
 }

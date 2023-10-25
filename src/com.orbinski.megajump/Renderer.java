@@ -131,6 +131,12 @@ class Renderer
 
     if (player.drawCollisions)
     {
+      addQuad(player.collisionBox.x,
+              player.collisionBox.y,
+              player.collisionBox.width,
+              player.collisionBox.height,
+              Color.YELLOW);
+
       addQuad(player.rightSide.x,
               player.rightSide.y,
               player.rightSide.width,

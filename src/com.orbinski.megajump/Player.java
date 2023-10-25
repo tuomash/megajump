@@ -29,7 +29,7 @@ class Player extends Entity
 
   Player()
   {
-    super(-75.0f, -30.0f, 10.0f, 10.0f);
+    super(-75.0f, -30.0f, 10.0f, 10.0f, true);
 
     movement = Movement.REGULAR;
     // drawBorder = true;
@@ -241,6 +241,7 @@ class Player extends Entity
     super.setX(x);
     rightSide.x = x + getWidthOffset() - rightSide.width;
     bottomSide.x = x - bottomSide.width * 0.5f;
+    collisionBox.setX(x - collisionBox.width * 0.5f);
   }
 
   @Override
@@ -249,6 +250,7 @@ class Player extends Entity
     super.setY(y);
     rightSide.y = y - rightSide.height * 0.5f;
     bottomSide.y = getBottomLeftCornerY();
+    collisionBox.setY(y - collisionBox.height * 0.5f);
   }
 
   @Override
@@ -256,6 +258,7 @@ class Player extends Entity
   {
     super.setWidth(width);
     bottomSide.width = width * 0.5f;
+    collisionBox.setWidth(width * 0.55f);
   }
 
   @Override
@@ -263,6 +266,7 @@ class Player extends Entity
   {
     super.setHeight(height);
     rightSide.height = height * 0.5f;
+    collisionBox.setHeight(height * 0.8f);
   }
 
   void setDirection(final Direction direction)

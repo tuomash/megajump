@@ -30,8 +30,11 @@ abstract class Entity
   Movement movement = Movement.NO_MOVEMENT;
 
   boolean drawCollisions = false;
+  Rectangle collisionBox;
+  // TODO: not needed for all entities
   final Rectangle rightSide = new Rectangle();
   boolean rightSideCollision;
+  // TODO: not needed for all entities
   final Rectangle bottomSide = new Rectangle();
   boolean bottomSideCollision;
 
@@ -71,6 +74,19 @@ abstract class Entity
 
   Entity(final float x, final float y, final float width, final float height)
   {
+    setWidth(width);
+    setHeight(height);
+    setX(x);
+    setY(y);
+  }
+
+  Entity(final float x, final float y, final float width, final float height, final boolean collision)
+  {
+    if (collision)
+    {
+      collisionBox = new Rectangle();
+    }
+
     setWidth(width);
     setHeight(height);
     setX(x);
@@ -208,6 +224,11 @@ abstract class Entity
     {
       bottomLeftCornerX = x;
     }
+
+    if (collisionBox != null)
+    {
+      collisionBox.setX(bottomLeftCornerX);
+    }
   }
 
   float getY()
@@ -227,6 +248,11 @@ abstract class Entity
     else
     {
       bottomLeftCornerY = y;
+    }
+
+    if (collisionBox != null)
+    {
+      collisionBox.setY(bottomLeftCornerY);
     }
   }
 
@@ -259,6 +285,11 @@ abstract class Entity
   {
     this.width = width;
     widthOffset = width / 2.0f;
+
+    if (collisionBox != null)
+    {
+      collisionBox.setWidth(width);
+    }
   }
 
   float getWidthOffset()
@@ -275,6 +306,11 @@ abstract class Entity
   {
     this.height = height;
     heightOffset = height / 2.0f;
+
+    if (collisionBox != null)
+    {
+      collisionBox.setHeight(height);
+    }
   }
 
   float getHeightOffset()
