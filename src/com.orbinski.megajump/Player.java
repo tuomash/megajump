@@ -49,7 +49,7 @@ class Player extends Entity
 
     if (state == State.JUMPING)
     {
-      if (velocityY > 0.0f)
+      if (velocityY > 10.0f)
       {
         if (direction == Direction.LEFT)
         {
@@ -60,7 +60,7 @@ class Player extends Entity
           texture = Resources.playerJumpRightAscend;
         }
       }
-      else if (velocityY < 0.0f)
+      else if (velocityY < -10.0f)
       {
         if (direction == Direction.LEFT)
         {

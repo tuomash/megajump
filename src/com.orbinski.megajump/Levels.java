@@ -97,7 +97,7 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Orndorf's Jump";
+      level.name = "Guiding Light";
       level.goldTimeInMilliseconds = 3000;
       level.silverTimeInMilliseconds = 3500;
       level.bronzeTimeInMilliseconds = 4000;
