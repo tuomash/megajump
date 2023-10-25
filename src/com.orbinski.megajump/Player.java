@@ -152,6 +152,15 @@ class Player extends Entity
         velocityY = -velocityY;
       }
 
+      if (velocityX > 0.0f)
+      {
+        setDirection(Direction.RIGHT);
+      }
+      else if (velocityX < 0.0f)
+      {
+        setDirection(Direction.LEFT);
+      }
+
       setState(State.IN_AIR);
     }
   }
