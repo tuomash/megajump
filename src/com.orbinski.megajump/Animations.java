@@ -12,6 +12,7 @@ class Animations
     if (Resources.playerIdleLeft != null)
     {
       final Animation animation = new Animation();
+      animation.groupId = 1;
       animation.loop = true;
 
       for (int i = 0; i < Resources.playerIdleLeft.size(); i++)
@@ -28,6 +29,7 @@ class Animations
     if (Resources.playerIdleRight != null)
     {
       final Animation animation = new Animation();
+      animation.groupId = 1;
       animation.loop = true;
 
       for (int i = 0; i < Resources.playerIdleRight.size(); i++)
@@ -44,6 +46,7 @@ class Animations
     if (Resources.playerLandLeft != null)
     {
       final Animation animation = new Animation();
+      animation.groupId = 2;
 
       for (int i = 0; i < Resources.playerLandLeft.size(); i++)
       {
@@ -59,6 +62,7 @@ class Animations
     if (Resources.playerLandRight != null)
     {
       final Animation animation = new Animation();
+      animation.groupId = 2;
 
       for (int i = 0; i < Resources.playerLandRight.size(); i++)
       {

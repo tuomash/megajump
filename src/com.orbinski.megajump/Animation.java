@@ -10,6 +10,7 @@ class Animation
   private int index;
   private float elapsed;
 
+  int groupId;
   boolean loop;
   boolean playing = true;
 
@@ -50,6 +51,13 @@ class Animation
   AnimationFrame getFrame()
   {
     return frames.get(index);
+  }
+
+  void mergeState(final Animation animation)
+  {
+    this.elapsed = animation.elapsed;
+    this.index = animation.index;
+    this.playing = animation.playing;
   }
 
   void reset()

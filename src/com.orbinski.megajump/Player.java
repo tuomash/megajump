@@ -185,7 +185,10 @@ class Player extends Entity
       }
     }
 
-    setDirection(Direction.LEFT);
+    if (setDirection(Direction.LEFT))
+    {
+      updateAnimationState(false);
+    }
   }
 
   void moveRight()
@@ -202,7 +205,10 @@ class Player extends Entity
       }
     }
 
-    setDirection(Direction.RIGHT);
+    if (setDirection(Direction.RIGHT))
+    {
+      updateAnimationState(false);
+    }
   }
 
   void moveDown()
@@ -332,12 +338,15 @@ class Player extends Entity
     collisionBox.setHeight(height * 0.8f);
   }
 
-  void setDirection(final Direction direction)
+  boolean setDirection(final Direction direction)
   {
     if (direction != null && this.direction != direction)
     {
       this.direction = direction;
+      return true;
     }
+
+    return false;
   }
 
   void setState(final State state)
@@ -345,48 +354,59 @@ class Player extends Entity
     if (state != null && this.state != state)
     {
       this.state = state;
+      updateAnimationState(true);
+    }
+  }
 
-      switch (state)
+  void updateAnimationState(final boolean reset)
+  {
+    switch (this.state)
+    {
+      case IDLE:
       {
-        case IDLE:
+        if (direction == Direction.LEFT)
         {
-          if (direction == Direction.LEFT)
-          {
-            animation = Animations.playerIdleLeft;
-          }
-          else
-          {
-            animation = Animations.playerIdleRight;
-          }
-
-          break;
+          setAnimation(Animations.playerIdleLeft);
+        }
+        else
+        {
+          setAnimation(Animations.playerIdleRight);
         }
 
-        case JUMPING:
-        {
-          animation = null;
-
-          break;
-        }
-
-        case LANDING:
-        {
-          if (direction == Direction.LEFT)
-          {
-            animation = Animations.playerLandLeft;
-          }
-          else
-          {
-            animation = Animations.playerLandRight;
-          }
-
-          break;
-        }
+        break;
       }
 
-      if (animation != null)
+      case JUMPING:
+      {
+        setAnimation(null);
+
+        break;
+      }
+
+      case LANDING:
+      {
+        if (direction == Direction.LEFT)
+        {
+          setAnimation(Animations.playerLandLeft);
+        }
+        else
+        {
+          setAnimation(Animations.playerLandRight);
+        }
+
+        break;
+      }
+    }
+
+    if (animation != null)
+    {
+      if (reset)
       {
         animation.reset();
+      }
+      else if (prevAnimation != null && animation.groupId == prevAnimation.groupId)
+      {
+        animation.mergeState(prevAnimation);
       }
     }
   }

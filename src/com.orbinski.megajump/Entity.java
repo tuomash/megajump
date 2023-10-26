@@ -55,6 +55,7 @@ abstract class Entity
   Sound moveSound;
   Sound deathSound;
 
+  Animation prevAnimation;
   Animation animation;
   MTexture texture;
 
@@ -354,5 +355,11 @@ abstract class Entity
   boolean isPlatform()
   {
     return false;
+  }
+
+  public void setAnimation(final Animation animation)
+  {
+    prevAnimation = this.animation;
+    this.animation = animation;
   }
 }
