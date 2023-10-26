@@ -35,9 +35,36 @@ class UIRenderer
 
     textIndex = -1;
 
-    if (game.help)
+    if (!Globals.hideUI)
     {
-      addHelpTexts();
+      if (game.help)
+      {
+        addHelpTexts();
+      }
+      else
+      {
+        if (Globals.watermark)
+        {
+          addText(UserInterface.waterMarkText);
+        }
+
+        if (game.paused)
+        {
+          addText(UserInterface.pausedText);
+        }
+
+        addText(UserInterface.levelNameText);
+        addText(UserInterface.elapsedTimeText);
+        addText(UserInterface.bestTimeText);
+
+        addText(UserInterface.retryText);
+        addText(UserInterface.nextLevelText);
+        addText(UserInterface.trophyLevelText);
+
+        addText(UserInterface.goldRequirementText);
+        addText(UserInterface.silverRequirementText);
+        addText(UserInterface.bronzeRequirementText);
+      }
     }
     else
     {
@@ -45,23 +72,6 @@ class UIRenderer
       {
         addText(UserInterface.waterMarkText);
       }
-
-      if (game.paused)
-      {
-        addText(UserInterface.pausedText);
-      }
-
-      addText(UserInterface.levelNameText);
-      addText(UserInterface.elapsedTimeText);
-      addText(UserInterface.bestTimeText);
-
-      addText(UserInterface.retryText);
-      addText(UserInterface.nextLevelText);
-      addText(UserInterface.trophyLevelText);
-
-      addText(UserInterface.goldRequirementText);
-      addText(UserInterface.silverRequirementText);
-      addText(UserInterface.bronzeRequirementText);
     }
 
     renderTexts();

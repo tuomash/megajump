@@ -23,6 +23,10 @@ class Boot
       {
         Globals.watermark = true;
       }
+      else if (args[i].equalsIgnoreCase("hide_ui"))
+      {
+        Globals.hideUI = true;
+      }
       else if (args[i].contains("level"))
       {
         final String[] parts = args[i].split("=");
