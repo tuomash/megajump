@@ -12,6 +12,7 @@ class Game
   final CameraState cameraState;
 
   Level level;
+  Save save;
   boolean help;
   boolean paused;
 
@@ -23,9 +24,27 @@ class Game
     levels = new Levels();
     cameraState = new CameraState();
 
-    if (levelTag != null)
+    if (Save.doesSaveFileExist())
+    {
+      save = Save.readFromDisk();
+    }
+
+    if (save == null)
+    {
+      save = new Save();
+      Save.writeToDisk(save);
+    }
+
+    levels.loadScores(save);
+
+    if (levelTag != null && !levelTag.isEmpty())
     {
       level = levels.get(levelTag);
+
+      if (level == null)
+      {
+        System.out.println("warn: no such level '" + levelTag + "'");
+      }
     }
 
     if (level == null)
@@ -47,6 +66,7 @@ class Game
 
     player.update(delta);
     level.update(delta, player);
+    save.updateScore(level);
 
     if (player.getY() < -70.0f)
     {

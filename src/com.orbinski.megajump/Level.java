@@ -20,9 +20,11 @@ class Level
   List<Block> blocks = new ArrayList<>();
   List<Trampoline> trampolines = new ArrayList<>();
   List<Platform> platforms = new ArrayList<>();
+
   boolean started;
   boolean finished;
   boolean cleared;
+  boolean scoreUpdate;
 
   float elapsed;
   int millisecondsElapsed;
@@ -77,6 +79,7 @@ class Level
       {
         bestTimeMillisecondsElapsed = millisecondsElapsed;
         UserInterface.updateBestTimeText(bestTimeMillisecondsElapsed);
+        scoreUpdate = true;
       }
 
       switch (trophy)
@@ -204,6 +207,11 @@ class Level
     {
       this.trophy = trophy;
       UserInterface.updateTrophyLevelText(trophy);
+
+      if (trophy == Trophy.GOLD || trophy == Trophy.SILVER || trophy == Trophy.BRONZE)
+      {
+        scoreUpdate = true;
+      }
     }
   }
 

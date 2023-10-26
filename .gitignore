@@ -12,3 +12,4 @@ inst/
 *.~lock*
 lib/java/*
 megajump.iml
+save.dat

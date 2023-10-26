@@ -400,6 +400,23 @@ class Levels
     return levelIndex == levels.size() - 1;
   }
 
+  void loadScores(final Save save)
+  {
+    for (int i = 0; i < levels.size(); i++)
+    {
+      final Level level = levels.get(i);
+
+      if (level.tag != null && !level.tag.isEmpty())
+      {
+        if (save.scores.containsKey(level.tag))
+        {
+          final Score score = save.scores.get(level.tag);
+          score.load(level);
+        }
+      }
+    }
+  }
+
   int getLevelIndex()
   {
     return levelIndex;
