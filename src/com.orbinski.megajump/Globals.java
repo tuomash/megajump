@@ -17,4 +17,5 @@ class Globals
 
   static boolean debug;
   static boolean watermark;
+  static String levelTag;
 }

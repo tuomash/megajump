@@ -19,10 +19,18 @@ class Boot
       {
         Globals.debug = true;
       }
-
-      if (args[i].equalsIgnoreCase("watermark"))
+      else if (args[i].equalsIgnoreCase("watermark"))
       {
         Globals.watermark = true;
+      }
+      else if (args[i].contains("level"))
+      {
+        final String[] parts = args[i].split("=");
+
+        if (parts.length == 2)
+        {
+          Globals.levelTag = parts[1];
+        }
       }
     }
 

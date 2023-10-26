@@ -14,6 +14,7 @@ class Level
   }
 
   String name = "Level";
+  String tag;
   Door door;
   List<Decoration> decorations = new ArrayList<>();
   List<Block> blocks = new ArrayList<>();

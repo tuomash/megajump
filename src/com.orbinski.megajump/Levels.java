@@ -16,22 +16,8 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Platform 1";
-      level.goldTimeInMilliseconds = 10000;
-      level.silverTimeInMilliseconds = 12000;
-      level.bronzeTimeInMilliseconds = 15000;
-
-      final Platform platform1 = new Platform(10.0f, -20.0f, 40.0f, 1.5f);
-      level.platforms.add(platform1);
-
-      final Door door = new Door(35.0f, -6.0f, 5.0f, 5.0f);
-      level.setDoor(door);
-      levels.add(level);
-    }
-
-    {
-      final Level level = new Level();
       level.name = "Small Jump";
+      level.tag = "small_jump";
       level.goldTimeInMilliseconds = 233;
       level.silverTimeInMilliseconds = 500;
       level.bronzeTimeInMilliseconds = 1000;
@@ -43,6 +29,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Medium Jump";
+      level.tag = "medium_jump";
       level.goldTimeInMilliseconds = 390;
       level.silverTimeInMilliseconds = 500;
       level.bronzeTimeInMilliseconds = 1000;
@@ -54,6 +41,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Long Jump";
+      level.tag = "long_jump";
       level.goldTimeInMilliseconds = 600;
       level.silverTimeInMilliseconds = 700;
       level.bronzeTimeInMilliseconds = 1500;
@@ -65,6 +53,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Big Jump";
+      level.tag = "big_jump";
       level.goldTimeInMilliseconds = 1000;
       level.silverTimeInMilliseconds = 1200;
       level.bronzeTimeInMilliseconds = 1800;
@@ -76,6 +65,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Even Bigger Jump";
+      level.tag = "even_bigger_jump";
       level.goldTimeInMilliseconds = 1200;
       level.silverTimeInMilliseconds = 1500;
       level.bronzeTimeInMilliseconds = 2000;
@@ -86,7 +76,8 @@ class Levels
 
     {
       final Level level = new Level();
-      level.name = "Dwarves Can't Jump";
+      level.name = "High as a Kite";
+      level.tag = "kite";
       level.goldTimeInMilliseconds = 900;
       level.silverTimeInMilliseconds = 1200;
       level.bronzeTimeInMilliseconds = 1600;
@@ -98,6 +89,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Guiding Light";
+      level.tag = "guiding_light";
       level.goldTimeInMilliseconds = 3000;
       level.silverTimeInMilliseconds = 3500;
       level.bronzeTimeInMilliseconds = 4000;
@@ -123,6 +115,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "It Moves";
+      level.tag = "it_moves";
       level.goldTimeInMilliseconds = 1000;
       level.silverTimeInMilliseconds = 1500;
       level.bronzeTimeInMilliseconds = 2000;
@@ -139,6 +132,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Elevator";
+      level.tag = "elevator";
       level.goldTimeInMilliseconds = 750;
       level.silverTimeInMilliseconds = 1000;
       level.bronzeTimeInMilliseconds = 1500;
@@ -155,6 +149,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Rectangle";
+      level.tag = "rectangle";
       level.goldTimeInMilliseconds = 750;
       level.silverTimeInMilliseconds = 1000;
       level.bronzeTimeInMilliseconds = 1500;
@@ -173,6 +168,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Blocked 2";
+      level.tag = "blocked_2";
       level.goldTimeInMilliseconds = 1500;
       level.silverTimeInMilliseconds = 2000;
       level.bronzeTimeInMilliseconds = 2500;
@@ -209,6 +205,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Trampoline 1";
+      level.tag = "trampoline_1";
       level.goldTimeInMilliseconds = 2800;
       level.silverTimeInMilliseconds = 3500;
       level.bronzeTimeInMilliseconds = 5000;
@@ -224,6 +221,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Trampoline 2";
+      level.tag = "trampoline_2";
       level.moveCameraX = true;
       level.moveCameraY = true;
       level.goldTimeInMilliseconds = 3200;
@@ -243,6 +241,7 @@ class Levels
       level.moveCameraX = true;
       // level.moveCameraY = true;
       level.name = "Trampoline 3";
+      level.tag = "trampoline_3";
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
@@ -266,6 +265,7 @@ class Levels
       level.moveCameraX = true;
       level.moveCameraY = true;
       level.name = "Trampoline 4";
+      level.tag = "trampoline_4";
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
@@ -293,6 +293,7 @@ class Levels
     {
       final Level level = new Level();
       level.name = "Mini-me";
+      level.tag = "mini_me";
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
@@ -332,6 +333,22 @@ class Levels
 
       final Block block12 = new Block(37.5f, 0.0f, 2.5f, 2.5f);
       level.blocks.add(block12);
+
+      final Door door = new Door(35.0f, -6.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+    }
+
+    {
+      final Level level = new Level();
+      level.name = "Platform 1";
+      level.tag = "platform_1";
+      level.goldTimeInMilliseconds = 10000;
+      level.silverTimeInMilliseconds = 12000;
+      level.bronzeTimeInMilliseconds = 15000;
+
+      final Platform platform1 = new Platform(10.0f, -20.0f, 40.0f, 1.5f);
+      level.platforms.add(platform1);
 
       final Door door = new Door(35.0f, -6.0f, 5.0f, 5.0f);
       level.setDoor(door);
@@ -396,5 +413,21 @@ class Levels
   void goToEnd()
   {
     levelIndex = levels.size() - 1;
+  }
+
+  Level get(final String tag)
+  {
+    for (int i = 0; i < levels.size(); i++)
+    {
+      final Level level = levels.get(i);
+
+      if (level.tag != null && level.tag.equalsIgnoreCase(tag))
+      {
+        levelIndex = i;
+        return level;
+      }
+    }
+
+    return null;
   }
 }

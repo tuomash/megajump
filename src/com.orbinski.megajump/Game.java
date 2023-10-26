@@ -23,8 +23,17 @@ class Game
     levels = new Levels();
     cameraState = new CameraState();
 
-    levels.goToBeginning();
-    level = levels.getLevel();
+    if (levelTag != null)
+    {
+      level = levels.get(levelTag);
+    }
+
+    if (level == null)
+    {
+      levels.goToBeginning();
+      level = levels.getLevel();
+    }
+
     level.updateUI();
     reset();
   }
