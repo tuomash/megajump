@@ -173,9 +173,16 @@ class Player extends Entity
 
   void moveLeft()
   {
-    if (moving && state == State.JUMPING)
+    if (moving)
     {
-      velocityX = velocityX - 0.5f;
+      if (state == State.JUMPING)
+      {
+        velocityX = velocityX - 0.5f;
+      }
+      else
+      {
+        velocityX = velocityX - 0.15f;
+      }
     }
 
     setDirection(Direction.LEFT);
@@ -183,9 +190,16 @@ class Player extends Entity
 
   void moveRight()
   {
-    if (moving && state == State.JUMPING)
+    if (moving)
     {
-      velocityX = velocityX + 0.5f;
+      if (state == State.JUMPING)
+      {
+        velocityX = velocityX + 0.5f;
+      }
+      else
+      {
+        velocityX = velocityX + 0.15f;
+      }
     }
 
     setDirection(Direction.RIGHT);
