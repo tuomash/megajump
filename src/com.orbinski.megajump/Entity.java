@@ -105,18 +105,15 @@ abstract class Entity
     {
       case REGULAR:
       {
-        if (moving)
+        if (applyGravity)
         {
-          if (applyGravity)
-          {
-            velocityY = velocityY + gravity;
-          }
-
-          final float distanceX = velocityX * delta;
-          final float distanceY = velocityY * delta;
-          setX(getX() + distanceX);
-          setY(getY() + distanceY);
+          velocityY = velocityY + gravity;
         }
+
+        final float distanceX = velocityX * delta;
+        final float distanceY = velocityY * delta;
+        setX(getX() + distanceX);
+        setY(getY() + distanceY);
 
         break;
       }
@@ -170,7 +167,6 @@ abstract class Entity
 
   void clearCollisionStatus()
   {
-    applyGravity = true;
     rightSideCollision = false;
     bottomSideCollision = false;
   }

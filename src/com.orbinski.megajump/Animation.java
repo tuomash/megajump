@@ -60,6 +60,11 @@ class Animation
     this.playing = animation.playing;
   }
 
+  boolean isAtEnd()
+  {
+    return index == frames.size() - 1;
+  }
+
   void reset()
   {
     elapsed = 0.0f;

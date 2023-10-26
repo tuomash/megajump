@@ -48,19 +48,16 @@ class Level
 
   void update(final float delta, final Player player)
   {
-    if (finished)
+    if (!started || finished)
     {
       return;
     }
 
-    if (started)
-    {
-      elapsed = elapsed + delta;
-      millisecondsElapsed = (int) (elapsed * 1000.0f);
-      lastTimeMillisecondsElapsed = millisecondsElapsed;
+    elapsed = elapsed + delta;
+    millisecondsElapsed = (int) (elapsed * 1000.0f);
+    lastTimeMillisecondsElapsed = millisecondsElapsed;
 
-      UserInterface.updateElapsedTimeText(millisecondsElapsed);
-    }
+    UserInterface.updateElapsedTimeText(millisecondsElapsed);
 
     if (door != null)
     {
@@ -136,6 +133,7 @@ class Level
     else
     {
       player.clearCollisionStatus();
+      player.setPosition(Player.Position.NONE);
 
       for (int i = 0; i < blocks.size(); i++)
       {

@@ -15,8 +15,16 @@ class Player extends Entity
     LANDING
   }
 
+  enum Position
+  {
+    START,
+    NONE,
+    PLATFORM
+  }
+
   Direction direction;
   State state;
+  private Position position;
 
   final float maxVelocityX = 70.0f;
   final float maxVelocityY = 80.0f;
@@ -26,6 +34,10 @@ class Player extends Entity
   float cursorX;
   float cursorY;
   boolean targeting;
+
+  private float jumpElapsed;
+  private final float jumpTarget = 1.5f;
+  private boolean canJump = true;
 
   Player()
   {
@@ -41,11 +53,20 @@ class Player extends Entity
 
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
+    setPosition(Position.START);
   }
 
   void update(final float delta)
   {
     super.update(delta);
+
+    jumpElapsed = jumpElapsed + delta;
+
+    if (jumpElapsed > jumpTarget)
+    {
+      jumpElapsed = 0.0f;
+      canJump = true;
+    }
 
     if (state == State.JUMPING)
     {
@@ -101,8 +122,9 @@ class Player extends Entity
 
   void jump()
   {
-    if (!moving)
+    if (canJump())
     {
+      applyGravity = true;
       moving = true;
       UserInterface.retryText.visible = false;
 
@@ -159,6 +181,7 @@ class Player extends Entity
         setDirection(Direction.LEFT);
       }
 
+      canJump = false;
       setState(State.JUMPING);
     }
   }
@@ -272,7 +295,10 @@ class Player extends Entity
         overlaps = true;
         setY(entity.getY() + entity.getHeightOffset() + collisionBox.height / 2.0f - 0.5f);
         velocityY = 0.0f;
+        setPosition(Position.PLATFORM);
+        bottomSideCollision = true;
 
+        // TODO: --> this needs to be fixed
         if (velocityX > 0.3f)
         {
           velocityX = velocityX - 0.3f;
@@ -283,19 +309,13 @@ class Player extends Entity
         }
         else
         {
-          moving = false;
           setState(State.IDLE);
           velocityX = 0.0f;
           return overlaps;
         }
 
-        applyGravity = false;
-        bottomSideCollision = true;
-
-        if (state != State.LANDING)
-        {
-          setState(State.LANDING);
-        }
+        setState(State.LANDING);
+        // TODO: this needs to be fixed <--
       }
 
       return overlaps;
@@ -358,6 +378,14 @@ class Player extends Entity
     }
   }
 
+  void setPosition(final Position position)
+  {
+    if (position != null && this.position != position)
+    {
+      this.position = position;
+    }
+  }
+
   void updateAnimationState(final boolean reset)
   {
     switch (this.state)
@@ -411,16 +439,25 @@ class Player extends Entity
     }
   }
 
+  boolean canJump()
+  {
+    return canJump && (position == Position.START || position == Position.PLATFORM);
+  }
+
   void reset()
   {
     moving = false;
     targeting = false;
+    canJump = true;
+    jumpElapsed = 0.0f;
     setX(-75.0f);
     setY(-30.0f);
+    applyGravity = false;
     velocityX = 0.0f;
     velocityY = 0.0f;
     state = null;
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
+    setPosition(Position.START);
   }
 }

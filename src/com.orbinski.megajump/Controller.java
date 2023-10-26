@@ -76,7 +76,7 @@ class Controller
 
     if (!game.level.finished)
     {
-      if (Gdx.input.isTouched() && !game.player.moving)
+      if (Gdx.input.isTouched() && game.player.canJump())
       {
         if (!game.player.targeting)
         {
