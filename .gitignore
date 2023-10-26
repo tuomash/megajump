@@ -13,3 +13,4 @@ inst/
 lib/java/*
 megajump.iml
 save.dat
+save*.dat

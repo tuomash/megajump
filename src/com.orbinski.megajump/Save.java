@@ -1,6 +1,8 @@
 package com.orbinski.megajump;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,31 +71,36 @@ class Save implements Serializable
     return new File(saveFilePath).exists();
   }
 
-  private static void write(final File path, final Save save)
+  static void backupSaveFile()
+  {
+    final File src = new File(saveFilePath);
+    final String backupFilePath = System.getProperty("user.dir") + File.separator + "save_backup_"
+        + System.currentTimeMillis() + ".dat";
+    final File dst = new File(backupFilePath);
+
+    try
+    {
+      Files.copy(src.toPath(), dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
+    }
+    catch (final Exception e)
+    {
+      System.out.println("error: couldn't backup save file: " + e.getMessage());
+    }
+  }
+
+  private static void write(final File path, final Save save) throws IOException
   {
     try (final ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path)))
     {
       out.writeObject(save);
     }
-    catch (final Exception e)
-    {
-      throw new IllegalStateException("Couldn't write data!", e);
-    }
   }
 
-  private static Save read(final File path) throws FileNotFoundException
+  private static Save read(final File path) throws IOException, ClassNotFoundException
   {
     try (final ObjectInputStream in = new ObjectInputStream(new FileInputStream(path)))
     {
       return (Save) in.readObject();
-    }
-    catch (final FileNotFoundException e)
-    {
-      throw e;
-    }
-    catch (final Exception e)
-    {
-      throw new IllegalStateException("Couldn't read data!", e);
     }
   }
 }

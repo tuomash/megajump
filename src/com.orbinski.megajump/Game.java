@@ -27,6 +27,14 @@ class Game
     if (Save.doesSaveFileExist())
     {
       save = Save.readFromDisk();
+
+      // Backup broken save file
+      if (save == null)
+      {
+        System.out.println("error: save file seems to be broken");
+        System.out.println("backing up broken save file");
+        Save.backupSaveFile();
+      }
     }
 
     if (save == null)
