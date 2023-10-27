@@ -314,7 +314,7 @@ class Player extends Entity
       if (!bottomSideCollision && EntityUtils.overlaps(bottomSide, entity))
       {
         overlaps = true;
-        setY(entity.getY() + entity.getHeightOffset() + collisionBox.height / 2.0f - 0.5f);
+        setY(entity.getY() + entity.getHeightOffset() + collisionBox.height / 2.0f - 0.7f);
         velocityY = 0.0f;
         setPosition(Position.PLATFORM);
         bottomSideCollision = true;
