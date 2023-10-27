@@ -127,6 +127,7 @@ class Resources
         playerLandLeft.add(texture);
       }
 
+      // Texture is flipped from "player-land-right" version
       Collections.reverse(playerLandLeft);
     }
 
