@@ -98,12 +98,9 @@ class Game
         }
       }
     }
-    else
-    {
-      updateCameraState(delta);
-    }
   }
 
+  /*
   private void updateCameraState(final float delta)
   {
     if (!player.moving && cameraState.moving && cameraState.active)
@@ -138,6 +135,7 @@ class Game
       // camera.position.y = player.getY() + 10.0f;
     }
   }
+   */
 
   void selectPreviousLevel()
   {
