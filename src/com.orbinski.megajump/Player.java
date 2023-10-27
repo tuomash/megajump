@@ -28,8 +28,8 @@ class Player extends Entity
   State state;
   private Position position;
 
-  final float maxVelocityX = 70.0f;
-  final float maxVelocityY = 80.0f;
+  final float maxJumpVelocityX = 65.0f;
+  final float maxJumpVelocityY = 75.0f;
   final float cursorWidth = 0.5f;
   final float cursorHeight = 0.5f;
 
@@ -66,6 +66,7 @@ class Player extends Entity
     }
 
     super.update(delta);
+    UserInterface.updateSpeedText((int) velocityX, (int) velocityY);
 
     if (!canJump)
     {
@@ -148,17 +149,21 @@ class Player extends Entity
       }
 
       final float percentageX = diffX / maxDiffX;
-      velocityX = velocityX + maxVelocityX * percentageX;
+      float jumpVelocityX = maxJumpVelocityX * percentageX;
 
-      if (velocityX > maxVelocityX)
+      // Clamp max jump x velocity
+      if (jumpVelocityX > maxJumpVelocityX)
       {
-        velocityX = maxVelocityX;
+        jumpVelocityX = maxJumpVelocityX;
       }
 
       if (cursorX < getX())
       {
-        velocityX = -velocityX;
+        jumpVelocityX = -jumpVelocityX;
       }
+
+      // Add jump x velocity existing velocity
+      updateVelocityX(jumpVelocityX);
 
       final float maxDiffY = 40.0f;
       final float playerWorldY = getY();
@@ -170,17 +175,21 @@ class Player extends Entity
       }
 
       final float percentageY = diffY / maxDiffY;
-      velocityY = velocityY + maxVelocityY * percentageY;
+      float jumpVelocityY = maxJumpVelocityY * percentageY;
 
-      if (velocityY > maxVelocityY)
+      // Clamp max jump y velocity
+      if (jumpVelocityY > maxJumpVelocityY)
       {
-        velocityY = maxVelocityY;
+        jumpVelocityY = maxJumpVelocityY;
       }
 
       if (cursorY < getY())
       {
-        velocityY = -velocityY;
+        jumpVelocityY = -jumpVelocityY;
       }
+
+      // Add jump y velocity existing velocity
+      updateVelocityY(jumpVelocityY);
 
       if (velocityX > 0.0f)
       {
@@ -200,7 +209,7 @@ class Player extends Entity
   {
     if (state == State.JUMPING)
     {
-      velocityY = velocityY + 0.5f;
+      updateVelocityY(0.5f);
     }
   }
 
@@ -208,11 +217,11 @@ class Player extends Entity
   {
     if (state == State.JUMPING)
     {
-      velocityX = velocityX - 0.5f;
+      updateVelocityX(-0.5f, false);
     }
     else if (state == State.LANDING)
     {
-      velocityX = velocityX - 0.15f;
+      updateVelocityX(-0.15f);
     }
 
     if (setDirection(Direction.LEFT))
@@ -225,11 +234,11 @@ class Player extends Entity
   {
     if (state == State.JUMPING)
     {
-      velocityX = velocityX + 0.5f;
+      updateVelocityX(0.5f, false);
     }
     else if (state == State.LANDING)
     {
-      velocityX = velocityX + 0.15f;
+      updateVelocityX(0.15f);
     }
 
     if (setDirection(Direction.RIGHT))
@@ -242,7 +251,7 @@ class Player extends Entity
   {
     if (state == State.JUMPING)
     {
-      velocityY = velocityY - 0.5f;
+      updateVelocityY(-0.5f);
     }
   }
 

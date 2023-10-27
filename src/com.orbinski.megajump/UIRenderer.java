@@ -73,6 +73,7 @@ class UIRenderer
         addText(UserInterface.levelNameText);
         addText(UserInterface.elapsedTimeText);
         addText(UserInterface.bestTimeText);
+        addText(UserInterface.speedText);
 
         addText(UserInterface.retryText);
         addText(UserInterface.nextLevelText);

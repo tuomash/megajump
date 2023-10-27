@@ -19,6 +19,7 @@ class UserInterface
 
   static Text pausedText;
 
+  static Text speedText;
   static Text levelNameText;
   static Text elapsedTimeText;
   static Text bestTimeText;
@@ -44,6 +45,7 @@ class UserInterface
     levelNameText = createText(null);
     elapsedTimeText = createText("Elapsed:");
     bestTimeText = createText("Best time:");
+    speedText = createText("Speed:");
 
     retryText = createText("Press R to retry");
     retryText.visible = false;
@@ -95,6 +97,7 @@ class UserInterface
       levelNameText.setPosition(20, 20);
       elapsedTimeText.setPosition(20, 40);
       bestTimeText.setPosition(20, 60);
+      speedText.setPosition(20, 80);
 
       final int secondHelpX = 260;
 
@@ -117,6 +120,7 @@ class UserInterface
       levelNameText.setPosition(20, 30);
       elapsedTimeText.setPosition(20, 60);
       bestTimeText.setPosition(20, 90);
+      speedText.setPosition(20, 120);
 
       final int secondHelpX = 360;
 
@@ -139,6 +143,7 @@ class UserInterface
       levelNameText.setPosition(20, 40);
       elapsedTimeText.setPosition(20, 80);
       bestTimeText.setPosition(20, 120);
+      speedText.setPosition(20, 160);
 
       final int secondHelpX = 460;
 
@@ -185,6 +190,11 @@ class UserInterface
   static void updateBestTimeText(final int milliseconds)
   {
     bestTimeText.text = "Best time: " + toTimestamp(milliseconds);
+  }
+
+  static void updateSpeedText(final int velocityX, final int velocityY)
+  {
+    speedText.text = "Speed: x" + velocityX + " y" + velocityY;
   }
 
   static void clearBestTimeText()

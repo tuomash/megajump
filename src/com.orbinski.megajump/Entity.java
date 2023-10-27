@@ -46,6 +46,8 @@ abstract class Entity
   Point2D.Float currentWaypoint;
   int waypointIndex;
 
+  final float maxVelocityX = 130.0f;
+  final float maxVelocityY = 140.0f;
   float velocityX;
   float velocityY;
   boolean drawBorder = false;
@@ -323,6 +325,42 @@ abstract class Entity
   float getHeightOffset()
   {
     return heightOffset;
+  }
+
+  public void updateVelocityX(final float input)
+  {
+    updateVelocityX(input, true);
+  }
+
+  public void updateVelocityX(final float input, final boolean clamp)
+  {
+    velocityX = velocityX + input;
+
+    if (clamp)
+    {
+      if (velocityX > maxVelocityX)
+      {
+        velocityX = maxVelocityX;
+      }
+      else if (velocityX < -maxVelocityX)
+      {
+        velocityX = -maxVelocityX;
+      }
+    }
+  }
+
+  public void updateVelocityY(final float input)
+  {
+    velocityY = velocityY + input;
+
+    if (velocityY > maxVelocityY)
+    {
+      velocityY = maxVelocityY;
+    }
+    else if (velocityY < -maxVelocityY)
+    {
+      velocityY = -maxVelocityY;
+    }
   }
 
   void addWaypoint(final Point2D.Float waypoint)
