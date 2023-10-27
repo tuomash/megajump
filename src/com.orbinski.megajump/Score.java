@@ -19,6 +19,8 @@ class Score implements Serializable
 
   void load(final Level level)
   {
+    level.cleared = true;
+
     if (version == 1)
     {
       level.trophy = Level.Trophy.valueOf(trophyStr);

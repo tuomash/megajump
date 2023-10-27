@@ -14,7 +14,7 @@ class Save implements Serializable
 
   void updateScore(final Level level)
   {
-    if (level.tag == null || level.tag.isEmpty() || !level.scoreUpdate || !level.finished)
+    if (level.tag == null || level.tag.isEmpty() || !level.scoreUpdate || !level.cleared)
     {
       return;
     }
