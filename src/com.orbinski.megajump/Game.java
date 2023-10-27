@@ -76,6 +76,15 @@ class Game
     level.update(delta, player);
     save.updateScore(level);
 
+    if (player.canJump())
+    {
+      UserInterface.enableJumpBar();
+    }
+    else
+    {
+      UserInterface.disableJumpBar();
+    }
+
     // TODO: define death point in the level
     if (player.getY() < -70.0f)
     {

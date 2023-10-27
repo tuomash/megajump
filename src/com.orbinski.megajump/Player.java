@@ -148,7 +148,7 @@ class Player extends Entity
       }
 
       final float percentageX = diffX / maxDiffX;
-      velocityX = maxVelocityX * percentageX;
+      velocityX = velocityX + maxVelocityX * percentageX;
 
       if (velocityX > maxVelocityX)
       {
@@ -170,7 +170,7 @@ class Player extends Entity
       }
 
       final float percentageY = diffY / maxDiffY;
-      velocityY = maxVelocityY * percentageY;
+      velocityY = velocityY + maxVelocityY * percentageY;
 
       if (velocityY > maxVelocityY)
       {

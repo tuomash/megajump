@@ -76,7 +76,7 @@ class Controller
 
     if (!game.level.finished)
     {
-      if (Gdx.input.isTouched() && game.player.canJump())
+      if (Gdx.input.isTouched())
       {
         if (!game.player.targeting)
         {
@@ -93,25 +93,22 @@ class Controller
     }
 
     // Player aerial controls
-    if (!game.player.targeting)
+    if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
     {
-      if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
-      {
-        game.player.moveUp();
-      }
-      else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
-      {
-        game.player.moveDown();
-      }
+      game.player.moveUp();
+    }
+    else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
+    {
+      game.player.moveDown();
+    }
 
-      if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
-      {
-        game.player.moveLeft();
-      }
-      else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-      {
-        game.player.moveRight();
-      }
+    if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+    {
+      game.player.moveLeft();
+    }
+    else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+    {
+      game.player.moveRight();
     }
     // Camera controls
     /*

@@ -125,7 +125,7 @@ class Renderer
                     platform.getBottomLeftCornerY(),
                     platform.getWidth(),
                     platform.getHeight(),
-                    Color.GRAY);
+                    UserInterface.DARK_GREEN);
     }
   }
 

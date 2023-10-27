@@ -392,16 +392,16 @@ class Levels
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
 
-      final Platform platform1 = new Platform(40.0f, 0.0f, 40.0f, 1.5f);
+      final Platform platform1 = new Platform(40.0f, 0.0f, 60.0f, 1.5f);
       level.platforms.add(platform1);
 
-      final Platform platform2 = new Platform(240.0f, 20.0f, 40.0f, 1.5f);
+      final Platform platform2 = new Platform(240.0f, 20.0f, 60.0f, 1.5f);
       level.platforms.add(platform2);
 
-      final Platform platform3 = new Platform(440.0f, 40.0f, 40.0f, 1.5f);
+      final Platform platform3 = new Platform(440.0f, 40.0f, 60.0f, 1.5f);
       level.platforms.add(platform3);
 
-      final Platform platform4 = new Platform(640.0f, 60.0f, 40.0f, 1.5f);
+      final Platform platform4 = new Platform(640.0f, 60.0f, 60.0f, 1.5f);
       level.platforms.add(platform4);
 
       final Door door = new Door(840.0f, 100.0f, 5.0f, 5.0f);

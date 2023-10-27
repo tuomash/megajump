@@ -9,7 +9,8 @@ import static com.orbinski.megajump.MathUtils.*;
 
 class UserInterface
 {
-  private static Color DARK_RED = new Color(139.0f / 255.0f, 0.0f, 0.0f, 1.0f);
+  static Color DARK_RED = new Color(139.0f / 255.0f, 0.0f, 0.0f, 1.0f);
+  static Color DARK_GREEN = new Color(8.0f / 255.0f, 144.0f / 255.0f, 0.0f, 1.0f);
 
   static final Help help = new Help();
   private static final List<Text> texts = new ArrayList<>();
@@ -55,12 +56,12 @@ class UserInterface
     bronzeRequirementText = createText("Bronze:");
 
     jumpBar = new Bar();
-    jumpBar.color = Color.BLUE;
     jumpBar.setX(20);
     jumpBar.setY(200);
     jumpBar.setHeight(20);
     jumpBar.setWidth(300);
     jumpBar.updateBar(1.0f, 1.0f);
+    enableJumpBar();
   }
 
   static void layout(final int width, final int height)
@@ -209,5 +210,15 @@ class UserInterface
   static void updateBronzeRequirementText(final int milliseconds)
   {
     bronzeRequirementText.text = "Bronze: " + toTimestamp(milliseconds);
+  }
+
+  static void enableJumpBar()
+  {
+    jumpBar.color = Color.BLUE;
+  }
+
+  static void disableJumpBar()
+  {
+    jumpBar.color = Color.GRAY;
   }
 }
