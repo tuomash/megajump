@@ -12,7 +12,9 @@ class Player extends Entity
   {
     IDLE,
     JUMPING,
-    LANDING
+    LANDING,
+    EXIT,
+    DEATH
   }
 
   enum Position
@@ -58,6 +60,11 @@ class Player extends Entity
 
   void update(final float delta)
   {
+    if (state == State.EXIT || state == State.DEATH)
+    {
+      return;
+    }
+
     super.update(delta);
 
     jumpElapsed = jumpElapsed + delta;
@@ -125,7 +132,6 @@ class Player extends Entity
     if (canJump())
     {
       applyGravity = true;
-      moving = true;
       UserInterface.retryText.visible = false;
 
       final float maxDiffX = 40.0f;
@@ -188,7 +194,7 @@ class Player extends Entity
 
   void moveUp()
   {
-    if (moving && state == State.JUMPING)
+    if (state == State.JUMPING)
     {
       velocityY = velocityY + 0.5f;
     }
@@ -196,16 +202,13 @@ class Player extends Entity
 
   void moveLeft()
   {
-    if (moving)
+    if (state == State.JUMPING)
     {
-      if (state == State.JUMPING)
-      {
-        velocityX = velocityX - 0.5f;
-      }
-      else
-      {
-        velocityX = velocityX - 0.15f;
-      }
+      velocityX = velocityX - 0.5f;
+    }
+    else if (state == State.LANDING)
+    {
+      velocityX = velocityX - 0.15f;
     }
 
     if (setDirection(Direction.LEFT))
@@ -216,16 +219,13 @@ class Player extends Entity
 
   void moveRight()
   {
-    if (moving)
+    if (state == State.JUMPING)
     {
-      if (state == State.JUMPING)
-      {
-        velocityX = velocityX + 0.5f;
-      }
-      else
-      {
-        velocityX = velocityX + 0.15f;
-      }
+      velocityX = velocityX + 0.5f;
+    }
+    else if (state == State.LANDING)
+    {
+      velocityX = velocityX + 0.15f;
     }
 
     if (setDirection(Direction.RIGHT))
@@ -236,7 +236,7 @@ class Player extends Entity
 
   void moveDown()
   {
-    if (moving && state == State.JUMPING)
+    if (state == State.JUMPING)
     {
       velocityY = velocityY - 0.5f;
     }
@@ -255,7 +255,7 @@ class Player extends Entity
 
       if (overlaps)
       {
-        moving = false;
+        stop();
         moveToPreviousLocation();
         setState(State.IDLE);
       }
@@ -446,15 +446,13 @@ class Player extends Entity
 
   void reset()
   {
-    moving = false;
     targeting = false;
     canJump = true;
     jumpElapsed = 0.0f;
     setX(-75.0f);
     setY(-30.0f);
     applyGravity = false;
-    velocityX = 0.0f;
-    velocityY = 0.0f;
+    stop();
     state = null;
     setDirection(Direction.RIGHT);
     setState(State.IDLE);

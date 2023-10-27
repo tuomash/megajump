@@ -80,11 +80,12 @@ class Game
     if (player.getY() < -70.0f)
     {
       UserInterface.retryText.visible = true;
-      player.moving = false;
+      player.stop();
+      player.setState(Player.State.DEATH);
       level.finished = true;
     }
 
-    if (player.moving)
+    if (player.isMoving())
     {
       if (level.moveCameraX)
       {

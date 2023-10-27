@@ -50,7 +50,6 @@ abstract class Entity
   float velocityY;
   boolean drawBorder = false;
   boolean visible = true;
-  boolean moving;
   boolean dead;
   Sound moveSound;
   Sound deathSound;
@@ -185,6 +184,17 @@ abstract class Entity
   void moveToPreviousY()
   {
     setX(prevX);
+  }
+
+  void stop()
+  {
+    velocityX = 0.0f;
+    velocityY = 0.0f;
+  }
+
+  boolean isMoving()
+  {
+    return velocityX > 0.0f || velocityX < 0.0f || velocityY > 0.0f || velocityY < 0.0f;
   }
 
   boolean overlaps(final Entity entity)

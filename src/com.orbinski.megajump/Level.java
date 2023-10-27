@@ -48,8 +48,18 @@ class Level
 
   void update(final float delta, final Player player)
   {
-    if (!started || finished)
+    if (finished)
     {
+      return;
+    }
+    else if (!started)
+    {
+      // Update moving doors even if the player hasn't started yet
+      if (door != null)
+      {
+        door.update(delta);
+      }
+
       return;
     }
 
@@ -66,7 +76,8 @@ class Level
 
     if (door != null && player.overlaps(door))
     {
-      player.moving = false;
+      player.stop();
+      player.setState(Player.State.EXIT);
       UserInterface.retryText.visible = true;
       UserInterface.nextLevelText.visible = true;
       finished = true;

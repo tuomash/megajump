@@ -93,7 +93,7 @@ class Controller
     }
 
     // Player aerial controls
-    if (game.player.moving && !game.player.targeting)
+    if (!game.player.targeting)
     {
       if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
       {
