@@ -365,6 +365,22 @@ class Levels
       level.setDoor(door);
       levels.add(level);
     }
+
+    {
+      final Level level = new Level();
+      level.name = "On a Pedestal";
+      level.tag = "on_a_pedestal";
+      level.goldTimeInMilliseconds = 10000;
+      level.silverTimeInMilliseconds = 12000;
+      level.bronzeTimeInMilliseconds = 15000;
+
+      final Platform platform1 = new Platform(-70.0f, 25.0f, 20.0f, 1.5f);
+      level.platforms.add(platform1);
+
+      final Door door = new Door(-70.0f, 30.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+    }
   }
 
   void selectPreviousLevel()
