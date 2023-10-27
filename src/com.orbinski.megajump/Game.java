@@ -94,7 +94,7 @@ class Game
 
       if (level.moveCameraY)
       {
-        if (player.getY() > (27.5f + level.floor))
+        if (player.getY() > (15.0f + level.floor))
         {
           camera.position.y = camera.position.y + delta * player.velocityY + delta * 1.5f;
         }

@@ -165,6 +165,7 @@ class Levels
       levels.add(level);
     }
 
+    /*
     {
       final Level level = new Level();
       level.name = "Blocked 2";
@@ -201,6 +202,7 @@ class Levels
       final Block block8 = new Block(-25.0f, -2.5f, 2.5f, 2.5f);
       level.blocks.add(block8);
     }
+     */
 
     {
       final Level level = new Level();
@@ -222,8 +224,6 @@ class Levels
       final Level level = new Level();
       level.name = "Trampoline 2";
       level.tag = "trampoline_2";
-      level.moveCameraX = true;
-      level.moveCameraY = true;
       level.goldTimeInMilliseconds = 3200;
       level.silverTimeInMilliseconds = 3600;
       level.bronzeTimeInMilliseconds = 5000;
@@ -239,7 +239,6 @@ class Levels
     {
       final Level level = new Level();
       level.moveCameraX = true;
-      // level.moveCameraY = true;
       level.name = "Trampoline 3";
       level.tag = "trampoline_3";
       level.goldTimeInMilliseconds = 10000;
@@ -290,6 +289,7 @@ class Levels
       levels.add(level);
     }
 
+    /*
     {
       final Level level = new Level();
       level.name = "Mini-me";
@@ -338,19 +338,30 @@ class Levels
       level.setDoor(door);
       levels.add(level);
     }
+     */
 
     {
       final Level level = new Level();
-      level.name = "Platform 1";
-      level.tag = "platform_1";
+      level.moveCameraY = true;
+      level.name = "Platforms 1";
+      level.tag = "platforms_1";
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
 
-      final Platform platform1 = new Platform(10.0f, -20.0f, 40.0f, 1.5f);
+      final Platform platform1 = new Platform(40.0f, 0.0f, 40.0f, 1.5f);
       level.platforms.add(platform1);
 
-      final Door door = new Door(35.0f, -6.0f, 5.0f, 5.0f);
+      final Platform platform2 = new Platform(-80.0f, 20.0f, 40.0f, 1.5f);
+      level.platforms.add(platform2);
+
+      final Platform platform3 = new Platform(40.0f, 40.0f, 40.0f, 1.5f);
+      level.platforms.add(platform3);
+
+      final Platform platform4 = new Platform(-80.0f, 60.0f, 40.0f, 1.5f);
+      level.platforms.add(platform4);
+
+      final Door door = new Door(-20.0f, 100.0f, 5.0f, 5.0f);
       level.setDoor(door);
       levels.add(level);
     }

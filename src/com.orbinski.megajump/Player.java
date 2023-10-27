@@ -311,13 +311,15 @@ class Player extends Entity
           setState(State.IDLE);
         }
 
-        if (velocityX > 0.3f)
+        final float friction = 0.8f;
+
+        if (velocityX > friction)
         {
-          velocityX = velocityX - 0.3f;
+          velocityX = velocityX - friction;
         }
-        else if (velocityX < -0.3f)
+        else if (velocityX < -friction)
         {
-          velocityX = velocityX + 0.3f;
+          velocityX = velocityX + friction;
         }
         else
         {
