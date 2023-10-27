@@ -76,6 +76,7 @@ class Game
     level.update(delta, player);
     save.updateScore(level);
 
+    // TODO: define death point in the level
     if (player.getY() < -70.0f)
     {
       UserInterface.retryText.visible = true;
