@@ -26,6 +26,8 @@ class UserInterface
   static Text silverRequirementText;
   static Text bronzeRequirementText;
 
+  static Bar jumpBar;
+
   static void create()
   {
     help.create();
@@ -47,6 +49,13 @@ class UserInterface
     goldRequirementText = createText("Gold:");
     silverRequirementText = createText("Silver:");
     bronzeRequirementText = createText("Bronze:");
+
+    jumpBar = new Bar();
+    jumpBar.setX(20);
+    jumpBar.setY(200);
+    jumpBar.setHeight(20);
+    jumpBar.setWidth(300);
+    jumpBar.updateBar(1.0f, 1.0f);
   }
 
   static void layout(final int width, final int height)
@@ -137,6 +146,9 @@ class UserInterface
       silverRequirementText.setPosition(thirdHelpX, 80);
       bronzeRequirementText.setPosition(thirdHelpX, 40);
     }
+
+    jumpBar.setX(width - jumpBar.getWidth() - 20);
+    jumpBar.setY(20);
   }
 
   private static Text createText(final String text)

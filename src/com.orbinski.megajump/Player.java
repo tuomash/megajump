@@ -38,7 +38,7 @@ class Player extends Entity
   boolean targeting;
 
   private float jumpElapsed;
-  private final float jumpTarget = 1.5f;
+  private final float jumpTarget = 1.25f;
   private boolean canJump = true;
 
   Player()
@@ -67,12 +67,16 @@ class Player extends Entity
 
     super.update(delta);
 
-    jumpElapsed = jumpElapsed + delta;
-
-    if (jumpElapsed > jumpTarget)
+    if (!canJump)
     {
-      jumpElapsed = 0.0f;
-      canJump = true;
+      jumpElapsed = jumpElapsed + delta;
+      UserInterface.jumpBar.updateBar(jumpElapsed, jumpTarget);
+
+      if (jumpElapsed > jumpTarget)
+      {
+        jumpElapsed = 0.0f;
+        canJump = true;
+      }
     }
 
     if (state == State.JUMPING)
@@ -460,5 +464,6 @@ class Player extends Entity
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
     setPosition(Position.START);
+    UserInterface.jumpBar.reset();
   }
 }

@@ -68,7 +68,7 @@ class Renderer
     addPlatforms();
     addPlayer();
 
-    renderEntities();
+    renderSprites();
     renderShapes();
   }
 
@@ -199,7 +199,7 @@ class Renderer
     }
   }
 
-  void renderEntities()
+  void renderSprites()
   {
     if (entityIndex == -1)
     {
@@ -313,7 +313,7 @@ class Renderer
     {
       final Shape shape = shapes[i];
 
-      if (shape != null)
+      if (shape != null && shape.color != null)
       {
         shapeRenderer.setColor(shape.color.r, shape.color.g, shape.color.b, shape.color.a);
         shapeRenderer.set(shape.shapeType);
