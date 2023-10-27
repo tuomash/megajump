@@ -343,7 +343,7 @@ class Levels
     {
       final Level level = new Level();
       level.moveCameraY = true;
-      level.name = "Platforms 1";
+      level.name = "Platforms I";
       level.tag = "platforms_1";
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
@@ -378,6 +378,33 @@ class Levels
       level.platforms.add(platform1);
 
       final Door door = new Door(-70.0f, 30.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+    }
+
+    {
+      final Level level = new Level();
+      level.moveCameraX = true;
+      level.moveCameraY = true;
+      level.name = "Platforms II";
+      level.tag = "platforms_2";
+      level.goldTimeInMilliseconds = 10000;
+      level.silverTimeInMilliseconds = 12000;
+      level.bronzeTimeInMilliseconds = 15000;
+
+      final Platform platform1 = new Platform(40.0f, 0.0f, 40.0f, 1.5f);
+      level.platforms.add(platform1);
+
+      final Platform platform2 = new Platform(240.0f, 20.0f, 40.0f, 1.5f);
+      level.platforms.add(platform2);
+
+      final Platform platform3 = new Platform(440.0f, 40.0f, 40.0f, 1.5f);
+      level.platforms.add(platform3);
+
+      final Platform platform4 = new Platform(640.0f, 60.0f, 40.0f, 1.5f);
+      level.platforms.add(platform4);
+
+      final Door door = new Door(840.0f, 100.0f, 5.0f, 5.0f);
       level.setDoor(door);
       levels.add(level);
     }
