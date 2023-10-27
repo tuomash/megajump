@@ -4,10 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 
 class Bar extends UIElement
 {
-  static Color DARK_RED = new Color(139.0f / 255.0f, 0.0f, 0.0f, 1.0f);
-
   private float percentage;
   int barWidth;
+  Color color;
 
   public Bar()
   {

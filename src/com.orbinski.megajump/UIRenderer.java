@@ -122,7 +122,7 @@ class UIRenderer
   {
     if (bar != null && bar.visible)
     {
-      addFilledQuad(bar.getX(), bar.getY(), bar.barWidth, bar.getHeight(), Bar.DARK_RED);
+      addFilledQuad(bar.getX(), bar.getY(), bar.barWidth, bar.getHeight(), bar.color);
     }
   }
 
