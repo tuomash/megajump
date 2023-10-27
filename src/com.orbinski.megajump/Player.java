@@ -298,7 +298,15 @@ class Player extends Entity
         setPosition(Position.PLATFORM);
         bottomSideCollision = true;
 
-        // TODO: --> this needs to be fixed
+        if (state == State.JUMPING)
+        {
+          setState(State.LANDING);
+        }
+        else if (state == State.LANDING && (animation == null || animation.isAtEnd()))
+        {
+          setState(State.IDLE);
+        }
+
         if (velocityX > 0.3f)
         {
           velocityX = velocityX - 0.3f;
@@ -309,13 +317,8 @@ class Player extends Entity
         }
         else
         {
-          setState(State.IDLE);
           velocityX = 0.0f;
-          return overlaps;
         }
-
-        setState(State.LANDING);
-        // TODO: this needs to be fixed <--
       }
 
       return overlaps;
