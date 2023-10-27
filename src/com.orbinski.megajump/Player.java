@@ -163,7 +163,11 @@ class Player extends Entity
       }
 
       // Add jump x velocity existing velocity
-      updateVelocityX(jumpVelocityX);
+      // Only add if max x velocity has not been reached
+      if (velocityX < maxVelocityX && velocityX > -maxVelocityX)
+      {
+        updateVelocityX(jumpVelocityX);
+      }
 
       final float maxDiffY = 40.0f;
       final float playerWorldY = getY();
@@ -189,7 +193,11 @@ class Player extends Entity
       }
 
       // Add jump y velocity existing velocity
-      updateVelocityY(jumpVelocityY);
+      // Only add if max y velocity has not been reached
+      if (velocityY < maxVelocityY && velocityY > -maxVelocityY)
+      {
+        updateVelocityY(jumpVelocityY);
+      }
 
       if (velocityX > 0.0f)
       {
