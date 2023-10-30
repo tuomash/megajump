@@ -38,8 +38,6 @@ class Resources
 
   static void load()
   {
-    dwarfLeft = loadTexture("dwarf-left.png");
-    dwarfRight = loadTexture("dwarf-right.png");
     door = loadTexture("door.png");
     block = loadTexture("block.png");
     candle = loadTexture("candle.png");
