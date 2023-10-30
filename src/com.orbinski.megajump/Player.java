@@ -108,12 +108,6 @@ class Player extends Entity
     }
   }
 
-  void updateCursorLocation(final float x, final float y)
-  {
-    this.assistant.cursorX = x;
-    this.assistant.cursorY = y;
-  }
-
   void jump()
   {
     assistant.targeting = false;

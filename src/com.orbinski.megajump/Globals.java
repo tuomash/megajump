@@ -10,6 +10,8 @@ class Globals
   static final float TIME_STEP_SECONDS = 1 / 60.0f;
   static final int MAX_UPDATES = 20;
 
+  static final float GRAVITY = -0.6f;
+
   static final Random random = new Random();
 
   static int screenWidth;

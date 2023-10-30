@@ -84,7 +84,7 @@ class Controller
           game.cameraState.active = false;
         }
 
-        game.player.updateCursorLocation(result.x, result.y);
+        game.player.assistant.updateCursorLocation(result.x, result.y);
       }
       else if (game.player.assistant.targeting)
       {

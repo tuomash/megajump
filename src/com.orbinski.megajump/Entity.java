@@ -37,7 +37,6 @@ abstract class Entity
   boolean bottomSideCollision;
 
   boolean applyGravity = true;
-  float gravity = -0.6f;
 
   boolean applyWidthOffset = true;
   boolean applyHeightOffset = true;
@@ -108,7 +107,7 @@ abstract class Entity
       {
         if (applyGravity)
         {
-          velocityY = velocityY + gravity;
+          velocityY = velocityY + Globals.GRAVITY;
         }
 
         final float distanceX = velocityX * delta;
@@ -327,40 +326,53 @@ abstract class Entity
     return heightOffset;
   }
 
-  public void updateVelocityX(final float input)
+  void updateVelocityX(final float input)
   {
     updateVelocityX(input, true);
   }
 
-  public void updateVelocityX(final float input, final boolean clamp)
+  void updateVelocityX(final float input, final boolean clamp)
   {
     velocityX = velocityX + input;
 
     if (clamp)
     {
-      if (velocityX > maxVelocityX)
-      {
-        velocityX = maxVelocityX;
-      }
-      else if (velocityX < -maxVelocityX)
-      {
-        velocityX = -maxVelocityX;
-      }
+      velocityX = clampVelocityX(velocityX);
     }
   }
 
-  public void updateVelocityY(final float input)
+  float clampVelocityX(final float input)
+  {
+    if (input > maxVelocityX)
+    {
+      return maxVelocityX;
+    }
+    else if (input < -maxVelocityX)
+    {
+      return -maxVelocityX;
+    }
+
+    return input;
+  }
+
+  void updateVelocityY(final float input)
   {
     velocityY = velocityY + input;
+    velocityY = clampVelocityY(velocityY);
+  }
 
-    if (velocityY > maxVelocityY)
+  float clampVelocityY(final float input)
+  {
+    if (input > maxVelocityY)
     {
-      velocityY = maxVelocityY;
+      return maxVelocityY;
     }
-    else if (velocityY < -maxVelocityY)
+    else if (input < -maxVelocityY)
     {
-      velocityY = -maxVelocityY;
+      return -maxVelocityY;
     }
+
+    return input;
   }
 
   void addWaypoint(final Point2D.Float waypoint)

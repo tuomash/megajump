@@ -1,22 +1,29 @@
 package com.orbinski.megajump;
 
+import com.badlogic.gdx.math.Rectangle;
+
 class JumpAssistant
 {
   final Player player;
 
-  final float cursorWidth = 0.5f;
-  final float cursorHeight = 0.5f;
-  float cursorX;
-  float cursorY;
+  private float cursorX;
+  private float cursorY;
   boolean targeting;
 
   private float jumpElapsed;
   private final float jumpTarget = 1.25f;
   private boolean canJump = true;
 
-  public JumpAssistant(final Player player)
+  final Rectangle[] jumpCurve = new Rectangle[250];
+
+  JumpAssistant(final Player player)
   {
     this.player = player;
+
+    for (int i = 0; i < jumpCurve.length; i++)
+    {
+      jumpCurve[i] = new Rectangle();
+    }
   }
 
   void update(final float delta)
@@ -41,28 +48,7 @@ class JumpAssistant
       player.applyGravity = true;
       UserInterface.retryText.visible = false;
 
-      final float maxDiffX = 40.0f;
-      final float playerWorldX = player.getX();
-      float diffX = Math.abs(cursorX - playerWorldX);
-
-      if (diffX > maxDiffX)
-      {
-        diffX = maxDiffX;
-      }
-
-      final float percentageX = diffX / maxDiffX;
-      float jumpVelocityX = player.maxJumpVelocityX * percentageX;
-
-      // Clamp max jump x velocity
-      if (jumpVelocityX > player.maxJumpVelocityX)
-      {
-        jumpVelocityX = player.maxJumpVelocityX;
-      }
-
-      if (cursorX < player.getX())
-      {
-        jumpVelocityX = -jumpVelocityX;
-      }
+      final float jumpVelocityX = calculateJumpVelocityX();
 
       // Add jump x velocity existing velocity
       // Only add if max x velocity has not been reached
@@ -71,28 +57,7 @@ class JumpAssistant
         player.updateVelocityX(jumpVelocityX);
       }
 
-      final float maxDiffY = 40.0f;
-      final float playerWorldY = player.getY();
-      float diffY = Math.abs(cursorY - playerWorldY);
-
-      if (diffY > maxDiffY)
-      {
-        diffY = maxDiffY;
-      }
-
-      final float percentageY = diffY / maxDiffY;
-      float jumpVelocityY = player.maxJumpVelocityY * percentageY;
-
-      // Clamp max jump y velocity
-      if (jumpVelocityY > player.maxJumpVelocityY)
-      {
-        jumpVelocityY = player.maxJumpVelocityY;
-      }
-
-      if (cursorY < player.getY())
-      {
-        jumpVelocityY = -jumpVelocityY;
-      }
+      final float jumpVelocityY = calculateJumpVelocityY();
 
       // Add jump y velocity existing velocity
       // Only add if max y velocity has not been reached
@@ -112,6 +77,94 @@ class JumpAssistant
 
       canJump = false;
       player.setState(Player.State.JUMPING);
+    }
+  }
+
+  private float calculateJumpVelocityX()
+  {
+    final float maxDiffX = 40.0f;
+    final float playerWorldX = player.getX();
+    float diffX = Math.abs(cursorX - playerWorldX);
+
+    if (diffX > maxDiffX)
+    {
+      diffX = maxDiffX;
+    }
+
+    final float percentageX = diffX / maxDiffX;
+    float jumpVelocityX = player.maxJumpVelocityX * percentageX;
+
+    // Clamp max jump x velocity
+    if (jumpVelocityX > player.maxJumpVelocityX)
+    {
+      jumpVelocityX = player.maxJumpVelocityX;
+    }
+
+    if (cursorX < player.getX())
+    {
+      jumpVelocityX = -jumpVelocityX;
+    }
+
+    return jumpVelocityX;
+  }
+
+  private float calculateJumpVelocityY()
+  {
+    final float maxDiffY = 40.0f;
+    final float playerWorldY = player.getY();
+    float diffY = Math.abs(cursorY - playerWorldY);
+
+    if (diffY > maxDiffY)
+    {
+      diffY = maxDiffY;
+    }
+
+    final float percentageY = diffY / maxDiffY;
+    float jumpVelocityY = player.maxJumpVelocityY * percentageY;
+
+    // Clamp max jump y velocity
+    if (jumpVelocityY > player.maxJumpVelocityY)
+    {
+      jumpVelocityY = player.maxJumpVelocityY;
+    }
+
+    if (cursorY < player.getY())
+    {
+      jumpVelocityY = -jumpVelocityY;
+    }
+
+    return jumpVelocityY;
+  }
+
+  void updateCursorLocation(final float x, final float y)
+  {
+    cursorX = x;
+    cursorY = y;
+    calculateJumpCurve();
+  }
+
+  private void calculateJumpCurve()
+  {
+    final float velocityX = player.clampVelocityX(calculateJumpVelocityX());
+    float velocityY = player.clampVelocityY(calculateJumpVelocityY());
+
+    float x = player.getX();
+    float y = player.getY();
+    final Rectangle first = jumpCurve[0];
+    first.x = x;
+    first.y = y;
+
+    for (int i = 1; i < jumpCurve.length; i++)
+    {
+      velocityY = velocityY + Globals.GRAVITY;
+      final float distanceX = velocityX * (Globals.TIME_STEP_SECONDS / 1.5f); // approximation
+      final float distanceY = velocityY * (Globals.TIME_STEP_SECONDS / 1.5f); // approximation
+      x = x + distanceX;
+      y = y + distanceY;
+
+      final Rectangle rectangle = jumpCurve[i];
+      rectangle.x = x;
+      rectangle.y = y;
     }
   }
 

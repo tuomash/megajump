@@ -3,6 +3,7 @@ package com.orbinski.megajump;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -168,19 +169,36 @@ class Renderer
               Color.YELLOW);
     }
 
-    if (player.assistant.targeting)
+    final JumpAssistant assistant = player.assistant;
+
+    if (assistant.targeting)
     {
-      addQuad(player.assistant.cursorX,
-              player.assistant.cursorY,
-              player.assistant.cursorWidth,
-              player.assistant.cursorHeight,
+      /*
+      addQuad(assistant.cursorX,
+              assistant.cursorY,
+              assistant.cursorWidth,
+              assistant.cursorHeight,
               Color.WHITE);
 
-      addLine(player.assistant.cursorX,
-              player.assistant.cursorY,
+      addLine(assistant.cursorX,
+              assistant.cursorY,
               player.getX(),
               player.getY(),
               Color.WHITE);
+       */
+
+      for (int i = 1; i < 120; i++)
+      {
+        if (i % 3 == 0)
+        {
+          final Rectangle rectangle = assistant.jumpCurve[i];
+          addQuad(rectangle.x,
+                  rectangle.y,
+                  0.5f,
+                  0.5f,
+                  Color.WHITE);
+        }
+      }
     }
   }
 
