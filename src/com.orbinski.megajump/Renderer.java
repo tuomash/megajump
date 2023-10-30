@@ -168,16 +168,16 @@ class Renderer
               Color.YELLOW);
     }
 
-    if (player.targeting)
+    if (player.assistant.targeting)
     {
-      addQuad(player.cursorX,
-              player.cursorY,
-              player.cursorWidth,
-              player.cursorHeight,
+      addQuad(player.assistant.cursorX,
+              player.assistant.cursorY,
+              player.assistant.cursorWidth,
+              player.assistant.cursorHeight,
               Color.WHITE);
 
-      addLine(player.cursorX,
-              player.cursorY,
+      addLine(player.assistant.cursorX,
+              player.assistant.cursorY,
               player.getX(),
               player.getY(),
               Color.WHITE);

@@ -164,7 +164,6 @@ class Game
 
   void jump()
   {
-    player.targeting = false;
     player.jump();
     level.started = true;
   }

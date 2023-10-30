@@ -78,15 +78,15 @@ class Controller
     {
       if (Gdx.input.isTouched())
       {
-        if (!game.player.targeting)
+        if (!game.player.assistant.targeting)
         {
-          game.player.targeting = true;
+          game.player.assistant.targeting = true;
           game.cameraState.active = false;
         }
 
         game.player.updateCursorLocation(result.x, result.y);
       }
-      else if (game.player.targeting)
+      else if (game.player.assistant.targeting)
       {
         game.jump();
       }

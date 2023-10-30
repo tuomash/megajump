@@ -30,22 +30,15 @@ class Player extends Entity
 
   final float maxJumpVelocityX = 65.0f;
   final float maxJumpVelocityY = 75.0f;
-  final float cursorWidth = 0.5f;
-  final float cursorHeight = 0.5f;
 
-  float cursorX;
-  float cursorY;
-  boolean targeting;
-
-  private float jumpElapsed;
-  private final float jumpTarget = 1.25f;
-  private boolean canJump = true;
+  final JumpAssistant assistant;
 
   Player()
   {
     super(-75.0f, -30.0f, 10.0f, 10.0f, true);
 
     movement = Movement.REGULAR;
+    assistant = new JumpAssistant(this);
     // drawBorder = true;
     // drawCollisions = true;
 
@@ -67,18 +60,7 @@ class Player extends Entity
 
     super.update(delta);
     UserInterface.updateSpeedText((int) velocityX, (int) velocityY);
-
-    if (!canJump)
-    {
-      jumpElapsed = jumpElapsed + delta;
-      UserInterface.jumpBar.updateBar(jumpElapsed, jumpTarget);
-
-      if (jumpElapsed > jumpTarget)
-      {
-        jumpElapsed = 0.0f;
-        canJump = true;
-      }
-    }
+    assistant.update(delta);
 
     if (state == State.JUMPING)
     {
@@ -128,89 +110,14 @@ class Player extends Entity
 
   void updateCursorLocation(final float x, final float y)
   {
-    this.cursorX = x;
-    this.cursorY = y;
+    this.assistant.cursorX = x;
+    this.assistant.cursorY = y;
   }
 
   void jump()
   {
-    if (canJump())
-    {
-      applyGravity = true;
-      UserInterface.retryText.visible = false;
-
-      final float maxDiffX = 40.0f;
-      final float playerWorldX = getX();
-      float diffX = Math.abs(cursorX - playerWorldX);
-
-      if (diffX > maxDiffX)
-      {
-        diffX = maxDiffX;
-      }
-
-      final float percentageX = diffX / maxDiffX;
-      float jumpVelocityX = maxJumpVelocityX * percentageX;
-
-      // Clamp max jump x velocity
-      if (jumpVelocityX > maxJumpVelocityX)
-      {
-        jumpVelocityX = maxJumpVelocityX;
-      }
-
-      if (cursorX < getX())
-      {
-        jumpVelocityX = -jumpVelocityX;
-      }
-
-      // Add jump x velocity existing velocity
-      // Only add if max x velocity has not been reached
-      if (velocityX < maxVelocityX && velocityX > -maxVelocityX)
-      {
-        updateVelocityX(jumpVelocityX);
-      }
-
-      final float maxDiffY = 40.0f;
-      final float playerWorldY = getY();
-      float diffY = Math.abs(cursorY - playerWorldY);
-
-      if (diffY > maxDiffY)
-      {
-        diffY = maxDiffY;
-      }
-
-      final float percentageY = diffY / maxDiffY;
-      float jumpVelocityY = maxJumpVelocityY * percentageY;
-
-      // Clamp max jump y velocity
-      if (jumpVelocityY > maxJumpVelocityY)
-      {
-        jumpVelocityY = maxJumpVelocityY;
-      }
-
-      if (cursorY < getY())
-      {
-        jumpVelocityY = -jumpVelocityY;
-      }
-
-      // Add jump y velocity existing velocity
-      // Only add if max y velocity has not been reached
-      if (velocityY < maxVelocityY && velocityY > -maxVelocityY)
-      {
-        updateVelocityY(jumpVelocityY);
-      }
-
-      if (velocityX > 0.0f)
-      {
-        setDirection(Direction.RIGHT);
-      }
-      else if (velocityX < 0.0f)
-      {
-        setDirection(Direction.LEFT);
-      }
-
-      canJump = false;
-      setState(State.JUMPING);
-    }
+    assistant.targeting = false;
+    assistant.jump();
   }
 
   void moveUp()
@@ -404,6 +311,11 @@ class Player extends Entity
     }
   }
 
+  public Position getPosition()
+  {
+    return position;
+  }
+
   void setPosition(final Position position)
   {
     if (position != null && this.position != position)
@@ -467,14 +379,12 @@ class Player extends Entity
 
   boolean canJump()
   {
-    return canJump && (position == Position.START || position == Position.PLATFORM);
+    return assistant.canJump();
   }
 
   void reset()
   {
-    targeting = false;
-    canJump = true;
-    jumpElapsed = 0.0f;
+    assistant.reset();
     setX(-75.0f);
     setY(-30.0f);
     applyGravity = false;
