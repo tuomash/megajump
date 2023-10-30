@@ -13,4 +13,26 @@ class Door extends Entity
   {
     return true;
   }
+
+  boolean overlaps(final Player player)
+  {
+    if (EntityUtils.overlaps(player.bottomSide, this))
+    {
+      return true;
+    }
+    else if (EntityUtils.overlaps(player.topSide, this))
+    {
+      return true;
+    }
+    else if (EntityUtils.overlaps(player.leftSide, this))
+    {
+      return true;
+    }
+    else if (EntityUtils.overlaps(player.rightSide, this))
+    {
+      return true;
+    }
+
+    return false;
+  }
 }

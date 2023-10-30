@@ -42,7 +42,13 @@ class Player extends Entity
     // drawBorder = true;
     // drawCollisions = true;
 
-    // rightSide.height = getHeight() * 0.75f;
+    topSide.height = 0.5f;
+
+    leftSide.height = 5.25f;
+    leftSide.width = 0.5f;
+
+    rightSide.height = 5.25f;
+    rightSide.width = 0.5f;
 
     bottomSide.height = 0.5f;
 
@@ -167,95 +173,68 @@ class Player extends Entity
   @Override
   boolean overlaps(final Entity entity)
   {
-    if (entity.isDoor())
-    {
-      return super.overlaps(entity);
-    }
-    else if (entity.isBlock())
-    {
-      final boolean overlaps = super.overlaps(entity);
+    boolean overlaps = false;
 
-      if (overlaps)
+    if (velocityY < 0.0f && EntityUtils.overlaps(bottomSide, entity))
+    {
+      overlaps = true;
+      setY(entity.getY() + entity.getHeightOffset() + 3.0f);
+      velocityY = 0.0f;
+      setPosition(Position.PLATFORM);
+
+      if (state == State.JUMPING)
       {
-        stop();
-        moveToPreviousLocation();
+        setState(State.LANDING);
+      }
+      else if (state == State.LANDING && (animation == null || animation.isAtEnd()))
+      {
         setState(State.IDLE);
       }
 
-      return overlaps;
+      final float friction = 0.8f;
 
-      /* TODO: implement proper collision detection
-      boolean overlaps = false;
-
-      if (!rightSideCollision && EntityUtils.overlaps(rightSide, entity))
+      if (velocityX > friction)
       {
-        setX(entity.getBottomLeftCornerX() - getWidthOffset());
-        velocityX = 0.0f;
-        overlaps = true;
-        rightSideCollision = true;
+        velocityX = velocityX - friction;
       }
-      else if (!bottomSideCollision && EntityUtils.overlaps(bottomSide, entity))
+      else if (velocityX < -friction)
       {
-        setY(entity.getY() + entity.getHeightOffset() + getHeightOffset());
-        velocityX = 0.0f;
-        velocityY = 0.0f;
-        moving = false;
-        overlaps = true;
-        applyGravity = false;
-        bottomSideCollision = true;
+        velocityX = velocityX + friction;
       }
-
-      return overlaps;
-       */
+      else
+      {
+        velocityX = 0.0f;
+      }
     }
-    else if (entity.isPlatform())
+    else if (velocityY > 0.0f && EntityUtils.overlaps(topSide, entity))
     {
-      boolean overlaps = false;
-
-      if (!bottomSideCollision && EntityUtils.overlaps(bottomSide, entity))
-      {
-        overlaps = true;
-        setY(entity.getY() + entity.getHeightOffset() + collisionBox.height / 2.0f - 0.7f);
-        velocityY = 0.0f;
-        setPosition(Position.PLATFORM);
-        bottomSideCollision = true;
-
-        if (state == State.JUMPING)
-        {
-          setState(State.LANDING);
-        }
-        else if (state == State.LANDING && (animation == null || animation.isAtEnd()))
-        {
-          setState(State.IDLE);
-        }
-
-        final float friction = 0.8f;
-
-        if (velocityX > friction)
-        {
-          velocityX = velocityX - friction;
-        }
-        else if (velocityX < -friction)
-        {
-          velocityX = velocityX + friction;
-        }
-        else
-        {
-          velocityX = 0.0f;
-        }
-      }
-
-      return overlaps;
+      overlaps = true;
+      setY(entity.getY() - entity.getHeightOffset() - 3.0f);
+      velocityY = 0.0f;
+    }
+    else if (velocityX < 0.0f && EntityUtils.overlaps(leftSide, entity))
+    {
+      overlaps = true;
+      setX(entity.getX() + entity.getWidthOffset() + 1.8f);
+      velocityX = 0.0f;
+    }
+    else if (velocityX > 0.0f && EntityUtils.overlaps(rightSide, entity))
+    {
+      overlaps = true;
+      setX(entity.getX() - entity.getWidthOffset() - 1.8f);
+      velocityX = 0.0f;
     }
 
-    return false;
+    return overlaps;
   }
 
   @Override
   void setX(final float x)
   {
     super.setX(x);
-    // rightSide.x = x + getWidthOffset() - rightSide.width;
+    topSide.x = x - topSide.width * 0.5f;
+    leftSide.x = x - getWidthOffset() + leftSide.width + 2.75f;
+    rightSide.x = x + getWidthOffset() - rightSide.width - 3.25f;
     bottomSide.x = x - bottomSide.width * 0.5f;
     collisionBox.setX(x - collisionBox.width * 0.5f);
   }
@@ -264,7 +243,9 @@ class Player extends Entity
   void setY(final float y)
   {
     super.setY(y);
-    // rightSide.y = y - rightSide.height * 0.5f;
+    topSide.y = y + 2.5f;
+    leftSide.y = y - leftSide.height * 0.5f - 0.275f;
+    rightSide.y = y - rightSide.height * 0.5f - 0.275f;
     bottomSide.y = getBottomLeftCornerY() + 1.5f;
     collisionBox.setY(y - collisionBox.height * 0.5f);
   }
@@ -273,6 +254,7 @@ class Player extends Entity
   void setWidth(final float width)
   {
     super.setWidth(width);
+    topSide.width = width * 0.55f;
     bottomSide.width = width * 0.55f;
     collisionBox.setWidth(width * 0.55f);
   }
@@ -281,7 +263,6 @@ class Player extends Entity
   void setHeight(final float height)
   {
     super.setHeight(height);
-    // rightSide.height = height * 0.5f;
     collisionBox.setHeight(height * 0.8f);
   }
 

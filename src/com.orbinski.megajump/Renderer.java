@@ -154,13 +154,23 @@ class Renderer
               Color.YELLOW);
        */
 
-      /*
+      addQuad(player.topSide.x,
+              player.topSide.y,
+              player.topSide.width,
+              player.topSide.height,
+              Color.YELLOW);
+
+      addQuad(player.leftSide.x,
+              player.leftSide.y,
+              player.leftSide.width,
+              player.leftSide.height,
+              Color.YELLOW);
+
       addQuad(player.rightSide.x,
               player.rightSide.y,
               player.rightSide.width,
               player.rightSide.height,
               Color.YELLOW);
-       */
 
       addQuad(player.bottomSide.x,
               player.bottomSide.y,

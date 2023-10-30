@@ -31,10 +31,10 @@ abstract class Entity
 
   boolean drawCollisions = false;
   Rectangle collisionBox;
+  Rectangle topSide;
+  Rectangle leftSide;
   Rectangle rightSide;
-  boolean rightSideCollision;
   Rectangle bottomSide;
-  boolean bottomSideCollision;
 
   boolean applyGravity = true;
 
@@ -84,7 +84,9 @@ abstract class Entity
     if (collision)
     {
       collisionBox = new Rectangle();
-      // rightSide = new Rectangle();
+      topSide = new Rectangle();
+      leftSide = new Rectangle();
+      rightSide = new Rectangle();
       bottomSide = new Rectangle();
     }
 
@@ -163,12 +165,6 @@ abstract class Entity
         break;
       }
     }
-  }
-
-  void clearCollisionStatus()
-  {
-    rightSideCollision = false;
-    bottomSideCollision = false;
   }
 
   void moveToPreviousLocation()

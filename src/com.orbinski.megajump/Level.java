@@ -74,7 +74,7 @@ class Level
       door.update(delta);
     }
 
-    if (door != null && player.overlaps(door))
+    if (door != null && door.overlaps(player))
     {
       player.stop();
       player.setState(Player.State.EXIT);
@@ -143,7 +143,6 @@ class Level
     }
     else
     {
-      player.clearCollisionStatus();
       player.setPosition(Player.Position.NONE);
 
       for (int i = 0; i < blocks.size(); i++)
