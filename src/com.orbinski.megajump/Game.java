@@ -200,6 +200,7 @@ class Game
   {
     levelEditor.level = level;
     levelEditor.active = !levelEditor.active;
+    reset();
   }
 
   void reset()

@@ -76,7 +76,17 @@ class Renderer
 
   void addDoor()
   {
-    addEntity(game.level.door);
+    final Door door = game.level.door;
+    addEntity(door);
+
+    if (door.drawBorder || door.selected)
+    {
+      addQuad(door.getBottomLeftCornerX(),
+              door.getBottomLeftCornerY(),
+              door.getWidth(),
+              door.getHeight(),
+              Color.WHITE);
+    }
   }
 
   void addBlocks()
@@ -86,7 +96,7 @@ class Renderer
       final Block block = game.level.blocks.get(i);
       addEntity(block);
 
-      if (block.drawBorder || game.levelEditor.active)
+      if (block.drawBorder || block.selected)
       {
         addQuad(block.getBottomLeftCornerX(),
                 block.getBottomLeftCornerY(),
@@ -101,7 +111,17 @@ class Renderer
   {
     for (int i = 0; i < game.level.decorations.size(); i++)
     {
+      final Decoration decoration =  game.level.decorations.get(i);
       addEntity(game.level.decorations.get(i));
+
+      if (decoration.drawBorder || decoration.selected)
+      {
+        addQuad(decoration.getBottomLeftCornerX(),
+                decoration.getBottomLeftCornerY(),
+                decoration.getWidth(),
+                decoration.getHeight(),
+                Color.WHITE);
+      }
     }
   }
 
@@ -110,11 +130,21 @@ class Renderer
     for (int i = 0; i < game.level.trampolines.size(); i++)
     {
       final Trampoline trampoline = game.level.trampolines.get(i);
+
       addFilledQuad(trampoline.getBottomLeftCornerX(),
                     trampoline.getBottomLeftCornerY(),
                     trampoline.getWidth(),
                     trampoline.getHeight(),
                     Color.BLUE);
+
+      if (trampoline.drawBorder || trampoline.selected)
+      {
+        addQuad(trampoline.getBottomLeftCornerX(),
+                trampoline.getBottomLeftCornerY(),
+                trampoline.getWidth(),
+                trampoline.getHeight(),
+                Color.WHITE);
+      }
     }
   }
 
@@ -130,7 +160,7 @@ class Renderer
                     platform.getHeight(),
                     UserInterface.DARK_GREEN);
 
-      if (platform.drawBorder || game.levelEditor.active)
+      if (platform.drawBorder || platform.selected)
       {
         addQuad(platform.getBottomLeftCornerX(),
                 platform.getBottomLeftCornerY(),
@@ -159,7 +189,7 @@ class Renderer
                     teleport.getHeight(),
                     Color.MAGENTA);
 
-      if (teleport.drawBorder || game.levelEditor.active)
+      if (teleport.drawBorder || teleport.selected)
       {
         addQuad(teleport.getBottomLeftCornerX(),
                 teleport.getBottomLeftCornerY(),
@@ -175,7 +205,7 @@ class Renderer
     final Player player = game.player;
     addEntity(player);
 
-    if (player.drawBorder || game.levelEditor.active)
+    if (player.drawBorder || player.selected)
     {
       addQuad(player.getBottomLeftCornerX(),
               player.getBottomLeftCornerY(),

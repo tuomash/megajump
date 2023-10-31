@@ -158,5 +158,29 @@ class Controller
     {
       game.toggleLevelEditor();
     }
+
+    mouseScreen.x = Gdx.input.getX();
+    mouseScreen.y = Gdx.input.getY();
+
+    final Vector3 result = Renderer.unproject(mouseScreen);
+
+    if (result == null)
+    {
+      return;
+    }
+
+    final LevelEditor editor = game.levelEditor;
+
+    if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+    {
+      if (editor.entity != null)
+      {
+        editor.moveEntity(result.x, result.y);
+      }
+      else
+      {
+        editor.selectEntity(result.x, result.y);
+      }
+    }
   }
 }

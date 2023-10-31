@@ -10,7 +10,12 @@ class LevelEditor
   {
     if (level != null)
     {
+      entity = level.findEntity(x, y);
 
+      if (entity != null)
+      {
+        entity.selected = true;
+      }
     }
   }
 
@@ -18,7 +23,20 @@ class LevelEditor
   {
     if (entity != null)
     {
+      entity.setX(x);
+      entity.setY(y);
 
+      clearEntity();
     }
+  }
+
+  void clearEntity()
+  {
+    if (entity != null)
+    {
+      entity.selected = false;
+    }
+
+    entity = null;
   }
 }

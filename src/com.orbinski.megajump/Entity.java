@@ -51,6 +51,7 @@ abstract class Entity
   float velocityY;
   boolean drawBorder = false;
   boolean visible = true;
+  boolean selected = false;
   boolean dead;
   Sound moveSound;
   Sound deathSound;
@@ -197,6 +198,11 @@ abstract class Entity
   boolean overlaps(final Entity entity)
   {
     return EntityUtils.overlaps(this, entity);
+  }
+
+  boolean contains(final float x, final float y)
+  {
+    return EntityUtils.contains(this, x, y);
   }
 
   void reset()
