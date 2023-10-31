@@ -27,6 +27,10 @@ class Boot
       {
         Globals.hideUI = true;
       }
+      else if (args[i].equalsIgnoreCase("mute"))
+      {
+        Audio.mute = true;
+      }
       else if (args[i].contains("level"))
       {
         final String[] parts = args[i].split("=");

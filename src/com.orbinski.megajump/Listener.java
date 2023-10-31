@@ -19,6 +19,7 @@ class Listener implements ApplicationListener
     Resources.load();
     UserInterface.create();
     Animations.load();
+    Audio.load();
 
     game = new Game();
     controller = new Controller(game);

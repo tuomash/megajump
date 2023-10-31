@@ -23,6 +23,7 @@ class MathUtils
   {
     final int seconds = toSeconds(inputInMilliseconds);
     final int milliseconds = getMillisecondRemainders(inputInMilliseconds);
+    // TODO: milliseconds are constructed wrong
     return seconds + "." + milliseconds + "s";
   }
 

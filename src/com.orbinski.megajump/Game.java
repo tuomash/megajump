@@ -63,6 +63,8 @@ class Game
 
     level.updateUI();
     reset();
+
+    Audio.playBackgroundMusic();
   }
 
   void update(final float delta)
