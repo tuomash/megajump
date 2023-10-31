@@ -75,7 +75,7 @@ class Game
     }
 
     player.update(delta);
-    level.update(delta, player);
+    level.update(delta, player, this);
     save.updateScore(level);
 
     if (player.canJump())
@@ -170,6 +170,30 @@ class Game
     level.started = true;
   }
 
+  void setCameraToPlayer()
+  {
+    camera.position.x = player.getX() + 69.0f;
+    camera.position.y = player.getY() + 30.0f;
+  }
+
+  void setCameraToPlayerTeleport()
+  {
+    camera.position.x = player.getX() + 69.0f;
+
+    if (player.velocityY < 0.0f)
+    {
+      camera.position.y = player.getY() - 15.0f;
+    }
+    else if (player.velocityY > 0.0f)
+    {
+      camera.position.y = player.getY() + 15.0f;
+    }
+    else
+    {
+      camera.position.y = player.getY();
+    }
+  }
+
   void reset()
   {
     player.reset();
@@ -178,8 +202,7 @@ class Game
     camera.position.x = 0.0f;
     camera.position.y = 0.0f;
 
-    camera.position.x = player.getX() + 69.0f;
-    camera.position.y = player.getY() + 30.0f;
+    setCameraToPlayer();
 
     if (level != null)
     {

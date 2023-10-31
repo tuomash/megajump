@@ -68,6 +68,7 @@ class Renderer
     addTrampolines();
     addPlatforms();
     addPlayer();
+    addTeleports();
 
     renderSprites();
     renderShapes();
@@ -127,6 +128,25 @@ class Renderer
                     platform.getWidth(),
                     platform.getHeight(),
                     UserInterface.DARK_GREEN);
+    }
+  }
+
+  void addTeleports()
+  {
+    for (int i = 0; i < game.level.teleports.size(); i++)
+    {
+      final Teleport teleport = game.level.teleports.get(i);
+      addFilledQuad(teleport.getBottomLeftCornerX(),
+                    teleport.getBottomLeftCornerY(),
+                    teleport.getWidth(),
+                    teleport.getHeight(),
+                    Color.MAGENTA);
+
+      addFilledQuad(teleport.targetBottomLeftCorner.x,
+                    teleport.targetBottomLeftCorner.y,
+                    teleport.getWidth(),
+                    teleport.getHeight(),
+                    Color.MAGENTA);
     }
   }
 

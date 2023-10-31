@@ -20,6 +20,7 @@ class Level
   List<Block> blocks = new ArrayList<>();
   List<Trampoline> trampolines = new ArrayList<>();
   List<Platform> platforms = new ArrayList<>();
+  List<Teleport> teleports = new ArrayList<>();
 
   boolean started;
   boolean finished;
@@ -46,7 +47,7 @@ class Level
     setTrophy(Trophy.NONE);
   }
 
-  void update(final float delta, final Player player)
+  void update(final float delta, final Player player, final Game game)
   {
     if (finished)
     {
@@ -171,6 +172,17 @@ class Level
 
         if (player.overlaps(platform))
         {
+          break;
+        }
+      }
+
+      for (int i = 0; i < teleports.size(); i++)
+      {
+        final Teleport teleport = teleports.get(i);
+
+        if (teleport.overlaps(player))
+        {
+          game.setCameraToPlayerTeleport();
           break;
         }
       }

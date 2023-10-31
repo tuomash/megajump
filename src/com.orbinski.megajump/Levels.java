@@ -408,6 +408,25 @@ class Levels
       level.setDoor(door);
       levels.add(level);
     }
+
+    {
+      final Level level = new Level();
+      level.moveCameraX = true;
+      level.moveCameraY = true;
+      level.name = "Teleport I";
+      level.tag = "teleport_1";
+      level.goldTimeInMilliseconds = 10000;
+      level.silverTimeInMilliseconds = 12000;
+      level.bronzeTimeInMilliseconds = 15000;
+
+      final Teleport teleport = new Teleport(0.0f, -40.0f, 5.0f, 5.0f);
+      teleport.setTarget(0.0f, 200.0f);
+      level.teleports.add(teleport);
+
+      final Door door = new Door(50.0f, 150.0f, 5.0f, 5.0f);
+      level.setDoor(door);
+      levels.add(level);
+    }
   }
 
   void selectPreviousLevel()
