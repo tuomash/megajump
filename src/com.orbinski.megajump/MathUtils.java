@@ -23,7 +23,16 @@ class MathUtils
   {
     final int seconds = toSeconds(inputInMilliseconds);
     final int milliseconds = getMillisecondRemainders(inputInMilliseconds);
-    // TODO: milliseconds are constructed wrong
+
+    if (milliseconds < 10)
+    {
+      return seconds + ".00" + milliseconds + "s";
+    }
+    else if (milliseconds < 100)
+    {
+      return seconds + ".0" + milliseconds + "s";
+    }
+
     return seconds + "." + milliseconds + "s";
   }
 
