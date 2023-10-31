@@ -33,7 +33,14 @@ class Controller
       }
     }
 
-    handlePlayerControls();
+    if (!game.levelEditor.active)
+    {
+      handlePlayerControls();
+    }
+    else
+    {
+      handleEditorControls();
+    }
   }
 
   void handlePlayerControls()
@@ -42,7 +49,22 @@ class Controller
     {
       game.help = !game.help;
     }
-    else if (Gdx.input.isKeyJustPressed(Input.Keys.R))
+    else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+    {
+      game.paused = !game.paused;
+    }
+
+    if (game.help || game.paused)
+    {
+      return;
+    }
+
+    if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Input.Keys.E))
+    {
+      game.toggleLevelEditor();
+    }
+
+    if (Gdx.input.isKeyJustPressed(Input.Keys.R))
     {
       game.reset();
     }
@@ -57,11 +79,6 @@ class Controller
     else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
     {
       game.paused = !game.paused;
-    }
-
-    if (game.help || game.paused)
-    {
-      return;
     }
 
     mouseScreen.x = Gdx.input.getX();
@@ -133,5 +150,13 @@ class Controller
       }
     }
      */
+  }
+
+  void handleEditorControls()
+  {
+    if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Input.Keys.E))
+    {
+      game.toggleLevelEditor();
+    }
   }
 }

@@ -86,13 +86,13 @@ class Renderer
       final Block block = game.level.blocks.get(i);
       addEntity(block);
 
-      if (block.drawBorder)
+      if (block.drawBorder || game.levelEditor.active)
       {
         addQuad(block.getBottomLeftCornerX(),
                 block.getBottomLeftCornerY(),
                 block.getWidth(),
                 block.getHeight(),
-                Color.RED);
+                Color.WHITE);
       }
     }
   }
@@ -123,11 +123,21 @@ class Renderer
     for (int i = 0; i < game.level.platforms.size(); i++)
     {
       final Platform platform = game.level.platforms.get(i);
+
       addFilledQuad(platform.getBottomLeftCornerX(),
                     platform.getBottomLeftCornerY(),
                     platform.getWidth(),
                     platform.getHeight(),
                     UserInterface.DARK_GREEN);
+
+      if (platform.drawBorder || game.levelEditor.active)
+      {
+        addQuad(platform.getBottomLeftCornerX(),
+                platform.getBottomLeftCornerY(),
+                platform.getWidth(),
+                platform.getHeight(),
+                Color.WHITE);
+      }
     }
   }
 
@@ -136,6 +146,7 @@ class Renderer
     for (int i = 0; i < game.level.teleports.size(); i++)
     {
       final Teleport teleport = game.level.teleports.get(i);
+
       addFilledQuad(teleport.getBottomLeftCornerX(),
                     teleport.getBottomLeftCornerY(),
                     teleport.getWidth(),
@@ -147,6 +158,15 @@ class Renderer
                     teleport.getWidth(),
                     teleport.getHeight(),
                     Color.MAGENTA);
+
+      if (teleport.drawBorder || game.levelEditor.active)
+      {
+        addQuad(teleport.getBottomLeftCornerX(),
+                teleport.getBottomLeftCornerY(),
+                teleport.getWidth(),
+                teleport.getHeight(),
+                Color.WHITE);
+      }
     }
   }
 
@@ -155,13 +175,13 @@ class Renderer
     final Player player = game.player;
     addEntity(player);
 
-    if (player.drawBorder)
+    if (player.drawBorder || game.levelEditor.active)
     {
       addQuad(player.getBottomLeftCornerX(),
               player.getBottomLeftCornerY(),
               player.getWidth(),
               player.getHeight(),
-              Color.RED);
+              Color.WHITE);
     }
 
     if (player.drawCollisions)

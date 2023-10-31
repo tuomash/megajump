@@ -10,6 +10,7 @@ class Game
   final Player player;
   final Levels levels;
   final CameraState cameraState;
+  final LevelEditor levelEditor;
 
   Level level;
   Save save;
@@ -23,6 +24,7 @@ class Game
     player = new Player();
     levels = new Levels();
     cameraState = new CameraState();
+    levelEditor = new LevelEditor();
 
     if (Save.doesSaveFileExist())
     {
@@ -192,6 +194,12 @@ class Game
     {
       camera.position.y = player.getY();
     }
+  }
+
+  void toggleLevelEditor()
+  {
+    levelEditor.level = level;
+    levelEditor.active = !levelEditor.active;
   }
 
   void reset()

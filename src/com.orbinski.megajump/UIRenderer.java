@@ -94,6 +94,26 @@ class UIRenderer
       }
     }
 
+    // Draw a red border to signal that level editor is active
+    if (game.levelEditor.active)
+    {
+      addQuad(0.0f + 1,
+              0.0f + 1,
+              Globals.screenWidth - 1,
+              Globals.screenHeight - 1,
+              Color.RED);
+      addQuad(0.0f + 2,
+              0.0f + 2,
+              Globals.screenWidth - 2,
+              Globals.screenHeight - 2,
+              Color.RED);
+      addQuad(0.0f + 3,
+              0.0f + 3,
+              Globals.screenWidth - 3,
+              Globals.screenHeight - 3,
+              Color.RED);
+    }
+
     renderSprites();
     renderShapes();
   }
@@ -125,6 +145,29 @@ class UIRenderer
     {
       addFilledQuad(bar.getX(), bar.getY(), bar.barWidth, bar.getHeight(), bar.color);
     }
+  }
+
+  void addQuad(final float x,
+               final float y,
+               final float width,
+               final float height,
+               final Color color)
+  {
+    shapeIndex++;
+
+    if (shapeIndex >= shapes.length)
+    {
+      shapeIndex = shapes.length - 1;
+    }
+
+    final Shape shape = shapes[shapeIndex];
+    shape.type = Shape.Type.QUAD;
+    shape.shapeType = ShapeRenderer.ShapeType.Line;
+    shape.color = color;
+    shape.x = x;
+    shape.y = y;
+    shape.width = width;
+    shape.height = height;
   }
 
   void addFilledQuad(final float x,
