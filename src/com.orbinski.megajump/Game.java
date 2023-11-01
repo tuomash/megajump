@@ -215,8 +215,6 @@ class Game
     camera.position.x = 0.0f;
     camera.position.y = 0.0f;
 
-    setCameraToPlayer();
-
     if (level != null)
     {
       level.game = this;
@@ -233,6 +231,8 @@ class Game
         UserInterface.nextLevelText.visible = false;
       }
     }
+
+    setCameraToPlayer();
 
     UserInterface.retryText.visible = false;
   }

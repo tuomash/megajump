@@ -1,5 +1,6 @@
 package com.orbinski.megajump;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ class Level
   String name = "Level";
   String tag;
   Door door;
+  Spawn spawn = new Spawn(5.0f, 5.0f);
   List<Decoration> decorations = new ArrayList<>();
   List<Block> blocks = new ArrayList<>();
   List<Trampoline> trampolines = new ArrayList<>();
@@ -50,6 +52,7 @@ class Level
   Level()
   {
     setTrophy(Trophy.NONE);
+    setSpawn(-75.0f, -30.0f);
   }
 
   void update(final float delta)
@@ -250,6 +253,11 @@ class Level
       return door;
     }
 
+    if (spawn.contains(x, y))
+    {
+      return spawn;
+    }
+
     for (int i = 0; i < decorations.size(); i++)
     {
       final Decoration decoration = decorations.get(i);
@@ -303,6 +311,12 @@ class Level
     return null;
   }
 
+  void setSpawn(final float x, final float y)
+  {
+    spawn.setX(x);
+    spawn.setY(y);
+  }
+
   void reset()
   {
     started = false;
@@ -313,6 +327,12 @@ class Level
     if (door != null)
     {
       door.reset();
+    }
+
+    if (player != null)
+    {
+      player.setX(spawn.getX());
+      player.setY(spawn.getY());
     }
   }
 }

@@ -360,8 +360,6 @@ class Player extends Entity
   void reset()
   {
     assistant.reset();
-    setX(-75.0f);
-    setY(-30.0f);
     applyGravity = false;
     stop();
     state = null;

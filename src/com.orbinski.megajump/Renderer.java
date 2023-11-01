@@ -57,6 +57,8 @@ class Renderer
     addPlatforms();
     addPlayer();
     addTeleports();
+
+    addSpawn();
     addLevelBorder();
 
     renderSprites();
@@ -189,6 +191,29 @@ class Renderer
     }
   }
 
+  void addSpawn()
+  {
+    if (game.levelEditor.active)
+    {
+      final Spawn spawn = game.levelEditor.level.spawn;
+
+      shapeRenderer.addFilledQuad(spawn.getBottomLeftCornerX(),
+                                  spawn.getBottomLeftCornerY(),
+                                  spawn.getWidth(),
+                                  spawn.getHeight(),
+                                  Color.YELLOW);
+
+      if (spawn.drawBorder || spawn.selected)
+      {
+        shapeRenderer.addQuad(spawn.getBottomLeftCornerX(),
+                              spawn.getBottomLeftCornerY(),
+                              spawn.getWidth(),
+                              spawn.getHeight(),
+                              Color.WHITE);
+      }
+    }
+  }
+
   void addLevelBorder()
   {
     if (game.levelEditor.active)
@@ -203,6 +228,11 @@ class Renderer
 
   void addPlayer()
   {
+    if (game.levelEditor.active)
+    {
+      return;
+    }
+
     final Player player = game.player;
     addEntity(player);
 
