@@ -161,6 +161,10 @@ class Controller
     {
       game.toggleLevelEditor();
     }
+    else if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Input.Keys.D))
+    {
+      game.levelEditor.removeEntity();
+    }
 
     // Set screen coordinates
     mouse.x = Gdx.input.getX();
@@ -171,35 +175,47 @@ class Controller
 
     final LevelEditor editor = game.levelEditor;
 
-    if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+    // Entity dragging controls
+
+    if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
     {
-      if (editor.entity != null && (originalSelectionX != Gdx.input.getX() || originalSelectionY != Gdx.input.getY()))
+      if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
       {
-        originalSelection.x = originalSelectionX;
-        originalSelection.y = originalSelectionY;
-        Renderer.unproject(originalSelection);
+        if (editor.entity != null && (originalSelectionX != Gdx.input.getX() || originalSelectionY != Gdx.input.getY()))
+        {
+          originalSelection.x = originalSelectionX;
+          originalSelection.y = originalSelectionY;
+          Renderer.unproject(originalSelection);
 
-        changedSelection.x = Gdx.input.getX();
-        changedSelection.y = Gdx.input.getY();
-        Renderer.unproject(changedSelection);
+          changedSelection.x = Gdx.input.getX();
+          changedSelection.y = Gdx.input.getY();
+          Renderer.unproject(changedSelection);
 
-        final float diffX = changedSelection.x - originalSelection.x;
-        final float diffY = changedSelection.y - originalSelection.y;
-        editor.moveEntity(editor.entity.getX() + diffX, editor.entity.getY() + diffY);
+          final float diffX = changedSelection.x - originalSelection.x;
+          final float diffY = changedSelection.y - originalSelection.y;
+          editor.moveEntity(editor.entity.getX() + diffX, editor.entity.getY() + diffY);
 
-        originalSelectionX = Gdx.input.getX();
-        originalSelectionY = Gdx.input.getY();
+          originalSelectionX = Gdx.input.getX();
+          originalSelectionY = Gdx.input.getY();
+        }
+        else
+        {
+          editor.selectEntity(mouse.x, mouse.y);
+          originalSelectionX = Gdx.input.getX();
+          originalSelectionY = Gdx.input.getY();
+        }
       }
       else
       {
-        editor.selectEntity(mouse.x, mouse.y);
-        originalSelectionX = Gdx.input.getX();
-        originalSelectionY = Gdx.input.getY();
+        editor.clearEntity();
       }
     }
-    else
+
+    // Entity selection controls
+
+    if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
     {
-      editor.clearEntity();
+      editor.selectEntity(mouse.x, mouse.y);
     }
 
     // Camera controls

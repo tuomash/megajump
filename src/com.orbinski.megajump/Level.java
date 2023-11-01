@@ -245,9 +245,6 @@ class Level
 
   Entity findEntity(final float x, final float y)
   {
-    // TODO: add other entities
-    // TODO: should player be in Level.java as well?
-
     if (door != null && door.contains(x, y))
     {
       return door;
@@ -309,6 +306,78 @@ class Level
     }
 
     return null;
+  }
+
+  void removeEntity(final Entity entity)
+  {
+    // Door cannot be removed
+    if (door != null && door == entity)
+    {
+      return;
+    }
+
+    // Spawn cannot be removed
+    if (spawn == entity)
+    {
+      return;
+    }
+
+    decorations.remove(entity);
+
+    /*
+
+
+    for (int i = 0; i < decorations.size(); i++)
+    {
+      final Decoration decoration = decorations.get(i);
+
+      if (decoration.contains(x, y))
+      {
+        return decoration;
+      }
+    }
+
+    for (int i = 0; i < blocks.size(); i++)
+    {
+      final Block block = blocks.get(i);
+
+      if (block.contains(x, y))
+      {
+        return block;
+      }
+    }
+
+    for (int i = 0; i < trampolines.size(); i++)
+    {
+      final Trampoline trampoline = trampolines.get(i);
+
+      if (trampoline.contains(x, y))
+      {
+        return trampoline;
+      }
+    }
+
+    for (int i = 0; i < platforms.size(); i++)
+    {
+      final Platform platform = platforms.get(i);
+
+      if (platform.contains(x, y))
+      {
+        return platform;
+      }
+    }
+
+    for (int i = 0; i < teleports.size(); i++)
+    {
+      final Teleport teleport = teleports.get(i);
+
+      if (teleport.contains(x, y))
+      {
+        return teleport;
+      }
+    }
+
+     */
   }
 
   void setSpawn(final float x, final float y)
