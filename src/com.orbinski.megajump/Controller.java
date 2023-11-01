@@ -8,7 +8,13 @@ import com.badlogic.gdx.math.Vector3;
 class Controller
 {
   final Game game;
-  private final Vector3 mouseScreen = new Vector3();
+
+  private final Vector3 mouse = new Vector3();
+
+  final Vector3 originalSelection = new Vector3();
+  private int originalSelectionX = 0;
+  private int originalSelectionY = 0;
+  final Vector3 changedSelection = new Vector3();
 
   Controller(final Game game)
   {
@@ -81,15 +87,12 @@ class Controller
       game.paused = !game.paused;
     }
 
-    mouseScreen.x = Gdx.input.getX();
-    mouseScreen.y = Gdx.input.getY();
+    // Set screen coordinates
+    mouse.x = Gdx.input.getX();
+    mouse.y = Gdx.input.getY();
 
-    final Vector3 result = Renderer.unproject(mouseScreen);
-
-    if (result == null)
-    {
-      return;
-    }
+    // Transform to world coordinates
+    Renderer.unproject(mouse);
 
     if (!game.level.finished)
     {
@@ -101,7 +104,7 @@ class Controller
           game.cameraState.active = false;
         }
 
-        game.player.assistant.updateCursorLocation(result.x, result.y);
+        game.player.assistant.updateCursorLocation(mouse.x, mouse.y);
       }
       else if (game.player.assistant.targeting)
       {
@@ -159,28 +162,44 @@ class Controller
       game.toggleLevelEditor();
     }
 
-    mouseScreen.x = Gdx.input.getX();
-    mouseScreen.y = Gdx.input.getY();
+    // Set screen coordinates
+    mouse.x = Gdx.input.getX();
+    mouse.y = Gdx.input.getY();
 
-    final Vector3 result = Renderer.unproject(mouseScreen);
-
-    if (result == null)
-    {
-      return;
-    }
+    // Transform to world coordinates
+    Renderer.unproject(mouse);
 
     final LevelEditor editor = game.levelEditor;
 
-    if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+    if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
     {
-      if (editor.entity != null)
+      if (editor.entity != null && (originalSelectionX != Gdx.input.getX() || originalSelectionY != Gdx.input.getY()))
       {
-        editor.moveEntity(result.x, result.y);
+        originalSelection.x = originalSelectionX;
+        originalSelection.y = originalSelectionY;
+        Renderer.unproject(originalSelection);
+
+        changedSelection.x = Gdx.input.getX();
+        changedSelection.y = Gdx.input.getY();
+        Renderer.unproject(changedSelection);
+
+        final float diffX = changedSelection.x - originalSelection.x;
+        final float diffY = changedSelection.y - originalSelection.y;
+        editor.moveEntity(editor.entity.getX() + diffX, editor.entity.getY() + diffY);
+
+        originalSelectionX = Gdx.input.getX();
+        originalSelectionY = Gdx.input.getY();
       }
       else
       {
-        editor.selectEntity(result.x, result.y);
+        editor.selectEntity(mouse.x, mouse.y);
+        originalSelectionX = Gdx.input.getX();
+        originalSelectionY = Gdx.input.getY();
       }
+    }
+    else
+    {
+      editor.clearEntity();
     }
   }
 }

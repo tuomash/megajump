@@ -46,6 +46,10 @@ class UIRenderer
       {
         addHelpTexts();
       }
+      else if (game.levelEditor.active)
+      {
+        addText(UserInterface.levelNameText);
+      }
       else
       {
         if (Globals.watermark)

@@ -25,8 +25,6 @@ class LevelEditor
     {
       entity.setX(x);
       entity.setY(y);
-
-      clearEntity();
     }
   }
 

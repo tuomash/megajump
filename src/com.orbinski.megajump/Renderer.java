@@ -327,13 +327,11 @@ class Renderer
     shapeRenderer.dispose();
   }
 
-  public static Vector3 unproject(final Vector3 screen)
+  public static void unproject(final Vector3 screen)
   {
     if (staticViewport != null)
     {
-      return staticViewport.unproject(screen);
+      staticViewport.unproject(screen);
     }
-
-    return null;
   }
 }
