@@ -2,7 +2,6 @@ package com.orbinski.megajump;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -18,13 +17,10 @@ class Renderer
   final Game game;
   final Viewport viewport;
   final SpriteBatch spriteBatch;
-  final ShapeRenderer shapeRenderer;
+  final MShapeRenderer shapeRenderer;
 
   final Entity[] entities = new Entity[1000];
   int entityIndex = -1;
-
-  final Shape[] shapes = new Shape[1000];
-  int shapeIndex = -1;
 
   Renderer(final Game game)
   {
@@ -36,14 +32,7 @@ class Renderer
     spriteBatch = new SpriteBatch();
     spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
 
-    shapeRenderer = new ShapeRenderer();
-    shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
-    shapeRenderer.setAutoShapeType(true);
-
-    for (int i = 0; i < shapes.length; i++)
-    {
-      shapes[i] = new Shape();
-    }
+    shapeRenderer = new MShapeRenderer(viewport, 1000);
   }
 
   void render()
@@ -51,11 +40,10 @@ class Renderer
     ScreenUtils.clear(Color.BLACK);
 
     entityIndex = -1;
-    shapeIndex = -1;
 
     viewport.apply();
     spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
-    shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
+    shapeRenderer.update();
 
     if (game.help)
     {
@@ -71,7 +59,7 @@ class Renderer
     addTeleports();
 
     renderSprites();
-    renderShapes();
+    shapeRenderer.renderShapes();
   }
 
   void addDoor()
@@ -81,11 +69,11 @@ class Renderer
 
     if (door.drawBorder || door.selected)
     {
-      addQuad(door.getBottomLeftCornerX(),
-              door.getBottomLeftCornerY(),
-              door.getWidth(),
-              door.getHeight(),
-              Color.WHITE);
+      shapeRenderer.addQuad(door.getBottomLeftCornerX(),
+                            door.getBottomLeftCornerY(),
+                            door.getWidth(),
+                            door.getHeight(),
+                            Color.WHITE);
     }
   }
 
@@ -98,11 +86,11 @@ class Renderer
 
       if (block.drawBorder || block.selected)
       {
-        addQuad(block.getBottomLeftCornerX(),
-                block.getBottomLeftCornerY(),
-                block.getWidth(),
-                block.getHeight(),
-                Color.WHITE);
+        shapeRenderer.addQuad(block.getBottomLeftCornerX(),
+                              block.getBottomLeftCornerY(),
+                              block.getWidth(),
+                              block.getHeight(),
+                              Color.WHITE);
       }
     }
   }
@@ -111,16 +99,16 @@ class Renderer
   {
     for (int i = 0; i < game.level.decorations.size(); i++)
     {
-      final Decoration decoration =  game.level.decorations.get(i);
+      final Decoration decoration = game.level.decorations.get(i);
       addEntity(game.level.decorations.get(i));
 
       if (decoration.drawBorder || decoration.selected)
       {
-        addQuad(decoration.getBottomLeftCornerX(),
-                decoration.getBottomLeftCornerY(),
-                decoration.getWidth(),
-                decoration.getHeight(),
-                Color.WHITE);
+        shapeRenderer.addQuad(decoration.getBottomLeftCornerX(),
+                              decoration.getBottomLeftCornerY(),
+                              decoration.getWidth(),
+                              decoration.getHeight(),
+                              Color.WHITE);
       }
     }
   }
@@ -131,19 +119,19 @@ class Renderer
     {
       final Trampoline trampoline = game.level.trampolines.get(i);
 
-      addFilledQuad(trampoline.getBottomLeftCornerX(),
-                    trampoline.getBottomLeftCornerY(),
-                    trampoline.getWidth(),
-                    trampoline.getHeight(),
-                    Color.BLUE);
+      shapeRenderer.addFilledQuad(trampoline.getBottomLeftCornerX(),
+                                  trampoline.getBottomLeftCornerY(),
+                                  trampoline.getWidth(),
+                                  trampoline.getHeight(),
+                                  Color.BLUE);
 
       if (trampoline.drawBorder || trampoline.selected)
       {
-        addQuad(trampoline.getBottomLeftCornerX(),
-                trampoline.getBottomLeftCornerY(),
-                trampoline.getWidth(),
-                trampoline.getHeight(),
-                Color.WHITE);
+        shapeRenderer.addQuad(trampoline.getBottomLeftCornerX(),
+                              trampoline.getBottomLeftCornerY(),
+                              trampoline.getWidth(),
+                              trampoline.getHeight(),
+                              Color.WHITE);
       }
     }
   }
@@ -154,19 +142,19 @@ class Renderer
     {
       final Platform platform = game.level.platforms.get(i);
 
-      addFilledQuad(platform.getBottomLeftCornerX(),
-                    platform.getBottomLeftCornerY(),
-                    platform.getWidth(),
-                    platform.getHeight(),
-                    UserInterface.DARK_GREEN);
+      shapeRenderer.addFilledQuad(platform.getBottomLeftCornerX(),
+                                  platform.getBottomLeftCornerY(),
+                                  platform.getWidth(),
+                                  platform.getHeight(),
+                                  UserInterface.DARK_GREEN);
 
       if (platform.drawBorder || platform.selected)
       {
-        addQuad(platform.getBottomLeftCornerX(),
-                platform.getBottomLeftCornerY(),
-                platform.getWidth(),
-                platform.getHeight(),
-                Color.WHITE);
+        shapeRenderer.addQuad(platform.getBottomLeftCornerX(),
+                              platform.getBottomLeftCornerY(),
+                              platform.getWidth(),
+                              platform.getHeight(),
+                              Color.WHITE);
       }
     }
   }
@@ -177,25 +165,25 @@ class Renderer
     {
       final Teleport teleport = game.level.teleports.get(i);
 
-      addFilledQuad(teleport.getBottomLeftCornerX(),
-                    teleport.getBottomLeftCornerY(),
-                    teleport.getWidth(),
-                    teleport.getHeight(),
-                    Color.MAGENTA);
+      shapeRenderer.addFilledQuad(teleport.getBottomLeftCornerX(),
+                                  teleport.getBottomLeftCornerY(),
+                                  teleport.getWidth(),
+                                  teleport.getHeight(),
+                                  Color.MAGENTA);
 
-      addFilledQuad(teleport.targetBottomLeftCorner.x,
-                    teleport.targetBottomLeftCorner.y,
-                    teleport.getWidth(),
-                    teleport.getHeight(),
-                    Color.MAGENTA);
+      shapeRenderer.addFilledQuad(teleport.targetBottomLeftCorner.x,
+                                  teleport.targetBottomLeftCorner.y,
+                                  teleport.getWidth(),
+                                  teleport.getHeight(),
+                                  Color.MAGENTA);
 
       if (teleport.drawBorder || teleport.selected)
       {
-        addQuad(teleport.getBottomLeftCornerX(),
-                teleport.getBottomLeftCornerY(),
-                teleport.getWidth(),
-                teleport.getHeight(),
-                Color.WHITE);
+        shapeRenderer.addQuad(teleport.getBottomLeftCornerX(),
+                              teleport.getBottomLeftCornerY(),
+                              teleport.getWidth(),
+                              teleport.getHeight(),
+                              Color.WHITE);
       }
     }
   }
@@ -207,11 +195,11 @@ class Renderer
 
     if (player.drawBorder || player.selected)
     {
-      addQuad(player.getBottomLeftCornerX(),
-              player.getBottomLeftCornerY(),
-              player.getWidth(),
-              player.getHeight(),
-              Color.WHITE);
+      shapeRenderer.addQuad(player.getBottomLeftCornerX(),
+                            player.getBottomLeftCornerY(),
+                            player.getWidth(),
+                            player.getHeight(),
+                            Color.WHITE);
     }
 
     if (player.drawCollisions)
@@ -224,29 +212,29 @@ class Renderer
               Color.YELLOW);
        */
 
-      addQuad(player.topSide.x,
-              player.topSide.y,
-              player.topSide.width,
-              player.topSide.height,
-              Color.YELLOW);
+      shapeRenderer.addQuad(player.topSide.x,
+                            player.topSide.y,
+                            player.topSide.width,
+                            player.topSide.height,
+                            Color.YELLOW);
 
-      addQuad(player.leftSide.x,
-              player.leftSide.y,
-              player.leftSide.width,
-              player.leftSide.height,
-              Color.YELLOW);
+      shapeRenderer.addQuad(player.leftSide.x,
+                            player.leftSide.y,
+                            player.leftSide.width,
+                            player.leftSide.height,
+                            Color.YELLOW);
 
-      addQuad(player.rightSide.x,
-              player.rightSide.y,
-              player.rightSide.width,
-              player.rightSide.height,
-              Color.YELLOW);
+      shapeRenderer.addQuad(player.rightSide.x,
+                            player.rightSide.y,
+                            player.rightSide.width,
+                            player.rightSide.height,
+                            Color.YELLOW);
 
-      addQuad(player.bottomSide.x,
-              player.bottomSide.y,
-              player.bottomSide.width,
-              player.bottomSide.height,
-              Color.YELLOW);
+      shapeRenderer.addQuad(player.bottomSide.x,
+                            player.bottomSide.y,
+                            player.bottomSide.width,
+                            player.bottomSide.height,
+                            Color.YELLOW);
     }
 
     final JumpAssistant assistant = player.assistant;
@@ -272,11 +260,11 @@ class Renderer
         if (i % 3 == 0)
         {
           final Rectangle rectangle = assistant.jumpCurve[i];
-          addQuad(rectangle.x,
-                  rectangle.y,
-                  0.5f,
-                  0.5f,
-                  Color.WHITE);
+          shapeRenderer.addQuad(rectangle.x,
+                                rectangle.y,
+                                0.5f,
+                                0.5f,
+                                Color.WHITE);
         }
       }
     }
@@ -329,107 +317,6 @@ class Renderer
     spriteBatch.end();
   }
 
-  void addQuad(final float x,
-               final float y,
-               final float width,
-               final float height,
-               final Color color)
-  {
-    shapeIndex++;
-
-    if (shapeIndex >= shapes.length)
-    {
-      shapeIndex = shapes.length - 1;
-    }
-
-    final Shape shape = shapes[shapeIndex];
-    shape.type = Shape.Type.QUAD;
-    shape.shapeType = ShapeRenderer.ShapeType.Line;
-    shape.color = color;
-    shape.x = x;
-    shape.y = y;
-    shape.width = width;
-    shape.height = height;
-  }
-
-  void addFilledQuad(final float x,
-                     final float y,
-                     final float width,
-                     final float height,
-                     final Color color)
-  {
-    shapeIndex++;
-
-    if (shapeIndex >= shapes.length)
-    {
-      shapeIndex = shapes.length - 1;
-    }
-
-    final Shape shape = shapes[shapeIndex];
-    shape.type = Shape.Type.FILLED_QUAD;
-    shape.shapeType = ShapeRenderer.ShapeType.Filled;
-    shape.color = color;
-    shape.x = x;
-    shape.y = y;
-    shape.width = width;
-    shape.height = height;
-  }
-
-  void addLine(final float x1,
-               final float y1,
-               final float x2,
-               final float y2,
-               final Color color)
-  {
-    shapeIndex++;
-
-    if (shapeIndex >= shapes.length)
-    {
-      shapeIndex = shapes.length - 1;
-    }
-
-    final Shape shape = shapes[shapeIndex];
-    shape.type = Shape.Type.LINE;
-    shape.shapeType = ShapeRenderer.ShapeType.Line;
-    shape.color = color;
-    shape.x1 = x1;
-    shape.y1 = y1;
-    shape.x2 = x2;
-    shape.y2 = y2;
-  }
-
-  void renderShapes()
-  {
-    if (shapeIndex == -1)
-    {
-      return;
-    }
-
-    shapeRenderer.begin();
-
-    for (int i = 0; i <= shapeIndex; i++)
-    {
-      final Shape shape = shapes[i];
-
-      if (shape != null && shape.color != null)
-      {
-        shapeRenderer.setColor(shape.color.r, shape.color.g, shape.color.b, shape.color.a);
-        shapeRenderer.set(shape.shapeType);
-
-        if (shape.type == Shape.Type.QUAD || shape.type == Shape.Type.FILLED_QUAD)
-        {
-          shapeRenderer.rect(shape.x, shape.y, shape.width, shape.height);
-        }
-        else if (shape.type == Shape.Type.LINE)
-        {
-          shapeRenderer.line(shape.x1, shape.y1, shape.x2, shape.y2);
-        }
-      }
-    }
-
-    shapeRenderer.end();
-  }
-
   void dispose()
   {
     if (spriteBatch != null)
@@ -437,10 +324,7 @@ class Renderer
       spriteBatch.dispose();
     }
 
-    if (shapeRenderer != null)
-    {
-      shapeRenderer.dispose();
-    }
+    shapeRenderer.dispose();
   }
 
   public static Vector3 unproject(final Vector3 screen)

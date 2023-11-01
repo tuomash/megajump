@@ -3,7 +3,6 @@ package com.orbinski.megajump;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -13,13 +12,10 @@ class UIRenderer
   final OrthographicCamera camera;
   final Viewport viewport;
   final SpriteBatch spriteBatch;
-  final ShapeRenderer shapeRenderer;
+  final MShapeRenderer shapeRenderer;
 
   final Text[] texts = new Text[50];
   int textIndex = -1;
-
-  final Shape[] shapes = new Shape[50];
-  int shapeIndex = -1;
 
   UIRenderer(final Game game)
   {
@@ -33,24 +29,16 @@ class UIRenderer
     spriteBatch = new SpriteBatch();
     spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
 
-    shapeRenderer = new ShapeRenderer();
-    shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
-    shapeRenderer.setAutoShapeType(true);
-
-    for (int i = 0; i < shapes.length; i++)
-    {
-      shapes[i] = new Shape();
-    }
+    shapeRenderer = new MShapeRenderer(viewport, 50);
   }
 
   void render()
   {
     viewport.apply();
     spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
-    shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
+    shapeRenderer.update();
 
     textIndex = -1;
-    shapeIndex = -1;
 
     if (!Globals.hideUI)
     {
@@ -97,17 +85,17 @@ class UIRenderer
     // Draw a red border to signal that level editor is active
     if (game.levelEditor.active)
     {
-      addQuad(0.0f + 1,
+      shapeRenderer.addQuad(0.0f + 1,
               0.0f + 1,
               Globals.screenWidth - 1,
               Globals.screenHeight - 1,
               Color.RED);
-      addQuad(0.0f + 2,
+      shapeRenderer.addQuad(0.0f + 2,
               0.0f + 2,
               Globals.screenWidth - 2,
               Globals.screenHeight - 2,
               Color.RED);
-      addQuad(0.0f + 3,
+      shapeRenderer.addQuad(0.0f + 3,
               0.0f + 3,
               Globals.screenWidth - 3,
               Globals.screenHeight - 3,
@@ -115,7 +103,7 @@ class UIRenderer
     }
 
     renderSprites();
-    renderShapes();
+    shapeRenderer.renderShapes();
   }
 
   void addHelpTexts()
@@ -143,54 +131,8 @@ class UIRenderer
   {
     if (bar != null && bar.visible)
     {
-      addFilledQuad(bar.getX(), bar.getY(), bar.barWidth, bar.getHeight(), bar.color);
+      shapeRenderer.addFilledQuad(bar.getX(), bar.getY(), bar.barWidth, bar.getHeight(), bar.color);
     }
-  }
-
-  void addQuad(final float x,
-               final float y,
-               final float width,
-               final float height,
-               final Color color)
-  {
-    shapeIndex++;
-
-    if (shapeIndex >= shapes.length)
-    {
-      shapeIndex = shapes.length - 1;
-    }
-
-    final Shape shape = shapes[shapeIndex];
-    shape.type = Shape.Type.QUAD;
-    shape.shapeType = ShapeRenderer.ShapeType.Line;
-    shape.color = color;
-    shape.x = x;
-    shape.y = y;
-    shape.width = width;
-    shape.height = height;
-  }
-
-  void addFilledQuad(final float x,
-                     final float y,
-                     final float width,
-                     final float height,
-                     final Color color)
-  {
-    shapeIndex++;
-
-    if (shapeIndex >= shapes.length)
-    {
-      shapeIndex = shapes.length - 1;
-    }
-
-    final Shape shape = shapes[shapeIndex];
-    shape.type = Shape.Type.FILLED_QUAD;
-    shape.shapeType = ShapeRenderer.ShapeType.Filled;
-    shape.color = color;
-    shape.x = x;
-    shape.y = y;
-    shape.width = width;
-    shape.height = height;
   }
 
   void renderSprites()
@@ -217,38 +159,6 @@ class UIRenderer
     }
 
     spriteBatch.end();
-  }
-
-  void renderShapes()
-  {
-    if (shapeIndex == -1)
-    {
-      return;
-    }
-
-    shapeRenderer.begin();
-
-    for (int i = 0; i <= shapeIndex; i++)
-    {
-      final Shape shape = shapes[i];
-
-      if (shape != null && shape.color != null)
-      {
-        shapeRenderer.setColor(shape.color.r, shape.color.g, shape.color.b, shape.color.a);
-        shapeRenderer.set(shape.shapeType);
-
-        if (shape.type == Shape.Type.QUAD || shape.type == Shape.Type.FILLED_QUAD)
-        {
-          shapeRenderer.rect(shape.x, shape.y, shape.width, shape.height);
-        }
-        else if (shape.type == Shape.Type.LINE)
-        {
-          shapeRenderer.line(shape.x1, shape.y1, shape.x2, shape.y2);
-        }
-      }
-    }
-
-    shapeRenderer.end();
   }
 
   void renderUIElement(final UIElement element)
