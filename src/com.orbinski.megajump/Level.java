@@ -16,6 +16,8 @@ class Level
     NONE
   }
 
+  Game game;
+  Player player;
   String name = "Level";
   String tag;
   Door door;
@@ -50,7 +52,7 @@ class Level
     setTrophy(Trophy.NONE);
   }
 
-  void update(final float delta, final Player player, final Game game)
+  void update(final float delta)
   {
     if (finished)
     {

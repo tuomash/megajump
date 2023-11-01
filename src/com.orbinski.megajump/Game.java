@@ -77,7 +77,7 @@ class Game
     }
 
     player.update(delta);
-    level.update(delta, player, this);
+    level.update(delta);
     save.updateScore(level);
 
     if (player.canJump())
@@ -219,6 +219,8 @@ class Game
 
     if (level != null)
     {
+      level.game = this;
+      level.player = player;
       level.reset();
       level.updateUI();
 
