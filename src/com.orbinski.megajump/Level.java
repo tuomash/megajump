@@ -5,6 +5,9 @@ import java.util.List;
 
 class Level
 {
+  static float MAX_DIMENSION = 500.0f;
+  static float MAX_DIMENSION_OFFSET = MAX_DIMENSION / 2.0f;
+
   enum Trophy
   {
     GOLD,

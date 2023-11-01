@@ -57,6 +57,7 @@ class Renderer
     addPlatforms();
     addPlayer();
     addTeleports();
+    addLevelBorder();
 
     renderSprites();
     shapeRenderer.renderShapes();
@@ -185,6 +186,18 @@ class Renderer
                               teleport.getHeight(),
                               Color.WHITE);
       }
+    }
+  }
+
+  void addLevelBorder()
+  {
+    if (game.levelEditor.active)
+    {
+      shapeRenderer.addQuad(0.0f - Level.MAX_DIMENSION_OFFSET,
+                            0.0f - Level.MAX_DIMENSION_OFFSET,
+                            Level.MAX_DIMENSION,
+                            Level.MAX_DIMENSION,
+                            Color.WHITE);
     }
   }
 

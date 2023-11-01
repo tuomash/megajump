@@ -113,44 +113,48 @@ class Game
         }
       }
     }
+    else if (cameraState.moving)
+    {
+      updateCameraState(delta);
+    }
   }
 
-  /*
   private void updateCameraState(final float delta)
   {
-    if (!player.moving && cameraState.moving && cameraState.active)
+    if (cameraState.moving && cameraState.active)
     {
-      final float max = 200.0f;
       camera.position.x = camera.position.x + delta * cameraState.velocityX;
       camera.position.y = camera.position.y + delta * cameraState.velocityY;
+      System.out.println("camera x:" + camera.position.x);
 
-      if (camera.position.x > max)
+      if (camera.position.x > Level.MAX_DIMENSION_OFFSET)
       {
-        camera.position.x = max;
+        camera.position.x = Level.MAX_DIMENSION_OFFSET;
       }
-      else if (camera.position.x < -max)
+      else if (camera.position.x < -Level.MAX_DIMENSION_OFFSET)
       {
-        camera.position.x = -max;
+        camera.position.x = -Level.MAX_DIMENSION_OFFSET;
       }
 
-      if (camera.position.y > max)
+      if (camera.position.y > Level.MAX_DIMENSION_OFFSET)
       {
-        camera.position.y = max;
+        camera.position.y = Level.MAX_DIMENSION_OFFSET;
       }
-      else if (camera.position.y < -max)
+      else if (camera.position.y < -Level.MAX_DIMENSION_OFFSET)
       {
-        camera.position.y = -max;
+        camera.position.y = -Level.MAX_DIMENSION_OFFSET;
       }
 
       cameraState.reset();
     }
+    /*
     else if (player.moving)
     {
       // camera.position.x = player.getX() + 10.0f;
       // camera.position.y = player.getY() + 10.0f;
     }
+     */
   }
-   */
 
   void selectPreviousLevel()
   {

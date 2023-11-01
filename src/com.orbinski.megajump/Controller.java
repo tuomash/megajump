@@ -201,5 +201,30 @@ class Controller
     {
       editor.clearEntity();
     }
+
+    // Camera controls
+
+    if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
+    {
+      game.cameraState.moveUp();
+    }
+    else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
+    {
+      game.cameraState.moveDown();
+    }
+
+    if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+    {
+      game.cameraState.moveLeft();
+    }
+    else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+    {
+      game.cameraState.moveRight();
+    }
+
+    if (Gdx.input.isKeyPressed(Input.Keys.C))
+    {
+      game.reset();
+    }
   }
 }

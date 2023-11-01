@@ -2,7 +2,7 @@ package com.orbinski.megajump;
 
 class CameraState
 {
-  private static final float SPEED = 50.0f;
+  private static final float SPEED = 75.0f;
 
   boolean moving;
   boolean active = true;
