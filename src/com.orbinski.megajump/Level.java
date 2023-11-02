@@ -326,7 +326,6 @@ class Level
 
     /*
 
-
     for (int i = 0; i < decorations.size(); i++)
     {
       final Decoration decoration = decorations.get(i);

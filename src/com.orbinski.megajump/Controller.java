@@ -1,9 +1,10 @@
 package com.orbinski.megajump;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
+
+import static com.badlogic.gdx.Gdx.*;
 
 class Controller
 {
@@ -23,19 +24,19 @@ class Controller
 
   void update()
   {
-    if (Gdx.input.isKeyPressed(Input.Keys.ALT_LEFT) && Gdx.input.isKeyJustPressed(Input.Keys.ENTER))
+    if (input.isKeyPressed(Input.Keys.ALT_LEFT) && input.isKeyJustPressed(Input.Keys.ENTER))
     {
-      final Graphics.DisplayMode currentMode = Gdx.graphics.getDisplayMode();
+      final Graphics.DisplayMode currentMode = graphics.getDisplayMode();
 
-      if (Gdx.graphics.isFullscreen())
+      if (graphics.isFullscreen())
       {
         // System.out.println("w: " + currentMode.width + ", h:" + currentMode.height);
-        Gdx.graphics.setWindowedMode(currentMode.width, currentMode.height);
+        graphics.setWindowedMode(currentMode.width, currentMode.height);
       }
       else
       {
         // TODO: doesn't work properly when going from windowed (not maximized) to full screen
-        Gdx.graphics.setFullscreenMode(currentMode);
+        graphics.setFullscreenMode(currentMode);
       }
     }
 
@@ -51,11 +52,11 @@ class Controller
 
   void handlePlayerControls()
   {
-    if (Gdx.input.isKeyJustPressed(Input.Keys.F1))
+    if (input.isKeyJustPressed(Input.Keys.F1))
     {
       game.help = !game.help;
     }
-    else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+    else if (input.isKeyJustPressed(Input.Keys.SPACE))
     {
       game.paused = !game.paused;
     }
@@ -65,38 +66,38 @@ class Controller
       return;
     }
 
-    if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Input.Keys.E))
+    if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.E))
     {
       game.toggleLevelEditor();
     }
 
-    if (Gdx.input.isKeyJustPressed(Input.Keys.R))
+    if (input.isKeyJustPressed(Input.Keys.R))
     {
       game.reset();
     }
-    else if (Gdx.input.isKeyJustPressed(Input.Keys.P))
+    else if (input.isKeyJustPressed(Input.Keys.P))
     {
       game.selectPreviousLevel();
     }
-    else if (Gdx.input.isKeyJustPressed(Input.Keys.N))
+    else if (input.isKeyJustPressed(Input.Keys.N))
     {
       game.selectNextLevel();
     }
-    else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+    else if (input.isKeyJustPressed(Input.Keys.SPACE))
     {
       game.paused = !game.paused;
     }
 
     // Set screen coordinates
-    mouse.x = Gdx.input.getX();
-    mouse.y = Gdx.input.getY();
+    mouse.x = input.getX();
+    mouse.y = input.getY();
 
     // Transform to world coordinates
     Renderer.unproject(mouse);
 
     if (!game.level.finished)
     {
-      if (Gdx.input.isTouched())
+      if (input.isTouched())
       {
         if (!game.player.assistant.targeting)
         {
@@ -113,20 +114,20 @@ class Controller
     }
 
     // Player aerial controls
-    if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
+    if (input.isKeyPressed(Input.Keys.W) || input.isKeyPressed(Input.Keys.UP))
     {
       game.player.moveUp();
     }
-    else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
+    else if (input.isKeyPressed(Input.Keys.S) || input.isKeyPressed(Input.Keys.DOWN))
     {
       game.player.moveDown();
     }
 
-    if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+    if (input.isKeyPressed(Input.Keys.A) || input.isKeyPressed(Input.Keys.LEFT))
     {
       game.player.moveLeft();
     }
-    else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+    else if (input.isKeyPressed(Input.Keys.D) || input.isKeyPressed(Input.Keys.RIGHT))
     {
       game.player.moveRight();
     }
@@ -134,20 +135,20 @@ class Controller
     /*
     else
     {
-      if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
+      if (input.isKeyPressed(Input.Keys.W) || input.isKeyPressed(Input.Keys.UP))
       {
         game.cameraState.moveUp();
       }
-      else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
+      else if (input.isKeyPressed(Input.Keys.S) || input.isKeyPressed(Input.Keys.DOWN))
       {
         game.cameraState.moveDown();
       }
 
-      if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+      if (input.isKeyPressed(Input.Keys.A) || input.isKeyPressed(Input.Keys.LEFT))
       {
         game.cameraState.moveLeft();
       }
-      else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+      else if (input.isKeyPressed(Input.Keys.D) || input.isKeyPressed(Input.Keys.RIGHT))
       {
         game.cameraState.moveRight();
       }
@@ -157,18 +158,18 @@ class Controller
 
   void handleEditorControls()
   {
-    if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Input.Keys.E))
+    if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.E))
     {
       game.toggleLevelEditor();
     }
-    else if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) && Gdx.input.isKeyJustPressed(Input.Keys.D))
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.X))
     {
       game.levelEditor.removeEntity();
     }
 
     // Set screen coordinates
-    mouse.x = Gdx.input.getX();
-    mouse.y = Gdx.input.getY();
+    mouse.x = input.getX();
+    mouse.y = input.getY();
 
     // Transform to world coordinates
     Renderer.unproject(mouse);
@@ -177,32 +178,32 @@ class Controller
 
     // Entity dragging controls
 
-    if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
+    if (input.isKeyPressed(Input.Keys.CONTROL_LEFT))
     {
-      if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+      if (input.isButtonPressed(Input.Buttons.LEFT))
       {
-        if (editor.entity != null && (originalSelectionX != Gdx.input.getX() || originalSelectionY != Gdx.input.getY()))
+        if (editor.entity != null && (originalSelectionX != input.getX() || originalSelectionY != input.getY()))
         {
           originalSelection.x = originalSelectionX;
           originalSelection.y = originalSelectionY;
           Renderer.unproject(originalSelection);
 
-          changedSelection.x = Gdx.input.getX();
-          changedSelection.y = Gdx.input.getY();
+          changedSelection.x = input.getX();
+          changedSelection.y = input.getY();
           Renderer.unproject(changedSelection);
 
           final float diffX = changedSelection.x - originalSelection.x;
           final float diffY = changedSelection.y - originalSelection.y;
           editor.moveEntity(editor.entity.getX() + diffX, editor.entity.getY() + diffY);
 
-          originalSelectionX = Gdx.input.getX();
-          originalSelectionY = Gdx.input.getY();
+          originalSelectionX = input.getX();
+          originalSelectionY = input.getY();
         }
         else
         {
           editor.selectEntity(mouse.x, mouse.y);
-          originalSelectionX = Gdx.input.getX();
-          originalSelectionY = Gdx.input.getY();
+          originalSelectionX = input.getX();
+          originalSelectionY = input.getY();
         }
       }
       else
@@ -213,32 +214,32 @@ class Controller
 
     // Entity selection controls
 
-    if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+    if (input.isButtonJustPressed(Input.Buttons.LEFT))
     {
       editor.selectEntity(mouse.x, mouse.y);
     }
 
     // Camera controls
 
-    if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))
+    if (input.isKeyPressed(Input.Keys.W) || input.isKeyPressed(Input.Keys.UP))
     {
       game.cameraState.moveUp();
     }
-    else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))
+    else if (input.isKeyPressed(Input.Keys.S) || input.isKeyPressed(Input.Keys.DOWN))
     {
       game.cameraState.moveDown();
     }
 
-    if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))
+    if (input.isKeyPressed(Input.Keys.A) || input.isKeyPressed(Input.Keys.LEFT))
     {
       game.cameraState.moveLeft();
     }
-    else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+    else if (input.isKeyPressed(Input.Keys.D) || input.isKeyPressed(Input.Keys.RIGHT))
     {
       game.cameraState.moveRight();
     }
 
-    if (Gdx.input.isKeyPressed(Input.Keys.C))
+    if (input.isKeyPressed(Input.Keys.C))
     {
       game.reset();
     }

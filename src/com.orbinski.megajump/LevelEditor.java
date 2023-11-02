@@ -38,7 +38,7 @@ class LevelEditor
   {
     if (entity != null)
     {
-
+      level.removeEntity(entity);
     }
   }
 
