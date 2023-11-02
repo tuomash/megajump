@@ -67,34 +67,14 @@ class Renderer
 
   void addDoor()
   {
-    final Door door = game.level.door;
-    addEntity(door);
-
-    if (door.drawBorder || door.selected)
-    {
-      shapeRenderer.addQuad(door.getBottomLeftCornerX(),
-                            door.getBottomLeftCornerY(),
-                            door.getWidth(),
-                            door.getHeight(),
-                            Color.WHITE);
-    }
+    addEntity(game.level.door);
   }
 
   void addBlocks()
   {
     for (int i = 0; i < game.level.blocks.size(); i++)
     {
-      final Block block = game.level.blocks.get(i);
-      addEntity(block);
-
-      if (block.drawBorder || block.selected)
-      {
-        shapeRenderer.addQuad(block.getBottomLeftCornerX(),
-                              block.getBottomLeftCornerY(),
-                              block.getWidth(),
-                              block.getHeight(),
-                              Color.WHITE);
-      }
+      addEntity(game.level.blocks.get(i));
     }
   }
 
@@ -102,22 +82,14 @@ class Renderer
   {
     for (int i = 0; i < game.level.decorations.size(); i++)
     {
-      final Decoration decoration = game.level.decorations.get(i);
       addEntity(game.level.decorations.get(i));
-
-      if (decoration.drawBorder || decoration.selected)
-      {
-        shapeRenderer.addQuad(decoration.getBottomLeftCornerX(),
-                              decoration.getBottomLeftCornerY(),
-                              decoration.getWidth(),
-                              decoration.getHeight(),
-                              Color.WHITE);
-      }
     }
   }
 
   void addTrampolines()
   {
+    // TODO: use addEntity() when texture is available
+
     for (int i = 0; i < game.level.trampolines.size(); i++)
     {
       final Trampoline trampoline = game.level.trampolines.get(i);
@@ -141,6 +113,8 @@ class Renderer
 
   void addPlatforms()
   {
+    // TODO: use addEntity() when texture is available
+
     for (int i = 0; i < game.level.platforms.size(); i++)
     {
       final Platform platform = game.level.platforms.get(i);
@@ -164,6 +138,8 @@ class Renderer
 
   void addTeleports()
   {
+    // TODO: use addEntity() when texture is available
+
     for (int i = 0; i < game.level.teleports.size(); i++)
     {
       final Teleport teleport = game.level.teleports.get(i);
@@ -193,6 +169,8 @@ class Renderer
 
   void addSpawn()
   {
+    // TODO: use addEntity() when texture is available
+
     if (game.levelEditor.active)
     {
       final Spawn spawn = game.levelEditor.level.spawn;
@@ -235,15 +213,6 @@ class Renderer
 
     final Player player = game.player;
     addEntity(player);
-
-    if (player.drawBorder || player.selected)
-    {
-      shapeRenderer.addQuad(player.getBottomLeftCornerX(),
-                            player.getBottomLeftCornerY(),
-                            player.getWidth(),
-                            player.getHeight(),
-                            Color.WHITE);
-    }
 
     if (player.drawCollisions)
     {
@@ -325,6 +294,15 @@ class Renderer
       }
 
       entities[entityIndex] = entity;
+
+      if (entity.drawBorder || entity.selected)
+      {
+        shapeRenderer.addQuad(entity.getBottomLeftCornerX(),
+                              entity.getBottomLeftCornerY(),
+                              entity.getWidth(),
+                              entity.getHeight(),
+                              Color.WHITE);
+      }
     }
   }
 
