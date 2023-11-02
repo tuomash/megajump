@@ -27,6 +27,10 @@ class Boot
       {
         Globals.hideUI = true;
       }
+      else if (args[i].equalsIgnoreCase("editor"))
+      {
+        Globals.editor = true;
+      }
       else if (args[i].equalsIgnoreCase("mute"))
       {
         Audio.mute = true;

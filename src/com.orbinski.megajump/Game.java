@@ -63,6 +63,11 @@ class Game
       level = levels.getLevel();
     }
 
+    if (editor)
+    {
+      toggleLevelEditor();
+    }
+
     level.updateUI();
     reset();
 

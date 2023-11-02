@@ -20,5 +20,6 @@ class Globals
   static boolean debug;
   static boolean watermark;
   static boolean hideUI;
+  static boolean editor;
   static String levelTag;
 }
