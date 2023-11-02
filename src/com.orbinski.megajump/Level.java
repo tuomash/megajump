@@ -307,6 +307,61 @@ class Level
     return null;
   }
 
+  boolean overlapsEntity(final Entity entity)
+  {
+    if (exit != null && exit.overlaps(entity))
+    {
+      return true;
+    }
+
+    if (spawn.overlaps(entity))
+    {
+      return true;
+    }
+
+    for (int i = 0; i < blocks.size(); i++)
+    {
+      final Block block = blocks.get(i);
+
+      if (block.overlaps(entity))
+      {
+        return true;
+      }
+    }
+
+    for (int i = 0; i < trampolines.size(); i++)
+    {
+      final Trampoline trampoline = trampolines.get(i);
+
+      if (trampoline.overlaps(entity))
+      {
+        return true;
+      }
+    }
+
+    for (int i = 0; i < platforms.size(); i++)
+    {
+      final Platform platform = platforms.get(i);
+
+      if (platform.overlaps(entity))
+      {
+        return true;
+      }
+    }
+
+    for (int i = 0; i < teleports.size(); i++)
+    {
+      final Teleport teleport = teleports.get(i);
+
+      if (teleport.overlaps(entity))
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   boolean removeEntity(final Entity entity)
   {
     // Exit or spawn cannot be removed

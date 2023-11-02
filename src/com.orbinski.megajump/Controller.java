@@ -160,9 +160,28 @@ class Controller
   {
     final LevelEditor editor = game.levelEditor;
 
+    // Set screen coordinates
+    mouse.x = input.getX();
+    mouse.y = input.getY();
+
+    // Transform to world coordinates
+    Renderer.unproject(mouse);
+
     if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.E))
     {
       game.toggleLevelEditor();
+    }
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_1))
+    {
+      editor.addPlatform(mouse.x, mouse.y);
+    }
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_2))
+    {
+      editor.addTrampoline(mouse.x, mouse.y);
+    }
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_3))
+    {
+      editor.addDecoration(mouse.x, mouse.y);
     }
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.X))
     {
@@ -176,13 +195,6 @@ class Controller
     {
       editor.decreaseEntitySize();
     }
-
-    // Set screen coordinates
-    mouse.x = input.getX();
-    mouse.y = input.getY();
-
-    // Transform to world coordinates
-    Renderer.unproject(mouse);
 
     // Entity dragging controls
 
