@@ -178,7 +178,7 @@ class Controller
 
     // Entity dragging controls
 
-    if (input.isKeyPressed(Input.Keys.CONTROL_LEFT))
+    if (input.isKeyPressed(Input.Keys.SHIFT_LEFT))
     {
       if (input.isButtonPressed(Input.Buttons.LEFT))
       {
@@ -211,11 +211,10 @@ class Controller
         editor.clearEntity();
       }
     }
-
     // Entity selection controls
-
-    if (input.isButtonJustPressed(Input.Buttons.LEFT))
+    else if (input.isButtonJustPressed(Input.Buttons.LEFT))
     {
+      editor.clearEntity();
       editor.selectEntity(mouse.x, mouse.y);
     }
 

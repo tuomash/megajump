@@ -125,7 +125,8 @@ class Game
     {
       camera.position.x = camera.position.x + delta * cameraState.velocityX;
       camera.position.y = camera.position.y + delta * cameraState.velocityY;
-      System.out.println("camera x:" + camera.position.x);
+      // System.out.println("camera x:" + camera.position.x);
+      // System.out.println("camera y:" + camera.position.y);
 
       if (camera.position.x > Level.MAX_DIMENSION_OFFSET)
       {

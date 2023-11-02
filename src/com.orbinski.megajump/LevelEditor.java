@@ -10,17 +10,11 @@ class LevelEditor
   {
     if (level != null)
     {
-      final Entity previous = entity;
       entity = level.findEntity(x, y);
 
       if (entity != null)
       {
         entity.selected = true;
-      }
-
-      if (previous != null)
-      {
-        previous.selected = false;
       }
     }
   }
