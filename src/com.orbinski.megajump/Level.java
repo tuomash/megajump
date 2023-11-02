@@ -48,6 +48,8 @@ class Level
 
   float floor;
 
+  private boolean saved = true;
+
   Level()
   {
     setTrophy(Trophy.NONE);
@@ -370,34 +372,60 @@ class Level
       return false;
     }
 
+    boolean removed = false;
+
     if (entity.isDecoration())
     {
-      return decorations.remove(entity);
+      removed = decorations.remove(entity);
     }
     else if (entity.isBlock())
     {
-      return blocks.remove(entity);
+      removed = blocks.remove(entity);
     }
     else if (entity.isTrampoline())
     {
-      return trampolines.remove(entity);
+      removed = trampolines.remove(entity);
     }
     else if (entity.isPlatform())
     {
-      return platforms.remove(entity);
+      removed = platforms.remove(entity);
     }
     else if (entity.isTeleport())
     {
-      return teleports.remove(entity);
+      removed = teleports.remove(entity);
     }
 
-    return false;
+    if (removed)
+    {
+      setSaved(false);
+    }
+
+    return removed;
   }
 
   void setSpawn(final float x, final float y)
   {
     spawn.setX(x);
     spawn.setY(y);
+  }
+
+  public boolean isSaved()
+  {
+    return saved;
+  }
+
+  public void setSaved(final boolean saved)
+  {
+    this.saved = saved;
+
+    if (saved)
+    {
+      UserInterface.unsavedChangesText.visible = false;
+    }
+    else
+    {
+      UserInterface.unsavedChangesText.visible = true;
+    }
   }
 
   void reset()

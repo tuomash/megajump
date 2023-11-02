@@ -34,6 +34,8 @@ class UserInterface
 
   static Bar jumpBar;
 
+  static Text unsavedChangesText;
+
   static void create()
   {
     help.create();
@@ -64,6 +66,10 @@ class UserInterface
     jumpBar.setWidth(300);
     jumpBar.updateBar(1.0f, 1.0f);
     enableJumpBar();
+
+    unsavedChangesText = createText("Unsaved changes");
+    unsavedChangesText.font = Resources.font24Red;
+    unsavedChangesText.visible = false;
   }
 
   static void layout(final int width, final int height)
@@ -77,6 +83,7 @@ class UserInterface
       if (width <= 1360 && height <= 768)
       {
         text.font = Resources.font14White;
+
       }
       else if (width <= 1920 && height <= 1080)
       {
@@ -84,7 +91,21 @@ class UserInterface
       }
       else
       {
-        text.font = Resources.font24White;
+        if (text.font != null)
+        {
+          if (text.font.getColor() == Color.WHITE)
+          {
+            text.font = Resources.font24White;
+          }
+          else if (text.font.getColor() == Color.RED)
+          {
+            text.font = Resources.font24Red;
+          }
+        }
+        else
+        {
+          text.font = Resources.font24White;
+        }
       }
     }
 
@@ -110,6 +131,8 @@ class UserInterface
       bronzeRequirementText.setPosition(thirdHelpX, 20);
       silverRequirementText.setPosition(thirdHelpX, 40);
       goldRequirementText.setPosition(thirdHelpX, 60);
+
+      unsavedChangesText.setPosition(20, 40);
     }
     else if (width <= 1920 && height <= 1080)
     {
@@ -133,6 +156,8 @@ class UserInterface
       bronzeRequirementText.setPosition(thirdHelpX, 30);
       silverRequirementText.setPosition(thirdHelpX, 60);
       goldRequirementText.setPosition(thirdHelpX, 90);
+
+      unsavedChangesText.setPosition(20, 60);
     }
     else
     {
@@ -156,6 +181,8 @@ class UserInterface
       goldRequirementText.setPosition(thirdHelpX, 120);
       silverRequirementText.setPosition(thirdHelpX, 80);
       bronzeRequirementText.setPosition(thirdHelpX, 40);
+
+      unsavedChangesText.setPosition(20, 80);
     }
 
     jumpBar.setX(width - jumpBar.getWidth() - 20);

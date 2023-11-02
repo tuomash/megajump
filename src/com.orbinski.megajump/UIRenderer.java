@@ -49,6 +49,7 @@ class UIRenderer
       else if (game.levelEditor.active)
       {
         addText(UserInterface.levelNameText);
+        addText(UserInterface.unsavedChangesText);
       }
       else
       {
@@ -121,14 +122,17 @@ class UIRenderer
 
   void addText(final Text text)
   {
-    textIndex++;
-
-    if (textIndex >= texts.length)
+    if (text != null && text.visible)
     {
-      textIndex = texts.length - 1;
-    }
+      textIndex++;
 
-    texts[textIndex] = text;
+      if (textIndex >= texts.length)
+      {
+        textIndex = texts.length - 1;
+      }
+
+      texts[textIndex] = text;
+    }
   }
 
   void addBar(final Bar bar)

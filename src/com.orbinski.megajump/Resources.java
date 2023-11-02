@@ -33,6 +33,7 @@ class Resources
   static List<MTexture> playerLandRight;
 
   static BitmapFont font24White;
+  static BitmapFont font24Red;
   static BitmapFont font18White;
   static BitmapFont font14White;
 
@@ -145,6 +146,7 @@ class Resources
     }
 
     font24White = generateFont("lunchds.ttf", 24, Color.WHITE);
+    font24Red = generateFont("lunchds.ttf", 24, Color.RED);
     font18White = generateFont("lunchds.ttf", 18, Color.WHITE);
     font14White = generateFont("lunchds.ttf", 14, Color.WHITE);
   }

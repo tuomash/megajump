@@ -13,6 +13,7 @@ class LevelEditor
     if (!level.overlapsEntity(platform))
     {
       level.platforms.add(platform);
+      level.setSaved(false);
     }
   }
 
@@ -23,6 +24,7 @@ class LevelEditor
     if (!level.overlapsEntity(trampoline))
     {
       level.trampolines.add(trampoline);
+      level.setSaved(false);
     }
   }
 
@@ -33,6 +35,7 @@ class LevelEditor
     if (!level.overlapsEntity(decoration))
     {
       level.decorations.add(decoration);
+      level.setSaved(false);
     }
   }
 
@@ -55,6 +58,8 @@ class LevelEditor
     {
       entity.setX(x);
       entity.setY(y);
+
+      level.setSaved(false);
     }
   }
 
@@ -72,6 +77,8 @@ class LevelEditor
     {
       entity.increaseWidth();
       entity.increaseHeight();
+
+      level.setSaved(false);
     }
   }
 
@@ -81,6 +88,8 @@ class LevelEditor
     {
       entity.decreaseWidth();
       entity.decreaseHeight();
+
+      level.setSaved(false);
     }
   }
 
