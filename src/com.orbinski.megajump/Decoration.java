@@ -7,4 +7,10 @@ class Decoration extends Entity
     super(x, y, width, height);
     texture = Resources.candle;
   }
+
+  @Override
+  boolean isDecoration()
+  {
+    return true;
+  }
 }

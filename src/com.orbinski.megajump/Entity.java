@@ -405,12 +405,32 @@ abstract class Entity
     return false;
   }
 
+  boolean isSpawn()
+  {
+    return false;
+  }
+
+  boolean isDecoration()
+  {
+    return false;
+  }
+
   boolean isBlock()
   {
     return false;
   }
 
+  boolean isTrampoline()
+  {
+    return false;
+  }
+
   boolean isPlatform()
+  {
+    return false;
+  }
+
+  boolean isTeleport()
   {
     return false;
   }
@@ -435,5 +455,12 @@ abstract class Entity
   {
     prevAnimation = this.animation;
     this.animation = animation;
+  }
+
+  @Override
+  public boolean equals(final Object obj)
+  {
+    // TODO: use Entity.id when it's done
+    return super.equals(obj) && this == obj;
   }
 }

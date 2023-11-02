@@ -307,75 +307,36 @@ class Level
     return null;
   }
 
-  void removeEntity(final Entity entity)
+  boolean removeEntity(final Entity entity)
   {
-    // Exit cannot be removed
-    if (exit != null && exit == entity)
+    // Exit or spawn cannot be removed
+    if (entity.isExit() || entity.isSpawn())
     {
-      return;
+      return false;
     }
 
-    // Spawn cannot be removed
-    if (spawn == entity)
+    if (entity.isDecoration())
     {
-      return;
+      return decorations.remove(entity);
+    }
+    else if (entity.isBlock())
+    {
+      return blocks.remove(entity);
+    }
+    else if (entity.isTrampoline())
+    {
+      return trampolines.remove(entity);
+    }
+    else if (entity.isPlatform())
+    {
+      return platforms.remove(entity);
+    }
+    else if (entity.isTeleport())
+    {
+      return teleports.remove(entity);
     }
 
-    decorations.remove(entity);
-
-    /*
-
-    for (int i = 0; i < decorations.size(); i++)
-    {
-      final Decoration decoration = decorations.get(i);
-
-      if (decoration.contains(x, y))
-      {
-        return decoration;
-      }
-    }
-
-    for (int i = 0; i < blocks.size(); i++)
-    {
-      final Block block = blocks.get(i);
-
-      if (block.contains(x, y))
-      {
-        return block;
-      }
-    }
-
-    for (int i = 0; i < trampolines.size(); i++)
-    {
-      final Trampoline trampoline = trampolines.get(i);
-
-      if (trampoline.contains(x, y))
-      {
-        return trampoline;
-      }
-    }
-
-    for (int i = 0; i < platforms.size(); i++)
-    {
-      final Platform platform = platforms.get(i);
-
-      if (platform.contains(x, y))
-      {
-        return platform;
-      }
-    }
-
-    for (int i = 0; i < teleports.size(); i++)
-    {
-      final Teleport teleport = teleports.get(i);
-
-      if (teleport.contains(x, y))
-      {
-        return teleport;
-      }
-    }
-
-     */
+    return false;
   }
 
   void setSpawn(final float x, final float y)

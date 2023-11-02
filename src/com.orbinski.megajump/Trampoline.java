@@ -24,6 +24,12 @@ class Trampoline extends Entity
   }
 
   @Override
+  boolean isTrampoline()
+  {
+    return true;
+  }
+
+  @Override
   void increaseWidth()
   {
     setWidth(getWidth() + widthStep);

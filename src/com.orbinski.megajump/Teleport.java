@@ -55,4 +55,10 @@ class Teleport extends Entity
     targetBottomLeftCorner.x = x - getWidthOffset();
     targetBottomLeftCorner.y = y - getHeightOffset();
   }
+
+  @Override
+  boolean isTeleport()
+  {
+    return true;
+  }
 }
