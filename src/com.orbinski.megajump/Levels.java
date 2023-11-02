@@ -21,8 +21,8 @@ class Levels
       level.goldTimeInMilliseconds = 233;
       level.silverTimeInMilliseconds = 500;
       level.bronzeTimeInMilliseconds = 1000;
-      final Door door = new Door(-55.0f, -30.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(-55.0f, -30.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -33,8 +33,8 @@ class Levels
       level.goldTimeInMilliseconds = 390;
       level.silverTimeInMilliseconds = 500;
       level.bronzeTimeInMilliseconds = 1000;
-      final Door door = new Door(-45.0f, -20.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(-45.0f, -20.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -45,8 +45,8 @@ class Levels
       level.goldTimeInMilliseconds = 600;
       level.silverTimeInMilliseconds = 700;
       level.bronzeTimeInMilliseconds = 1500;
-      final Door door = new Door(-25.0f, -10.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(-25.0f, -10.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -57,8 +57,8 @@ class Levels
       level.goldTimeInMilliseconds = 1000;
       level.silverTimeInMilliseconds = 1200;
       level.bronzeTimeInMilliseconds = 1800;
-      final Door door = new Door(10.0f, 10.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(10.0f, 10.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -69,8 +69,8 @@ class Levels
       level.goldTimeInMilliseconds = 1200;
       level.silverTimeInMilliseconds = 1500;
       level.bronzeTimeInMilliseconds = 2000;
-      final Door door = new Door(25.0f, 25.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(25.0f, 25.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -81,8 +81,8 @@ class Levels
       level.goldTimeInMilliseconds = 900;
       level.silverTimeInMilliseconds = 1200;
       level.bronzeTimeInMilliseconds = 1600;
-      final Door door = new Door(-75.0f, 33.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(-75.0f, 33.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -95,8 +95,8 @@ class Levels
       level.bronzeTimeInMilliseconds = 4000;
       level.moveCameraX = true;
 
-      final Door door = new Door(190.0f, -30.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(190.0f, -30.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
 
       final Decoration decoration1 = new Decoration(5.0f, 5.0f, 1.5f, 2.5f);
@@ -120,12 +120,12 @@ class Levels
       level.silverTimeInMilliseconds = 1500;
       level.bronzeTimeInMilliseconds = 2000;
 
-      final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
-      door.addWaypoint(new Point2D.Float(-25.0f, -10.0f));
-      door.addWaypoint(new Point2D.Float(30.0f, -10.0f));
-      door.velocityX = 10.0f;
-      door.velocityY = 10.0f;
-      level.setDoor(door);
+      final Exit exit = new Exit(-20.0f, -10.0f, 5.0f, 5.0f);
+      exit.addWaypoint(new Point2D.Float(-25.0f, -10.0f));
+      exit.addWaypoint(new Point2D.Float(30.0f, -10.0f));
+      exit.velocityX = 10.0f;
+      exit.velocityY = 10.0f;
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -137,12 +137,12 @@ class Levels
       level.silverTimeInMilliseconds = 1000;
       level.bronzeTimeInMilliseconds = 1500;
 
-      final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
-      door.addWaypoint(new Point2D.Float(-20.0f, -10.0f));
-      door.addWaypoint(new Point2D.Float(-20.0f, 30.0f));
-      door.velocityX = 10.0f;
-      door.velocityY = 10.0f;
-      level.setDoor(door);
+      final Exit exit = new Exit(-20.0f, -10.0f, 5.0f, 5.0f);
+      exit.addWaypoint(new Point2D.Float(-20.0f, -10.0f));
+      exit.addWaypoint(new Point2D.Float(-20.0f, 30.0f));
+      exit.velocityX = 10.0f;
+      exit.velocityY = 10.0f;
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -154,14 +154,14 @@ class Levels
       level.silverTimeInMilliseconds = 1000;
       level.bronzeTimeInMilliseconds = 1500;
 
-      final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
-      door.addWaypoint(new Point2D.Float(-20.0f, -10.0f));
-      door.addWaypoint(new Point2D.Float(-20.0f, 20.0f));
-      door.addWaypoint(new Point2D.Float(40.0f, 20.0f));
-      door.addWaypoint(new Point2D.Float(40.0f, -10.0f));
-      door.velocityX = 17.5f;
-      door.velocityY = 17.5f;
-      level.setDoor(door);
+      final Exit exit = new Exit(-20.0f, -10.0f, 5.0f, 5.0f);
+      exit.addWaypoint(new Point2D.Float(-20.0f, -10.0f));
+      exit.addWaypoint(new Point2D.Float(-20.0f, 20.0f));
+      exit.addWaypoint(new Point2D.Float(40.0f, 20.0f));
+      exit.addWaypoint(new Point2D.Float(40.0f, -10.0f));
+      exit.velocityX = 17.5f;
+      exit.velocityY = 17.5f;
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -174,8 +174,8 @@ class Levels
       level.silverTimeInMilliseconds = 2000;
       level.bronzeTimeInMilliseconds = 2500;
 
-      final Door door = new Door(-20.0f, -10.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(-20.0f, -10.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
 
       final Block block1 = new Block(-25.0f, -10.0f, 2.5f, 2.5f);
@@ -212,8 +212,8 @@ class Levels
       level.silverTimeInMilliseconds = 3500;
       level.bronzeTimeInMilliseconds = 5000;
 
-      final Door door = new Door(20.0f, 15.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(20.0f, 15.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
 
       final Trampoline trampoline = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
@@ -228,8 +228,8 @@ class Levels
       level.silverTimeInMilliseconds = 3600;
       level.bronzeTimeInMilliseconds = 5000;
 
-      final Door door = new Door(40.0f, 45.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(40.0f, 45.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
 
       final Trampoline trampoline = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
@@ -245,8 +245,8 @@ class Levels
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
 
-      final Door door = new Door(145.0f, -25.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(145.0f, -25.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
 
       final Trampoline trampoline1 = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
@@ -284,8 +284,8 @@ class Levels
       final Trampoline trampoline5 = new Trampoline(195.0f, 75.0f, 5.0f, 1.5f);
       level.trampolines.add(trampoline5);
 
-      final Door door = new Door(265.0f, 110.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(265.0f, 110.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -334,8 +334,8 @@ class Levels
       final Block block12 = new Block(37.5f, 0.0f, 2.5f, 2.5f);
       level.blocks.add(block12);
 
-      final Door door = new Door(35.0f, -6.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(35.0f, -6.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
      */
@@ -361,8 +361,8 @@ class Levels
       final Platform platform4 = new Platform(-80.0f, 60.0f, 40.0f, 1.5f);
       level.platforms.add(platform4);
 
-      final Door door = new Door(-20.0f, 100.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(-20.0f, 100.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -377,8 +377,8 @@ class Levels
       final Platform platform1 = new Platform(-70.0f, 25.0f, 20.0f, 1.5f);
       level.platforms.add(platform1);
 
-      final Door door = new Door(-70.0f, 30.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(-70.0f, 30.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -404,8 +404,8 @@ class Levels
       final Platform platform4 = new Platform(640.0f, 60.0f, 60.0f, 1.5f);
       level.platforms.add(platform4);
 
-      final Door door = new Door(840.0f, 100.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(840.0f, 100.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
 
@@ -423,8 +423,8 @@ class Levels
       teleport.setTarget(0.0f, 200.0f);
       level.teleports.add(teleport);
 
-      final Door door = new Door(50.0f, 150.0f, 5.0f, 5.0f);
-      level.setDoor(door);
+      final Exit exit = new Exit(50.0f, 150.0f, 5.0f, 5.0f);
+      level.setExit(exit);
       levels.add(level);
     }
   }

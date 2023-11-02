@@ -50,7 +50,7 @@ class Renderer
       return;
     }
 
-    addDoor();
+    addExit();
     addBlocks();
     addDecorations();
     addTrampolines();
@@ -65,9 +65,9 @@ class Renderer
     shapeRenderer.renderShapes();
   }
 
-  void addDoor()
+  void addExit()
   {
-    addEntity(game.level.door);
+    addEntity(game.level.exit);
   }
 
   void addBlocks()

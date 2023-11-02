@@ -1,15 +1,15 @@
 package com.orbinski.megajump;
 
-class Door extends Entity
+class Exit extends Entity
 {
-  Door(final float x, final float y, final float width, final float height)
+  Exit(final float x, final float y, final float width, final float height)
   {
     super(x, y, width, height);
     texture = Resources.door;
   }
 
   @Override
-  boolean isDoor()
+  boolean isExit()
   {
     return true;
   }

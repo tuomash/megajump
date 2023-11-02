@@ -400,7 +400,7 @@ abstract class Entity
     }
   }
 
-  boolean isDoor()
+  boolean isExit()
   {
     return false;
   }

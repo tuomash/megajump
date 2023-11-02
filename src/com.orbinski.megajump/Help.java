@@ -9,7 +9,7 @@ class Help
 
   void create()
   {
-    add("Your objective is to get to the exit door as fast as possible.", 20, 500);
+    add("Your objective is to get to the exit as fast as possible.", 20, 500);
 
     add("Press R to restart the level", 20, 200);
     add("Press N for next level and P for previous level", 20, 160);

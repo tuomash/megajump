@@ -1,6 +1,5 @@
 package com.orbinski.megajump;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ class Level
   Player player;
   String name = "Level";
   String tag;
-  Door door;
+  Exit exit;
   Spawn spawn = new Spawn(5.0f, 5.0f);
   List<Decoration> decorations = new ArrayList<>();
   List<Block> blocks = new ArrayList<>();
@@ -63,10 +62,10 @@ class Level
     }
     else if (!started)
     {
-      // Update moving doors even if the player hasn't started yet
-      if (door != null)
+      // Update moving exits even if the player hasn't started yet
+      if (exit != null)
       {
-        door.update(delta);
+        exit.update(delta);
       }
 
       return;
@@ -78,12 +77,12 @@ class Level
 
     UserInterface.updateElapsedTimeText(millisecondsElapsed);
 
-    if (door != null)
+    if (exit != null)
     {
-      door.update(delta);
+      exit.update(delta);
     }
 
-    if (door != null && door.overlaps(player))
+    if (exit != null && exit.overlaps(player))
     {
       player.stop();
       player.setState(Player.State.EXIT);
@@ -224,9 +223,9 @@ class Level
     UserInterface.updateBronzeRequirementText(bronzeTimeInMilliseconds);
   }
 
-  void setDoor(final Door door)
+  void setExit(final Exit exit)
   {
-    this.door = door;
+    this.exit = exit;
   }
 
   public void setTrophy(final Trophy trophy)
@@ -245,9 +244,9 @@ class Level
 
   Entity findEntity(final float x, final float y)
   {
-    if (door != null && door.contains(x, y))
+    if (exit != null && exit.contains(x, y))
     {
-      return door;
+      return exit;
     }
 
     if (spawn.contains(x, y))
@@ -310,8 +309,8 @@ class Level
 
   void removeEntity(final Entity entity)
   {
-    // Door cannot be removed
-    if (door != null && door == entity)
+    // Exit cannot be removed
+    if (exit != null && exit == entity)
     {
       return;
     }
@@ -392,9 +391,9 @@ class Level
     elapsed = 0.0f;
     millisecondsElapsed = 0;
 
-    if (door != null)
+    if (exit != null)
     {
-      door.reset();
+      exit.reset();
     }
 
     if (player != null)
