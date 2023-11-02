@@ -415,6 +415,22 @@ abstract class Entity
     return false;
   }
 
+  void increaseWidth()
+  {
+  }
+
+  void decreaseWidth()
+  {
+  }
+
+  void increaseHeight()
+  {
+  }
+
+  void decreaseHeight()
+  {
+  }
+
   public void setAnimation(final Animation animation)
   {
     prevAnimation = this.animation;

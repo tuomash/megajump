@@ -158,13 +158,23 @@ class Controller
 
   void handleEditorControls()
   {
+    final LevelEditor editor = game.levelEditor;
+
     if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.E))
     {
       game.toggleLevelEditor();
     }
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.X))
     {
-      game.levelEditor.removeEntity();
+      editor.removeEntity();
+    }
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.I))
+    {
+      editor.increaseEntitySize();
+    }
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.K))
+    {
+      editor.decreaseEntitySize();
     }
 
     // Set screen coordinates
@@ -173,8 +183,6 @@ class Controller
 
     // Transform to world coordinates
     Renderer.unproject(mouse);
-
-    final LevelEditor editor = game.levelEditor;
 
     // Entity dragging controls
 

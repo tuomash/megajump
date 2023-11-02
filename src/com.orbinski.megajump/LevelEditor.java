@@ -36,6 +36,24 @@ class LevelEditor
     }
   }
 
+  void increaseEntitySize()
+  {
+    if (entity != null)
+    {
+      entity.increaseWidth();
+      entity.increaseHeight();
+    }
+  }
+
+  void decreaseEntitySize()
+  {
+    if (entity != null)
+    {
+      entity.decreaseWidth();
+      entity.decreaseHeight();
+    }
+  }
+
   void clearEntity()
   {
     if (entity != null)
