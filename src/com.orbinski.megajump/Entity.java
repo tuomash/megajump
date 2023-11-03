@@ -74,8 +74,10 @@ abstract class Entity
     setY(wrapper.y);
     movement = Movement.valueOf(wrapper.movement.toUpperCase());
 
-    if (wrapper.waypoints != null)
+    if (wrapper.waypoints != null && !wrapper.waypoints.isEmpty())
     {
+      waypoints = new ArrayList<>();
+
       for (int i = 0; i < wrapper.waypoints.size(); i++)
       {
         waypoints.add(wrapper.waypoints.get(i));

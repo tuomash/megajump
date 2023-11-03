@@ -262,11 +262,19 @@ class Controller
         editor.selectEntity(mouse.x, mouse.y);
       }
 
-      // Level reset controls
+      // Level controls
 
-      if (input.isKeyPressed(Input.Keys.C))
+      if (input.isKeyJustPressed(Input.Keys.C))
       {
         game.reset();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.N))
+      {
+        game.selectNextLevel();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.P))
+      {
+        game.selectPreviousLevel();
       }
 
       // Camera controls

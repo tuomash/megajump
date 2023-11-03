@@ -165,6 +165,7 @@ class Game
   {
     levels.selectPreviousLevel();
     level = levels.getLevel();
+    levelEditor.level = level;
     reset();
   }
 
@@ -172,6 +173,7 @@ class Game
   {
     levels.selectNextLevel();
     level = levels.getLevel();
+    levelEditor.level = level;
     reset();
   }
 

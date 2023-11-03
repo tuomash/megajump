@@ -14,6 +14,27 @@ class Levels
     levels = new ArrayList<>();
     levelIndex = -1;
 
+    final List<String> levelTags = new ArrayList<>();
+    levelTags.add("small_jump");
+    levelTags.add("medium_jump");
+    levelTags.add("long_jump");
+    levelTags.add("big_jump");
+    levelTags.add("even_bigger_jump");
+    levelTags.add("kite");
+    levelTags.add("guiding_light");
+    levelTags.add("it_moves");
+    levelTags.add("elevator");
+    levelTags.add("rectangle");
+    levelTags.add("trampoline_1");
+    levelTags.add("trampoline_2");
+    levelTags.add("trampoline_3");
+    levelTags.add("trampoline_4");
+    levelTags.add("platforms_1");
+    levelTags.add("on_a_pedestal");
+    levelTags.add("platforms_2");
+    levelTags.add("teleport_1");
+
+    /*
     {
       final Level level = new Level();
       level.name = "Small Jump";
@@ -25,7 +46,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "Medium Jump";
@@ -37,7 +60,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "Long Jump";
@@ -49,7 +74,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "Big Jump";
@@ -61,7 +88,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "Even Bigger Jump";
@@ -73,7 +102,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "High as a Kite";
@@ -85,6 +116,7 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
     {
       /*
@@ -113,14 +145,10 @@ class Levels
       level.decorations.add(decoration4);
        */
 
-      final LevelWrapper wrapper = LevelWrapper.readFromDisk("guiding_light");
 
-      if (wrapper != null)
-      {
-        levels.add(wrapper.unwrap());
-      }
     }
 
+    /*
     {
       final Level level = new Level();
       level.name = "It Moves";
@@ -137,7 +165,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "Elevator";
@@ -154,7 +184,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "Rectangle";
@@ -173,7 +205,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "Trampoline 1";
@@ -189,7 +223,9 @@ class Levels
       final Trampoline trampoline = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
       level.trampolines.add(trampoline);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "Trampoline 2";
@@ -205,7 +241,9 @@ class Levels
       final Trampoline trampoline = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
       level.trampolines.add(trampoline);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.moveCameraX = true;
@@ -228,7 +266,9 @@ class Levels
       final Trampoline trampoline3 = new Trampoline(95.0f, -25.0f, 5.0f, 1.5f);
       level.trampolines.add(trampoline3);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.moveCameraX = true;
@@ -258,7 +298,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.moveCameraY = true;
@@ -284,7 +326,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.name = "On a Pedestal";
@@ -300,7 +344,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.moveCameraX = true;
@@ -327,7 +373,9 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
+     */
 
+    /*
     {
       final Level level = new Level();
       level.moveCameraX = true;
@@ -345,6 +393,17 @@ class Levels
       final Exit exit = new Exit(50.0f, 150.0f, 5.0f, 5.0f);
       level.setExit(exit);
       levels.add(level);
+    }
+     */
+
+    for (int i = 0; i < levelTags.size(); i++)
+    {
+      final LevelWrapper wrapper = LevelWrapper.readFromDisk(levelTags.get(i));
+
+      if (wrapper != null)
+      {
+        levels.add(wrapper.unwrap());
+      }
     }
   }
 
