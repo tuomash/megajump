@@ -45,7 +45,7 @@ class Renderer
     spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
     shapeRenderer.update();
 
-    if (game.help)
+    if (game.help || game.levelEditor.help)
     {
       return;
     }

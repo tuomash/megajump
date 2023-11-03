@@ -9,6 +9,7 @@ class LevelEditor implements InputProcessor
   Entity entity;
   boolean input;
   StringBuilder inputBuilder = new StringBuilder();
+  boolean help;
 
   void addPlatform(final float x, final float y)
   {

@@ -40,13 +40,17 @@ class UIRenderer
 
     textIndex = -1;
 
-    if (!Globals.hideUI)
+    if (game.help)
     {
-      if (game.help)
-      {
-        addHelpTexts();
-      }
-      else if (game.levelEditor.active)
+      addGameHelpTexts();
+    }
+    else if (game.levelEditor.help)
+    {
+      addEditorHelpTexts();
+    }
+    else if (!Globals.hideUI)
+    {
+      if (game.levelEditor.active)
       {
         addText(UserInterface.levelNameText);
         addText(UserInterface.unsavedChangesText);
@@ -80,12 +84,9 @@ class UIRenderer
         addBar(UserInterface.jumpBar);
       }
     }
-    else
+    else if (Globals.watermark)
     {
-      if (Globals.watermark)
-      {
-        addText(UserInterface.waterMarkText);
-      }
+      addText(UserInterface.waterMarkText);
     }
 
     // Draw a red border to signal that level editor is active
@@ -112,11 +113,20 @@ class UIRenderer
     shapeRenderer.renderShapes();
   }
 
-  void addHelpTexts()
+  void addGameHelpTexts()
   {
-    for (int i = 0; i < UserInterface.help.texts.size(); i++)
+    for (int i = 0; i < UserInterface.help.gameTexts.size(); i++)
     {
-      final Text text = UserInterface.help.texts.get(i);
+      final Text text = UserInterface.help.gameTexts.get(i);
+      addText(text);
+    }
+  }
+
+  void addEditorHelpTexts()
+  {
+    for (int i = 0; i < UserInterface.help.editorTexts.size(); i++)
+    {
+      final Text text = UserInterface.help.editorTexts.get(i);
       addText(text);
     }
   }

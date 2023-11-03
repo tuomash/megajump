@@ -308,6 +308,10 @@ class Controller
       {
         game.selectPreviousLevel();
       }
+      else if (input.isKeyJustPressed(Input.Keys.F1))
+      {
+        editor.help = !editor.help;
+      }
 
       // Camera controls
 
