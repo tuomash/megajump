@@ -15,6 +15,11 @@ class Teleport extends Entity
   Teleport(final TeleportWrapper wrapper)
   {
     super(wrapper);
+
+    if (wrapper.target != null)
+    {
+      setTarget(wrapper.target.x, wrapper.target.y);
+    }
   }
 
   boolean overlaps(final Player player)

@@ -87,6 +87,7 @@ class Levels
     }
 
     {
+      /*
       final Level level = new Level();
       level.name = "Guiding Light";
       level.tag = "guiding_light";
@@ -110,6 +111,14 @@ class Levels
 
       final Decoration decoration4 = new Decoration(145.0f, 5.0f, 1.5f, 2.5f);
       level.decorations.add(decoration4);
+       */
+
+      final LevelWrapper wrapper = LevelWrapper.readFromDisk("guiding_light");
+
+      if (wrapper != null)
+      {
+        levels.add(wrapper.unwrap());
+      }
     }
 
     {
@@ -123,8 +132,8 @@ class Levels
       final Exit exit = new Exit(-20.0f, -10.0f, 5.0f, 5.0f);
       exit.addWaypoint(new Point2D.Float(-25.0f, -10.0f));
       exit.addWaypoint(new Point2D.Float(30.0f, -10.0f));
-      exit.velocityX = 10.0f;
-      exit.velocityY = 10.0f;
+      exit.setExitVelocityX(10.0f);
+      exit.setExitVelocityY(10.0f);
       level.setExit(exit);
       levels.add(level);
     }
@@ -140,8 +149,8 @@ class Levels
       final Exit exit = new Exit(-20.0f, -10.0f, 5.0f, 5.0f);
       exit.addWaypoint(new Point2D.Float(-20.0f, -10.0f));
       exit.addWaypoint(new Point2D.Float(-20.0f, 30.0f));
-      exit.velocityX = 10.0f;
-      exit.velocityY = 10.0f;
+      exit.setExitVelocityX(10.0f);
+      exit.setExitVelocityY(10.0f);
       level.setExit(exit);
       levels.add(level);
     }
@@ -159,50 +168,11 @@ class Levels
       exit.addWaypoint(new Point2D.Float(-20.0f, 20.0f));
       exit.addWaypoint(new Point2D.Float(40.0f, 20.0f));
       exit.addWaypoint(new Point2D.Float(40.0f, -10.0f));
-      exit.velocityX = 17.5f;
-      exit.velocityY = 17.5f;
+      exit.setExitVelocityX(17.5f);
+      exit.setExitVelocityY(17.5f);
       level.setExit(exit);
       levels.add(level);
     }
-
-    /*
-    {
-      final Level level = new Level();
-      level.name = "Blocked 2";
-      level.tag = "blocked_2";
-      level.goldTimeInMilliseconds = 1500;
-      level.silverTimeInMilliseconds = 2000;
-      level.bronzeTimeInMilliseconds = 2500;
-
-      final Exit exit = new Exit(-20.0f, -10.0f, 5.0f, 5.0f);
-      level.setExit(exit);
-      levels.add(level);
-
-      final Block block1 = new Block(-25.0f, -10.0f, 2.5f, 2.5f);
-      level.blocks.add(block1);
-
-      final Block block2 = new Block(-25.0f, -12.5f, 2.5f, 2.5f);
-      level.blocks.add(block2);
-
-      final Block block3 = new Block(-25.0f, -7.5f, 2.5f, 2.5f);
-      level.blocks.add(block3);
-
-      final Block block4 = new Block(-25.0f, -15.0f, 2.5f, 2.5f);
-      level.blocks.add(block4);
-
-      final Block block5 = new Block(-27.5f, -15.0f, 2.5f, 2.5f);
-      level.blocks.add(block5);
-
-      final Block block6 = new Block(-30.0f, -15.0f, 2.5f, 2.5f);
-      level.blocks.add(block6);
-
-      final Block block7 = new Block(-25.0f, -5.0f, 2.5f, 2.5f);
-      level.blocks.add(block7);
-
-      final Block block8 = new Block(-25.0f, -2.5f, 2.5f, 2.5f);
-      level.blocks.add(block8);
-    }
-     */
 
     {
       final Level level = new Level();
@@ -288,57 +258,6 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-
-    /*
-    {
-      final Level level = new Level();
-      level.name = "Mini-me";
-      level.tag = "mini_me";
-      level.goldTimeInMilliseconds = 10000;
-      level.silverTimeInMilliseconds = 12000;
-      level.bronzeTimeInMilliseconds = 15000;
-
-      final Block block1 = new Block(30.0f, -10.0f, 2.5f, 2.5f);
-      level.blocks.add(block1);
-
-      final Block block2 = new Block(30.0f, -12.5f, 2.5f, 2.5f);
-      level.blocks.add(block2);
-
-      final Block block3 = new Block(32.5f, -12.5f, 2.5f, 2.5f);
-      level.blocks.add(block3);
-
-      final Block block4 = new Block(35.0f, -12.5f, 2.5f, 2.5f);
-      level.blocks.add(block4);
-
-      final Block block5 = new Block(37.5f, -12.5f, 2.5f, 2.5f);
-      level.blocks.add(block5);
-
-      final Block block6 = new Block(40.0f, -12.5f, 2.5f, 2.5f);
-      level.blocks.add(block6);
-
-      final Block block7 = new Block(40.0f, -10.0f, 2.5f, 2.5f);
-      level.blocks.add(block7);
-
-      final Block block8 = new Block(40.0f, -7.5f, 2.5f, 2.5f);
-      level.blocks.add(block8);
-
-      final Block block9 = new Block(40.0f, -5.0f, 2.5f, 2.5f);
-      level.blocks.add(block9);
-
-      final Block block10 = new Block(40.0f, -2.5f, 2.5f, 2.5f);
-      level.blocks.add(block10);
-
-      final Block block11 = new Block(40.0f, 0.0f, 2.5f, 2.5f);
-      level.blocks.add(block11);
-
-      final Block block12 = new Block(37.5f, 0.0f, 2.5f, 2.5f);
-      level.blocks.add(block12);
-
-      final Exit exit = new Exit(35.0f, -6.0f, 5.0f, 5.0f);
-      level.setExit(exit);
-      levels.add(level);
-    }
-     */
 
     {
       final Level level = new Level();

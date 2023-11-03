@@ -4,6 +4,9 @@ class ExitWrapper extends EntityWrapper
 {
   int version = 1;
 
+  float exitVelocityX;
+  float exitVelocityY;
+
   ExitWrapper()
   {
     // Empty constructor is needed for deserialization
@@ -12,6 +15,9 @@ class ExitWrapper extends EntityWrapper
   ExitWrapper(final Exit exit)
   {
     super(exit);
+
+    exitVelocityX = exit.getExitVelocityX();
+    exitVelocityY = exit.getExitVelocityY();
   }
 
   Exit unwrap()

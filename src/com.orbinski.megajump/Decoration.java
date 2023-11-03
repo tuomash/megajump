@@ -11,6 +11,7 @@ class Decoration extends Entity
   Decoration(final DecorationWrapper wrapper)
   {
     super(wrapper);
+    texture = Resources.candle;
   }
 
   @Override

@@ -12,6 +12,7 @@ class Block extends Entity
   Block(final BlockWrapper wrapper)
   {
     super(wrapper);
+    texture = Resources.block;
   }
 
   @Override

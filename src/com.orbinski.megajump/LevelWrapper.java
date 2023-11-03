@@ -23,6 +23,8 @@ class LevelWrapper implements Serializable
   List<TrampolineWrapper> trampolines;
   List<PlatformWrapper> platforms;
   List<TeleportWrapper> teleports;
+  boolean moveCameraX;
+  boolean moveCameraY;
   Point2D.Float cameraFloor;
   Point2D.Float deathPoint;
 
@@ -45,6 +47,8 @@ class LevelWrapper implements Serializable
     trampolines = new ArrayList<>();
     platforms = new ArrayList<>();
     teleports = new ArrayList<>();
+    moveCameraX = level.moveCameraX;
+    moveCameraY = level.moveCameraY;
     cameraFloor = new Point2D.Float();
     deathPoint = new Point2D.Float();
 
@@ -136,6 +140,9 @@ class LevelWrapper implements Serializable
       }
     }
 
+    level.moveCameraX = moveCameraX;
+    level.moveCameraY = moveCameraY;
+
     if (cameraFloor != null)
     {
       level.cameraFloor.setLocation(cameraFloor.x, cameraFloor.y);
@@ -174,6 +181,7 @@ class LevelWrapper implements Serializable
     catch (final Exception e)
     {
       System.out.println("error: couldn't read level file: " + e.getMessage());
+      e.printStackTrace();
     }
 
     return null;
