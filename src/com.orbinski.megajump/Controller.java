@@ -217,6 +217,10 @@ class Controller
       {
         editor.saveLevel();
       }
+      else if (input.isKeyJustPressed(Input.Keys.N))
+      {
+        game.createNewLevel();
+      }
     }
     // Entity dragging controls
     else if (input.isKeyPressed(Input.Keys.SHIFT_LEFT))

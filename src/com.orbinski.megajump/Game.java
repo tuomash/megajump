@@ -161,6 +161,18 @@ class Game
      */
   }
 
+  void createNewLevel()
+  {
+    level = new Level();
+    final long timestamp = System.currentTimeMillis();
+    level.name = "New Level " + timestamp;
+    level.tag = "new_level_" + timestamp;
+    levels.addLevel(level);
+    levels.goToEnd();
+    levelEditor.level = level;
+    reset();
+  }
+
   void selectPreviousLevel()
   {
     levels.selectPreviousLevel();

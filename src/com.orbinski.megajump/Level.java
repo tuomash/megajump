@@ -56,6 +56,7 @@ class Level
   Level()
   {
     setTrophy(Trophy.NONE);
+    setExit(new Exit(-55.0f, -30.0f, 5.0f, 5.0f));
     setSpawn(-75.0f, -30.0f);
     cameraFloor.setLocation(0.0f, 15.0f);
     deathPoint.setLocation(0.0f, -70.0f);

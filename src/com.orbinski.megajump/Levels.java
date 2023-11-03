@@ -1,6 +1,5 @@
 package com.orbinski.megajump;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +33,7 @@ class Levels
     levelTags.add("platforms_2");
     levelTags.add("teleport_1");
 
+    // TODO: remove manual level definions at some point
     /*
     {
       final Level level = new Level();
@@ -429,6 +429,11 @@ class Levels
     {
       levelIndex++;
     }
+  }
+
+  void addLevel(final Level level)
+  {
+    levels.add(level);
   }
 
   Level getLevel()
