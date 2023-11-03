@@ -2,7 +2,7 @@ package com.orbinski.megajump;
 
 class ExitWrapper extends EntityWrapper
 {
-  int version = 1;
+  private static final long serialVersionUID = 1L;
 
   float exitVelocityX;
   float exitVelocityY;

@@ -20,8 +20,8 @@ class Level
   Game game;
   Player player;
 
-  String name = "Level";
-  String tag;
+  private String name = "Level";
+  private String tag;
   Exit exit;
   Spawn spawn = new Spawn(5.0f, 5.0f);
   List<Decoration> decorations = new ArrayList<>();
@@ -439,12 +439,65 @@ class Level
     spawn.setY(y);
   }
 
-  public boolean isSaved()
+  String getName()
+  {
+    return name;
+  }
+
+  void setName(String name)
+  {
+    if (name == null || name.isEmpty())
+    {
+      name = "New Level " + System.currentTimeMillis();
+    }
+
+    if (name.length() > 32)
+    {
+      name = name.substring(0, 32);
+    }
+
+    final StringBuilder nameBuilder = new StringBuilder();
+    final StringBuilder tagBuilder = new StringBuilder();
+
+    for (int i = 0; i < name.length(); i++)
+    {
+      final char c = name.charAt(i);
+
+      if (Character.isAlphabetic(c) || Character.isDigit(c))
+      {
+        nameBuilder.append(c);
+        tagBuilder.append(c);
+      }
+      else if (Character.isSpaceChar(c))
+      {
+        nameBuilder.append(c);
+        tagBuilder.append('_');
+      }
+    }
+
+    this.name = nameBuilder.toString();
+    setTag(tagBuilder.toString());
+  }
+
+  String getTag()
+  {
+    return tag;
+  }
+
+  void setTag(final String tag)
+  {
+    if (tag != null && !tag.isEmpty())
+    {
+      this.tag = tag.toLowerCase();
+    }
+  }
+
+  boolean isSaved()
   {
     return saved;
   }
 
-  public void setSaved(final boolean saved)
+  void setSaved(final boolean saved)
   {
     this.saved = saved;
 

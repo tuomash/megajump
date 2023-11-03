@@ -50,6 +50,7 @@ class UIRenderer
       {
         addText(UserInterface.levelNameText);
         addText(UserInterface.unsavedChangesText);
+        addText(UserInterface.newLevelNameText);
       }
       else
       {

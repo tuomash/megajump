@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 class Score implements Serializable
 {
-  int version = 1;
+  private static final long serialVersionUID = 1L;
 
   String levelTag;
   String trophyStr;
@@ -12,7 +12,7 @@ class Score implements Serializable
 
   void save(final Level level)
   {
-    levelTag = level.tag;
+    levelTag = level.getTag();
     trophyStr = level.trophy.toString().toUpperCase();
     bestTimeMilliseconds = level.bestTimeMillisecondsElapsed;
   }
@@ -20,11 +20,7 @@ class Score implements Serializable
   void load(final Level level)
   {
     level.cleared = true;
-
-    if (version == 1)
-    {
-      level.trophy = Level.Trophy.valueOf(trophyStr);
-      level.bestTimeMillisecondsElapsed = bestTimeMilliseconds;
-    }
+    level.trophy = Level.Trophy.valueOf(trophyStr);
+    level.bestTimeMillisecondsElapsed = bestTimeMilliseconds;
   }
 }

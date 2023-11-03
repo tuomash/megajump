@@ -1,5 +1,6 @@
 package com.orbinski.megajump;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ class Levels
     levelTags.add("long_jump");
     levelTags.add("big_jump");
     levelTags.add("even_bigger_jump");
-    levelTags.add("kite");
+    levelTags.add("high_as_a_kite");
     levelTags.add("guiding_light");
     levelTags.add("it_moves");
     levelTags.add("elevator");
@@ -33,12 +34,11 @@ class Levels
     levelTags.add("platforms_2");
     levelTags.add("teleport_1");
 
-    // TODO: remove manual level definions at some point
+    // TODO: remove manual level definitions at some point
     /*
     {
       final Level level = new Level();
-      level.name = "Small Jump";
-      level.tag = "small_jump";
+      level.setName("Small Jump");
       level.goldTimeInMilliseconds = 233;
       level.silverTimeInMilliseconds = 500;
       level.bronzeTimeInMilliseconds = 1000;
@@ -46,13 +46,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "Medium Jump";
-      level.tag = "medium_jump";
+      level.setName("Medium Jump");
       level.goldTimeInMilliseconds = 390;
       level.silverTimeInMilliseconds = 500;
       level.bronzeTimeInMilliseconds = 1000;
@@ -60,13 +57,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "Long Jump";
-      level.tag = "long_jump";
+      level.setName("Long Jump");
       level.goldTimeInMilliseconds = 600;
       level.silverTimeInMilliseconds = 700;
       level.bronzeTimeInMilliseconds = 1500;
@@ -74,13 +68,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "Big Jump";
-      level.tag = "big_jump";
+      level.setName("Big Jump");
       level.goldTimeInMilliseconds = 1000;
       level.silverTimeInMilliseconds = 1200;
       level.bronzeTimeInMilliseconds = 1800;
@@ -88,13 +79,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "Even Bigger Jump";
-      level.tag = "even_bigger_jump";
+      level.setName("Even Bigger Jump");
       level.goldTimeInMilliseconds = 1200;
       level.silverTimeInMilliseconds = 1500;
       level.bronzeTimeInMilliseconds = 2000;
@@ -102,13 +90,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "High as a Kite";
-      level.tag = "kite";
+      level.setName("High as a Kite");
       level.goldTimeInMilliseconds = 900;
       level.silverTimeInMilliseconds = 1200;
       level.bronzeTimeInMilliseconds = 1600;
@@ -116,13 +101,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
     {
-      /*
       final Level level = new Level();
-      level.name = "Guiding Light";
-      level.tag = "guiding_light";
+      level.setName("Guiding Light");
       level.goldTimeInMilliseconds = 3000;
       level.silverTimeInMilliseconds = 3500;
       level.bronzeTimeInMilliseconds = 4000;
@@ -143,16 +125,11 @@ class Levels
 
       final Decoration decoration4 = new Decoration(145.0f, 5.0f, 1.5f, 2.5f);
       level.decorations.add(decoration4);
-       */
-
-
     }
 
-    /*
     {
       final Level level = new Level();
-      level.name = "It Moves";
-      level.tag = "it_moves";
+      level.setName("It Moves");
       level.goldTimeInMilliseconds = 1000;
       level.silverTimeInMilliseconds = 1500;
       level.bronzeTimeInMilliseconds = 2000;
@@ -165,13 +142,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "Elevator";
-      level.tag = "elevator";
+      level.setName("Elevator");
       level.goldTimeInMilliseconds = 750;
       level.silverTimeInMilliseconds = 1000;
       level.bronzeTimeInMilliseconds = 1500;
@@ -184,13 +158,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "Rectangle";
-      level.tag = "rectangle";
+      level.setName("Rectangle");
       level.goldTimeInMilliseconds = 750;
       level.silverTimeInMilliseconds = 1000;
       level.bronzeTimeInMilliseconds = 1500;
@@ -205,13 +176,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "Trampoline 1";
-      level.tag = "trampoline_1";
+      level.setName("Trampoline 1");
       level.goldTimeInMilliseconds = 2800;
       level.silverTimeInMilliseconds = 3500;
       level.bronzeTimeInMilliseconds = 5000;
@@ -223,13 +191,10 @@ class Levels
       final Trampoline trampoline = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
       level.trampolines.add(trampoline);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "Trampoline 2";
-      level.tag = "trampoline_2";
+      level.setName("Trampoline 2");
       level.goldTimeInMilliseconds = 3200;
       level.silverTimeInMilliseconds = 3600;
       level.bronzeTimeInMilliseconds = 5000;
@@ -241,14 +206,11 @@ class Levels
       final Trampoline trampoline = new Trampoline(-15.0f, -25.0f, 5.0f, 1.5f);
       level.trampolines.add(trampoline);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
       level.moveCameraX = true;
-      level.name = "Trampoline 3";
-      level.tag = "trampoline_3";
+      level.setName("Trampoline 3");
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
@@ -266,15 +228,12 @@ class Levels
       final Trampoline trampoline3 = new Trampoline(95.0f, -25.0f, 5.0f, 1.5f);
       level.trampolines.add(trampoline3);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
       level.moveCameraX = true;
       level.moveCameraY = true;
-      level.name = "Trampoline 4";
-      level.tag = "trampoline_4";
+      level.setName("Trampoline 4");
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
@@ -298,14 +257,11 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
       level.moveCameraY = true;
-      level.name = "Platforms I";
-      level.tag = "platforms_1";
+      level.setName("Platforms 1");
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
@@ -326,13 +282,10 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
-      level.name = "On a Pedestal";
-      level.tag = "on_a_pedestal";
+      level.setName("On a Pedestal");
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
@@ -344,15 +297,12 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
       level.moveCameraX = true;
       level.moveCameraY = true;
-      level.name = "Platforms II";
-      level.tag = "platforms_2";
+      level.setName("Platforms 2");
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
@@ -373,15 +323,12 @@ class Levels
       level.setExit(exit);
       levels.add(level);
     }
-     */
 
-    /*
     {
       final Level level = new Level();
       level.moveCameraX = true;
       level.moveCameraY = true;
-      level.name = "Teleport I";
-      level.tag = "teleport_1";
+      level.setName("Teleport 1");
       level.goldTimeInMilliseconds = 10000;
       level.silverTimeInMilliseconds = 12000;
       level.bronzeTimeInMilliseconds = 15000;
@@ -462,11 +409,11 @@ class Levels
     {
       final Level level = levels.get(i);
 
-      if (level.tag != null && !level.tag.isEmpty())
+      if (level.getTag() != null && !level.getTag().isEmpty())
       {
-        if (save.scores.containsKey(level.tag))
+        if (save.scores.containsKey(level.getTag()))
         {
-          final Score score = save.scores.get(level.tag);
+          final Score score = save.scores.get(level.getTag());
           score.load(level);
         }
       }
@@ -494,7 +441,7 @@ class Levels
     {
       final Level level = levels.get(i);
 
-      if (level.tag != null && level.tag.equalsIgnoreCase(tag))
+      if (level.getTag() != null && level.getTag().equalsIgnoreCase(tag))
       {
         levelIndex = i;
         return level;

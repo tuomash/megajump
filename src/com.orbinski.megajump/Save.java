@@ -9,23 +9,22 @@ import java.util.Map;
 class Save implements Serializable
 {
   private static final String saveFilePath = System.getProperty("user.dir") + File.separator + "save.dat";
-
-  int version = 1;
+  private static final long serialVersionUID = 1L;
 
   Map<String, Score> scores = new HashMap<>();
 
   void updateScore(final Level level)
   {
-    if (level.tag == null || level.tag.isEmpty() || !level.scoreUpdate || !level.cleared)
+    if (level.getTag() == null || level.getTag().isEmpty() || !level.scoreUpdate || !level.cleared)
     {
       return;
     }
 
     final Score score;
 
-    if (scores.containsKey(level.tag.toUpperCase()))
+    if (scores.containsKey(level.getTag()))
     {
-      score = scores.get(level.tag.toUpperCase());
+      score = scores.get(level.getTag());
     }
     else
     {

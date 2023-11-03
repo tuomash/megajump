@@ -1,5 +1,6 @@
 package com.orbinski.megajump;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import static com.orbinski.megajump.Globals.*;
@@ -25,6 +26,7 @@ class Game
     levels = new Levels();
     cameraState = new CameraState();
     levelEditor = new LevelEditor();
+    Gdx.input.setInputProcessor(levelEditor);
 
     if (Save.doesSaveFileExist())
     {
@@ -164,9 +166,8 @@ class Game
   void createNewLevel()
   {
     level = new Level();
-    final long timestamp = System.currentTimeMillis();
-    level.name = "New Level " + timestamp;
-    level.tag = "new_level_" + timestamp;
+    level.setName("New Level " + System.currentTimeMillis());
+    level.setSaved(false);
     levels.addLevel(level);
     levels.goToEnd();
     levelEditor.level = level;

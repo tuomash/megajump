@@ -7,7 +7,7 @@ import java.util.List;
 
 class EntityWrapper implements Serializable
 {
-  int version = 1;
+  private static final long serialVersionUID = 1L;
 
   float x;
   float y;

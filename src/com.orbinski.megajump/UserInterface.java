@@ -35,6 +35,7 @@ class UserInterface
   static Bar jumpBar;
 
   static Text unsavedChangesText;
+  static Text newLevelNameText;
 
   static void create()
   {
@@ -70,6 +71,9 @@ class UserInterface
     unsavedChangesText = createText("Unsaved changes");
     unsavedChangesText.font = Resources.font24Red;
     unsavedChangesText.visible = false;
+
+    newLevelNameText = createText("Rename level to: ");
+    newLevelNameText.visible = false;
   }
 
   static void layout(final int width, final int height)
@@ -133,6 +137,7 @@ class UserInterface
       goldRequirementText.setPosition(thirdHelpX, 60);
 
       unsavedChangesText.setPosition(20, 40);
+      newLevelNameText.setPosition(20, 20);
     }
     else if (width <= 1920 && height <= 1080)
     {
@@ -158,6 +163,7 @@ class UserInterface
       goldRequirementText.setPosition(thirdHelpX, 90);
 
       unsavedChangesText.setPosition(20, 60);
+      newLevelNameText.setPosition(20, 30);
     }
     else
     {
@@ -183,6 +189,7 @@ class UserInterface
       bronzeRequirementText.setPosition(thirdHelpX, 40);
 
       unsavedChangesText.setPosition(20, 80);
+      newLevelNameText.setPosition(20, 40);
     }
 
     jumpBar.setX(width - jumpBar.getWidth() - 20);
@@ -257,5 +264,10 @@ class UserInterface
   static void disableJumpBar()
   {
     jumpBar.color = Color.GRAY;
+  }
+
+  static void updateNewLevelNameText(final String levelName)
+  {
+    newLevelNameText.text = "Rename level to: " + levelName;
   }
 }

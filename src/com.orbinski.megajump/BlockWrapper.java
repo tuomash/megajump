@@ -2,7 +2,7 @@ package com.orbinski.megajump;
 
 class BlockWrapper extends EntityWrapper
 {
-  int version = 1;
+  private static final long serialVersionUID = 1L;
 
   BlockWrapper()
   {

@@ -167,7 +167,24 @@ class Controller
     // Transform to world coordinates
     Renderer.unproject(mouse);
 
-    if (input.isKeyPressed(Input.Keys.CONTROL_LEFT))
+    // Editor text input
+    if (editor.input)
+    {
+      if (input.isKeyJustPressed(Input.Keys.ESCAPE))
+      {
+        editor.disableInput();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.ENTER))
+      {
+        editor.renameLevel();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.BACKSPACE))
+      {
+        editor.removeCharacterFromInput();
+      }
+    }
+    // General editor controls
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT))
     {
       if (input.isKeyJustPressed(Input.Keys.E))
       {
@@ -220,6 +237,17 @@ class Controller
       else if (input.isKeyJustPressed(Input.Keys.N))
       {
         game.createNewLevel();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.R))
+      {
+        if (editor.input)
+        {
+          editor.disableInput();
+        }
+        else
+        {
+          editor.enableInput();
+        }
       }
     }
     // Entity dragging controls

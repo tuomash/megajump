@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 
 class TeleportWrapper extends EntityWrapper
 {
-  int version = 1;
+  private static final long serialVersionUID = 1L;
 
   Point2D.Float target;
 

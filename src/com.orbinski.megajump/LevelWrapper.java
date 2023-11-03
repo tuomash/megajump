@@ -8,8 +8,7 @@ import java.util.List;
 class LevelWrapper implements Serializable
 {
   private static final String levelsDirectory = System.getProperty("user.dir") + File.separator + "levels" + File.separator;
-
-  int version = 1;
+  private static final long serialVersionUID = 1L;
 
   String name;
   String tag;
@@ -35,8 +34,8 @@ class LevelWrapper implements Serializable
 
   LevelWrapper(final Level level)
   {
-    name = level.name;
-    tag = level.tag;
+    name = level.getName();
+    tag = level.getTag();
     goldTimeInMilliseconds = level.goldTimeInMilliseconds;
     silverTimeInMilliseconds = level.silverTimeInMilliseconds;
     bronzeTimeInMilliseconds = level.bronzeTimeInMilliseconds;
@@ -84,8 +83,8 @@ class LevelWrapper implements Serializable
   Level unwrap()
   {
     final Level level = new Level();
-    level.tag = tag;
-    level.name = name;
+    level.setName(name);
+    level.setTag(tag);
     level.goldTimeInMilliseconds = goldTimeInMilliseconds;
     level.silverTimeInMilliseconds = silverTimeInMilliseconds;
     level.bronzeTimeInMilliseconds = bronzeTimeInMilliseconds;
@@ -156,7 +155,7 @@ class LevelWrapper implements Serializable
     return level;
   }
 
-  void writeToDisk()
+  boolean writeToDisk()
   {
     final File file = new File(levelsDirectory + tag + ".dat");
 
@@ -167,7 +166,25 @@ class LevelWrapper implements Serializable
     catch (final Exception e)
     {
       System.out.println("error: couldn't write level file: " + e.getMessage());
+      return false;
     }
+
+    return true;
+  }
+
+  static boolean doesLevelExist(final String levelTag)
+  {
+    return new File(levelsDirectory + levelTag + ".dat").exists();
+  }
+
+  static boolean deleteLevel(final String levelTag)
+  {
+    if (doesLevelExist(levelTag))
+    {
+      return new File(levelsDirectory + levelTag + ".dat").delete();
+    }
+
+    return false;
   }
 
   static LevelWrapper readFromDisk(final String levelTag)
@@ -180,7 +197,7 @@ class LevelWrapper implements Serializable
     }
     catch (final Exception e)
     {
-      System.out.println("error: couldn't read level file: " + e.getMessage());
+      System.out.println("error: couldn't read level file '" + file.getName() + "': " + e.getMessage());
       e.printStackTrace();
     }
 
