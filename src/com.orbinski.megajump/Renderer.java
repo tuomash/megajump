@@ -60,6 +60,7 @@ class Renderer
 
     addSpawn();
     addLevelBorder();
+    addLevelCameraFloor();
 
     renderSprites();
     shapeRenderer.renderShapes();
@@ -201,6 +202,19 @@ class Renderer
                             Level.MAX_DIMENSION,
                             Level.MAX_DIMENSION,
                             Color.WHITE);
+    }
+  }
+
+  void addLevelCameraFloor()
+  {
+    if (game.levelEditor.active)
+    {
+      final Level level = game.levelEditor.level;
+      shapeRenderer.addLine(level.cameraFloor.x - Level.MAX_DIMENSION,
+                            level.cameraFloor.y,
+                            level.cameraFloor.x + Level.MAX_DIMENSION,
+                            level.cameraFloor.y,
+                            Color.YELLOW);
     }
   }
 

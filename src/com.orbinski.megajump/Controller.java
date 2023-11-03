@@ -195,6 +195,14 @@ class Controller
     {
       editor.decreaseEntitySize();
     }
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.U))
+    {
+      editor.raiseCameraFloor();
+    }
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.J))
+    {
+      editor.lowerCameraFloor();
+    }
 
     // Entity dragging controls
 

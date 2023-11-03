@@ -93,6 +93,16 @@ class LevelEditor
     }
   }
 
+  void raiseCameraFloor()
+  {
+    level.raiseCameraFloor(5.0f);
+  }
+
+  void lowerCameraFloor()
+  {
+    level.lowerCameraFloor(5.0f);
+  }
+
   void clearEntity()
   {
     if (entity != null)

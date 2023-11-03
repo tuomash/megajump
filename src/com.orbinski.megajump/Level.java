@@ -1,5 +1,6 @@
 package com.orbinski.megajump;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ class Level
   boolean moveCameraX;
   boolean moveCameraY;
 
-  float floor;
+  Point2D.Float cameraFloor = new Point2D.Float();
 
   private boolean saved = true;
 
@@ -54,6 +55,7 @@ class Level
   {
     setTrophy(Trophy.NONE);
     setSpawn(-75.0f, -30.0f);
+    cameraFloor.setLocation(0.0f, 15.0f);
   }
 
   void update(final float delta)
@@ -401,6 +403,18 @@ class Level
     }
 
     return removed;
+  }
+
+  void raiseCameraFloor(final float amount)
+  {
+    cameraFloor.y = cameraFloor.y  + amount;
+    setSaved(false);
+  }
+
+  void lowerCameraFloor(final float amount)
+  {
+    cameraFloor.y = cameraFloor.y - amount;
+    setSaved(false);
   }
 
   void setSpawn(final float x, final float y)
