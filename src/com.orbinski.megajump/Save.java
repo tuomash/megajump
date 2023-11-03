@@ -10,6 +10,8 @@ class Save implements Serializable
 {
   private static final String saveFilePath = System.getProperty("user.dir") + File.separator + "save.dat";
 
+  int version = 1;
+
   Map<String, Score> scores = new HashMap<>();
 
   void updateScore(final Level level)

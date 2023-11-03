@@ -7,6 +7,11 @@ class Spawn extends Entity
     super(width, height);
   }
 
+  Spawn(final SpawnWrapper wrapper)
+  {
+    super(wrapper);
+  }
+
   @Override
   boolean isSpawn()
   {

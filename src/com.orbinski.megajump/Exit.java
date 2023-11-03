@@ -8,6 +8,11 @@ class Exit extends Entity
     texture = Resources.door;
   }
 
+  Exit(final ExitWrapper wrapper)
+  {
+    super(wrapper);
+  }
+
   @Override
   boolean isExit()
   {

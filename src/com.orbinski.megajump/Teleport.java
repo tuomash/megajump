@@ -12,6 +12,11 @@ class Teleport extends Entity
     super(x, y, width, height);
   }
 
+  Teleport(final TeleportWrapper wrapper)
+  {
+    super(wrapper);
+  }
+
   boolean overlaps(final Player player)
   {
     boolean overlaps = false;

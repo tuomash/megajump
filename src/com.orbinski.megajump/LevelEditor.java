@@ -113,6 +113,12 @@ class LevelEditor
     level.lowerDeathPoint(5.0f);
   }
 
+  void saveLevel()
+  {
+    final LevelWrapper wrapper = new LevelWrapper(level);
+    wrapper.writeToDisk();
+  }
+
   void clearEntity()
   {
     if (entity != null)

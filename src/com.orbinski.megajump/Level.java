@@ -19,6 +19,7 @@ class Level
 
   Game game;
   Player player;
+
   String name = "Level";
   String tag;
   Exit exit;

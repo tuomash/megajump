@@ -10,6 +10,11 @@ class Trampoline extends Entity
     super(x, y, width, height);
   }
 
+  Trampoline(final TrampolineWrapper wrapper)
+  {
+    super(wrapper);
+  }
+
   boolean apply(final Player player)
   {
     if (EntityUtils.overlaps(player.bottomSide, this))

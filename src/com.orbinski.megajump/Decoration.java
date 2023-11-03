@@ -8,6 +8,11 @@ class Decoration extends Entity
     texture = Resources.candle;
   }
 
+  Decoration(final DecorationWrapper wrapper)
+  {
+    super(wrapper);
+  }
+
   @Override
   boolean isDecoration()
   {

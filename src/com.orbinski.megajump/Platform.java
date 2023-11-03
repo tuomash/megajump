@@ -11,6 +11,11 @@ class Platform extends Entity
     // showBorder = true;
   }
 
+  Platform(final PlatformWrapper wrapper)
+  {
+    super(wrapper);
+  }
+
   @Override
   boolean isPlatform()
   {

@@ -66,6 +66,23 @@ abstract class Entity
     setHeight(2.5f);
   }
 
+  Entity(final EntityWrapper wrapper)
+  {
+    setWidth(wrapper.width);
+    setHeight(wrapper.height);
+    setX(wrapper.x);
+    setY(wrapper.y);
+    movement = Movement.valueOf(wrapper.movement.toUpperCase());
+
+    if (wrapper.waypoints != null)
+    {
+      for (int i = 0; i < wrapper.waypoints.size(); i++)
+      {
+        waypoints.add(wrapper.waypoints.get(i));
+      }
+    }
+  }
+
   Entity(final float width, final float height)
   {
     setWidth(width);
@@ -398,6 +415,11 @@ abstract class Entity
     {
       waypointIndex = 1;
     }
+  }
+
+  public List<Point2D.Float> getWaypoints()
+  {
+    return waypoints;
   }
 
   boolean isExit()

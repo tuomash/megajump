@@ -167,54 +167,59 @@ class Controller
     // Transform to world coordinates
     Renderer.unproject(mouse);
 
-    if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.E))
+    if (input.isKeyPressed(Input.Keys.CONTROL_LEFT))
     {
-      game.toggleLevelEditor();
+      if (input.isKeyJustPressed(Input.Keys.E))
+      {
+        game.toggleLevelEditor();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.NUM_1))
+      {
+        editor.addPlatform(mouse.x, mouse.y);
+      }
+      else if (input.isKeyJustPressed(Input.Keys.NUM_2))
+      {
+        editor.addTrampoline(mouse.x, mouse.y);
+      }
+      else if (input.isKeyJustPressed(Input.Keys.NUM_3))
+      {
+        editor.addDecoration(mouse.x, mouse.y);
+      }
+      else if (input.isKeyJustPressed(Input.Keys.X))
+      {
+        editor.removeEntity();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.I))
+      {
+        editor.increaseEntitySize();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.K))
+      {
+        editor.decreaseEntitySize();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.U))
+      {
+        editor.raiseCameraFloor();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.J))
+      {
+        editor.lowerCameraFloor();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.Y))
+      {
+        editor.raiseDeathPoint();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.H))
+      {
+        editor.lowerDeathPoint();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.S))
+      {
+        editor.saveLevel();
+      }
     }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_1))
-    {
-      editor.addPlatform(mouse.x, mouse.y);
-    }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_2))
-    {
-      editor.addTrampoline(mouse.x, mouse.y);
-    }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_3))
-    {
-      editor.addDecoration(mouse.x, mouse.y);
-    }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.X))
-    {
-      editor.removeEntity();
-    }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.I))
-    {
-      editor.increaseEntitySize();
-    }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.K))
-    {
-      editor.decreaseEntitySize();
-    }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.U))
-    {
-      editor.raiseCameraFloor();
-    }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.J))
-    {
-      editor.lowerCameraFloor();
-    }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.Y))
-    {
-      editor.raiseDeathPoint();
-    }
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.H))
-    {
-      editor.lowerDeathPoint();
-    }
-
     // Entity dragging controls
-
-    if (input.isKeyPressed(Input.Keys.SHIFT_LEFT))
+    else if (input.isKeyPressed(Input.Keys.SHIFT_LEFT))
     {
       if (input.isButtonPressed(Input.Buttons.LEFT))
       {
@@ -247,36 +252,42 @@ class Controller
         editor.clearEntity();
       }
     }
-    // Entity selection controls
-    else if (input.isButtonJustPressed(Input.Buttons.LEFT))
+    else
     {
-      editor.clearEntity();
-      editor.selectEntity(mouse.x, mouse.y);
-    }
+      // Entity selection controls
 
-    // Camera controls
+      if (input.isButtonJustPressed(Input.Buttons.LEFT))
+      {
+        editor.clearEntity();
+        editor.selectEntity(mouse.x, mouse.y);
+      }
 
-    if (input.isKeyPressed(Input.Keys.W) || input.isKeyPressed(Input.Keys.UP))
-    {
-      game.cameraState.moveUp();
-    }
-    else if (input.isKeyPressed(Input.Keys.S) || input.isKeyPressed(Input.Keys.DOWN))
-    {
-      game.cameraState.moveDown();
-    }
+      // Level reset controls
 
-    if (input.isKeyPressed(Input.Keys.A) || input.isKeyPressed(Input.Keys.LEFT))
-    {
-      game.cameraState.moveLeft();
-    }
-    else if (input.isKeyPressed(Input.Keys.D) || input.isKeyPressed(Input.Keys.RIGHT))
-    {
-      game.cameraState.moveRight();
-    }
+      if (input.isKeyPressed(Input.Keys.C))
+      {
+        game.reset();
+      }
 
-    if (input.isKeyPressed(Input.Keys.C))
-    {
-      game.reset();
+      // Camera controls
+
+      if (input.isKeyPressed(Input.Keys.W) || input.isKeyPressed(Input.Keys.UP))
+      {
+        game.cameraState.moveUp();
+      }
+      else if (input.isKeyPressed(Input.Keys.S) || input.isKeyPressed(Input.Keys.DOWN))
+      {
+        game.cameraState.moveDown();
+      }
+
+      if (input.isKeyPressed(Input.Keys.A) || input.isKeyPressed(Input.Keys.LEFT))
+      {
+        game.cameraState.moveLeft();
+      }
+      else if (input.isKeyPressed(Input.Keys.D) || input.isKeyPressed(Input.Keys.RIGHT))
+      {
+        game.cameraState.moveRight();
+      }
     }
   }
 }

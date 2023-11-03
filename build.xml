@@ -10,6 +10,7 @@
     <property name="inst.jre" location="${inst}/jdk-17.0.8.1+1-jre"/>
     <property name="dist" location="dist"/>
     <property name="dist-zip" location="dist-zip"/>
+    <property name="levels" location="levels"/>
     <property name="lib" location="lib"/>
     <property name="lib.support" location="lib/support"/>
     <property name="game.jar.name" value="Megajump.jar"/>
@@ -57,6 +58,7 @@
         <mkdir dir="${dist}"/>
         <mkdir dir="${dist}/graphics"/>
         <mkdir dir="${dist}/jre"/>
+        <mkdir dir="${dist}/levels"/>
         <mkdir dir="${dist}/lib"/>
         <mkdir dir="${dist}/music"/>
         <mkdir dir="${dist}/sfx"/>
@@ -81,6 +83,10 @@
 
         <copy todir="${dist}/jre">
             <fileset dir="${inst.jre}" includes="**"/>
+        </copy>
+
+        <copy todir="${dist}/levels">
+            <fileset dir="${levels}" includes="**"/>
         </copy>
 
         <copy todir="${dist}/lib">

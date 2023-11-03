@@ -9,6 +9,11 @@ class Block extends Entity
     // showBorder = true;
   }
 
+  Block(final BlockWrapper wrapper)
+  {
+    super(wrapper);
+  }
+
   @Override
   boolean isBlock()
   {
