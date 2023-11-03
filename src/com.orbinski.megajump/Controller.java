@@ -203,6 +203,14 @@ class Controller
     {
       editor.lowerCameraFloor();
     }
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.Y))
+    {
+      editor.raiseDeathPoint();
+    }
+    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.H))
+    {
+      editor.lowerDeathPoint();
+    }
 
     // Entity dragging controls
 

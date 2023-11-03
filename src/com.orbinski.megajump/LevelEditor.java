@@ -103,6 +103,16 @@ class LevelEditor
     level.lowerCameraFloor(5.0f);
   }
 
+  void raiseDeathPoint()
+  {
+    level.raiseDeathPoint(5.0f);
+  }
+
+  void lowerDeathPoint()
+  {
+    level.lowerDeathPoint(5.0f);
+  }
+
   void clearEntity()
   {
     if (entity != null)

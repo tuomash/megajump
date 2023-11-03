@@ -94,8 +94,7 @@ class Game
       UserInterface.disableJumpBar();
     }
 
-    // TODO: define death point in the level
-    if (player.getY() < -70.0f)
+    if (player.getY() < level.deathPoint.y)
     {
       UserInterface.retryText.visible = true;
       player.stop();

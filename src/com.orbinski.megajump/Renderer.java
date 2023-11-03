@@ -61,6 +61,7 @@ class Renderer
     addSpawn();
     addLevelBorder();
     addLevelCameraFloor();
+    addLevelDeathPoint();
 
     renderSprites();
     shapeRenderer.renderShapes();
@@ -215,6 +216,19 @@ class Renderer
                             level.cameraFloor.x + Level.MAX_DIMENSION,
                             level.cameraFloor.y,
                             Color.YELLOW);
+    }
+  }
+
+  void addLevelDeathPoint()
+  {
+    if (game.levelEditor.active)
+    {
+      final Level level = game.levelEditor.level;
+      shapeRenderer.addLine(level.deathPoint.x - Level.MAX_DIMENSION,
+                            level.deathPoint.y,
+                            level.deathPoint.x + Level.MAX_DIMENSION,
+                            level.deathPoint.y,
+                            Color.MAGENTA);
     }
   }
 

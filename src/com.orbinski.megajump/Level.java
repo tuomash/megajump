@@ -48,6 +48,7 @@ class Level
   boolean moveCameraY;
 
   Point2D.Float cameraFloor = new Point2D.Float();
+  Point2D.Float deathPoint = new Point2D.Float();
 
   private boolean saved = true;
 
@@ -56,6 +57,7 @@ class Level
     setTrophy(Trophy.NONE);
     setSpawn(-75.0f, -30.0f);
     cameraFloor.setLocation(0.0f, 15.0f);
+    deathPoint.setLocation(0.0f, -70.0f);
   }
 
   void update(final float delta)
@@ -414,6 +416,18 @@ class Level
   void lowerCameraFloor(final float amount)
   {
     cameraFloor.y = cameraFloor.y - amount;
+    setSaved(false);
+  }
+
+  void raiseDeathPoint(final float amount)
+  {
+    deathPoint.y = deathPoint.y  + amount;
+    setSaved(false);
+  }
+
+  void lowerDeathPoint(final float amount)
+  {
+    deathPoint.y = deathPoint.y - amount;
     setSaved(false);
   }
 
