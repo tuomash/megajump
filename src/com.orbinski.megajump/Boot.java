@@ -19,6 +19,10 @@ class Boot
       {
         Globals.debug = true;
       }
+      else if (args[i].equalsIgnoreCase("hide_ui"))
+      {
+        Globals.hideUI = true;
+      }
     }
 
     try

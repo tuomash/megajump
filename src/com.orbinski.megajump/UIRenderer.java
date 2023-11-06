@@ -39,7 +39,7 @@ class UIRenderer
     {
       addHelpTexts();
     }
-    else
+    else if (!Globals.hideUI)
     {
       if (game.paused)
       {

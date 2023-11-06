@@ -13,4 +13,5 @@ class Globals
   static final Random random = new Random();
 
   static boolean debug;
+  static boolean hideUI;
 }
