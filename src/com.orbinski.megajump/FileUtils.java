@@ -10,7 +10,7 @@ class FileUtils
 {
   static List<String> getContents(final String path)
   {
-    /*
+    /* TODO: fix logging
     if (log.isLoggable(java.util.logging.Level.FINEST))
     {
       log.finest("Reading file from " + path);
@@ -22,7 +22,7 @@ class FileUtils
 
     if (!file.exists())
     {
-      /*
+      /* TODO: fix logging
       if (log.isLoggable(java.util.logging.Level.WARNING))
       {
         log.warning("Couldn't parse contents because the target file doesn't exist! [target= + " + file.getPath() + "]");
@@ -33,7 +33,7 @@ class FileUtils
     }
     else if (!file.isFile())
     {
-      /*
+      /* TODO: fix logging
       if (log.isLoggable(java.util.logging.Level.WARNING))
       {
         log.warning("Couldn't parse contents because the target file is not a file! [target= + " + file.getPath() + "]");
@@ -60,7 +60,7 @@ class FileUtils
     }
     catch (final Exception e)
     {
-      /*
+      /* TODO: fix logging
       if (log.isLoggable(java.util.logging.Level.WARNING))
       {
         log.log(Level.WARNING, "Could not parse file! [path=" + path + "]", e);
