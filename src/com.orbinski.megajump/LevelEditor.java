@@ -123,12 +123,14 @@ class LevelEditor implements InputProcessor
   void toggleMoveCameraX()
   {
     level.moveCameraX = !level.moveCameraX;
+    level.setSaved(false);
     UserInterface.updateMoveCameraXText(level.moveCameraX);
   }
 
   void toggleMoveCameraY()
   {
     level.moveCameraY = !level.moveCameraY;
+    level.setSaved(false);
     UserInterface.updateMoveCameraYText(level.moveCameraY);
   }
 
@@ -160,12 +162,16 @@ class LevelEditor implements InputProcessor
     input = true;
     inputBuilder.setLength(0);
     UserInterface.levelNameText.visible = false;
+    UserInterface.moveCameraXText.visible = false;
+    UserInterface.moveCameraYText.visible = false;
   }
 
   void disableInput()
   {
     input = false;
     UserInterface.levelNameText.visible = true;
+    UserInterface.moveCameraXText.visible = true;
+    UserInterface.moveCameraYText.visible = true;
   }
 
   void removeCharacterFromInput()
