@@ -83,10 +83,6 @@ class Controller
     {
       game.selectNextLevel();
     }
-    else if (input.isKeyJustPressed(Input.Keys.SPACE))
-    {
-      game.paused = !game.paused;
-    }
 
     // Set screen coordinates
     mouse.x = input.getX();
