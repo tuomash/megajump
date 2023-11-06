@@ -1,6 +1,6 @@
 package com.orbinski.megajump;
 
-import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,25 +14,10 @@ class Levels
     levels = new ArrayList<>();
     levelIndex = -1;
 
-    final List<String> levelTags = new ArrayList<>();
-    levelTags.add("small_jump");
-    levelTags.add("medium_jump");
-    levelTags.add("long_jump");
-    levelTags.add("big_jump");
-    levelTags.add("even_bigger_jump");
-    levelTags.add("high_as_a_kite");
-    levelTags.add("guiding_light");
-    levelTags.add("it_moves");
-    levelTags.add("elevator");
-    levelTags.add("rectangle");
-    levelTags.add("trampoline_1");
-    levelTags.add("trampoline_2");
-    levelTags.add("trampoline_3");
-    levelTags.add("trampoline_4");
-    levelTags.add("platforms_1");
-    levelTags.add("on_a_pedestal");
-    levelTags.add("platforms_2");
-    levelTags.add("teleport_1");
+    final File file = new File(System.getProperty("user.dir")
+                                   + File.separator
+                                   + "world1.txt");
+    final List<String> levelTags = FileUtils.getContents(file.getAbsolutePath());
 
     // TODO: remove manual level definitions at some point
     /*

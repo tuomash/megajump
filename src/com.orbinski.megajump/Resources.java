@@ -13,8 +13,6 @@ import java.util.List;
 
 class Resources
 {
-  static MTexture dwarfLeft;
-  static MTexture dwarfRight;
   static MTexture door;
   static MTexture block;
   static MTexture candle;
