@@ -161,29 +161,32 @@ class LevelEditor implements InputProcessor
 
   void renameLevel()
   {
-    final String previousName = level.getName();
-    final String previousTag = level.getTag();
-    final String newLevelName = inputBuilder.toString();
-    level.setName(newLevelName);
-
-    if (!LevelWrapper.doesLevelExist(level.getTag()))
+    if (!inputBuilder.isEmpty())
     {
-      if (!saveLevel())
+      final String previousName = level.getName();
+      final String previousTag = level.getTag();
+      final String newLevelName = inputBuilder.toString();
+      level.setName(newLevelName);
+
+      if (!LevelWrapper.doesLevelExist(level.getTag()))
       {
-        System.out.println("warn: couldn't save level file '" + level.getTag() + "'");
+        if (!saveLevel())
+        {
+          System.out.println("warn: couldn't save level file '" + level.getTag() + "'");
+          level.setName(previousName);
+          disableInput();
+          return;
+        }
+
+        if (!LevelWrapper.deleteLevel(previousTag))
+        {
+          System.out.println("warn: couldn't delete previous level file '" + previousTag + "'");
+        }
+      }
+      else
+      {
         level.setName(previousName);
-        disableInput();
-        return;
       }
-
-      if (!LevelWrapper.deleteLevel(previousTag))
-      {
-        System.out.println("warn: couldn't delete previous level file '" + previousTag + "'");
-      }
-    }
-    else
-    {
-      level.setName(previousName);
     }
 
     disableInput();
@@ -191,7 +194,7 @@ class LevelEditor implements InputProcessor
 
   void removeCharacterFromInput()
   {
-    if (input && inputBuilder.length() > 5)
+    if (input && !inputBuilder.isEmpty())
     {
       inputBuilder.setLength(inputBuilder.length() - 1);
       UserInterface.updateNewLevelNameText(inputBuilder.toString());
