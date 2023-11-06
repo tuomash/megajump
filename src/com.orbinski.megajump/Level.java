@@ -56,6 +56,9 @@ class Level
   Level()
   {
     setTrophy(Trophy.NONE);
+    goldTimeInMilliseconds = 10000;
+    silverTimeInMilliseconds = 12000;
+    bronzeTimeInMilliseconds = 15000;
     setExit(new Exit(-55.0f, -30.0f, 5.0f, 5.0f));
     setSpawn(-75.0f, -30.0f);
     cameraFloor.setLocation(0.0f, 15.0f);

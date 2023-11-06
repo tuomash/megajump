@@ -172,11 +172,25 @@ class Controller
     {
       if (input.isKeyJustPressed(Input.Keys.ESCAPE))
       {
-        editor.disableInput();
+        if (editor.rename)
+        {
+          editor.disableRename();
+        }
+        else if (editor.command)
+        {
+          editor.disableCommand();
+        }
       }
       else if (input.isKeyJustPressed(Input.Keys.ENTER))
       {
-        editor.renameLevel();
+        if (editor.rename)
+        {
+          editor.renameLevel();
+        }
+        else if (editor.command)
+        {
+          editor.runCommand();
+        }
       }
       else if (input.isKeyJustPressed(Input.Keys.BACKSPACE))
       {
@@ -248,13 +262,24 @@ class Controller
       }
       else if (input.isKeyJustPressed(Input.Keys.R))
       {
-        if (editor.input)
+        if (editor.rename)
         {
-          editor.disableInput();
+          editor.disableRename();
         }
         else
         {
-          editor.enableInput();
+          editor.enableRename();
+        }
+      }
+      else if (input.isKeyJustPressed(Input.Keys.O))
+      {
+        if (editor.command)
+        {
+          editor.disableCommand();
+        }
+        else
+        {
+          editor.enableCommand();
         }
       }
     }

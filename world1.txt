@@ -15,3 +15,4 @@ trampoline_4
 platforms_1
 on_a_pedestal
 platforms_2
+platforms_3

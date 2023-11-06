@@ -10,6 +10,8 @@ class LevelEditor implements InputProcessor
   boolean input;
   StringBuilder inputBuilder = new StringBuilder();
   boolean help;
+  boolean rename;
+  boolean command;
 
   void addPlatform(final float x, final float y)
   {
@@ -157,23 +159,44 @@ class LevelEditor implements InputProcessor
   {
     input = true;
     inputBuilder.setLength(0);
-    inputBuilder.append(level.getName());
     UserInterface.levelNameText.visible = false;
-    UserInterface.newLevelNameText.visible = true;
-    UserInterface.updateNewLevelNameText(level.getName());
   }
 
   void disableInput()
   {
     input = false;
     UserInterface.levelNameText.visible = true;
-    UserInterface.updateLevelNameText(level.getName());
+  }
+
+  void removeCharacterFromInput()
+  {
+    if (input && !inputBuilder.isEmpty())
+    {
+      inputBuilder.setLength(inputBuilder.length() - 1);
+      UserInterface.updateNewLevelNameText(inputBuilder.toString());
+    }
+  }
+
+  void enableRename()
+  {
+    enableInput();
+    rename = true;
+    inputBuilder.append(level.getName());
+    UserInterface.newLevelNameText.visible = true;
+    UserInterface.updateNewLevelNameText(level.getName());
+  }
+
+  void disableRename()
+  {
+    disableInput();
+    rename = false;
     UserInterface.newLevelNameText.visible = false;
+    UserInterface.updateLevelNameText(level.getName());
   }
 
   void renameLevel()
   {
-    if (!inputBuilder.isEmpty())
+    if (rename && !inputBuilder.isEmpty())
     {
       final String previousName = level.getName();
       final String previousTag = level.getTag();
@@ -186,7 +209,7 @@ class LevelEditor implements InputProcessor
         {
           System.out.println("warn: couldn't save level file '" + level.getTag() + "'");
           level.setName(previousName);
-          disableInput();
+          disableRename();
           return;
         }
 
@@ -201,16 +224,66 @@ class LevelEditor implements InputProcessor
       }
     }
 
-    disableInput();
+    disableRename();
   }
 
-  void removeCharacterFromInput()
+  void enableCommand()
   {
-    if (input && !inputBuilder.isEmpty())
+    enableInput();
+    command = true;
+    UserInterface.commandText.visible = true;
+  }
+
+  void disableCommand()
+  {
+    disableInput();
+    command = false;
+    UserInterface.commandText.visible = false;
+  }
+
+  void runCommand()
+  {
+    if (command && !inputBuilder.isEmpty())
     {
-      inputBuilder.setLength(inputBuilder.length() - 1);
-      UserInterface.updateNewLevelNameText(inputBuilder.toString());
+      final String commandStr = inputBuilder.toString();
+      final String[] parts = commandStr.split(" ");
+
+      // TODO: implement proper parsing when needed
+      if (parts.length == 3)
+      {
+        final String trophyLevel = parts[1];
+        final int milliseconds;
+
+        try
+        {
+          milliseconds = Integer.parseInt(parts[2]);
+        }
+        catch (final Exception e)
+        {
+          // Expected, can happen
+          disableCommand();
+          return;
+        }
+
+        if (trophyLevel.equalsIgnoreCase("gold"))
+        {
+          level.goldTimeInMilliseconds = milliseconds;
+          level.setSaved(false);
+        }
+        else if (trophyLevel.equalsIgnoreCase("silver"))
+        {
+          level.silverTimeInMilliseconds = milliseconds;
+          level.setSaved(false);
+        }
+        else if (trophyLevel.equalsIgnoreCase("bronze"))
+        {
+          level.bronzeTimeInMilliseconds = milliseconds;
+          level.setSaved(false);
+        }
+      }
     }
+
+    disableCommand();
   }
 
   @Override
@@ -233,7 +306,15 @@ class LevelEditor implements InputProcessor
       if (Character.isAlphabetic(c) || Character.isDigit(c) || Character.isSpaceChar(c))
       {
         inputBuilder.append(c);
+      }
+
+      if (rename)
+      {
         UserInterface.updateNewLevelNameText(inputBuilder.toString());
+      }
+      else if (command)
+      {
+        UserInterface.updateCommandText(inputBuilder.toString());
       }
     }
 

@@ -36,6 +36,7 @@ class UserInterface
 
   static Text unsavedChangesText;
   static Text newLevelNameText;
+  static Text commandText;
   static Text moveCameraXText;
   static Text moveCameraYText;
 
@@ -76,6 +77,9 @@ class UserInterface
 
     newLevelNameText = createText("Rename level to: ");
     newLevelNameText.visible = false;
+
+    commandText = createText("cmd: ");
+    commandText.visible = false;
 
     moveCameraXText = createText("Move cam x: ");
     moveCameraYText = createText("Move cam y: ");
@@ -143,6 +147,7 @@ class UserInterface
 
       unsavedChangesText.setPosition(20, 40);
       newLevelNameText.setPosition(20, 20);
+      commandText.setPosition(20, 20);
       moveCameraXText.setPosition(secondHelpX, 40);
       moveCameraYText.setPosition(secondHelpX, 20);
     }
@@ -171,6 +176,7 @@ class UserInterface
 
       unsavedChangesText.setPosition(20, 60);
       newLevelNameText.setPosition(20, 30);
+      commandText.setPosition(20, 30);
       moveCameraXText.setPosition(secondHelpX, 60);
       moveCameraYText.setPosition(secondHelpX, 30);
     }
@@ -199,6 +205,7 @@ class UserInterface
 
       unsavedChangesText.setPosition(20, 80);
       newLevelNameText.setPosition(20, 40);
+      commandText.setPosition(20, 40);
       moveCameraXText.setPosition(secondHelpX, 80);
       moveCameraYText.setPosition(secondHelpX, 40);
     }
@@ -280,6 +287,11 @@ class UserInterface
   static void updateNewLevelNameText(final String levelName)
   {
     newLevelNameText.text = "Rename level to: " + levelName;
+  }
+
+  static void updateCommandText(final String cmd)
+  {
+    commandText.text = "cmd: " + cmd;
   }
 
   static void updateMoveCameraXText(final boolean move)
