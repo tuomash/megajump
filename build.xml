@@ -77,6 +77,10 @@
             <file name="assets.txt"/>
         </copy>
 
+        <copy todir="${dist}">
+            <file name="world1.txt"/>
+        </copy>
+
         <copy todir="${dist}/graphics">
             <fileset dir="graphics" includes="**"/>
         </copy>
@@ -93,11 +97,9 @@
             <fileset dir="${lib}" includes="*.jar"/>
         </copy>
 
-        <!--
         <copy todir="${dist}/music">
             <fileset dir="music" includes="**"/>
         </copy>
-        -->
 
         <!--
         <copy todir="${dist}/sfx">
