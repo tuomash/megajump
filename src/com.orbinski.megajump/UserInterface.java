@@ -36,6 +36,8 @@ class UserInterface
 
   static Text unsavedChangesText;
   static Text newLevelNameText;
+  static Text moveCameraXText;
+  static Text moveCameraYText;
 
   static void create()
   {
@@ -74,6 +76,9 @@ class UserInterface
 
     newLevelNameText = createText("Rename level to: ");
     newLevelNameText.visible = false;
+
+    moveCameraXText = createText("Move cam x: ");
+    moveCameraYText = createText("Move cam y: ");
   }
 
   static void layout(final int width, final int height)
@@ -138,6 +143,8 @@ class UserInterface
 
       unsavedChangesText.setPosition(20, 40);
       newLevelNameText.setPosition(20, 20);
+      moveCameraXText.setPosition(secondHelpX, 40);
+      moveCameraYText.setPosition(secondHelpX, 20);
     }
     else if (width <= 1920 && height <= 1080)
     {
@@ -164,6 +171,8 @@ class UserInterface
 
       unsavedChangesText.setPosition(20, 60);
       newLevelNameText.setPosition(20, 30);
+      moveCameraXText.setPosition(secondHelpX, 60);
+      moveCameraYText.setPosition(secondHelpX, 30);
     }
     else
     {
@@ -190,6 +199,8 @@ class UserInterface
 
       unsavedChangesText.setPosition(20, 80);
       newLevelNameText.setPosition(20, 40);
+      moveCameraXText.setPosition(secondHelpX, 80);
+      moveCameraYText.setPosition(secondHelpX, 40);
     }
 
     jumpBar.setX(width - jumpBar.getWidth() - 20);
@@ -269,5 +280,15 @@ class UserInterface
   static void updateNewLevelNameText(final String levelName)
   {
     newLevelNameText.text = "Rename level to: " + levelName;
+  }
+
+  static void updateMoveCameraXText(final boolean move)
+  {
+    moveCameraXText.text = "Move cam x: " + move;
+  }
+
+  static void updateMoveCameraYText(final boolean move)
+  {
+    moveCameraYText.text = "Move cam y: " + move;
   }
 }

@@ -230,6 +230,14 @@ class Controller
       {
         editor.lowerDeathPoint();
       }
+      else if (input.isKeyJustPressed(Input.Keys.T))
+      {
+        editor.toggleMoveCameraX();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.G))
+      {
+        editor.toggleMoveCameraY();
+      }
       else if (input.isKeyJustPressed(Input.Keys.S))
       {
         editor.saveLevel();

@@ -224,6 +224,8 @@ class Game
   {
     levelEditor.level = level;
     levelEditor.active = !levelEditor.active;
+    UserInterface.updateMoveCameraXText(level.moveCameraX);
+    UserInterface.updateMoveCameraYText(level.moveCameraY);
     reset();
   }
 

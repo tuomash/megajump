@@ -55,6 +55,8 @@ class UIRenderer
         addText(UserInterface.levelNameText);
         addText(UserInterface.unsavedChangesText);
         addText(UserInterface.newLevelNameText);
+        addText(UserInterface.moveCameraXText);
+        addText(UserInterface.moveCameraYText);
       }
       else
       {

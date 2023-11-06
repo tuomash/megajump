@@ -118,6 +118,18 @@ class LevelEditor implements InputProcessor
     level.lowerDeathPoint(5.0f);
   }
 
+  void toggleMoveCameraX()
+  {
+    level.moveCameraX = !level.moveCameraX;
+    UserInterface.updateMoveCameraXText(level.moveCameraX);
+  }
+
+  void toggleMoveCameraY()
+  {
+    level.moveCameraY = !level.moveCameraY;
+    UserInterface.updateMoveCameraYText(level.moveCameraY);
+  }
+
   boolean saveLevel()
   {
     final LevelWrapper wrapper = new LevelWrapper(level);

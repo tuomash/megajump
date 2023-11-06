@@ -22,7 +22,8 @@ class Help
 
     // Editor
 
-    addEditor("Press CTRL+E to toggle the level editor on/off", 20, 600);
+    addEditor("Press CTRL+E to toggle the level editor on/off", 20, 640);
+    addEditor("Press CTRL+T to toggle move camera X on/off. Press CTRL+G to toggle move camera Y on/off.", 20, 600);
     addEditor("Press CTRL+Y to raise and CTRL+H to lower death point", 20, 560);
     addEditor("Press CTRL+U to raise and CTRL+J to lower camera floor", 20, 520);
     addEditor("Press CTRL+I to increase and CTRL+K to decrease entity size", 20, 480);
