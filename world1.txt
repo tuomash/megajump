@@ -16,3 +16,5 @@ platforms_1
 on_a_pedestal
 platforms_2
 platforms_3
+precision_1
+precision_2
