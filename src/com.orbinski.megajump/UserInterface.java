@@ -276,7 +276,7 @@ class UserInterface
 
   static void enableJumpBar()
   {
-    jumpBar.color = Color.BLUE;
+    jumpBar.color = Color.PURPLE;
   }
 
   static void disableJumpBar()
