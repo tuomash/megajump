@@ -22,6 +22,10 @@ class Renderer
   final Entity[] entities = new Entity[1000];
   int entityIndex = -1;
 
+  // TODO: do interpolation between previous and current physics state
+  boolean interpolation = false;
+  float interpolationAlpha = 0.0f;
+
   Renderer(final Game game)
   {
     this.game = game;

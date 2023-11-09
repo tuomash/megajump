@@ -6,12 +6,10 @@ import static com.orbinski.megajump.Globals.*;
 
 class SemiFixedTimestepLoop extends Loop
 {
-  int updates;
-
-  public SemiFixedTimestepLoop(final Game game,
-                               final Controller controller,
-                               final Renderer renderer,
-                               final UIRenderer uiRenderer)
+  SemiFixedTimestepLoop(final Game game,
+                        final Controller controller,
+                        final Renderer renderer,
+                        final UIRenderer uiRenderer)
   {
     super(game, controller, renderer, uiRenderer);
   }
@@ -19,7 +17,13 @@ class SemiFixedTimestepLoop extends Loop
   @Override
   void update()
   {
-    final float frameTime = Gdx.graphics.getDeltaTime();
+    float frameTime = Gdx.graphics.getDeltaTime();
+
+    if (frameTime > MAX_FRAME_TIME)
+    {
+      frameTime = MAX_FRAME_TIME;
+    }
+
     float frameTimeForPhysicsStep = frameTime;
     controller.update();
 
@@ -28,15 +32,8 @@ class SemiFixedTimestepLoop extends Loop
       final float delta = Math.min(frameTimeForPhysicsStep, TIME_STEP_SECONDS);
       game.updatePhysics(delta);
       frameTimeForPhysicsStep = frameTimeForPhysicsStep - delta;
-      updates++;
-
-      if (updates >= MAX_UPDATES)
-      {
-        break;
-      }
     }
 
-    updates = 0;
     game.update(frameTime);
     renderer.render();
     uiRenderer.render();
