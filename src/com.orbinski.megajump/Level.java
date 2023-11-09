@@ -65,7 +65,7 @@ class Level
     deathPoint.setLocation(0.0f, -70.0f);
   }
 
-  void update(final float delta)
+  void updatePhysics(final float delta)
   {
     if (finished)
     {
@@ -76,9 +76,74 @@ class Level
       // Update moving exits even if the player hasn't started yet
       if (exit != null)
       {
-        exit.update(delta);
+        exit.updatePhysics(delta);
       }
 
+      return;
+    }
+
+    if (exit != null)
+    {
+      exit.updatePhysics(delta);
+
+      if (exit.overlaps(player))
+      {
+        player.stop();
+        player.setState(Player.State.EXIT);
+      }
+    }
+
+    if (player.isMoving())
+    {
+      player.setPosition(Player.Position.NONE);
+
+      for (int i = 0; i < blocks.size(); i++)
+      {
+        final Block block = blocks.get(i);
+
+        if (player.overlaps(block))
+        {
+          break;
+        }
+      }
+
+      for (int i = 0; i < trampolines.size(); i++)
+      {
+        final Trampoline trampoline = trampolines.get(i);
+
+        if (trampoline.apply(player))
+        {
+          break;
+        }
+      }
+
+      for (int i = 0; i < platforms.size(); i++)
+      {
+        final Platform platform = platforms.get(i);
+
+        if (player.overlaps(platform))
+        {
+          break;
+        }
+      }
+
+      for (int i = 0; i < teleports.size(); i++)
+      {
+        final Teleport teleport = teleports.get(i);
+
+        if (teleport.overlaps(player))
+        {
+          game.setCameraToPlayerTeleport();
+          break;
+        }
+      }
+    }
+  }
+
+  void update(final float delta)
+  {
+    if (finished || !started)
+    {
       return;
     }
 
@@ -88,15 +153,8 @@ class Level
 
     UserInterface.updateElapsedTimeText(millisecondsElapsed);
 
-    if (exit != null)
+    if (player.state == Player.State.EXIT)
     {
-      exit.update(delta);
-    }
-
-    if (exit != null && exit.overlaps(player))
-    {
-      player.stop();
-      player.setState(Player.State.EXIT);
       UserInterface.retryText.visible = true;
       UserInterface.nextLevelText.visible = true;
       finished = true;
@@ -156,51 +214,6 @@ class Level
             setTrophy(Trophy.BRONZE);
           }
 
-          break;
-        }
-      }
-    }
-    else
-    {
-      player.setPosition(Player.Position.NONE);
-
-      for (int i = 0; i < blocks.size(); i++)
-      {
-        final Block block = blocks.get(i);
-
-        if (player.overlaps(block))
-        {
-          break;
-        }
-      }
-
-      for (int i = 0; i < trampolines.size(); i++)
-      {
-        final Trampoline trampoline = trampolines.get(i);
-
-        if (trampoline.apply(player))
-        {
-          break;
-        }
-      }
-
-      for (int i = 0; i < platforms.size(); i++)
-      {
-        final Platform platform = platforms.get(i);
-
-        if (player.overlaps(platform))
-        {
-          break;
-        }
-      }
-
-      for (int i = 0; i < teleports.size(); i++)
-      {
-        final Teleport teleport = teleports.get(i);
-
-        if (teleport.overlaps(player))
-        {
-          game.setCameraToPlayerTeleport();
           break;
         }
       }

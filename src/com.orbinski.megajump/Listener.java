@@ -40,14 +40,15 @@ class Listener implements ApplicationListener
   @Override
   public void render()
   {
-    float frameTime = Gdx.graphics.getDeltaTime();
+    final float frameTime = Gdx.graphics.getDeltaTime();
+    float frameTimeForPhysicsStep = frameTime;
     controller.update();
 
-    while (frameTime > 0.0f)
+    while (frameTimeForPhysicsStep > 0.0f)
     {
-      final float delta = Math.min(frameTime, TIME_STEP_SECONDS);
-      game.update(delta);
-      frameTime = frameTime - delta;
+      final float delta = Math.min(frameTimeForPhysicsStep, TIME_STEP_SECONDS);
+      game.updatePhysics(delta);
+      frameTimeForPhysicsStep = frameTimeForPhysicsStep - delta;
       updates++;
 
       if (updates >= MAX_UPDATES)
@@ -57,6 +58,7 @@ class Listener implements ApplicationListener
     }
 
     updates = 0;
+    game.update(frameTime);
     renderer.render();
     uiRenderer.render();
   }

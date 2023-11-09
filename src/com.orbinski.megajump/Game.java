@@ -76,32 +76,21 @@ class Game
     Audio.playBackgroundMusic();
   }
 
-  void update(final float delta)
+  void updatePhysics(final float delta)
   {
     if (help || paused)
     {
       return;
     }
 
-    player.update(delta);
-    level.update(delta);
-    save.updateScore(level);
+    player.updatePhysics(delta);
+    level.updatePhysics(delta);
 
-    if (player.canJump())
-    {
-      UserInterface.enableJumpBar();
-    }
-    else
-    {
-      UserInterface.disableJumpBar();
-    }
-
+    // TODO: move to Level?
     if (player.getY() < level.deathPoint.y)
     {
-      UserInterface.retryText.visible = true;
       player.stop();
       player.setState(Player.State.DEATH);
-      level.finished = true;
     }
 
     if (player.isMoving())
@@ -122,6 +111,33 @@ class Game
     else if (cameraState.moving)
     {
       updateCameraState(delta);
+    }
+  }
+
+  void update(final float delta)
+  {
+    if (help || paused)
+    {
+      return;
+    }
+
+    player.update(delta);
+    level.update(delta);
+    save.updateScore(level);
+
+    if (player.canJump())
+    {
+      UserInterface.enableJumpBar();
+    }
+    else
+    {
+      UserInterface.disableJumpBar();
+    }
+
+    if (player.state == Player.State.DEATH)
+    {
+      UserInterface.retryText.visible = true;
+      level.finished = true;
     }
   }
 

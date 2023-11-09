@@ -116,7 +116,7 @@ abstract class Entity
     setY(y);
   }
 
-  void update(final float delta)
+  void updatePhysics(final float delta)
   {
     if (dead)
     {
@@ -184,6 +184,14 @@ abstract class Entity
       {
         break;
       }
+    }
+  }
+
+  void update(final float delta)
+  {
+    if (dead)
+    {
+      return;
     }
   }
 
