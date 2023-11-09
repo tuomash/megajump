@@ -1,7 +1,6 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 
 import static com.orbinski.megajump.Globals.*;
 
@@ -11,7 +10,7 @@ class Listener implements ApplicationListener
   Controller controller;
   Renderer renderer;
   UIRenderer uiRenderer;
-  int updates;
+  Loop loop;
 
   @Override
   public void create()
@@ -25,6 +24,7 @@ class Listener implements ApplicationListener
     controller = new Controller(game);
     renderer = new Renderer(game);
     uiRenderer = new UIRenderer(game);
+    loop = new SemiFixedTimestepLoop(game, controller, renderer, uiRenderer);
   }
 
   @Override
@@ -40,27 +40,7 @@ class Listener implements ApplicationListener
   @Override
   public void render()
   {
-    final float frameTime = Gdx.graphics.getDeltaTime();
-    float frameTimeForPhysicsStep = frameTime;
-    controller.update();
-
-    while (frameTimeForPhysicsStep > 0.0f)
-    {
-      final float delta = Math.min(frameTimeForPhysicsStep, TIME_STEP_SECONDS);
-      game.updatePhysics(delta);
-      frameTimeForPhysicsStep = frameTimeForPhysicsStep - delta;
-      updates++;
-
-      if (updates >= MAX_UPDATES)
-      {
-        break;
-      }
-    }
-
-    updates = 0;
-    game.update(frameTime);
-    renderer.render();
-    uiRenderer.render();
+    loop.update();
   }
 
   @Override
