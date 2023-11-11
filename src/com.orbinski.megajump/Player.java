@@ -17,7 +17,8 @@ class Player extends Entity
     DEATH
   }
 
-  enum Position
+  // TODO: rename to Location
+  enum PositionState
   {
     START,
     NONE,
@@ -26,7 +27,7 @@ class Player extends Entity
 
   Direction direction;
   State state;
-  private Position position;
+  private PositionState positionState;
 
   final float maxJumpVelocityX = 65.0f;
   final float maxJumpVelocityY = 75.0f;
@@ -54,7 +55,7 @@ class Player extends Entity
 
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
-    setPosition(Position.START);
+    setPosition(PositionState.START);
   }
 
   @Override
@@ -190,9 +191,9 @@ class Player extends Entity
     if (velocityY < 0.0f && EntityUtils.overlaps(bottomSide, entity))
     {
       overlaps = true;
-      setY(entity.getY() + entity.getHeightOffset() + 3.0f);
+      setY(entity.getPosition().y + entity.getHeightOffset() + 3.0f);
       velocityY = 0.0f;
-      setPosition(Position.PLATFORM);
+      setPosition(PositionState.PLATFORM);
 
       if (state == State.JUMPING)
       {
@@ -221,19 +222,19 @@ class Player extends Entity
     else if (velocityY > 0.0f && EntityUtils.overlaps(topSide, entity))
     {
       overlaps = true;
-      setY(entity.getY() - entity.getHeightOffset() - 3.0f);
+      setY(entity.getPosition().y - entity.getHeightOffset() - 3.0f);
       velocityY = 0.0f;
     }
     else if (velocityX < 0.0f && EntityUtils.overlaps(leftSide, entity))
     {
       overlaps = true;
-      setX(entity.getX() + entity.getWidthOffset() + 1.8f);
+      setX(entity.getPosition().x + entity.getWidthOffset() + 1.8f);
       velocityX = 0.0f;
     }
     else if (velocityX > 0.0f && EntityUtils.overlaps(rightSide, entity))
     {
       overlaps = true;
-      setX(entity.getX() - entity.getWidthOffset() - 1.8f);
+      setX(entity.getPosition().x - entity.getWidthOffset() - 1.8f);
       velocityX = 0.0f;
     }
 
@@ -258,7 +259,7 @@ class Player extends Entity
     topSide.y = y + 2.5f;
     leftSide.y = y - leftSide.height * 0.5f - 0.275f;
     rightSide.y = y - rightSide.height * 0.5f - 0.275f;
-    bottomSide.y = getBottomLeftCornerY() + 1.5f;
+    bottomSide.y = getBottomLeftCornerPosition().y + 1.5f;
     collisionBox.setY(y - collisionBox.height * 0.5f);
   }
 
@@ -298,16 +299,16 @@ class Player extends Entity
     }
   }
 
-  public Position getPosition()
+  public PositionState getPositionState()
   {
-    return position;
+    return positionState;
   }
 
-  void setPosition(final Position position)
+  void setPosition(final PositionState positionState)
   {
-    if (position != null && this.position != position)
+    if (positionState != null && this.positionState != positionState)
     {
-      this.position = position;
+      this.positionState = positionState;
     }
   }
 
@@ -377,7 +378,7 @@ class Player extends Entity
     state = null;
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
-    setPosition(Position.START);
+    setPosition(PositionState.START);
     UserInterface.jumpBar.reset();
   }
 }

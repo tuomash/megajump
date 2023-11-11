@@ -95,7 +95,7 @@ class Level
 
     if (player.isMoving())
     {
-      player.setPosition(Player.Position.NONE);
+      player.setPosition(Player.PositionState.NONE);
 
       for (int i = 0; i < blocks.size(); i++)
       {
@@ -541,8 +541,8 @@ class Level
 
     if (player != null)
     {
-      player.setX(spawn.getX());
-      player.setY(spawn.getY());
+      player.setX(spawn.getPosition().x);
+      player.setY(spawn.getPosition().y);
     }
   }
 }

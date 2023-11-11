@@ -296,7 +296,7 @@ class Controller
 
           final float diffX = changedSelection.x - originalSelection.x;
           final float diffY = changedSelection.y - originalSelection.y;
-          editor.moveEntity(editor.entity.getX() + diffX, editor.entity.getY() + diffY);
+          editor.moveEntity(editor.entity.getPosition().x + diffX, editor.entity.getPosition().y + diffY);
 
           originalSelectionX = input.getX();
           originalSelectionY = input.getY();

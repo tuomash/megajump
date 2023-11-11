@@ -87,7 +87,7 @@ class Game
     level.updatePhysics(delta);
 
     // TODO: move to Level?
-    if (player.getY() < level.deathPoint.y)
+    if (player.getPosition().y < level.deathPoint.y)
     {
       player.stop();
       player.setState(Player.State.DEATH);
@@ -102,7 +102,7 @@ class Game
 
       if (level.moveCameraY)
       {
-        if (player.getY() > level.cameraFloor.y)
+        if (player.getPosition().y > level.cameraFloor.y)
         {
           camera.position.y = camera.position.y + delta * player.velocityY + delta * 1.5f;
         }
@@ -214,25 +214,25 @@ class Game
 
   void setCameraToPlayer()
   {
-    camera.position.x = player.getX() + 69.0f;
-    camera.position.y = player.getY() + 30.0f;
+    camera.position.x = player.getPosition().x + 69.0f;
+    camera.position.y = player.getPosition().y + 30.0f;
   }
 
   void setCameraToPlayerTeleport()
   {
-    camera.position.x = player.getX() + 69.0f;
+    camera.position.x = player.getPosition().x + 69.0f;
 
     if (player.velocityY < 0.0f)
     {
-      camera.position.y = player.getY() - 15.0f;
+      camera.position.y = player.getPosition().y - 15.0f;
     }
     else if (player.velocityY > 0.0f)
     {
-      camera.position.y = player.getY() + 15.0f;
+      camera.position.y = player.getPosition().y + 15.0f;
     }
     else
     {
-      camera.position.y = player.getY();
+      camera.position.y = player.getPosition().y;
     }
   }
 

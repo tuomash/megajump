@@ -100,16 +100,16 @@ class Renderer
     {
       final Trampoline trampoline = game.level.trampolines.get(i);
 
-      shapeRenderer.addFilledQuad(trampoline.getBottomLeftCornerX(),
-                                  trampoline.getBottomLeftCornerY(),
+      shapeRenderer.addFilledQuad(trampoline.getBottomLeftCornerPosition().x,
+                                  trampoline.getBottomLeftCornerPosition().y,
                                   trampoline.getWidth(),
                                   trampoline.getHeight(),
                                   Color.BLUE);
 
       if (trampoline.drawBorder || trampoline.selected)
       {
-        shapeRenderer.addQuad(trampoline.getBottomLeftCornerX(),
-                              trampoline.getBottomLeftCornerY(),
+        shapeRenderer.addQuad(trampoline.getBottomLeftCornerPosition().x,
+                              trampoline.getBottomLeftCornerPosition().y,
                               trampoline.getWidth(),
                               trampoline.getHeight(),
                               Color.WHITE);
@@ -125,16 +125,16 @@ class Renderer
     {
       final Platform platform = game.level.platforms.get(i);
 
-      shapeRenderer.addFilledQuad(platform.getBottomLeftCornerX(),
-                                  platform.getBottomLeftCornerY(),
+      shapeRenderer.addFilledQuad(platform.getBottomLeftCornerPosition().x,
+                                  platform.getBottomLeftCornerPosition().y,
                                   platform.getWidth(),
                                   platform.getHeight(),
                                   UserInterface.DARK_GREEN);
 
       if (platform.drawBorder || platform.selected)
       {
-        shapeRenderer.addQuad(platform.getBottomLeftCornerX(),
-                              platform.getBottomLeftCornerY(),
+        shapeRenderer.addQuad(platform.getBottomLeftCornerPosition().x,
+                              platform.getBottomLeftCornerPosition().y,
                               platform.getWidth(),
                               platform.getHeight(),
                               Color.WHITE);
@@ -150,8 +150,8 @@ class Renderer
     {
       final Teleport teleport = game.level.teleports.get(i);
 
-      shapeRenderer.addFilledQuad(teleport.getBottomLeftCornerX(),
-                                  teleport.getBottomLeftCornerY(),
+      shapeRenderer.addFilledQuad(teleport.getBottomLeftCornerPosition().x,
+                                  teleport.getBottomLeftCornerPosition().y,
                                   teleport.getWidth(),
                                   teleport.getHeight(),
                                   Color.MAGENTA);
@@ -164,8 +164,8 @@ class Renderer
 
       if (teleport.drawBorder || teleport.selected)
       {
-        shapeRenderer.addQuad(teleport.getBottomLeftCornerX(),
-                              teleport.getBottomLeftCornerY(),
+        shapeRenderer.addQuad(teleport.getBottomLeftCornerPosition().x,
+                              teleport.getBottomLeftCornerPosition().y,
                               teleport.getWidth(),
                               teleport.getHeight(),
                               Color.WHITE);
@@ -181,16 +181,16 @@ class Renderer
     {
       final Spawn spawn = game.levelEditor.level.spawn;
 
-      shapeRenderer.addFilledQuad(spawn.getBottomLeftCornerX(),
-                                  spawn.getBottomLeftCornerY(),
+      shapeRenderer.addFilledQuad(spawn.getBottomLeftCornerPosition().x,
+                                  spawn.getBottomLeftCornerPosition().y,
                                   spawn.getWidth(),
                                   spawn.getHeight(),
                                   Color.YELLOW);
 
       if (spawn.drawBorder || spawn.selected)
       {
-        shapeRenderer.addQuad(spawn.getBottomLeftCornerX(),
-                              spawn.getBottomLeftCornerY(),
+        shapeRenderer.addQuad(spawn.getBottomLeftCornerPosition().x,
+                              spawn.getBottomLeftCornerPosition().y,
                               spawn.getWidth(),
                               spawn.getHeight(),
                               Color.WHITE);
@@ -329,8 +329,8 @@ class Renderer
 
       if (entity.drawBorder || entity.selected)
       {
-        shapeRenderer.addQuad(entity.getBottomLeftCornerX(),
-                              entity.getBottomLeftCornerY(),
+        shapeRenderer.addQuad(entity.getBottomLeftCornerPosition().x,
+                              entity.getBottomLeftCornerPosition().y,
                               entity.getWidth(),
                               entity.getHeight(),
                               Color.WHITE);
@@ -354,8 +354,8 @@ class Renderer
       if (entity != null && entity.visible && entity.texture != null)
       {
         spriteBatch.draw(entity.texture.texture,
-                         entity.getBottomLeftCornerX(),
-                         entity.getBottomLeftCornerY(),
+                         entity.getBottomLeftCornerPosition().x,
+                         entity.getBottomLeftCornerPosition().y,
                          entity.getWidth(),
                          entity.getHeight(),
                          entity.texture.srcX,

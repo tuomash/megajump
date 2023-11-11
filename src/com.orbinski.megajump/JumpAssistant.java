@@ -83,7 +83,7 @@ class JumpAssistant
   private float calculateJumpVelocityX()
   {
     final float maxDiffX = 40.0f;
-    final float playerWorldX = player.getX();
+    final float playerWorldX = player.getPosition().x;
     float diffX = Math.abs(cursorX - playerWorldX);
 
     if (diffX > maxDiffX)
@@ -100,7 +100,7 @@ class JumpAssistant
       jumpVelocityX = player.maxJumpVelocityX;
     }
 
-    if (cursorX < player.getX())
+    if (cursorX < player.getPosition().x)
     {
       jumpVelocityX = -jumpVelocityX;
     }
@@ -111,7 +111,7 @@ class JumpAssistant
   private float calculateJumpVelocityY()
   {
     final float maxDiffY = 40.0f;
-    final float playerWorldY = player.getY();
+    final float playerWorldY = player.getPosition().y;
     float diffY = Math.abs(cursorY - playerWorldY);
 
     if (diffY > maxDiffY)
@@ -128,7 +128,7 @@ class JumpAssistant
       jumpVelocityY = player.maxJumpVelocityY;
     }
 
-    if (cursorY < player.getY())
+    if (cursorY < player.getPosition().y)
     {
       jumpVelocityY = -jumpVelocityY;
     }
@@ -148,8 +148,8 @@ class JumpAssistant
     final float velocityX = player.clampVelocityX(calculateJumpVelocityX());
     float velocityY = player.clampVelocityY(calculateJumpVelocityY());
 
-    float x = player.getX();
-    float y = player.getY();
+    float x = player.getPosition().x;
+    float y = player.getPosition().y;
     final Rectangle first = jumpCurve[0];
     first.x = x;
     first.y = y;
@@ -170,7 +170,7 @@ class JumpAssistant
 
   boolean canJump()
   {
-    return canJump && (player.getPosition() == Player.Position.START || player.getPosition() == Player.Position.PLATFORM);
+    return canJump && (player.getPositionState() == Player.PositionState.START || player.getPositionState() == Player.PositionState.PLATFORM);
   }
 
   void reset()

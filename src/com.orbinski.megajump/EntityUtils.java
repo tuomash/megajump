@@ -29,13 +29,13 @@ class EntityUtils
       return overlaps(b.collisionBox, a);
     }
 
-    rect1.x = a.getBottomLeftCornerX();
-    rect1.y = a.getBottomLeftCornerY();
+    rect1.x = a.getBottomLeftCornerPosition().x;
+    rect1.y = a.getBottomLeftCornerPosition().y;
     rect1.width = a.getWidth();
     rect1.height = a.getHeight();
 
-    rect2.x = b.getBottomLeftCornerX();
-    rect2.y = b.getBottomLeftCornerY();
+    rect2.x = b.getBottomLeftCornerPosition().x;
+    rect2.y = b.getBottomLeftCornerPosition().y;
     rect2.width = b.getWidth();
     rect2.height = b.getHeight();
 
@@ -49,8 +49,8 @@ class EntityUtils
       return false;
     }
 
-    rect1.x = a.getBottomLeftCornerX();
-    rect1.y = a.getBottomLeftCornerY();
+    rect1.x = a.getBottomLeftCornerPosition().x;
+    rect1.y = a.getBottomLeftCornerPosition().y;
     rect1.width = a.getWidth();
     rect1.height = a.getHeight();
 
@@ -64,8 +64,8 @@ class EntityUtils
       return false;
     }
 
-    rect1.x = a.getBottomLeftCornerX();
-    rect1.y = a.getBottomLeftCornerY();
+    rect1.x = a.getBottomLeftCornerPosition().x;
+    rect1.y = a.getBottomLeftCornerPosition().y;
     rect1.width = a.getWidth();
     rect1.height = a.getHeight();
 
@@ -79,8 +79,8 @@ class EntityUtils
       return false;
     }
 
-    rect1.x = a.getBottomLeftCornerX();
-    rect1.y = a.getBottomLeftCornerY();
+    rect1.x = a.getBottomLeftCornerPosition().x;
+    rect1.y = a.getBottomLeftCornerPosition().y;
     rect1.width = a.getWidth();
     rect1.height = a.getHeight();
 

@@ -2,6 +2,7 @@ package com.orbinski.megajump;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -16,12 +17,11 @@ abstract class Entity
     NO_MOVEMENT
   }
 
-  private float x;
-  private float y;
-  private float prevX;
-  private float prevY;
-  private float bottomLeftCornerX;
-  private float bottomLeftCornerY;
+  private final Vector2 position = new Vector2();
+  private final Vector2 previousPosition = new Vector2();
+  private final Vector2 bottomLeftCornerPosition = new Vector2();
+  private final Vector2 previousBottomLeftCornerPosition = new Vector2();
+
   private float width;
   private float widthOffset;
   private float height;
@@ -134,8 +134,8 @@ abstract class Entity
 
         final float distanceX = velocityX * delta;
         final float distanceY = velocityY * delta;
-        setX(getX() + distanceX);
-        setY(getY() + distanceY);
+        setX(position.x + distanceX);
+        setY(position.y + distanceY);
 
         break;
       }
@@ -153,7 +153,7 @@ abstract class Entity
           currentWaypoint = waypoints.get(waypointIndex);
         }
 
-        final float distanceToTarget = MathUtils.distance(getX(), getY(), currentWaypoint.x, currentWaypoint.y);
+        final float distanceToTarget = MathUtils.distance(position.x, position.y, currentWaypoint.x, currentWaypoint.y);
 
         if (distanceToTarget < 0.5)
         {
@@ -169,13 +169,13 @@ abstract class Entity
           return;
         }
 
-        final float toTargetX = (currentWaypoint.x - getX()) / distanceToTarget;
-        final float toTargetY = (currentWaypoint.y - getY()) / distanceToTarget;
+        final float toTargetX = (currentWaypoint.x - position.x) / distanceToTarget;
+        final float toTargetY = (currentWaypoint.y - position.y) / distanceToTarget;
         final float distanceX = this.velocityX * delta;
         final float distanceY = this.velocityY * delta;
 
-        setX(getX() + (toTargetX * distanceX));
-        setY(getY() + (toTargetY * distanceY));
+        setX(position.x + (toTargetX * distanceX));
+        setY(position.y + (toTargetY * distanceY));
 
         break;
       }
@@ -203,12 +203,12 @@ abstract class Entity
 
   void moveToPreviousX()
   {
-    setX(prevX);
+    setX(previousPosition.x);
   }
 
   void moveToPreviousY()
   {
-    setX(prevX);
+    setY(previousPosition.y);
   }
 
   void stop()
@@ -243,74 +243,68 @@ abstract class Entity
     }
   }
 
-  float getX()
+  public Vector2 getPosition()
   {
-    return x;
+    return position;
+  }
+
+  public Vector2 getPreviousPosition()
+  {
+    return previousPosition;
+  }
+
+  public Vector2 getBottomLeftCornerPosition()
+  {
+    return bottomLeftCornerPosition;
+  }
+
+  public Vector2 getPreviousBottomLeftCornerPosition()
+  {
+    return previousBottomLeftCornerPosition;
   }
 
   void setX(final float x)
   {
-    prevX = this.x;
-    this.x = x;
+    previousPosition.x = position.x;
+    position.x = x;
+
+    previousBottomLeftCornerPosition.x = bottomLeftCornerPosition.x;
 
     if (applyWidthOffset)
     {
-      bottomLeftCornerX = x - widthOffset;
+      bottomLeftCornerPosition.x = x - widthOffset;
     }
     else
     {
-      bottomLeftCornerX = x;
+      bottomLeftCornerPosition.x = x;
     }
 
     if (collisionBox != null)
     {
-      collisionBox.setX(bottomLeftCornerX);
+      collisionBox.setX(bottomLeftCornerPosition.x);
     }
-  }
-
-  float getY()
-  {
-    return y;
   }
 
   void setY(final float y)
   {
-    prevY = this.y;
-    this.y = y;
+    previousPosition.y = position.y;
+    position.y = y;
+
+    previousBottomLeftCornerPosition.y = bottomLeftCornerPosition.y;
 
     if (applyHeightOffset)
     {
-      bottomLeftCornerY = y - heightOffset;
+      bottomLeftCornerPosition.y = y - heightOffset;
     }
     else
     {
-      bottomLeftCornerY = y;
+      bottomLeftCornerPosition.y = y;
     }
 
     if (collisionBox != null)
     {
-      collisionBox.setY(bottomLeftCornerY);
+      collisionBox.setY(bottomLeftCornerPosition.y);
     }
-  }
-
-  float getPrevX()
-  {
-    return prevX;
-  }
-
-  float getPrevY()
-  {
-    return prevY;
-  }
-
-  float getBottomLeftCornerX()
-  {
-    return bottomLeftCornerX;
-  }
-
-  float getBottomLeftCornerY()
-  {
-    return bottomLeftCornerY;
   }
 
   float getWidth()

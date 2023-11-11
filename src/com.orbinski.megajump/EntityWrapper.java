@@ -23,8 +23,8 @@ class EntityWrapper implements Serializable
 
   EntityWrapper(final Entity entity)
   {
-    x = entity.getX();
-    y = entity.getY();
+    x = entity.getPosition().x;
+    y = entity.getPosition().y;
     width = entity.getWidth();
     height = entity.getHeight();
     movement = entity.movement.toString().toUpperCase();
