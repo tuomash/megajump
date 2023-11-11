@@ -16,6 +16,7 @@ class FullyFixedTimestepLoop extends Loop
     super(game, controller, renderer, uiRenderer);
 
     renderer.interpolation = true;
+    game.player.interpolate = true;
   }
 
   @Override

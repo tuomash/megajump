@@ -3,6 +3,7 @@ package com.orbinski.megajump;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -329,8 +330,16 @@ class Renderer
 
       if (entity.drawBorder || entity.selected)
       {
-        shapeRenderer.addQuad(entity.getBottomLeftCornerPosition().x,
-                              entity.getBottomLeftCornerPosition().y,
+        Vector2 position = entity.getBottomLeftCornerPosition();
+
+        if (entity.interpolate)
+        {
+          position =  entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
+                                                                        interpolationAlpha);
+        }
+
+        shapeRenderer.addQuad(position.x,
+                              position.y,
                               entity.getWidth(),
                               entity.getHeight(),
                               Color.WHITE);
@@ -353,9 +362,17 @@ class Renderer
 
       if (entity != null && entity.visible && entity.texture != null)
       {
+        Vector2 position = entity.getBottomLeftCornerPosition();
+
+        if (entity.interpolate)
+        {
+          position =  entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
+                                                                        interpolationAlpha);
+        }
+
         spriteBatch.draw(entity.texture.texture,
-                         entity.getBottomLeftCornerPosition().x,
-                         entity.getBottomLeftCornerPosition().y,
+                         position.x,
+                         position.y,
                          entity.getWidth(),
                          entity.getHeight(),
                          entity.texture.srcX,
