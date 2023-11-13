@@ -1,6 +1,5 @@
 package com.orbinski.megajump;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import static com.orbinski.megajump.Globals.*;
@@ -26,7 +25,6 @@ class Game
     levels = new Levels();
     cameraState = new CameraState();
     levelEditor = new LevelEditor();
-    Gdx.input.setInputProcessor(levelEditor);
 
     if (Save.doesSaveFileExist())
     {

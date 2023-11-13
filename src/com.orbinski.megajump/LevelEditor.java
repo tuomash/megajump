@@ -1,5 +1,6 @@
 package com.orbinski.megajump;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
 class LevelEditor implements InputProcessor
@@ -12,6 +13,11 @@ class LevelEditor implements InputProcessor
   boolean help;
   boolean rename;
   boolean command;
+
+  LevelEditor()
+  {
+    Gdx.input.setInputProcessor(this);
+  }
 
   void addPlatform(final float x, final float y)
   {

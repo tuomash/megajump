@@ -12,6 +12,8 @@ class Globals
 
   static final float GRAVITY = -0.6f;
 
+  static final int MAX_PLAYER_COUNT = 4;
+
   static final Random random = new Random();
 
   static int screenWidth;
