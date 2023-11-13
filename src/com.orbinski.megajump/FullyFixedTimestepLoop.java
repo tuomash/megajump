@@ -32,12 +32,16 @@ class FullyFixedTimestepLoop extends Loop
     accumulator = accumulator + frameTime;
     controller.update();
 
+    // int updates = 0;
+
     while (accumulator >= TIME_STEP_SECONDS)
     {
       game.updatePhysics(TIME_STEP_SECONDS);
       accumulator = accumulator - TIME_STEP_SECONDS;
+      // updates++;
     }
 
+    // System.out.println("Did " + updates + " updates");
     game.update(frameTime);
     renderer.interpolationAlpha = accumulator / TIME_STEP_SECONDS;
     renderer.render();

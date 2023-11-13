@@ -24,6 +24,7 @@ class SemiFixedTimestepLoop extends Loop
       frameTime = MAX_FRAME_TIME;
     }
 
+    // System.out.println("frame time: " + frameTime);
     float frameTimeForPhysicsStep = frameTime;
     controller.update();
 
