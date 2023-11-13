@@ -24,9 +24,9 @@ class FullyFixedTimestepLoop extends Loop
   {
     float frameTime = Gdx.graphics.getDeltaTime();
 
-    if (frameTime > MAX_FRAME_TIME)
+    if (frameTime > MAX_FRAME_TIME_SECONDS)
     {
-      frameTime = MAX_FRAME_TIME;
+      frameTime = MAX_FRAME_TIME_SECONDS;
     }
 
     accumulator = accumulator + frameTime;

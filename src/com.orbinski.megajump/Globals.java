@@ -8,7 +8,7 @@ class Globals
   static final float WORLD_HEIGHT = 100;
 
   static final float TIME_STEP_SECONDS = 1 / 60.0f;
-  static final float MAX_FRAME_TIME = TIME_STEP_SECONDS * 20.0f;
+  static final float MAX_FRAME_TIME_SECONDS = TIME_STEP_SECONDS * 20.0f;
 
   static final float GRAVITY = -0.6f;
 
