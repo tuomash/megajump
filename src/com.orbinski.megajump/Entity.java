@@ -71,8 +71,7 @@ abstract class Entity
   {
     setWidth(wrapper.width);
     setHeight(wrapper.height);
-    setX(wrapper.x);
-    setY(wrapper.y);
+    setPosition(wrapper.x, wrapper.y);
     movement = Movement.valueOf(wrapper.movement.toUpperCase());
 
     if (wrapper.waypoints != null && !wrapper.waypoints.isEmpty())
@@ -96,8 +95,7 @@ abstract class Entity
   {
     setWidth(width);
     setHeight(height);
-    setX(x);
-    setY(y);
+    setPosition(x, y);
   }
 
   Entity(final float x, final float y, final float width, final float height, final boolean collision)
@@ -113,8 +111,7 @@ abstract class Entity
 
     setWidth(width);
     setHeight(height);
-    setX(x);
-    setY(y);
+    setPosition(x, y);
   }
 
   void updatePhysics(final float delta)
@@ -135,8 +132,7 @@ abstract class Entity
 
         final float distanceX = velocityX * delta;
         final float distanceY = velocityY * delta;
-        setX(position.x + distanceX);
-        setY(position.y + distanceY);
+        setPosition(position.x + distanceX, position.y + distanceY);
 
         break;
       }
@@ -175,8 +171,7 @@ abstract class Entity
         final float distanceX = this.velocityX * delta;
         final float distanceY = this.velocityY * delta;
 
-        setX(position.x + (toTargetX * distanceX));
-        setY(position.y + (toTargetY * distanceY));
+        setPosition(position.x + (toTargetX * distanceX), position.y + (toTargetY * distanceY));
 
         break;
       }
@@ -196,7 +191,13 @@ abstract class Entity
     }
   }
 
-  void moveToPreviousLocation()
+  void setPosition(final float x, final float y)
+  {
+    setX(x);
+    setY(y);
+  }
+
+  void moveToPreviousPosition()
   {
     moveToPreviousX();
     moveToPreviousY();
@@ -244,27 +245,22 @@ abstract class Entity
     }
   }
 
-  public Vector2 getPosition()
+  Vector2 getPosition()
   {
     return position;
   }
 
-  public Vector2 getPreviousPosition()
-  {
-    return previousPosition;
-  }
-
-  public Vector2 getBottomLeftCornerPosition()
+  Vector2 getBottomLeftCornerPosition()
   {
     return bottomLeftCornerPosition;
   }
 
-  public Vector2 getPreviousBottomLeftCornerPosition()
+  Vector2 getPreviousBottomLeftCornerPosition()
   {
     return previousBottomLeftCornerPosition;
   }
 
-  void setX(final float x)
+  protected void setX(final float x)
   {
     previousPosition.x = position.x;
     position.x = x;
@@ -286,7 +282,7 @@ abstract class Entity
     }
   }
 
-  void setY(final float y)
+  protected void setY(final float y)
   {
     previousPosition.y = position.y;
     position.y = y;

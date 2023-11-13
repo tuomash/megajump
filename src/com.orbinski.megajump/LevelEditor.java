@@ -63,8 +63,7 @@ class LevelEditor implements InputProcessor
   {
     if (entity != null)
     {
-      entity.setX(x);
-      entity.setY(y);
+      entity.setPosition(x, y);
 
       level.setSaved(false);
     }

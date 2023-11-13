@@ -170,7 +170,7 @@ class JumpAssistant
 
   boolean canJump()
   {
-    return canJump && (player.getPositionState() == Player.PositionState.START || player.getPositionState() == Player.PositionState.PLATFORM);
+    return canJump && (player.getLocation() == Player.Location.START || player.getLocation() == Player.Location.PLATFORM);
   }
 
   void reset()

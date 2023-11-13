@@ -17,8 +17,7 @@ class Player extends Entity
     DEATH
   }
 
-  // TODO: rename to Location
-  enum PositionState
+  enum Location
   {
     START,
     NONE,
@@ -27,7 +26,7 @@ class Player extends Entity
 
   Direction direction;
   State state;
-  private PositionState positionState;
+  private Location location;
 
   final float maxJumpVelocityX = 65.0f;
   final float maxJumpVelocityY = 75.0f;
@@ -55,7 +54,7 @@ class Player extends Entity
 
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
-    setPosition(PositionState.START);
+    setLocation(Location.START);
   }
 
   @Override
@@ -193,7 +192,7 @@ class Player extends Entity
       overlaps = true;
       setY(entity.getPosition().y + entity.getHeightOffset() + 3.0f);
       velocityY = 0.0f;
-      setPosition(PositionState.PLATFORM);
+      setLocation(Location.PLATFORM);
 
       if (state == State.JUMPING)
       {
@@ -242,7 +241,14 @@ class Player extends Entity
   }
 
   @Override
-  void setX(final float x)
+  void setPosition(final float x, final float y)
+  {
+    setX(x);
+    setY(y);
+  }
+
+  @Override
+  protected void setX(final float x)
   {
     super.setX(x);
     topSide.x = x - topSide.width * 0.5f;
@@ -253,7 +259,7 @@ class Player extends Entity
   }
 
   @Override
-  void setY(final float y)
+  protected void setY(final float y)
   {
     super.setY(y);
     topSide.y = y + 2.5f;
@@ -299,16 +305,16 @@ class Player extends Entity
     }
   }
 
-  public PositionState getPositionState()
+  public Location getLocation()
   {
-    return positionState;
+    return location;
   }
 
-  void setPosition(final PositionState positionState)
+  void setLocation(final Location location)
   {
-    if (positionState != null && this.positionState != positionState)
+    if (location != null && this.location != location)
     {
-      this.positionState = positionState;
+      this.location = location;
     }
   }
 
@@ -378,7 +384,7 @@ class Player extends Entity
     state = null;
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
-    setPosition(PositionState.START);
+    setLocation(Location.START);
     UserInterface.jumpBar.reset();
   }
 }

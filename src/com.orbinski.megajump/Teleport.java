@@ -45,8 +45,7 @@ class Teleport extends Entity
 
     if (overlaps && target != null)
     {
-      player.setX(target.x);
-      player.setY(target.y);
+      player.setPosition(target.x, target.y);
     }
 
     return overlaps;
