@@ -19,7 +19,6 @@ class Trampoline extends Entity
   {
     if (EntityUtils.overlaps(player.bottomSide, this))
     {
-      player.moveToPreviousLocation();
       player.velocityY = (Math.abs(player.velocityY) + 50.0f) * 0.60f;
 
       return true;
