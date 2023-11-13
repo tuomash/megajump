@@ -127,7 +127,7 @@ abstract class Entity
       {
         if (applyGravity)
         {
-          velocityY = velocityY + Globals.GRAVITY;
+          velocityY = velocityY + Globals.GRAVITY * delta;
         }
 
         final float distanceX = velocityX * delta;

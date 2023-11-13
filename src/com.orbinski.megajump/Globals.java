@@ -10,7 +10,7 @@ class Globals
   static final float TIME_STEP_SECONDS = 1 / 60.0f;
   static final float MAX_FRAME_TIME_SECONDS = TIME_STEP_SECONDS * 20.0f;
 
-  static final float GRAVITY = -0.6f;
+  static final float GRAVITY = -60.0f;
 
   static final int MAX_PLAYER_COUNT = 4;
 

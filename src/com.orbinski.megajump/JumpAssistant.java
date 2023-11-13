@@ -156,9 +156,9 @@ class JumpAssistant
 
     for (int i = 1; i < jumpCurve.length; i++)
     {
-      velocityY = velocityY + Globals.GRAVITY;
-      final float distanceX = velocityX * (Globals.TIME_STEP_SECONDS / 1.5f); // approximation
-      final float distanceY = velocityY * (Globals.TIME_STEP_SECONDS / 1.5f); // approximation
+      velocityY = velocityY + Globals.GRAVITY * Globals.TIME_STEP_SECONDS;
+      final float distanceX = velocityX * Globals.TIME_STEP_SECONDS; // approximation
+      final float distanceY = velocityY * Globals.TIME_STEP_SECONDS; // approximation
       x = x + distanceX;
       y = y + distanceY;
 
