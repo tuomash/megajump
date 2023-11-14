@@ -1,7 +1,12 @@
 package com.orbinski.megajump.multiplayer;
 
-public class ClientInputRequest
+import com.esotericsoftware.kryonet.Connection;
+
+public class ClientPlayerInputRequest
 {
+  public transient Connection connection;
+  public transient int playerId;
+
   public boolean moveUp;
   public boolean moveLeft;
   public boolean moveRight;

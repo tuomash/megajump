@@ -6,7 +6,7 @@ public class MClient
 {
   final Client client;
 
-  private final ClientInputRequest clientInputRequest = new ClientInputRequest();
+  private final ClientPlayerInputRequest clientInputRequest = new ClientPlayerInputRequest();
 
   public MClient(final Client client)
   {

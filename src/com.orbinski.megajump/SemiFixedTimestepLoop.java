@@ -27,7 +27,6 @@ class SemiFixedTimestepLoop extends Loop
     // System.out.println("frame time: " + frameTime);
     float frameTimeForPhysics = frameTime;
     controller.update();
-    game.updateServer();
 
     while (frameTimeForPhysics > 0.0f)
     {
@@ -39,5 +38,6 @@ class SemiFixedTimestepLoop extends Loop
     game.update(frameTime);
     renderer.render();
     uiRenderer.render();
+    game.sendRequests();
   }
 }

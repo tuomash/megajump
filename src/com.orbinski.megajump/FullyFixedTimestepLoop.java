@@ -31,7 +31,6 @@ class FullyFixedTimestepLoop extends Loop
 
     accumulator = accumulator + frameTime;
     controller.update();
-    game.updateServer();
 
     // int updates = 0;
 
@@ -47,5 +46,6 @@ class FullyFixedTimestepLoop extends Loop
     renderer.interpolationAlpha = accumulator / TIME_STEP_SECONDS;
     renderer.render();
     uiRenderer.render();
+    game.sendRequests();
   }
 }

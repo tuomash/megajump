@@ -91,7 +91,7 @@ public class Game
     Audio.playBackgroundMusic();
   }
 
-  void updateServer()
+  void sendRequests()
   {
     if (isMultiplayer())
     {
@@ -101,7 +101,7 @@ public class Game
 
   void updatePhysics(final float delta)
   {
-    if (help || paused)
+    if (isSinglePlayer() && (help || paused))
     {
       return;
     }
@@ -133,7 +133,7 @@ public class Game
 
   void update(final float delta)
   {
-    if (help || paused)
+    if (isSinglePlayer() && (help || paused))
     {
       return;
     }
@@ -351,6 +351,11 @@ public class Game
     }
   }
 
+  public boolean isSinglePlayer()
+  {
+    return mode == Mode.SINGLEPLAYER;
+  }
+
   public boolean isMultiplayer()
   {
     return client != null && mode == Mode.MULTIPLAYER;
@@ -366,8 +371,8 @@ public class Game
 
     if (level != null)
     {
-      physics.players.clear();
-      physics.players.add(player);
+      physics.getPlayers().clear();
+      physics.addPlayer(player);
       physics.setLevel(level);
       level.game = this;
       level.player = player;

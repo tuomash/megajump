@@ -1,6 +1,8 @@
 package com.orbinski.megajump;
 
-class Player extends Entity
+import com.esotericsoftware.kryonet.Connection;
+
+public class Player extends Entity
 {
   enum Direction
   {
@@ -24,6 +26,9 @@ class Player extends Entity
     PLATFORM
   }
 
+  public int id = 1;
+  public String name = "Player";
+
   Direction direction;
   State state;
   private Location location;
@@ -33,7 +38,9 @@ class Player extends Entity
 
   final JumpAssistant assistant;
 
-  Player()
+  public Connection connection;
+
+  public Player()
   {
     super(-75.0f, -30.0f, 10.0f, 10.0f, true);
 
@@ -115,13 +122,13 @@ class Player extends Entity
     }
   }
 
-  void jump()
+  public void jump()
   {
     assistant.targeting = false;
     assistant.jump();
   }
 
-  void moveUp()
+  public void moveUp()
   {
     if (state == State.JUMPING)
     {
@@ -129,7 +136,7 @@ class Player extends Entity
     }
   }
 
-  void moveLeft()
+  public void moveLeft()
   {
     if (state == State.JUMPING)
     {
@@ -146,7 +153,7 @@ class Player extends Entity
     }
   }
 
-  void moveRight()
+  public void moveRight()
   {
     if (state == State.JUMPING)
     {
@@ -163,7 +170,7 @@ class Player extends Entity
     }
   }
 
-  void moveDown()
+  public void moveDown()
   {
     if (state == State.JUMPING)
     {

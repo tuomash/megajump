@@ -256,7 +256,10 @@ class UserInterface
 
   static void updateTrophyLevelText(final Level.Trophy trophy)
   {
-    trophyLevelText.text = "Trophy: " + trophy;
+    if (trophyLevelText != null)
+    {
+      trophyLevelText.text = "Trophy: " + trophy;
+    }
   }
 
   static void updateGoldRequirementText(final int milliseconds)

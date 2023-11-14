@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Physics
 {
-  List<Player> players = new ArrayList<>();
-  List<Player> finishedPlayers = new ArrayList<>();
+  private List<Player> players = new ArrayList<>();
+  private List<Player> finishedPlayers = new ArrayList<>();
   private Level level;
   private Exit exit;
   private List<Trampoline> trampolines = new ArrayList<>();
@@ -158,6 +158,48 @@ public class Physics
         }
       }
     }
+  }
+
+  public void addPlayer(final Player player)
+  {
+    players.add(player);
+  }
+
+  public boolean canAdd(final Player player)
+  {
+    for (int i = 0; i < players.size(); i++)
+    {
+      if (player.id == players.get(i).id)
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public void removePlayer(final Player player)
+  {
+    int indexToRemove = -1;
+
+    for (int i = 0; i < players.size(); i++)
+    {
+      if (player.id == players.get(i).id)
+      {
+        indexToRemove = i;
+        break;
+      }
+    }
+
+    if (indexToRemove != -1)
+    {
+      players.remove(indexToRemove);
+    }
+  }
+
+  public List<Player> getPlayers()
+  {
+    return players;
   }
 
   public void setLevel(final Level level)

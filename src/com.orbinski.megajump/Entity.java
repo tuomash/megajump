@@ -176,7 +176,7 @@ abstract class Entity
     }
   }
 
-  Vector2 getPosition()
+  public Vector2 getPosition()
   {
     return position;
   }
