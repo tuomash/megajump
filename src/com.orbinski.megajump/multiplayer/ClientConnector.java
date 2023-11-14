@@ -22,6 +22,7 @@ public class ClientConnector extends Thread
       client.start();
       client.connect(5000, "127.0.0.1", 54555, 54777);
 
+      client.getKryo().register(ClientInputRequest.class);
       client.getKryo().register(ExampleRequest.class);
     }
     catch (final Exception e)
@@ -30,6 +31,6 @@ public class ClientConnector extends Thread
       return;
     }
 
-    game.client = new MClient(client);
+    game.setClient(new MClient(client));
   }
 }

@@ -3,13 +3,13 @@ package com.orbinski.megajump.multiplayer;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-class MListener extends Listener
+public class ClientListener extends Listener
 {
-  private final MServer server;
+  private final MClient client;
 
-  MListener(final MServer server)
+  public ClientListener(final MClient client)
   {
-    this.server = server;
+    this.client = client;
   }
 
   @Override
@@ -28,12 +28,6 @@ class MListener extends Listener
   public void received(final Connection connection, final Object object)
   {
     super.received(connection, object);
-
-    if (object instanceof ExampleRequest)
-    {
-      final ExampleRequest request = (ExampleRequest) object;
-      System.out.println(request.text);
-    }
   }
 
   @Override

@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-class Levels
+public class Levels
 {
   private final List<Level> levels;
   private int levelIndex;
 
-  Levels()
+  public Levels()
   {
     levels = new ArrayList<>();
     levelIndex = -1;
@@ -420,7 +420,7 @@ class Levels
     levelIndex = levels.size() - 1;
   }
 
-  Level get(final String tag)
+  public Level get(final String tag)
   {
     for (int i = 0; i < levels.size(); i++)
     {

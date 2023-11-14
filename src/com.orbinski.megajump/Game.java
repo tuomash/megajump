@@ -3,6 +3,7 @@ package com.orbinski.megajump;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.orbinski.megajump.multiplayer.ClientConnector;
+import com.orbinski.megajump.multiplayer.ClientListener;
 import com.orbinski.megajump.multiplayer.MClient;
 
 import static com.orbinski.megajump.Globals.*;
@@ -29,6 +30,7 @@ public class Game
   boolean paused;
 
   public MClient client;
+  public ClientListener listener;
   ClientConnector connector;
 
   Game()
@@ -89,6 +91,14 @@ public class Game
     Audio.playBackgroundMusic();
   }
 
+  void updateServer()
+  {
+    if (isMultiplayer())
+    {
+      client.sendRequests();
+    }
+  }
+
   void updatePhysics(final float delta)
   {
     if (help || paused)
@@ -96,6 +106,7 @@ public class Game
       return;
     }
 
+    // TODO: do server reconciliation
     physics.update(delta);
 
     // TODO: implement proper camera following
@@ -215,27 +226,52 @@ public class Game
   void moveUp()
   {
     player.moveUp();
+
+    if (isMultiplayer())
+    {
+      client.moveUp();
+    }
   }
 
   void moveLeft()
   {
     player.moveLeft();
+
+    if (isMultiplayer())
+    {
+      client.moveLeft();
+    }
   }
 
   void moveRight()
   {
     player.moveRight();
+
+    if (isMultiplayer())
+    {
+      client.moveRight();
+    }
   }
 
   void moveDown()
   {
     player.moveDown();
+
+    if (isMultiplayer())
+    {
+      client.moveDown();
+    }
   }
 
   void jump()
   {
     player.jump();
     level.started = true;
+
+    if (isMultiplayer())
+    {
+      client.jump();
+    }
   }
 
   boolean isTargeting()
@@ -291,18 +327,17 @@ public class Game
     reset();
   }
 
+  public void setClient(final MClient client)
+  {
+    this.client = client;
+    listener = new ClientListener(client);
+    mode = Mode.MULTIPLAYER;
+  }
+
   public void connectToServer()
   {
     connector = new ClientConnector(this);
     connector.start();
-  }
-
-  public void sendExampleRequest()
-  {
-    if (client != null)
-    {
-      client.sendExample();
-    }
   }
 
   public void disconnectFromServer()
@@ -311,7 +346,14 @@ public class Game
     {
       client.shutdown();
       client = null;
+      listener = null;
+      mode = Mode.SINGLEPLAYER;
     }
+  }
+
+  public boolean isMultiplayer()
+  {
+    return client != null && mode == Mode.MULTIPLAYER;
   }
 
   void reset()

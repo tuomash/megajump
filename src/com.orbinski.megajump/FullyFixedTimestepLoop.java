@@ -31,6 +31,7 @@ class FullyFixedTimestepLoop extends Loop
 
     accumulator = accumulator + frameTime;
     controller.update();
+    game.updateServer();
 
     // int updates = 0;
 

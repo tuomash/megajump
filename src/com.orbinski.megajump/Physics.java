@@ -162,12 +162,15 @@ public class Physics
 
   public void setLevel(final Level level)
   {
-    this.level = level;
-    finishedPlayers.clear();
-    exit = level.exit;
-    trampolines.clear();
-    trampolines.addAll(level.trampolines);
-    platforms.clear();
-    platforms.addAll(level.platforms);
+    if (level != null)
+    {
+      this.level = level;
+      finishedPlayers.clear();
+      exit = level.exit;
+      trampolines.clear();
+      trampolines.addAll(level.trampolines);
+      platforms.clear();
+      platforms.addAll(level.platforms);
+    }
   }
 }

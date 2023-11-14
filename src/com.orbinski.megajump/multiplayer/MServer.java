@@ -2,13 +2,15 @@ package com.orbinski.megajump.multiplayer;
 
 import com.esotericsoftware.kryonet.Server;
 import com.orbinski.megajump.Globals;
+import com.orbinski.megajump.Levels;
 import com.orbinski.megajump.Physics;
 
 public class MServer extends Thread
 {
   final Server server;
-  final MListener listener;
+  final ServerListener listener;
   final Physics physics;
+  final Levels levels;
 
   boolean running;
   boolean shutdownRequest;
@@ -16,9 +18,10 @@ public class MServer extends Thread
   public MServer()
   {
     server = new Server();
-    listener = new MListener(this);
+    listener = new ServerListener(this);
     server.addListener(listener);
     physics = new Physics();
+    levels = new Levels();
   }
 
   @Override
@@ -30,6 +33,9 @@ public class MServer extends Thread
       server.bind(54555, 54777);
       running = true;
 
+      physics.setLevel(levels.get("platforms_2"));
+
+      server.getKryo().register(ClientInputRequest.class);
       server.getKryo().register(ExampleRequest.class);
 
       super.start();
@@ -68,6 +74,7 @@ public class MServer extends Thread
 
         physics.update(Globals.TIME_STEP_SECONDS);
 
+        // TODO: implement server tick rate
         Thread.sleep(50L);
       }
       catch (final Exception e)

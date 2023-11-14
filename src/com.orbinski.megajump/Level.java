@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-class Level
+public class Level
 {
   static float MAX_DIMENSION = 2000.0f;
   static float MAX_DIMENSION_OFFSET = MAX_DIMENSION / 2.0f;
