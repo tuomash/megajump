@@ -78,7 +78,6 @@ class Controller
     // TODO: related to multiplayer testing
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_2))
     {
-      game.sendExampleRequest();
     }
     // TODO: related to multiplayer testing
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_3))
