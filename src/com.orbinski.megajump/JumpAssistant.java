@@ -1,13 +1,13 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 class JumpAssistant
 {
   final Player player;
 
-  private float cursorX;
-  private float cursorY;
+  private final Vector2 cursorPosition = new Vector2();
   boolean targeting;
 
   private float jumpElapsed;
@@ -84,7 +84,7 @@ class JumpAssistant
   {
     final float maxDiffX = 40.0f;
     final float playerWorldX = player.getPosition().x;
-    float diffX = Math.abs(cursorX - playerWorldX);
+    float diffX = Math.abs(cursorPosition.x - playerWorldX);
 
     if (diffX > maxDiffX)
     {
@@ -100,7 +100,7 @@ class JumpAssistant
       jumpVelocityX = player.maxJumpVelocityX;
     }
 
-    if (cursorX < player.getPosition().x)
+    if (cursorPosition.x < player.getPosition().x)
     {
       jumpVelocityX = -jumpVelocityX;
     }
@@ -112,7 +112,7 @@ class JumpAssistant
   {
     final float maxDiffY = 40.0f;
     final float playerWorldY = player.getPosition().y;
-    float diffY = Math.abs(cursorY - playerWorldY);
+    float diffY = Math.abs(cursorPosition.y - playerWorldY);
 
     if (diffY > maxDiffY)
     {
@@ -128,7 +128,7 @@ class JumpAssistant
       jumpVelocityY = player.maxJumpVelocityY;
     }
 
-    if (cursorY < player.getPosition().y)
+    if (cursorPosition.y < player.getPosition().y)
     {
       jumpVelocityY = -jumpVelocityY;
     }
@@ -136,10 +136,10 @@ class JumpAssistant
     return jumpVelocityY;
   }
 
-  void updateCursorLocation(final float x, final float y)
+  void updateCursorPosition(final Vector2 newPosition)
   {
-    cursorX = x;
-    cursorY = y;
+    cursorPosition.x = newPosition.x;
+    cursorPosition.y = newPosition.y;
     calculateJumpCurve();
   }
 

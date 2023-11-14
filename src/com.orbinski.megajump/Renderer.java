@@ -397,7 +397,7 @@ class Renderer
     shapeRenderer.dispose();
   }
 
-  public static void unproject(final Vector3 screen)
+  public static void unproject(final Vector2 screen)
   {
     if (staticViewport != null)
     {

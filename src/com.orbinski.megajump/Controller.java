@@ -2,7 +2,7 @@ package com.orbinski.megajump;
 
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
 
 import static com.badlogic.gdx.Gdx.*;
 
@@ -10,12 +10,12 @@ class Controller
 {
   final Game game;
 
-  private final Vector3 mouse = new Vector3();
+  private final Vector2 mouse = new Vector2();
 
-  final Vector3 originalSelection = new Vector3();
+  final Vector2 originalSelection = new Vector2();
   private int originalSelectionX = 0;
   private int originalSelectionY = 0;
-  final Vector3 changedSelection = new Vector3();
+  final Vector2 changedSelection = new Vector2();
 
   Controller(final Game game)
   {
@@ -40,13 +40,13 @@ class Controller
       }
     }
 
-    if (!game.levelEditor.active)
+    if (game.levelEditor.active)
     {
-      handlePlayerControls();
+      handleEditorControls();
     }
     else
     {
-      handleEditorControls();
+      handlePlayerControls();
     }
   }
 
@@ -78,19 +78,12 @@ class Controller
     // TODO: related to multiplayer testing
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_2))
     {
-      if (game.client != null)
-      {
-        game.client.sendExample();
-      }
+      game.sendExampleRequest();
     }
     // TODO: related to multiplayer testing
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_3))
     {
-      if (game.client != null)
-      {
-        game.client.shutdown();
-        game.client = null;
-      }
+      game.disconnectFromServer();
     }
 
     if (input.isKeyJustPressed(Input.Keys.R))
@@ -117,15 +110,14 @@ class Controller
     {
       if (input.isTouched())
       {
-        if (!game.player.assistant.targeting)
+        if (!game.isTargeting())
         {
-          game.player.assistant.targeting = true;
-          game.cameraState.active = false;
+          game.setTargeting(true);
         }
 
-        game.player.assistant.updateCursorLocation(mouse.x, mouse.y);
+        game.updateAssistantPosition(mouse);
       }
-      else if (game.player.assistant.targeting)
+      else if (game.isTargeting())
       {
         game.jump();
       }
@@ -134,20 +126,20 @@ class Controller
     // Player aerial controls
     if (input.isKeyPressed(Input.Keys.W) || input.isKeyPressed(Input.Keys.UP))
     {
-      game.player.moveUp();
+      game.moveUp();
     }
     else if (input.isKeyPressed(Input.Keys.S) || input.isKeyPressed(Input.Keys.DOWN))
     {
-      game.player.moveDown();
+      game.moveDown();
     }
 
     if (input.isKeyPressed(Input.Keys.A) || input.isKeyPressed(Input.Keys.LEFT))
     {
-      game.player.moveLeft();
+      game.moveLeft();
     }
     else if (input.isKeyPressed(Input.Keys.D) || input.isKeyPressed(Input.Keys.RIGHT))
     {
-      game.player.moveRight();
+      game.moveRight();
     }
     // Camera controls
     /*

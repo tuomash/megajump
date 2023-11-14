@@ -1,6 +1,7 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.orbinski.megajump.multiplayer.ClientConnector;
 import com.orbinski.megajump.multiplayer.MClient;
 
@@ -8,6 +9,12 @@ import static com.orbinski.megajump.Globals.*;
 
 public class Game
 {
+  public enum Mode
+  {
+    SINGLEPLAYER,
+    MULTIPLAYER
+  }
+
   final Physics physics;
   final OrthographicCamera camera;
   final Player player;
@@ -15,6 +22,7 @@ public class Game
   final CameraState cameraState;
   final LevelEditor levelEditor;
 
+  Mode mode = Mode.SINGLEPLAYER;
   Level level;
   Save save;
   boolean help;
@@ -204,10 +212,50 @@ public class Game
     reset();
   }
 
+  void moveUp()
+  {
+    player.moveUp();
+  }
+
+  void moveLeft()
+  {
+    player.moveLeft();
+  }
+
+  void moveRight()
+  {
+    player.moveRight();
+  }
+
+  void moveDown()
+  {
+    player.moveDown();
+  }
+
   void jump()
   {
     player.jump();
     level.started = true;
+  }
+
+  boolean isTargeting()
+  {
+    return player.assistant.targeting;
+  }
+
+  void setTargeting(final boolean targeting)
+  {
+    player.assistant.targeting = targeting;
+
+    if (targeting)
+    {
+      cameraState.active = false;
+    }
+  }
+
+  void updateAssistantPosition(final Vector2 newPosition)
+  {
+    player.assistant.updateCursorPosition(newPosition);
   }
 
   void setCameraToPlayer()
@@ -243,10 +291,27 @@ public class Game
     reset();
   }
 
-  void connectToServer()
+  public void connectToServer()
   {
     connector = new ClientConnector(this);
     connector.start();
+  }
+
+  public void sendExampleRequest()
+  {
+    if (client != null)
+    {
+      client.sendExample();
+    }
+  }
+
+  public void disconnectFromServer()
+  {
+    if (client != null)
+    {
+      client.shutdown();
+      client = null;
+    }
   }
 
   void reset()
