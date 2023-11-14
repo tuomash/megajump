@@ -21,6 +21,15 @@ class Score implements Serializable
   {
     level.cleared = true;
     level.trophy = Level.Trophy.valueOf(trophyStr);
-    level.bestTimeMillisecondsElapsed = bestTimeMilliseconds;
+
+    // TODO: replace with a proper setter
+    if (bestTimeMilliseconds == 0)
+    {
+      level.bestTimeMillisecondsElapsed = -1;
+    }
+    else
+    {
+      level.bestTimeMillisecondsElapsed = bestTimeMilliseconds;
+    }
   }
 }
