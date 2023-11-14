@@ -3,7 +3,6 @@ package com.orbinski.megajump;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
-import com.orbinski.megajump.multiplayer.MClient;
 
 import static com.badlogic.gdx.Gdx.*;
 
@@ -17,9 +16,6 @@ class Controller
   private int originalSelectionX = 0;
   private int originalSelectionY = 0;
   final Vector3 changedSelection = new Vector3();
-
-  // TODO: multiplayer test stuff
-  MClient client;
 
   Controller(final Game game)
   {
@@ -77,24 +73,23 @@ class Controller
     // TODO: related to multiplayer testing
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_1))
     {
-      client = new MClient();
-      client.start();
+      game.connectToServer();
     }
     // TODO: related to multiplayer testing
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_2))
     {
-      if (client != null)
+      if (game.client != null)
       {
-        client.sendExample();
+        game.client.sendExample();
       }
     }
     // TODO: related to multiplayer testing
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_3))
     {
-      if (client != null)
+      if (game.client != null)
       {
-        client.stop();
-        client = null;
+        game.client.shutdown();
+        game.client = null;
       }
     }
 

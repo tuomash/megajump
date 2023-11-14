@@ -1,10 +1,12 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.orbinski.megajump.multiplayer.ClientConnector;
+import com.orbinski.megajump.multiplayer.MClient;
 
 import static com.orbinski.megajump.Globals.*;
 
-class Game
+public class Game
 {
   final OrthographicCamera camera;
   final Player player;
@@ -16,6 +18,9 @@ class Game
   Save save;
   boolean help;
   boolean paused;
+
+  public MClient client;
+  ClientConnector connector;
 
   Game()
   {
@@ -241,6 +246,12 @@ class Game
     UserInterface.updateMoveCameraXText(level.moveCameraX);
     UserInterface.updateMoveCameraYText(level.moveCameraY);
     reset();
+  }
+
+  void connectToServer()
+  {
+    connector = new ClientConnector(this);
+    connector.start();
   }
 
   void reset()
