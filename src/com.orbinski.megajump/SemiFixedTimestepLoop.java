@@ -25,14 +25,14 @@ class SemiFixedTimestepLoop extends Loop
     }
 
     // System.out.println("frame time: " + frameTime);
-    float frameTimeForPhysicsStep = frameTime;
+    float frameTimeForPhysics = frameTime;
     controller.update();
 
-    while (frameTimeForPhysicsStep > 0.0f)
+    while (frameTimeForPhysics > 0.0f)
     {
-      final float delta = Math.min(frameTimeForPhysicsStep, TIME_STEP_SECONDS);
+      final float delta = Math.min(frameTimeForPhysics, TIME_STEP_SECONDS);
       game.updatePhysics(delta);
-      frameTimeForPhysicsStep = frameTimeForPhysicsStep - delta;
+      frameTimeForPhysics = frameTimeForPhysics - delta;
     }
 
     game.update(frameTime);

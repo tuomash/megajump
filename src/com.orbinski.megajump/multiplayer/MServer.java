@@ -1,11 +1,14 @@
 package com.orbinski.megajump.multiplayer;
 
 import com.esotericsoftware.kryonet.Server;
+import com.orbinski.megajump.Globals;
+import com.orbinski.megajump.Physics;
 
 public class MServer extends Thread
 {
   final Server server;
   final MListener listener;
+  final Physics physics;
 
   boolean running;
   boolean shutdownRequest;
@@ -15,6 +18,7 @@ public class MServer extends Thread
     server = new Server();
     listener = new MListener(this);
     server.addListener(listener);
+    physics = new Physics();
   }
 
   @Override
@@ -42,14 +46,28 @@ public class MServer extends Thread
   {
     while (running)
     {
-      if (shutdownRequest)
-      {
-        running = false;
-        break;
-      }
-
       try
       {
+        if (shutdownRequest)
+        {
+          running = false;
+          break;
+        }
+
+        /*
+        var begin = current_time();
+        receive_from_clients(); // poll, accept, receive, decode, validate
+        x update(); // AI, simulate
+        send_updates_clients();
+        var elapsed = current_time() - begin;
+        if(elapsed < tick)
+        {
+          sleep(tick - elapsed);
+        }
+         */
+
+        physics.update(Globals.TIME_STEP_SECONDS);
+
         Thread.sleep(50L);
       }
       catch (final Exception e)

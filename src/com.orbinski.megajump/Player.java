@@ -58,17 +58,6 @@ class Player extends Entity
   }
 
   @Override
-  void updatePhysics(final float delta)
-  {
-    if (state == State.EXIT || state == State.DEATH)
-    {
-      return;
-    }
-
-    super.updatePhysics(delta);
-  }
-
-  @Override
   void update(final float delta)
   {
     if (state == State.EXIT || state == State.DEATH)

@@ -8,6 +8,7 @@ import static com.orbinski.megajump.Globals.*;
 
 public class Game
 {
+  final Physics physics;
   final OrthographicCamera camera;
   final Player player;
   final Levels levels;
@@ -24,6 +25,7 @@ public class Game
 
   Game()
   {
+    physics = new Physics();
     camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
     camera.update();
     player = new Player();
@@ -86,16 +88,9 @@ public class Game
       return;
     }
 
-    player.updatePhysics(delta);
-    level.updatePhysics(delta);
+    physics.update(delta);
 
-    // TODO: move to Level?
-    if (player.getPosition().y < level.deathPoint.y)
-    {
-      player.stop();
-      player.setState(Player.State.DEATH);
-    }
-
+    // TODO: implement proper camera following
     if (player.isMoving())
     {
       if (level.moveCameraX)
@@ -264,6 +259,9 @@ public class Game
 
     if (level != null)
     {
+      physics.players.clear();
+      physics.players.add(player);
+      physics.setLevel(level);
       level.game = this;
       level.player = player;
       level.reset();

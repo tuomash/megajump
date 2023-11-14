@@ -2,13 +2,13 @@ package com.orbinski.megajump;
 
 import java.util.Random;
 
-class Globals
+public class Globals
 {
   static final float WORLD_WIDTH = 200;
   static final float WORLD_HEIGHT = 100;
 
-  static final float TIME_STEP_SECONDS = 1 / 60.0f;
-  static final float MAX_FRAME_TIME_SECONDS = TIME_STEP_SECONDS * 20.0f;
+  public static final float TIME_STEP_SECONDS = 1 / 60.0f;
+  public static final float MAX_FRAME_TIME_SECONDS = TIME_STEP_SECONDS * 20.0f;
 
   static final float GRAVITY = -60.0f;
 
