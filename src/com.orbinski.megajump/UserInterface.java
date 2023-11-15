@@ -226,32 +226,50 @@ class UserInterface
 
   static void updateLevelNameText(final String levelName)
   {
-    levelNameText.text = "Level: " + levelName;
+    if (levelNameText != null)
+    {
+      levelNameText.text = "Level: " + levelName;
+    }
   }
 
   static void updateElapsedTimeText(final int milliseconds)
   {
-    elapsedTimeText.text = "Elapsed: " + toTimestamp(milliseconds);
+    if (elapsedTimeText != null)
+    {
+      elapsedTimeText.text = "Elapsed: " + toTimestamp(milliseconds);
+    }
   }
 
   static void clearElapsedTimeText()
   {
-    elapsedTimeText.text = "Elapsed:";
+    if (elapsedTimeText != null)
+    {
+      elapsedTimeText.text = "Elapsed:";
+    }
   }
 
   static void updateBestTimeText(final int milliseconds)
   {
-    bestTimeText.text = "Best time: " + toTimestamp(milliseconds);
+    if (bestTimeText != null)
+    {
+      bestTimeText.text = "Best time: " + toTimestamp(milliseconds);
+    }
   }
 
   static void updateSpeedText(final int velocityX, final int velocityY)
   {
-    speedText.text = "Speed: x" + velocityX + " y" + velocityY;
+    if (speedText != null)
+    {
+      speedText.text = "Speed: x" + velocityX + " y" + velocityY;
+    }
   }
 
   static void clearBestTimeText()
   {
-    bestTimeText.text = "Best time:";
+    if (bestTimeText != null)
+    {
+      bestTimeText.text = "Best time:";
+    }
   }
 
   static void updateTrophyLevelText(final Level.Trophy trophy)
@@ -264,46 +282,73 @@ class UserInterface
 
   static void updateGoldRequirementText(final int milliseconds)
   {
-    goldRequirementText.text = "Gold: " + toTimestamp(milliseconds);
+    if (goldRequirementText != null)
+    {
+      goldRequirementText.text = "Gold: " + toTimestamp(milliseconds);
+    }
   }
 
   static void updateSilverRequirementText(final int milliseconds)
   {
-    silverRequirementText.text = "Silver: " + toTimestamp(milliseconds);
+    if (silverRequirementText != null)
+    {
+      silverRequirementText.text = "Silver: " + toTimestamp(milliseconds);
+    }
   }
 
   static void updateBronzeRequirementText(final int milliseconds)
   {
-    bronzeRequirementText.text = "Bronze: " + toTimestamp(milliseconds);
+    if (bronzeRequirementText != null)
+    {
+      bronzeRequirementText.text = "Bronze: " + toTimestamp(milliseconds);
+    }
   }
 
   static void enableJumpBar()
   {
-    jumpBar.color = Color.PURPLE;
+    if (jumpBar != null)
+    {
+      jumpBar.color = Color.PURPLE;
+    }
   }
 
   static void disableJumpBar()
   {
-    jumpBar.color = Color.GRAY;
+    if (jumpBar != null)
+    {
+      jumpBar.color = Color.GRAY;
+    }
   }
 
   static void updateNewLevelNameText(final String levelName)
   {
-    newLevelNameText.text = "Rename level to: " + levelName;
+    if (newLevelNameText != null)
+    {
+      newLevelNameText.text = "Rename level to: " + levelName;
+    }
   }
 
   static void updateCommandText(final String cmd)
   {
-    commandText.text = "cmd: " + cmd;
+    if (commandText != null)
+    {
+      commandText.text = "cmd: " + cmd;
+    }
   }
 
   static void updateMoveCameraXText(final boolean move)
   {
-    moveCameraXText.text = "Move cam x: " + move;
+    if (moveCameraXText != null)
+    {
+      moveCameraXText.text = "Move cam x: " + move;
+    }
   }
 
   static void updateMoveCameraYText(final boolean move)
   {
-    moveCameraYText.text = "Move cam y: " + move;
+    if (moveCameraYText != null)
+    {
+      moveCameraYText.text = "Move cam y: " + move;
+    }
   }
 }
