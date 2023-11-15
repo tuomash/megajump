@@ -122,28 +122,28 @@ public class MServer extends Thread
 
           if (player != null)
           {
-            if (request.jump)
+            if (request.isJump())
             {
               player.jump();
             }
             else
             {
-              if (request.moveUp)
+              if (request.isMoveUp())
               {
                 player.moveUp();
               }
 
-              if (request.moveLeft)
+              if (request.isMoveLeft())
               {
                 player.moveLeft();
               }
 
-              if (request.moveRight)
+              if (request.isMoveRight())
               {
                 player.moveRight();
               }
 
-              if (request.moveDown)
+              if (request.isMoveDown())
               {
                 player.moveDown();
               }
@@ -176,11 +176,7 @@ public class MServer extends Thread
         {
           final Player player = players.get(i);
           final Connection connection = player.connection;
-
-          if (connection != null && connection.isConnected())
-          {
-            connection.sendUDP(snapshotResponse);
-          }
+          sendResponse(connection, snapshotResponse);
         }
 
         // Clear the server snapshot
@@ -279,6 +275,21 @@ public class MServer extends Thread
   public void addClientPlayerInputRequest(final ClientPlayerInputRequest request)
   {
     clientPlayerInputRequestQueue.add(request);
+  }
+
+  private void sendResponse(final Connection connection, final Response response)
+  {
+    if (connection != null && connection.isConnected() && response.dirty)
+    {
+      if (response.type == Response.Type.TCP)
+      {
+        connection.sendTCP(response);
+      }
+      else
+      {
+        connection.sendUDP(response);
+      }
+    }
   }
 
   @Override

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import static com.orbinski.megajump.Globals.*;
 
-public class ServerSnapshotResponse
+public class ServerSnapshotResponse extends Response
 {
   private int[] addedPlayers = new int[MAX_PLAYER_COUNT];
   transient int addedPlayersIndex = 0;
@@ -26,6 +26,7 @@ public class ServerSnapshotResponse
     {
       addedPlayers[addedPlayersIndex] = id;
       addedPlayersIndex++;
+      dirty = true;
     }
   }
 
@@ -40,6 +41,7 @@ public class ServerSnapshotResponse
     {
       removedPlayers[removedPlayersIndex] = id;
       removedPlayersIndex++;
+      dirty = true;
     }
   }
 
@@ -54,11 +56,15 @@ public class ServerSnapshotResponse
     {
       playerDataList[playerDataListIndex] = data;
       playerDataListIndex++;
+      dirty = true;
     }
   }
 
+  @Override
   public void reset()
   {
+    super.reset();
+
     Arrays.fill(addedPlayers, -1);
     addedPlayersIndex = 0;
 

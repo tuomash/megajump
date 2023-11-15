@@ -18,28 +18,28 @@ public class MClient
 
   public void moveUp()
   {
-    clientInputRequest.moveUp = true;
+    clientInputRequest.enableMoveUp();
   }
 
   public void moveLeft()
   {
-    clientInputRequest.moveLeft = true;
+    clientInputRequest.enableMoveLeft();
   }
 
   public void moveRight()
   {
-    clientInputRequest.moveRight = true;
+    clientInputRequest.enableMoveRight();
   }
 
   public void moveDown()
   {
-    clientInputRequest.moveDown = true;
+    clientInputRequest.enableMoveDown();
   }
 
   public void jump()
   {
     // TODO: add velocities
-    clientInputRequest.jump = true;
+    clientInputRequest.enableJump(0.0f, 0.0f);
   }
 
   public void sendRequests()
@@ -49,8 +49,24 @@ public class MClient
 
   private void sendClientInputRequest()
   {
-    sendUDP(clientInputRequest);
-    clientInputRequest.reset();
+    if (clientInputRequest.dirty)
+    {
+      send(clientInputRequest);
+    }
+  }
+
+  private void send(final Request request)
+  {
+    if (request.type ==  Request.Type.TCP)
+    {
+      sendTCP(request);
+    }
+    else
+    {
+      sendUDP(request);
+    }
+
+    request.reset();
   }
 
   private void sendTCP(final Object request)
