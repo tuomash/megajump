@@ -14,6 +14,9 @@ public class Globals
 
   public static final int MAX_PLAYER_COUNT = 4;
 
+  public static final float SERVER_TICK_RATE_SECONDS = 1 / 60.0f;
+  public static final long SERVER_TICK_RATE_MILLISECONDS = (long) (SERVER_TICK_RATE_SECONDS * 1000.0f);
+
   static final Random random = new Random();
 
   static int screenWidth;

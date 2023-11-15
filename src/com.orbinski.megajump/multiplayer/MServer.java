@@ -76,16 +76,20 @@ public class MServer extends Thread
         }
 
         /*
-        var begin = current_time();
+        x var begin = current_time();
         x receive_from_clients(); // poll, accept, receive, decode, validate
         x update(); // AI, simulate
         x send_updates_clients();
-        var elapsed = current_time() - begin;
+        x var elapsed = current_time() - begin;
         if(elapsed < tick)
         {
-          sleep(tick - elapsed);
+          x sleep(tick - elapsed);
         }
          */
+
+        // Get start time
+
+        final long start = System.currentTimeMillis();
 
         // Process network updates
 
@@ -183,8 +187,17 @@ public class MServer extends Thread
 
         snapshotResponse.reset();
 
-        // TODO: implement server tick rate
-        Thread.sleep(50L);
+        // Calculate elapsed time
+
+        final long elapsed = System.currentTimeMillis() - start;
+        // System.out.println("Server update took " + elapsed + "ms");
+
+        // Sleep the amount that's needed to match the tick rate
+
+        if (elapsed < Globals.SERVER_TICK_RATE_MILLISECONDS)
+        {
+          Thread.sleep(Globals.SERVER_TICK_RATE_MILLISECONDS - elapsed);
+        }
       }
       catch (final Exception e)
       {
