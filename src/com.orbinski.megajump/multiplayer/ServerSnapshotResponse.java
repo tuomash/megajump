@@ -15,6 +15,8 @@ public class ServerSnapshotResponse extends Response
   private PlayerData[] playerDataList = new PlayerData[MAX_PLAYER_COUNT];
   transient int playerDataListIndex = 0;
 
+  private String levelTag;
+
   public int[] getAddedPlayers()
   {
     return addedPlayers;
@@ -58,6 +60,16 @@ public class ServerSnapshotResponse extends Response
       playerDataListIndex++;
       dirty = true;
     }
+  }
+
+  public String getLevelTag()
+  {
+    return levelTag;
+  }
+
+  public void setLevelTag(final String levelTag)
+  {
+    this.levelTag = levelTag;
   }
 
   @Override

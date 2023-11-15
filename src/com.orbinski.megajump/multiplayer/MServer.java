@@ -35,6 +35,7 @@ public class MServer extends Thread
     levels = new Levels();
 
     physics.setLevel(levels.get("platforms_2"));
+    snapshotResponse.setLevelTag("platforms_2");
 
     server.getKryo().register(int[].class);
     server.getKryo().register(ClientPlayerAddRequest.class);
@@ -43,6 +44,8 @@ public class MServer extends Thread
     server.getKryo().register(ExampleRequest.class);
     server.getKryo().register(PlayerData.class);
     server.getKryo().register(PlayerData[].class);
+    server.getKryo().register(Response.class);
+    server.getKryo().register(Request.class);
     server.getKryo().register(ServerSnapshotResponse.class);
   }
 

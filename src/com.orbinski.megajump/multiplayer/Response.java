@@ -8,8 +8,8 @@ public abstract class Response
     UDP
   }
 
-  Response.Type type = Response.Type.UDP;
-  boolean dirty;
+  transient Response.Type type = Response.Type.UDP;
+  transient boolean dirty;
 
   public void reset()
   {

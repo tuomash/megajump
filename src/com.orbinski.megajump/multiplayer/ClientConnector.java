@@ -20,6 +20,8 @@ public class ClientConnector extends Thread
     client.getKryo().register(ExampleRequest.class);
     client.getKryo().register(PlayerData.class);
     client.getKryo().register(PlayerData[].class);
+    client.getKryo().register(Response.class);
+    client.getKryo().register(Request.class);
     client.getKryo().register(ServerSnapshotResponse.class);
 
     this.game = game;

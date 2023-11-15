@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.orbinski.megajump.multiplayer.ClientConnector;
 import com.orbinski.megajump.multiplayer.ClientListener;
 import com.orbinski.megajump.multiplayer.MClient;
+import com.orbinski.megajump.multiplayer.MultiplayerGame;
 
 import static com.orbinski.megajump.Globals.*;
 
@@ -22,6 +23,7 @@ public class Game
   final Levels levels;
   final CameraState cameraState;
   final LevelEditor levelEditor;
+  final MultiplayerGame multiplayer;
 
   Mode mode = Mode.SINGLEPLAYER;
   Level level;
@@ -41,6 +43,7 @@ public class Game
     levels = new Levels();
     cameraState = new CameraState();
     levelEditor = new LevelEditor();
+    multiplayer = new MultiplayerGame(this);
 
     if (Save.doesSaveFileExist())
     {

@@ -32,6 +32,7 @@ public class ClientListener extends Listener
     if (object instanceof ServerSnapshotResponse)
     {
       final ServerSnapshotResponse response = (ServerSnapshotResponse) object;
+      System.out.println("server: x " + response.getPlayerDataList()[0].x + ", y " + response.getPlayerDataList()[0].y);
     }
   }
 

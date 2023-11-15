@@ -8,8 +8,8 @@ public abstract class Request
     UDP
   }
 
-  Type type = Type.UDP;
-  boolean dirty;
+  transient Type type = Type.UDP;
+  transient boolean dirty;
 
   public void reset()
   {
