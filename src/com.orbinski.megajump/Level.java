@@ -23,14 +23,14 @@ public class Level
   private String name = "Level";
   private String tag;
   Exit exit;
-  Spawn spawn = new Spawn(5.0f, 5.0f);
+  public Spawn spawn = new Spawn(5.0f, 5.0f);
   List<Decoration> decorations = new ArrayList<>();
   List<Block> blocks = new ArrayList<>();
   List<Trampoline> trampolines = new ArrayList<>();
   List<Platform> platforms = new ArrayList<>();
   List<Teleport> teleports = new ArrayList<>();
 
-  boolean started;
+  public boolean started;
   boolean finished;
   boolean cleared;
   boolean scoreUpdate;
@@ -419,7 +419,7 @@ public class Level
     setTag(tagBuilder.toString());
   }
 
-  String getTag()
+  public String getTag()
   {
     return tag;
   }

@@ -2,62 +2,36 @@ package com.orbinski.megajump.multiplayer;
 
 import com.esotericsoftware.kryonet.Client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MClient
 {
-  final Client client;
-  final ClientListener listener;
+  public final Client client;
+  public final ClientListener listener;
+  // TODO: replace with a fixed size queue or list
+  public final List<Request> requests = new ArrayList<>();
 
-  private final ClientPlayerInputRequest clientInputRequest = new ClientPlayerInputRequest();
-
-  public MClient(final Client client)
+  public MClient(final Client client, final MultiplayerGame game)
   {
     this.client = client;
-    listener = new ClientListener(this);
+    listener = new ClientListener(game);
     client.addListener(listener);
-  }
-
-  public void moveUp()
-  {
-    clientInputRequest.enableMoveUp();
-  }
-
-  public void moveLeft()
-  {
-    clientInputRequest.enableMoveLeft();
-  }
-
-  public void moveRight()
-  {
-    clientInputRequest.enableMoveRight();
-  }
-
-  public void moveDown()
-  {
-    clientInputRequest.enableMoveDown();
-  }
-
-  public void jump()
-  {
-    // TODO: add velocities
-    clientInputRequest.enableJump(0.0f, 0.0f);
   }
 
   public void sendRequests()
   {
-    sendClientInputRequest();
-  }
-
-  private void sendClientInputRequest()
-  {
-    if (clientInputRequest.dirty)
+    for (int i = 0; i < requests.size(); i++)
     {
-      send(clientInputRequest);
+      send(requests.get(i));
     }
+
+    requests.clear();
   }
 
   private void send(final Request request)
   {
-    if (request.type ==  Request.Type.TCP)
+    if (request.type == Request.Type.TCP)
     {
       sendTCP(request);
     }
@@ -71,7 +45,7 @@ public class MClient
 
   private void sendTCP(final Object request)
   {
-    if (client.isConnected())
+    if (isConnected())
     {
       client.sendTCP(request);
     }
@@ -79,15 +53,20 @@ public class MClient
 
   private void sendUDP(final Object request)
   {
-    if (client.isConnected())
+    if (isConnected())
     {
       client.sendUDP(request);
     }
   }
 
+  public boolean isConnected()
+  {
+    return client.isConnected();
+  }
+
   public void shutdown()
   {
-    if (client.isConnected())
+    if (isConnected())
     {
       client.stop();
     }

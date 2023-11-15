@@ -7,13 +7,21 @@ public class ClientPlayerInputRequest extends Request
   public transient Connection connection;
   public transient int playerId;
 
+  public int requestId;
+
   private boolean moveUp;
   private boolean moveLeft;
   private boolean moveRight;
   private boolean moveDown;
   private boolean jump;
+  private boolean reset;
   private float jumpVelocityX;
   private float jumpVelocityY;
+
+  public int getRequestId()
+  {
+    return requestId;
+  }
 
   public boolean isMoveUp()
   {
@@ -69,6 +77,17 @@ public class ClientPlayerInputRequest extends Request
     jump = true;
     this.jumpVelocityX = jumpVelocityX;
     this.jumpVelocityY = jumpVelocityY;
+    dirty = true;
+  }
+
+  public boolean isReset()
+  {
+    return reset;
+  }
+
+  public void enableReset()
+  {
+    reset = true;
     dirty = true;
   }
 

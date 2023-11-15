@@ -38,6 +38,6 @@ class SemiFixedTimestepLoop extends Loop
     game.update(frameTime);
     renderer.render();
     uiRenderer.render();
-    game.sendRequests();
+    game.handleMultiplayer();
   }
 }

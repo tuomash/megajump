@@ -3,7 +3,7 @@ package com.orbinski.megajump;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-class JumpAssistant
+public class JumpAssistant
 {
   final Player player;
 
@@ -31,7 +31,11 @@ class JumpAssistant
     if (!canJump)
     {
       jumpElapsed = jumpElapsed + delta;
-      UserInterface.jumpBar.updateBar(jumpElapsed, jumpTarget);
+
+      if (UserInterface.jumpBar != null)
+      {
+        UserInterface.jumpBar.updateBar(jumpElapsed, jumpTarget);
+      }
 
       if (jumpElapsed > jumpTarget)
       {
@@ -46,7 +50,11 @@ class JumpAssistant
     if (canJump())
     {
       player.applyGravity = true;
-      UserInterface.retryText.visible = false;
+
+      if (UserInterface.retryText != null)
+      {
+        UserInterface.retryText.visible = false;
+      }
 
       final float jumpVelocityX = calculateJumpVelocityX();
 
@@ -173,7 +181,7 @@ class JumpAssistant
     return canJump && (player.getLocation() == Player.Location.START || player.getLocation() == Player.Location.PLATFORM);
   }
 
-  void reset()
+  public void reset()
   {
     targeting = false;
     canJump = true;

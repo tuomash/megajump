@@ -12,8 +12,8 @@ public class ServerSnapshotResponse extends Response
   private int[] removedPlayers = new int[MAX_PLAYER_COUNT];
   transient int removedPlayersIndex = 0;
 
-  private PlayerData[] playerDataList = new PlayerData[MAX_PLAYER_COUNT];
-  transient int playerDataListIndex = 0;
+  private PlayerMultiplayerState[] playerStateList = new PlayerMultiplayerState[MAX_PLAYER_COUNT];
+  transient int playerStateListIndex = 0;
 
   private String levelTag;
 
@@ -47,17 +47,17 @@ public class ServerSnapshotResponse extends Response
     }
   }
 
-  public PlayerData[] getPlayerDataList()
+  public PlayerMultiplayerState[] getPlayerStateList()
   {
-    return playerDataList;
+    return playerStateList;
   }
 
-  public void addPlayerData(final PlayerData data)
+  public void addPlayerState(final PlayerMultiplayerState state)
   {
-    if (playerDataListIndex < playerDataList.length)
+    if (playerStateListIndex < playerStateList.length)
     {
-      playerDataList[playerDataListIndex] = data;
-      playerDataListIndex++;
+      playerStateList[playerStateListIndex] = state;
+      playerStateListIndex++;
       dirty = true;
     }
   }
@@ -83,7 +83,7 @@ public class ServerSnapshotResponse extends Response
     Arrays.fill(removedPlayers, -1);
     removedPlayersIndex = 0;
 
-    Arrays.fill(playerDataList, null);
-    playerDataListIndex = 0;
+    Arrays.fill(playerStateList, null);
+    playerStateListIndex = 0;
   }
 }

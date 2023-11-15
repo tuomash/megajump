@@ -1,7 +1,8 @@
 package com.orbinski.megajump.multiplayer;
 
-public class PlayerData
+public class PlayerMultiplayerState
 {
+  public int requestId;
   public int playerId;
   public String name;
   public float x;

@@ -87,7 +87,7 @@ class Controller
 
     if (input.isKeyJustPressed(Input.Keys.R))
     {
-      game.reset();
+      game.resetToStart();
     }
     else if (input.isKeyJustPressed(Input.Keys.P))
     {

@@ -46,6 +46,6 @@ class FullyFixedTimestepLoop extends Loop
     renderer.interpolationAlpha = accumulator / TIME_STEP_SECONDS;
     renderer.render();
     uiRenderer.render();
-    game.sendRequests();
+    game.handleMultiplayer();
   }
 }

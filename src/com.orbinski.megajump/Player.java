@@ -1,6 +1,7 @@
 package com.orbinski.megajump;
 
 import com.esotericsoftware.kryonet.Connection;
+import com.orbinski.megajump.multiplayer.PlayerMultiplayerState;
 
 public class Player extends Entity
 {
@@ -36,9 +37,10 @@ public class Player extends Entity
   final float maxJumpVelocityX = 65.0f;
   final float maxJumpVelocityY = 75.0f;
 
-  final JumpAssistant assistant;
+  public final JumpAssistant assistant;
 
   public Connection connection;
+  public final PlayerMultiplayerState multiplayerState = new PlayerMultiplayerState();
 
   public Player()
   {
@@ -237,13 +239,6 @@ public class Player extends Entity
   }
 
   @Override
-  void setPosition(final float x, final float y)
-  {
-    setX(x);
-    setY(y);
-  }
-
-  @Override
   protected void setX(final float x)
   {
     super.setX(x);
@@ -372,7 +367,7 @@ public class Player extends Entity
     return assistant.canJump();
   }
 
-  void reset()
+  public void reset()
   {
     assistant.reset();
     applyGravity = false;
@@ -381,6 +376,10 @@ public class Player extends Entity
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
     setLocation(Location.START);
-    UserInterface.jumpBar.reset();
+
+    if (UserInterface.jumpBar != null)
+    {
+      UserInterface.jumpBar.reset();
+    }
   }
 }

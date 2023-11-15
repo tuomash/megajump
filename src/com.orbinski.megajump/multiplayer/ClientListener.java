@@ -5,11 +5,11 @@ import com.esotericsoftware.kryonet.Listener;
 
 public class ClientListener extends Listener
 {
-  private final MClient client;
+  private final MultiplayerGame game;
 
-  public ClientListener(final MClient client)
+  public ClientListener(final MultiplayerGame game)
   {
-    this.client = client;
+    this.game = game;
   }
 
   @Override
@@ -32,7 +32,7 @@ public class ClientListener extends Listener
     if (object instanceof ServerSnapshotResponse)
     {
       final ServerSnapshotResponse response = (ServerSnapshotResponse) object;
-      System.out.println("server: x " + response.getPlayerDataList()[0].x + ", y " + response.getPlayerDataList()[0].y);
+      game.responses.add(response);
     }
   }
 

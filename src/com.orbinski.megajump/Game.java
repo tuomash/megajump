@@ -2,9 +2,6 @@ package com.orbinski.megajump;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.orbinski.megajump.multiplayer.ClientConnector;
-import com.orbinski.megajump.multiplayer.ClientListener;
-import com.orbinski.megajump.multiplayer.MClient;
 import com.orbinski.megajump.multiplayer.MultiplayerGame;
 
 import static com.orbinski.megajump.Globals.*;
@@ -19,20 +16,17 @@ public class Game
 
   final Physics physics;
   final OrthographicCamera camera;
-  final Player player;
+  public final Player player;
   final Levels levels;
   final CameraState cameraState;
   final LevelEditor levelEditor;
   final MultiplayerGame multiplayer;
 
   Mode mode = Mode.SINGLEPLAYER;
-  Level level;
+  public Level level;
   Save save;
   boolean help;
   boolean paused;
-
-  public MClient client;
-  ClientConnector connector;
 
   Game()
   {
@@ -93,12 +87,9 @@ public class Game
     Audio.playBackgroundMusic();
   }
 
-  void sendRequests()
+  void handleMultiplayer()
   {
-    if (isMultiplayer())
-    {
-      client.sendRequests();
-    }
+    multiplayer.sendRequests();
   }
 
   void updatePhysics(final float delta)
@@ -108,8 +99,8 @@ public class Game
       return;
     }
 
-    // TODO: do server reconciliation
     physics.update(delta);
+    multiplayer.update(delta);
 
     // TODO: implement proper camera following
     if (player.isMoving())
@@ -139,6 +130,8 @@ public class Game
     {
       return;
     }
+
+    // System.out.println("client: x " + player.getPosition().x + " y " + player.getPosition().y);
 
     player.update(delta);
     level.update(delta);
@@ -209,6 +202,23 @@ public class Game
     reset();
   }
 
+  public void loadLevel(final String tag)
+  {
+    // Level is already loaded
+    if (level != null && level.getTag().equalsIgnoreCase(tag))
+    {
+      return;
+    }
+
+    final Level newLevel = levels.get(tag);
+
+    if (newLevel != null)
+    {
+      level = newLevel;
+      reset();
+    }
+  }
+
   void selectPreviousLevel()
   {
     levels.selectPreviousLevel();
@@ -228,52 +238,38 @@ public class Game
   void moveUp()
   {
     player.moveUp();
-
-    if (isMultiplayer())
-    {
-      client.moveUp();
-    }
+    multiplayer.moveUp();
   }
 
   void moveLeft()
   {
     player.moveLeft();
-
-    if (isMultiplayer())
-    {
-      client.moveLeft();
-    }
+    multiplayer.moveLeft();
   }
 
   void moveRight()
   {
     player.moveRight();
-
-    if (isMultiplayer())
-    {
-      client.moveRight();
-    }
+    multiplayer.moveRight();
   }
 
   void moveDown()
   {
     player.moveDown();
-
-    if (isMultiplayer())
-    {
-      client.moveDown();
-    }
+    multiplayer.moveDown();
   }
 
   void jump()
   {
     player.jump();
     level.started = true;
+    multiplayer.jump(player.velocityX, player.velocityY);
+  }
 
-    if (isMultiplayer())
-    {
-      client.jump();
-    }
+  void resetToStart()
+  {
+    reset();
+    multiplayer.resetToStart();
   }
 
   boolean isTargeting()
@@ -329,26 +325,14 @@ public class Game
     reset();
   }
 
-  public void setClient(final MClient client)
-  {
-    this.client = client;
-    mode = Mode.MULTIPLAYER;
-  }
-
   public void connectToServer()
   {
-    connector = new ClientConnector(this);
-    connector.start();
+    multiplayer.connectToServer();
   }
 
   public void disconnectFromServer()
   {
-    if (client != null)
-    {
-      client.shutdown();
-      client = null;
-      mode = Mode.SINGLEPLAYER;
-    }
+    multiplayer.disconnectFromServer();
   }
 
   public boolean isSinglePlayer()
@@ -358,7 +342,7 @@ public class Game
 
   public boolean isMultiplayer()
   {
-    return client != null && mode == Mode.MULTIPLAYER;
+    return mode == Mode.MULTIPLAYER;
   }
 
   void reset()

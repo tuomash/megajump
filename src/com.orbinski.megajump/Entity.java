@@ -8,7 +8,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class Entity
+public abstract class Entity
 {
   enum Movement
   {
@@ -37,7 +37,7 @@ abstract class Entity
   Rectangle rightSide;
   Rectangle bottomSide;
 
-  boolean applyGravity = true;
+  public boolean applyGravity = true;
 
   boolean applyWidthOffset = true;
   boolean applyHeightOffset = true;
@@ -122,7 +122,13 @@ abstract class Entity
     }
   }
 
-  void setPosition(final float x, final float y)
+  public void setPosition(final Vector2 position)
+  {
+    setX(position.x);
+    setY(position.y);
+  }
+
+  public void setPosition(final float x, final float y)
   {
     setX(x);
     setY(y);
@@ -277,7 +283,7 @@ abstract class Entity
     return heightOffset;
   }
 
-  void updateVelocityX(final float input)
+  public void updateVelocityX(final float input)
   {
     updateVelocityX(input, true);
   }
@@ -306,7 +312,7 @@ abstract class Entity
     return input;
   }
 
-  void updateVelocityY(final float input)
+  public void updateVelocityY(final float input)
   {
     velocityY = velocityY + input;
     velocityY = clampVelocityY(velocityY);

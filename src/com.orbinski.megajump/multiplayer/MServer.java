@@ -2,10 +2,7 @@ package com.orbinski.megajump.multiplayer;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
-import com.orbinski.megajump.Globals;
-import com.orbinski.megajump.Levels;
-import com.orbinski.megajump.Physics;
-import com.orbinski.megajump.Player;
+import com.orbinski.megajump.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +15,15 @@ public class MServer extends Thread
   final Levels levels;
   private final List<Player> players = new ArrayList<>();
 
+  // TODO: replace with a fixed size queue or list
   private final List<ClientPlayerAddRequest> clientPlayerAddRequestQueue = new ArrayList<>();
+  // TODO: replace with a fixed size queue or list
   private final List<ClientPlayerRemoveRequest> clientPlayerRemoveRequestQueue = new ArrayList<>();
+  // TODO: replace with a fixed size queue or list
   private final List<ClientPlayerInputRequest> clientPlayerInputRequestQueue = new ArrayList<>();
   private final ServerSnapshotResponse snapshotResponse = new ServerSnapshotResponse();
 
+  Level level;
   boolean running;
   boolean shutdownRequest;
 
@@ -34,16 +35,17 @@ public class MServer extends Thread
     physics = new Physics();
     levels = new Levels();
 
-    physics.setLevel(levels.get("platforms_2"));
-    snapshotResponse.setLevelTag("platforms_2");
+    level = levels.get("platforms_2");
+    physics.setLevel(level);
+    snapshotResponse.setLevelTag(level.getTag());
 
     server.getKryo().register(int[].class);
     server.getKryo().register(ClientPlayerAddRequest.class);
     server.getKryo().register(ClientPlayerInputRequest.class);
     server.getKryo().register(ClientPlayerRemoveRequest.class);
     server.getKryo().register(ExampleRequest.class);
-    server.getKryo().register(PlayerData.class);
-    server.getKryo().register(PlayerData[].class);
+    server.getKryo().register(PlayerMultiplayerState.class);
+    server.getKryo().register(PlayerMultiplayerState[].class);
     server.getKryo().register(Response.class);
     server.getKryo().register(Request.class);
     server.getKryo().register(ServerSnapshotResponse.class);
@@ -55,6 +57,7 @@ public class MServer extends Thread
     try
     {
       server.bind(54555, 54777);
+      level.started = true;
       running = true;
       super.start();
     }
@@ -129,9 +132,19 @@ public class MServer extends Thread
 
           if (player != null)
           {
+            player.multiplayerState.requestId = request.getRequestId();
+
+            // TODO: check if player can actually jump
             if (request.isJump())
             {
-              player.jump();
+              player.applyGravity = true;
+              player.updateVelocityX(request.getJumpVelocityX());
+              player.updateVelocityY(request.getJumpVelocityY());
+            }
+            else if (request.isReset())
+            {
+              player.reset();
+              player.setPosition(level.spawn.getPosition());
             }
             else
             {
@@ -169,12 +182,12 @@ public class MServer extends Thread
         for (int i = 0; i < players.size(); i++)
         {
           final Player player = players.get(i);
-          final PlayerData data = new PlayerData();
-          data.playerId = player.id;
-          data.name = player.name;
-          data.x = player.getPosition().x;
-          data.y = player.getPosition().y;
-          snapshotResponse.addPlayerData(data);
+          final PlayerMultiplayerState state = player.multiplayerState;
+          state.playerId = player.id;
+          state.name = player.name;
+          state.x = player.getPosition().x;
+          state.y = player.getPosition().y;
+          snapshotResponse.addPlayerState(state);
         }
 
         // Send players the server snapshot

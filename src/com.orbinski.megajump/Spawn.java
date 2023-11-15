@@ -1,6 +1,6 @@
 package com.orbinski.megajump;
 
-class Spawn extends Entity
+public class Spawn extends Entity
 {
   Spawn(final float width, final float height)
   {
