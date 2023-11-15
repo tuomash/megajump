@@ -12,7 +12,7 @@ public class Globals
 
   static final float GRAVITY = -60.0f;
 
-  static final int MAX_PLAYER_COUNT = 4;
+  public static final int MAX_PLAYER_COUNT = 4;
 
   static final Random random = new Random();
 

@@ -33,6 +33,17 @@ public class MServer extends Thread
     server.addListener(listener);
     physics = new Physics();
     levels = new Levels();
+
+    physics.setLevel(levels.get("platforms_2"));
+
+    server.getKryo().register(int[].class);
+    server.getKryo().register(ClientPlayerAddRequest.class);
+    server.getKryo().register(ClientPlayerInputRequest.class);
+    server.getKryo().register(ClientPlayerRemoveRequest.class);
+    server.getKryo().register(ExampleRequest.class);
+    server.getKryo().register(PlayerData.class);
+    server.getKryo().register(PlayerData[].class);
+    server.getKryo().register(ServerSnapshotResponse.class);
   }
 
   @Override
@@ -42,17 +53,6 @@ public class MServer extends Thread
     {
       server.bind(54555, 54777);
       running = true;
-
-      physics.setLevel(levels.get("platforms_2"));
-
-      server.getKryo().register(ArrayList.class);
-      server.getKryo().register(ClientPlayerAddRequest.class);
-      server.getKryo().register(ClientPlayerInputRequest.class);
-      server.getKryo().register(ClientPlayerRemoveRequest.class);
-      server.getKryo().register(ExampleRequest.class);
-      server.getKryo().register(PlayerData.class);
-      server.getKryo().register(ServerSnapshotResponse.class);
-
       super.start();
     }
     catch (final Exception e)
@@ -97,7 +97,7 @@ public class MServer extends Thread
         {
           final ClientPlayerAddRequest request = clientPlayerAddRequestQueue.get(i);
           addPlayer(request.connection, request.playerId);
-          // snapshotResponse.addedPlayers.add(request.playerId);
+          snapshotResponse.addPlayer(request.playerId);
         }
 
         clientPlayerAddRequestQueue.clear();
@@ -108,7 +108,7 @@ public class MServer extends Thread
         {
           final ClientPlayerRemoveRequest request = clientPlayerRemoveRequestQueue.get(i);
           removePlayer(request.playerId);
-          // snapshotResponse.removedPlayers.add(request.playerId);
+          snapshotResponse.removePlayer(request.playerId);
         }
 
         clientPlayerRemoveRequestQueue.clear();
@@ -167,7 +167,7 @@ public class MServer extends Thread
           data.name = player.name;
           data.x = player.getPosition().x;
           data.y = player.getPosition().y;
-          // snapshotResponse.playerDataList.add(data);
+          snapshotResponse.addPlayerData(data);
         }
 
         // Send players the server snapshot

@@ -28,6 +28,11 @@ public class ClientListener extends Listener
   public void received(final Connection connection, final Object object)
   {
     super.received(connection, object);
+
+    if (object instanceof ServerSnapshotResponse)
+    {
+      final ServerSnapshotResponse response = (ServerSnapshotResponse) object;
+    }
   }
 
   @Override

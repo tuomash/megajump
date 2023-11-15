@@ -5,22 +5,15 @@ import com.esotericsoftware.kryonet.Client;
 public class MClient
 {
   final Client client;
+  final ClientListener listener;
 
   private final ClientPlayerInputRequest clientInputRequest = new ClientPlayerInputRequest();
 
   public MClient(final Client client)
   {
     this.client = client;
-  }
-
-  public void sendExample()
-  {
-    if (client.isConnected())
-    {
-      final ExampleRequest request = new ExampleRequest();
-      request.text = "Hello world!";
-      client.sendUDP(request);
-    }
+    listener = new ClientListener(this);
+    client.addListener(listener);
   }
 
   public void moveUp()
@@ -82,5 +75,7 @@ public class MClient
     {
       client.stop();
     }
+
+    client.close();
   }
 }

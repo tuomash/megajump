@@ -30,7 +30,6 @@ public class Game
   boolean paused;
 
   public MClient client;
-  public ClientListener listener;
   ClientConnector connector;
 
   Game()
@@ -330,7 +329,6 @@ public class Game
   public void setClient(final MClient client)
   {
     this.client = client;
-    listener = new ClientListener(client);
     mode = Mode.MULTIPLAYER;
   }
 
@@ -346,7 +344,6 @@ public class Game
     {
       client.shutdown();
       client = null;
-      listener = null;
       mode = Mode.SINGLEPLAYER;
     }
   }
