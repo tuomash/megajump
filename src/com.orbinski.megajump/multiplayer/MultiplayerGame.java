@@ -34,9 +34,8 @@ public class MultiplayerGame
       {
         // System.out.println("server: x " + response.getPlayerDataList()[0].x + ", y " + response.getPlayerDataList()[0].y);
 
-        if (!game.level.getTag().equalsIgnoreCase(response.getLevelTag()))
+        if (response.getLevelTag() != null && !game.level.getTag().equalsIgnoreCase(response.getLevelTag()))
         {
-          spLevel = game.level.getTag();
           game.loadLevel(response.getLevelTag());
         }
 
@@ -89,6 +88,9 @@ public class MultiplayerGame
   {
     this.client = client;
     active = true;
+
+    // Store current singleplayer level so that we can go back to it after disconnecting
+    spLevel = game.level.getTag();
   }
 
   public void disconnectFromServer()
@@ -109,9 +111,9 @@ public class MultiplayerGame
     {
       clientInputRequest.setX(game.player.getPosition().x);
       clientInputRequest.setY(game.player.getPosition().y);
+      clientInputRequest.setLevelTag(game.level.getTag());
       client.requests.add(clientInputRequest);
       client.sendRequests();
-      clientInputRequest.reset();
     }
   }
 

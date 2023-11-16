@@ -9,6 +9,7 @@ public class ClientPlayerInputRequest extends Request
 
   private float x;
   private float y;
+  private String levelTag;
 
   public float getX()
   {
@@ -30,6 +31,16 @@ public class ClientPlayerInputRequest extends Request
     this.y = y;
   }
 
+  public String getLevelTag()
+  {
+    return levelTag;
+  }
+
+  public void setLevelTag(final String levelTag)
+  {
+    this.levelTag = levelTag;
+  }
+
   @Override
   public void reset()
   {
@@ -37,5 +48,6 @@ public class ClientPlayerInputRequest extends Request
 
     x = 0.0f;
     y = 0.0f;
+    levelTag = null;
   }
 }

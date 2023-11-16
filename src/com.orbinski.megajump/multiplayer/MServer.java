@@ -16,7 +16,6 @@ public class MServer extends Thread
   final Levels levels;
 
   private final List<Player> players = new ArrayList<>();
-  private final List<Player> finishedPlayers = new ArrayList<>();
 
   private final CircularFifoQueue<ClientPlayerAddRequest> clientPlayerAddRequestQueue = new CircularFifoQueue<>(10);
   private final CircularFifoQueue<ClientPlayerRemoveRequest> clientPlayerRemoveRequestQueue = new CircularFifoQueue<>(10);
@@ -26,6 +25,7 @@ public class MServer extends Thread
   Level level;
   boolean running;
   boolean shutdownRequest;
+  boolean doLevelChange;
 
   public MServer()
   {
@@ -82,28 +82,69 @@ public class MServer extends Thread
           break;
         }
 
-        /*
-        x var begin = current_time();
-        x receive_from_clients(); // poll, accept, receive, decode, validate
-        x update(); // AI, simulate
-        x send_updates_clients();
-        x var elapsed = current_time() - begin;
-        if(elapsed < tick)
-        {
-          x sleep(tick - elapsed);
-        }
-         */
-
         // Get start time
 
         final long start = System.currentTimeMillis();
 
-        // TODO: change to next level if all players are finished
-        // TODO: ignore player input if level is being changed
+        // Change to next level if all players are finished
+
+        if (!players.isEmpty())
+        {
+          boolean allFinishedLevel = true;
+
+          for (int i = 0; i < players.size(); i++)
+          {
+            final Player player = players.get(i);
+
+            if (player.state != Player.State.EXIT)
+            {
+              allFinishedLevel = false;
+              break;
+            }
+          }
+
+          if (allFinishedLevel && !doLevelChange)
+          {
+            levels.selectNextLevel();
+            level = levels.getLevel();
+            snapshotResponse.setLevelTag(level.getTag());
+
+            doLevelChange = true;
+          }
+
+          if (doLevelChange)
+          {
+            boolean allFinishedLevelChange = true;
+
+            for (int i = 0; i < players.size(); i++)
+            {
+              final Player player = players.get(i);
+
+              if (player.multiplayerState.levelTag.equalsIgnoreCase(level.getTag()))
+              {
+                player.reset();
+                player.setPosition(level.spawn.getPosition());
+              }
+              else
+              {
+                allFinishedLevelChange = false;
+              }
+            }
+
+            if (allFinishedLevelChange)
+            {
+              snapshotResponse.setLevelTag(null);
+              doLevelChange = false;
+            }
+          }
+        }
+
+        // TODO: show winner before level change
+
+        // TODO: do countdown
 
         if (!level.started)
         {
-          // TODO: do countdown
         }
 
         // Process network updates
@@ -141,36 +182,38 @@ public class MServer extends Thread
 
           if (player != null)
           {
-            player.multiplayerState.x = request.getX();
-            player.multiplayerState.y = request.getY();
+            player.multiplayerState.levelTag = request.getLevelTag();
+
+            if (!doLevelChange && level.started && player.state != Player.State.EXIT)
+            {
+              player.setPosition(request.getX(), request.getY());
+              player.multiplayerState.x = player.getPosition().x;
+              player.multiplayerState.y = player.getPosition().y;
+            }
           }
         }
 
         clientPlayerInputRequestQueue.clear();
+
+        // Check whether players have hit the exit
+
+        for (int i = 0; i < players.size(); i++)
+        {
+          final Player player = players.get(i);
+
+          if (level.exit != null && level.exit.overlaps(player))
+          {
+            player.stop();
+            player.setState(Player.State.EXIT);
+          }
+        }
 
         // Update player positions in the server snapshot
 
         for (int i = 0; i < players.size(); i++)
         {
           final Player player = players.get(i);
-          final PlayerMultiplayerState state = player.multiplayerState;
-          state.playerId = player.id;
-          state.name = player.name;
-
-          if (level.started && player.state != Player.State.EXIT)
-          {
-            state.x = player.getPosition().x;
-            state.y = player.getPosition().y;
-
-            if (level.exit != null && level.exit.overlaps(player))
-            {
-              player.stop();
-              player.setState(Player.State.EXIT);
-              finishedPlayers.add(player);
-            }
-          }
-
-          snapshotResponse.addPlayerState(state);
+          snapshotResponse.addPlayerState(player.multiplayerState);
         }
 
         // Send players the server snapshot
@@ -219,6 +262,8 @@ public class MServer extends Thread
 
       if (physics.canAdd(player))
       {
+        player.multiplayerState.playerId = player.id;
+        player.multiplayerState.name = "Player " + player.id;
         player.connection = connection;
         players.add(player);
         physics.addPlayer(player);

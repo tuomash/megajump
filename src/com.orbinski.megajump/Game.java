@@ -220,7 +220,7 @@ public class Game
     }
   }
 
-  void selectPreviousLevel()
+  public void selectPreviousLevel()
   {
     levels.selectPreviousLevel();
     level = levels.getLevel();
@@ -228,7 +228,7 @@ public class Game
     reset();
   }
 
-  void selectNextLevel()
+  public void selectNextLevel()
   {
     levels.selectNextLevel();
     level = levels.getLevel();

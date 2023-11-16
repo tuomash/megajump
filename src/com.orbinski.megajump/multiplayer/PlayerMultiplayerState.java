@@ -6,4 +6,5 @@ public class PlayerMultiplayerState
   public String name;
   public float x;
   public float y;
+  public String levelTag;
 }

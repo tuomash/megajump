@@ -1,16 +1,13 @@
 package com.orbinski.megajump.multiplayer;
 
 import com.esotericsoftware.kryonet.Client;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 public class MClient
 {
   public final Client client;
   public final ClientListener listener;
-  // TODO: replace with a fixed size queue or list
-  public final List<Request> requests = new ArrayList<>();
+  public final CircularFifoQueue<Request> requests = new CircularFifoQueue<>(100);
 
   public MClient(final Client client, final MultiplayerGame game)
   {

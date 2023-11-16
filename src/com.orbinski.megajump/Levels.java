@@ -339,7 +339,7 @@ public class Levels
     }
   }
 
-  void selectPreviousLevel()
+  public void selectPreviousLevel()
   {
     if (isAtBeginning())
     {
@@ -351,7 +351,7 @@ public class Levels
     }
   }
 
-  void selectNextLevel()
+  public void selectNextLevel()
   {
     if (isAtEnd())
     {
@@ -368,7 +368,7 @@ public class Levels
     levels.add(level);
   }
 
-  Level getLevel()
+  public Level getLevel()
   {
     if (levelIndex >= 0 && levelIndex < levels.size())
     {
