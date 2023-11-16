@@ -48,8 +48,8 @@ public abstract class Entity
 
   final float maxVelocityX = 130.0f;
   final float maxVelocityY = 140.0f;
-  float velocityX;
-  float velocityY;
+  public float velocityX;
+  public float velocityY;
   boolean drawBorder = false;
   boolean visible = true;
   boolean selected = false;
@@ -197,7 +197,7 @@ public abstract class Entity
     return previousBottomLeftCornerPosition;
   }
 
-  protected void setX(final float x)
+  public void setX(final float x)
   {
     previousPosition.x = position.x;
     position.x = x;
@@ -219,7 +219,7 @@ public abstract class Entity
     }
   }
 
-  protected void setY(final float y)
+  public void setY(final float y)
   {
     previousPosition.y = position.y;
     position.y = y;

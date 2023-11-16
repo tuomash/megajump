@@ -11,7 +11,7 @@ public class Player extends Entity
     RIGHT
   }
 
-  enum State
+  public enum State
   {
     IDLE,
     JUMPING,
@@ -239,7 +239,7 @@ public class Player extends Entity
   }
 
   @Override
-  protected void setX(final float x)
+  public void setX(final float x)
   {
     super.setX(x);
     topSide.x = x - topSide.width * 0.5f;
@@ -250,7 +250,7 @@ public class Player extends Entity
   }
 
   @Override
-  protected void setY(final float y)
+  public void setY(final float y)
   {
     super.setY(y);
     topSide.y = y + 2.5f;
@@ -287,7 +287,7 @@ public class Player extends Entity
     return false;
   }
 
-  void setState(final State state)
+  public void setState(final State state)
   {
     if (state != null && this.state != state)
     {

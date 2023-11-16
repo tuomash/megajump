@@ -12,7 +12,7 @@ public class Physics
   private List<Trampoline> trampolines = new ArrayList<>();
   private List<Platform> platforms = new ArrayList<>();
 
-  private float delta;
+  public float delta;
 
   public void update(final float delta)
   {
@@ -33,6 +33,11 @@ public class Physics
     updateEntity(exit);
 
     // Then do player movement and collision detection
+    updatePlayers();
+  }
+
+  public void updatePlayers()
+  {
     for (int i = 0; i < players.size(); i++)
     {
       final Player player = players.get(i);

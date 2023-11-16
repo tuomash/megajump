@@ -14,7 +14,7 @@ public class Game
     MULTIPLAYER
   }
 
-  final Physics physics;
+  public final Physics physics;
   final OrthographicCamera camera;
   public final Player player;
   final Levels levels;
@@ -27,6 +27,8 @@ public class Game
   Save save;
   boolean help;
   boolean paused;
+
+  public float lastFrameTime;
 
   Game()
   {
@@ -100,7 +102,18 @@ public class Game
     }
 
     physics.update(delta);
-    multiplayer.update(delta);
+  }
+
+  void update(final float delta)
+  {
+    if (isSinglePlayer() && (help || paused))
+    {
+      return;
+    }
+
+    multiplayer.update();
+
+    // System.out.println("client: x " + player.getPosition().x + " y " + player.getPosition().y);
 
     // TODO: implement proper camera following
     if (player.isMoving())
@@ -122,16 +135,6 @@ public class Game
     {
       updateCameraState(delta);
     }
-  }
-
-  void update(final float delta)
-  {
-    if (isSinglePlayer() && (help || paused))
-    {
-      return;
-    }
-
-    // System.out.println("client: x " + player.getPosition().x + " y " + player.getPosition().y);
 
     player.update(delta);
     level.update(delta);

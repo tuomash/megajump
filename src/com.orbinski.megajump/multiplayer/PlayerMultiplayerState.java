@@ -7,4 +7,6 @@ public class PlayerMultiplayerState
   public String name;
   public float x;
   public float y;
+  public float velocityX;
+  public float velocityY;
 }

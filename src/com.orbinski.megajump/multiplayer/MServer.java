@@ -139,6 +139,7 @@ public class MServer extends Thread
             if (request.isJump())
             {
               player.applyGravity = true;
+              player.setState(Player.State.JUMPING);
               player.updateVelocityX(request.getJumpVelocityX());
               player.updateVelocityY(request.getJumpVelocityY());
             }
@@ -188,6 +189,8 @@ public class MServer extends Thread
           state.name = player.name;
           state.x = player.getPosition().x;
           state.y = player.getPosition().y;
+          state.velocityX = player.velocityX;
+          state.velocityY = player.velocityY;
           snapshotResponse.addPlayerState(state);
         }
 
