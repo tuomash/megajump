@@ -22,7 +22,7 @@ public class Level
 
   private String name = "Level";
   private String tag;
-  Exit exit;
+  public Exit exit;
   public Spawn spawn = new Spawn(5.0f, 5.0f);
   List<Decoration> decorations = new ArrayList<>();
   List<Block> blocks = new ArrayList<>();

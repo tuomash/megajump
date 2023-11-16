@@ -31,7 +31,7 @@ public class Player extends Entity
   public String name = "Player";
 
   Direction direction;
-  State state;
+  public State state;
   private Location location;
 
   final float maxJumpVelocityX = 65.0f;

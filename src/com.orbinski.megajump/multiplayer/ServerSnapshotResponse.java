@@ -16,6 +16,7 @@ public class ServerSnapshotResponse extends Response
   transient int playerStateListIndex = 0;
 
   private String levelTag;
+  public int countdownState;
 
   public int[] getAddedPlayers()
   {

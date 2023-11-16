@@ -28,8 +28,6 @@ public class Game
   boolean help;
   boolean paused;
 
-  public float lastFrameTime;
-
   Game()
   {
     physics = new Physics();
@@ -241,38 +239,32 @@ public class Game
   void moveUp()
   {
     player.moveUp();
-    multiplayer.moveUp();
   }
 
   void moveLeft()
   {
     player.moveLeft();
-    multiplayer.moveLeft();
   }
 
   void moveRight()
   {
     player.moveRight();
-    multiplayer.moveRight();
   }
 
   void moveDown()
   {
     player.moveDown();
-    multiplayer.moveDown();
   }
 
   void jump()
   {
     player.jump();
     level.started = true;
-    multiplayer.jump(player.velocityX, player.velocityY);
   }
 
   void resetToStart()
   {
     reset();
-    multiplayer.resetToStart();
   }
 
   boolean isTargeting()

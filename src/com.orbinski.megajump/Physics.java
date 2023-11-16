@@ -5,12 +5,11 @@ import java.util.List;
 
 public class Physics
 {
-  private List<Player> players = new ArrayList<>();
-  private List<Player> finishedPlayers = new ArrayList<>();
+  private final List<Player> players = new ArrayList<>();
   private Level level;
   private Exit exit;
-  private List<Trampoline> trampolines = new ArrayList<>();
-  private List<Platform> platforms = new ArrayList<>();
+  private final List<Trampoline> trampolines = new ArrayList<>();
+  private final List<Platform> platforms = new ArrayList<>();
 
   public float delta;
 
@@ -50,7 +49,6 @@ public class Physics
         {
           player.stop();
           player.setState(Player.State.EXIT);
-          finishedPlayers.add(player);
           break;
         }
 
@@ -212,7 +210,6 @@ public class Physics
     if (level != null)
     {
       this.level = level;
-      finishedPlayers.clear();
       exit = level.exit;
       trampolines.clear();
       trampolines.addAll(level.trampolines);

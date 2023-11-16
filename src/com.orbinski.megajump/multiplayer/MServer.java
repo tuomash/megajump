@@ -14,7 +14,9 @@ public class MServer extends Thread
   final ServerListener listener;
   final Physics physics;
   final Levels levels;
+
   private final List<Player> players = new ArrayList<>();
+  private final List<Player> finishedPlayers = new ArrayList<>();
 
   private final CircularFifoQueue<ClientPlayerAddRequest> clientPlayerAddRequestQueue = new CircularFifoQueue<>(10);
   private final CircularFifoQueue<ClientPlayerRemoveRequest> clientPlayerRemoveRequestQueue = new CircularFifoQueue<>(10);
@@ -32,6 +34,7 @@ public class MServer extends Thread
     server.addListener(listener);
     physics = new Physics();
     levels = new Levels();
+    snapshotResponse.countdownState = -1;
 
     level = levels.get("platforms_2");
     physics.setLevel(level);
@@ -95,6 +98,14 @@ public class MServer extends Thread
 
         final long start = System.currentTimeMillis();
 
+        // TODO: change to next level if all players are finished
+        // TODO: ignore player input if level is being changed
+
+        if (!level.started)
+        {
+          // TODO: do countdown
+        }
+
         // Process network updates
 
         server.update(0);
@@ -130,54 +141,12 @@ public class MServer extends Thread
 
           if (player != null)
           {
-            if (request.getRequestId() > player.multiplayerState.requestId)
-            {
-              player.multiplayerState.requestId = request.getRequestId();
-            }
-
-            // TODO: check if player can actually jump
-            if (request.isJump())
-            {
-              player.applyGravity = true;
-              player.setState(Player.State.JUMPING);
-              player.updateVelocityX(request.getJumpVelocityX());
-              player.updateVelocityY(request.getJumpVelocityY());
-            }
-            else if (request.isReset())
-            {
-              player.reset();
-              player.setPosition(level.spawn.getPosition());
-            }
-            else
-            {
-              if (request.isMoveUp())
-              {
-                player.moveUp();
-              }
-
-              if (request.isMoveLeft())
-              {
-                player.moveLeft();
-              }
-
-              if (request.isMoveRight())
-              {
-                player.moveRight();
-              }
-
-              if (request.isMoveDown())
-              {
-                player.moveDown();
-              }
-            }
+            player.multiplayerState.x = request.getX();
+            player.multiplayerState.y = request.getY();
           }
         }
 
         clientPlayerInputRequestQueue.clear();
-
-        // Update physics
-
-        physics.update(Globals.TIME_STEP_SECONDS);
 
         // Update player positions in the server snapshot
 
@@ -187,10 +156,20 @@ public class MServer extends Thread
           final PlayerMultiplayerState state = player.multiplayerState;
           state.playerId = player.id;
           state.name = player.name;
-          state.x = player.getPosition().x;
-          state.y = player.getPosition().y;
-          state.velocityX = player.velocityX;
-          state.velocityY = player.velocityY;
+
+          if (level.started && player.state != Player.State.EXIT)
+          {
+            state.x = player.getPosition().x;
+            state.y = player.getPosition().y;
+
+            if (level.exit != null && level.exit.overlaps(player))
+            {
+              player.stop();
+              player.setState(Player.State.EXIT);
+              finishedPlayers.add(player);
+            }
+          }
+
           snapshotResponse.addPlayerState(state);
         }
 

@@ -150,7 +150,7 @@ public abstract class Entity
     setY(previousPosition.y);
   }
 
-  void stop()
+  public void stop()
   {
     velocityX = 0.0f;
     velocityY = 0.0f;

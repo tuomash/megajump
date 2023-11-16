@@ -35,7 +35,6 @@ class SemiFixedTimestepLoop extends Loop
       frameTimeForPhysics = frameTimeForPhysics - delta;
     }
 
-    game.lastFrameTime = frameTime;
     game.update(frameTime);
     renderer.render();
     uiRenderer.render();

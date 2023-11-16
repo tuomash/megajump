@@ -1,6 +1,6 @@
 package com.orbinski.megajump;
 
-class Exit extends Entity
+public class Exit extends Entity
 {
   private float exitVelocityX;
   private float exitVelocityY;
@@ -25,7 +25,7 @@ class Exit extends Entity
     return true;
   }
 
-  boolean overlaps(final Player player)
+  public boolean overlaps(final Player player)
   {
     if (EntityUtils.overlaps(player.bottomSide, this))
     {
