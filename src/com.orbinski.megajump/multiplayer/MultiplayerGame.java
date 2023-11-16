@@ -16,12 +16,12 @@ public class MultiplayerGame
   public boolean active;
 
   private int requestId = 1;
+  private final Object lock = new Object();
   // TODO: replace with a fixed size queue or list
-  private List<ClientPlayerInputRequest> previousRequests = new ArrayList<>();
+  private final List<ClientPlayerInputRequest> previousRequests = new ArrayList<>();
   private ClientPlayerInputRequest clientInputRequest;
-
   // TODO: replace with a fixed size queue or list
-  public List<ServerSnapshotResponse> responses = new ArrayList<>();
+  private final List<ServerSnapshotResponse> responses = new ArrayList<>();
 
   private String spLevel;
 
@@ -34,9 +34,10 @@ public class MultiplayerGame
   {
     if (isActive())
     {
-      if (!responses.isEmpty())
+      final ServerSnapshotResponse response = getResponse();
+
+      if (response != null)
       {
-        final ServerSnapshotResponse response = responses.remove(0);
         // System.out.println("server: x " + response.getPlayerDataList()[0].x + ", y " + response.getPlayerDataList()[0].y);
 
         if (!game.level.getTag().equalsIgnoreCase(response.getLevelTag()))
@@ -117,6 +118,27 @@ public class MultiplayerGame
     }
 
     return clientInputRequest;
+  }
+
+  public void addResponse(final ServerSnapshotResponse response)
+  {
+    synchronized (lock)
+    {
+      responses.add(0, response);
+    }
+  }
+
+  private ServerSnapshotResponse getResponse()
+  {
+    synchronized (lock)
+    {
+      if (!responses.isEmpty())
+      {
+        return responses.get(0);
+      }
+    }
+
+    return null;
   }
 
   public void connectToServer()

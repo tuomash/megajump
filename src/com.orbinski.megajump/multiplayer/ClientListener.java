@@ -31,8 +31,7 @@ public class ClientListener extends Listener
 
     if (object instanceof ServerSnapshotResponse)
     {
-      final ServerSnapshotResponse response = (ServerSnapshotResponse) object;
-      game.responses.add(response);
+      game.addResponse((ServerSnapshotResponse) object);
     }
   }
 
