@@ -23,6 +23,8 @@ public class MultiplayerGame
   // TODO: replace with a fixed size queue or list
   public List<ServerSnapshotResponse> responses = new ArrayList<>();
 
+  private String spLevel;
+
   public MultiplayerGame(final Game game)
   {
     this.game = game;
@@ -39,6 +41,7 @@ public class MultiplayerGame
 
         if (!game.level.getTag().equalsIgnoreCase(response.getLevelTag()))
         {
+          spLevel = game.level.getTag();
           game.loadLevel(response.getLevelTag());
         }
 
@@ -134,9 +137,11 @@ public class MultiplayerGame
     {
       client.shutdown();
       client = null;
-      active = false;
-      requestId = 1;
     }
+
+    active = false;
+    requestId = 1;
+    game.loadLevel(spLevel);
   }
 
   public void sendRequests()
