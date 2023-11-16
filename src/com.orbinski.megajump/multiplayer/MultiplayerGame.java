@@ -2,9 +2,7 @@ package com.orbinski.megajump.multiplayer;
 
 import com.orbinski.megajump.Game;
 import com.orbinski.megajump.Player;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 public class MultiplayerGame
 {
@@ -17,11 +15,9 @@ public class MultiplayerGame
 
   private int requestId = 1;
   private final Object lock = new Object();
-  // TODO: replace with a fixed size queue or list
-  private final List<ClientPlayerInputRequest> previousRequests = new ArrayList<>();
+  private final CircularFifoQueue<ClientPlayerInputRequest> previousRequests = new CircularFifoQueue<>(100);
   private ClientPlayerInputRequest clientInputRequest;
-  // TODO: replace with a fixed size queue or list
-  private final List<ServerSnapshotResponse> responses = new ArrayList<>();
+  private final CircularFifoQueue<ServerSnapshotResponse> responses = new CircularFifoQueue<>(100);
 
   private String spLevel;
 
@@ -124,7 +120,10 @@ public class MultiplayerGame
   {
     synchronized (lock)
     {
-      responses.add(0, response);
+      if (!responses.isFull())
+      {
+        responses.add(response);
+      }
     }
   }
 
@@ -134,7 +133,7 @@ public class MultiplayerGame
     {
       if (!responses.isEmpty())
       {
-        return responses.get(0);
+        return responses.remove();
       }
     }
 

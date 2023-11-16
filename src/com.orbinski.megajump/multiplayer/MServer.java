@@ -3,6 +3,7 @@ package com.orbinski.megajump.multiplayer;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 import com.orbinski.megajump.*;
+import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,9 @@ public class MServer extends Thread
   final Levels levels;
   private final List<Player> players = new ArrayList<>();
 
-  // TODO: replace with a fixed size queue or list
-  private final List<ClientPlayerAddRequest> clientPlayerAddRequestQueue = new ArrayList<>();
-  // TODO: replace with a fixed size queue or list
-  private final List<ClientPlayerRemoveRequest> clientPlayerRemoveRequestQueue = new ArrayList<>();
-  // TODO: replace with a fixed size queue or list
-  private final List<ClientPlayerInputRequest> clientPlayerInputRequestQueue = new ArrayList<>();
+  private final CircularFifoQueue<ClientPlayerAddRequest> clientPlayerAddRequestQueue = new CircularFifoQueue<>(10);
+  private final CircularFifoQueue<ClientPlayerRemoveRequest> clientPlayerRemoveRequestQueue = new CircularFifoQueue<>(10);
+  private final CircularFifoQueue<ClientPlayerInputRequest> clientPlayerInputRequestQueue = new CircularFifoQueue<>(200);
   private final ServerSnapshotResponse snapshotResponse = new ServerSnapshotResponse();
 
   Level level;
@@ -132,7 +130,10 @@ public class MServer extends Thread
 
           if (player != null)
           {
-            player.multiplayerState.requestId = request.getRequestId();
+            if (request.getRequestId() > player.multiplayerState.requestId)
+            {
+              player.multiplayerState.requestId = request.getRequestId();
+            }
 
             // TODO: check if player can actually jump
             if (request.isJump())
@@ -293,17 +294,26 @@ public class MServer extends Thread
 
   public void addClientPlayerAddRequest(final ClientPlayerAddRequest request)
   {
-    clientPlayerAddRequestQueue.add(request);
+    if (!clientPlayerAddRequestQueue.isFull())
+    {
+      clientPlayerAddRequestQueue.add(request);
+    }
   }
 
   public void addClientPlayerRemoveRequest(final ClientPlayerRemoveRequest request)
   {
-    clientPlayerRemoveRequestQueue.add(request);
+    if (!clientPlayerRemoveRequestQueue.isFull())
+    {
+      clientPlayerRemoveRequestQueue.add(request);
+    }
   }
 
   public void addClientPlayerInputRequest(final ClientPlayerInputRequest request)
   {
-    clientPlayerInputRequestQueue.add(request);
+    if (!clientPlayerInputRequestQueue.isFull())
+    {
+      clientPlayerInputRequestQueue.add(request);
+    }
   }
 
   private void sendResponse(final Connection connection, final Response response)
