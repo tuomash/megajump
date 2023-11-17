@@ -145,6 +145,8 @@ public class MServer extends Thread
                 // Skip AI players
                 if (state.ai)
                 {
+                  state.isAtExit = false;
+                  state.player.reset();
                   state.setPosition(level.spawn.getPosition().x, level.spawn.getPosition().y);
                   continue;
                 }
@@ -262,6 +264,7 @@ public class MServer extends Thread
             }
 
             physics.update(Globals.TIME_STEP_SECONDS);
+            state.playerState = player.state.toString();
             state.setPosition(player.getPosition().x, player.getPosition().y);
           }
         }

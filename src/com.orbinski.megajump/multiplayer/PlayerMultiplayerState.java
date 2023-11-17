@@ -16,6 +16,7 @@ public class PlayerMultiplayerState
   public String playerName;
   private float x;
   private float y;
+  public String playerState;
 
   public float getX()
   {

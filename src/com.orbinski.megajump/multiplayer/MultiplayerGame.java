@@ -91,19 +91,24 @@ public class MultiplayerGame
             if (player == null)
             {
               player = new Player();
-
-              if (state.playerName != null)
-              {
-                player.setName(state.playerName);
-              }
-
               player.id = state.playerId;
               players.add(player);
               game.physics.addPlayer(player);
             }
 
+            if (state.playerName != null)
+            {
+              player.setName(state.playerName);
+            }
+
+            if (state.playerState != null)
+            {
+              player.setState(Player.State.valueOf(state.playerState));
+            }
+
+            player.updateAnimationState(false);
             player.setPosition(state.getX(), state.getY());
-            player.update(Globals.TIME_STEP_SECONDS);
+            player.update(delta);
             player.updatePlayerNameTextPosition();
           }
         }

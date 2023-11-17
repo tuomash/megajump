@@ -37,6 +37,11 @@ public class Player extends Entity
 
   public final JumpAssistant assistant;
 
+  private Animation idleLeft;
+  private Animation idleRight;
+  private Animation landLeft;
+  private Animation landRight;
+
   public Player()
   {
     super(-75.0f, -30.0f, 10.0f, 10.0f, true);
@@ -63,6 +68,26 @@ public class Player extends Entity
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
     setLocation(Location.START);
+
+    if (Animations.playerIdleLeft != null)
+    {
+      idleLeft = Animations.playerIdleLeft.copy();
+    }
+
+    if (Animations.playerIdleRight != null)
+    {
+      idleRight = Animations.playerIdleRight.copy();
+    }
+
+    if (Animations.playerLandLeft != null)
+    {
+      landLeft = Animations.playerLandLeft.copy();
+    }
+
+    if (Animations.playerLandRight != null)
+    {
+      landRight = Animations.playerLandRight.copy();
+    }
   }
 
   @Override
@@ -343,7 +368,7 @@ public class Player extends Entity
     }
   }
 
-  void updateAnimationState(final boolean reset)
+  public void updateAnimationState(final boolean reset)
   {
     switch (this.state)
     {
@@ -351,11 +376,11 @@ public class Player extends Entity
       {
         if (direction == Direction.LEFT)
         {
-          setAnimation(Animations.playerIdleLeft);
+          setAnimation(idleLeft);
         }
         else
         {
-          setAnimation(Animations.playerIdleRight);
+          setAnimation(idleRight);
         }
 
         break;
@@ -372,11 +397,11 @@ public class Player extends Entity
       {
         if (direction == Direction.LEFT)
         {
-          setAnimation(Animations.playerLandLeft);
+          setAnimation(landLeft);
         }
         else
         {
-          setAnimation(Animations.playerLandRight);
+          setAnimation(landRight);
         }
 
         break;

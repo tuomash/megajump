@@ -14,6 +14,20 @@ class Animation
   boolean loop;
   boolean playing = true;
 
+  public Animation copy()
+  {
+    final Animation copy = new Animation();
+
+    for (int i = 0; i < frames.size(); i++)
+    {
+      copy.frames.add(frames.get(i).copy());
+    }
+
+    copy.groupId = groupId;
+    copy.loop = loop;
+    return copy;
+  }
+
   void update(final float delta)
   {
     if (playing)
