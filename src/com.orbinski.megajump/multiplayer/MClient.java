@@ -36,8 +36,6 @@ public class MClient
     {
       sendUDP(request);
     }
-
-    request.reset();
   }
 
   private void sendTCP(final Object request)

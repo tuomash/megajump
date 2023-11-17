@@ -9,10 +9,4 @@ public abstract class Response
   }
 
   transient Response.Type type = Response.Type.UDP;
-  transient boolean dirty;
-
-  public void reset()
-  {
-    dirty = false;
-  }
 }

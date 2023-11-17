@@ -41,11 +41,8 @@ public class ClientPlayerInputRequest extends Request
     this.levelTag = levelTag;
   }
 
-  @Override
   public void reset()
   {
-    super.reset();
-
     x = 0.0f;
     y = 0.0f;
     levelTag = null;

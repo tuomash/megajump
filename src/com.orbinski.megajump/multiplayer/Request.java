@@ -9,10 +9,4 @@ public abstract class Request
   }
 
   transient Type type = Type.UDP;
-  transient boolean dirty;
-
-  public void reset()
-  {
-    dirty = false;
-  }
 }

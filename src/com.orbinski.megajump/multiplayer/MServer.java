@@ -38,11 +38,9 @@ public class MServer extends Thread
     level = levels.getLevel();
     snapshotResponse.setLevelTag(level.getTag());
 
-    server.getKryo().register(int[].class);
-    server.getKryo().register(ClientPlayerAddRequest.class);
     server.getKryo().register(ClientPlayerInputRequest.class);
-    server.getKryo().register(ClientPlayerRemoveRequest.class);
-    server.getKryo().register(ExampleRequest.class);
+    server.getKryo().register(Message.class);
+    server.getKryo().register(Message[].class);
     server.getKryo().register(PlayerMultiplayerState.class);
     server.getKryo().register(PlayerMultiplayerState[].class);
     server.getKryo().register(Response.class);
@@ -108,7 +106,7 @@ public class MServer extends Thread
             snapshotResponse.setLevelTag(level.getTag());
 
             doLevelChange = true;
-            System.out.println("Starting level change to: " + level.getTag());
+            // System.out.println("Starting level change to: " + level.getTag());
           }
 
           if (doLevelChange)
@@ -121,7 +119,7 @@ public class MServer extends Thread
 
               if (state.levelTag != null && state.levelTag.equalsIgnoreCase(level.getTag()))
               {
-                System.out.println("Player " + state.playerId + " has changed to level: " + level.getTag());
+                // System.out.println("Player " + state.playerId + " has changed to level: " + level.getTag());
                 state.setPosition(level.spawn.getPosition().x, level.spawn.getPosition().y);
                 state.isAtExit = false;
               }
@@ -136,7 +134,7 @@ public class MServer extends Thread
               snapshotResponse.setLevelTag(null);
               doLevelChange = false;
               level.started = true;
-              System.out.println("Level change is done");
+              // System.out.println("Level change is done");
             }
           }
         }
@@ -158,8 +156,14 @@ public class MServer extends Thread
         for (int i = 0; i < clientPlayerAddRequestQueue.size(); i++)
         {
           final ClientPlayerAddRequest request = clientPlayerAddRequestQueue.get(i);
-          addPlayer(request.connection, request.playerId);
-          snapshotResponse.addPlayer(request.playerId);
+          final PlayerMultiplayerState state = addPlayer(request.connection, request.playerId);
+
+          if (state != null)
+          {
+            final Message message = new Message();
+            message.text = "Player " + state.playerName + " joined the server";
+            snapshotResponse.addMessage(message);
+          }
         }
 
         clientPlayerAddRequestQueue.clear();
@@ -169,8 +173,14 @@ public class MServer extends Thread
         for (int i = 0; i < clientPlayerRemoveRequestQueue.size(); i++)
         {
           final ClientPlayerRemoveRequest request = clientPlayerRemoveRequestQueue.get(i);
-          removePlayer(request.playerId);
-          snapshotResponse.removePlayer(request.playerId);
+          final PlayerMultiplayerState state = removePlayer(request.playerId);
+
+          if (state != null)
+          {
+            final Message message = new Message();
+            message.text = "Player " + state.playerName + " left the server";
+            snapshotResponse.addMessage(message);
+          }
         }
 
         clientPlayerRemoveRequestQueue.clear();
@@ -252,7 +262,7 @@ public class MServer extends Thread
     shutdownRequest = false;
   }
 
-  public void addPlayer(final Connection connection, final int id)
+  public PlayerMultiplayerState addPlayer(final Connection connection, final int id)
   {
     if (canAdd(id))
     {
@@ -263,7 +273,10 @@ public class MServer extends Thread
       state.playerName = "Player " + state.playerId;
       state.levelTag = level.getTag();
       playerStates.add(state);
+      return state;
     }
+
+    return null;
   }
 
   public boolean canAdd(final int id)
@@ -294,7 +307,7 @@ public class MServer extends Thread
     return null;
   }
 
-  public void removePlayer(final int id)
+  public PlayerMultiplayerState removePlayer(final int id)
   {
     int indexToRemove = -1;
 
@@ -309,8 +322,10 @@ public class MServer extends Thread
 
     if (indexToRemove != -1)
     {
-      playerStates.remove(indexToRemove);
+      return playerStates.remove(indexToRemove);
     }
+
+    return null;
   }
 
   public void addClientPlayerAddRequest(final ClientPlayerAddRequest request)
@@ -339,7 +354,7 @@ public class MServer extends Thread
 
   private void sendResponse(final Connection connection, final Response response)
   {
-    if (connection != null && connection.isConnected() && response.dirty)
+    if (connection != null && connection.isConnected())
     {
       if (response.type == Response.Type.TCP)
       {

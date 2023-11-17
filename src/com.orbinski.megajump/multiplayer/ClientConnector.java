@@ -12,11 +12,9 @@ public class ClientConnector extends Thread
     client = new Client();
     this.game = game;
 
-    client.getKryo().register(int[].class);
-    client.getKryo().register(ClientPlayerAddRequest.class);
     client.getKryo().register(ClientPlayerInputRequest.class);
-    client.getKryo().register(ClientPlayerRemoveRequest.class);
-    client.getKryo().register(ExampleRequest.class);
+    client.getKryo().register(Message.class);
+    client.getKryo().register(Message[].class);
     client.getKryo().register(PlayerMultiplayerState.class);
     client.getKryo().register(PlayerMultiplayerState[].class);
     client.getKryo().register(Response.class);

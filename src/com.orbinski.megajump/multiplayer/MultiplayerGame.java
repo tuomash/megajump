@@ -34,6 +34,8 @@ public class MultiplayerGame
       {
         // System.out.println("server: x " + response.getPlayerDataList()[0].x + ", y " + response.getPlayerDataList()[0].y);
 
+        // Load the level requested by the server
+
         if (response.getLevelTag() != null && !game.level.getTag().equalsIgnoreCase(response.getLevelTag()))
         {
           game.loadLevel(response.getLevelTag());
