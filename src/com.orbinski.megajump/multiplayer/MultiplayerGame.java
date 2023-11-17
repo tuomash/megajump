@@ -53,6 +53,8 @@ public class MultiplayerGame
           }
         }
 
+        // Update player states
+
         for (int i = 0; i < response.getPlayerStateList().length; i++)
         {
           final PlayerMultiplayerState state = response.getPlayerStateList()[i];
@@ -106,8 +108,8 @@ public class MultiplayerGame
               player.setState(Player.State.valueOf(state.playerState));
             }
 
-            player.updateAnimationState(false);
             player.setPosition(state.getX(), state.getY());
+            player.updateAnimationState(false);
             player.update(delta);
             player.updatePlayerNameTextPosition();
           }
@@ -116,7 +118,7 @@ public class MultiplayerGame
         // TODO: interpolate the positions of other players
       }
 
-      // TODO: this is dumb solution, replace later
+      // TODO: this is a dumb solution, replace later
       game.player.updatePlayerNameTextPosition();
     }
   }
