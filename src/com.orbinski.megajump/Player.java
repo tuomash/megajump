@@ -1,7 +1,5 @@
 package com.orbinski.megajump;
 
-import com.orbinski.megajump.multiplayer.PlayerMultiplayerState;
-
 public class Player extends Entity
 {
   enum Direction
@@ -34,12 +32,10 @@ public class Player extends Entity
   public State state;
   private Location location;
 
-  final float maxJumpVelocityX = 65.0f;
-  final float maxJumpVelocityY = 75.0f;
+  public final float maxJumpVelocityX = 65.0f;
+  public final float maxJumpVelocityY = 75.0f;
 
   public final JumpAssistant assistant;
-
-  public final PlayerMultiplayerState multiplayerState = new PlayerMultiplayerState();
 
   public Player()
   {
@@ -70,7 +66,7 @@ public class Player extends Entity
   }
 
   @Override
-  void update(final float delta)
+  public void update(final float delta)
   {
     if (state == State.EXIT || state == State.DEATH)
     {

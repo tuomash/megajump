@@ -60,6 +60,7 @@ class Renderer
     addTrampolines();
     addPlatforms();
     addPlayer();
+    addOtherPlayers();
     addTeleports();
 
     addSpawn();
@@ -243,7 +244,25 @@ class Renderer
       return;
     }
 
-    final Player player = game.player;
+    addPlayer(game.player);
+  }
+
+  void addOtherPlayers()
+  {
+    if (game.levelEditor.active || !game.multiplayer.isActive())
+    {
+      return;
+    }
+
+    for (int i = 0; i < game.multiplayer.getPlayers().size(); i++)
+    {
+      final Player player = game.multiplayer.getPlayers().get(i);
+      addPlayer(player);
+    }
+  }
+
+  private void addPlayer(final Player player)
+  {
     addEntity(player);
 
     if (player.drawCollisions)
@@ -299,11 +318,11 @@ class Renderer
               Color.WHITE);
        */
 
-      for (int i = 1; i < 120; i++)
+      for (int z = 1; z < 120; z++)
       {
-        if (i % 3 == 0)
+        if (z % 3 == 0)
         {
-          final Rectangle rectangle = assistant.jumpCurve[i];
+          final Rectangle rectangle = assistant.jumpCurve[z];
           shapeRenderer.addQuad(rectangle.x,
                                 rectangle.y,
                                 0.5f,

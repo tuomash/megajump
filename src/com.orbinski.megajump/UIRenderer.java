@@ -61,7 +61,12 @@ class UIRenderer
       }
       else if (game.isMultiplayer())
       {
-        addText(game.player.playerNameText);
+        for (int i = 0; i < game.physics.getPlayers().size(); i++)
+        {
+          final Player player = game.physics.getPlayers().get(i);
+          addText(player.playerNameText);
+        }
+
         addText(UserInterface.levelNameText);
         addBar(UserInterface.jumpBar);
       }

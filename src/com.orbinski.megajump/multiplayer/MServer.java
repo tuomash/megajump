@@ -13,6 +13,7 @@ public class MServer extends Thread
   final Server server;
   final ServerListener listener;
   final Levels levels;
+  final Physics physics;
 
   private final List<PlayerMultiplayerState> playerStates = new ArrayList<>();
 
@@ -32,10 +33,13 @@ public class MServer extends Thread
     listener = new ServerListener(this);
     server.addListener(listener);
     levels = new Levels();
+    physics = new Physics();
+
     snapshotResponse.countdownState = -1;
 
     levels.goToBeginning();
     level = levels.getLevel();
+    physics.setLevel(level);
     snapshotResponse.setLevelTag(level.getTag());
 
     server.getKryo().register(ClientPlayerInputRequest.class);
@@ -46,6 +50,11 @@ public class MServer extends Thread
     server.getKryo().register(Response.class);
     server.getKryo().register(Request.class);
     server.getKryo().register(ServerSnapshotResponse.class);
+
+    final PlayerMultiplayerState state = addPlayer(null, -1);
+    state.playerName = "AI";
+    state.ai = true;
+    physics.addPlayer(state.player);
   }
 
   @Override
@@ -86,55 +95,79 @@ public class MServer extends Thread
 
         if (!playerStates.isEmpty())
         {
-          boolean allFinishedLevel = true;
+          boolean hasHumanPlayers = false;
 
           for (int i = 0; i < playerStates.size(); i++)
           {
             final PlayerMultiplayerState state = playerStates.get(i);
 
-            if (!state.isAtExit)
+            if (!state.ai)
             {
-              allFinishedLevel = false;
+              hasHumanPlayers = true;
               break;
             }
           }
 
-          if (allFinishedLevel && !doLevelChange)
+          if (hasHumanPlayers)
           {
-            levels.selectNextLevel();
-            level = levels.getLevel();
-            snapshotResponse.setLevelTag(level.getTag());
-
-            doLevelChange = true;
-            // System.out.println("Starting level change to: " + level.getTag());
-          }
-
-          if (doLevelChange)
-          {
-            boolean allFinishedLevelChange = true;
+            boolean allFinishedLevel = true;
 
             for (int i = 0; i < playerStates.size(); i++)
             {
               final PlayerMultiplayerState state = playerStates.get(i);
 
-              if (state.levelTag != null && state.levelTag.equalsIgnoreCase(level.getTag()))
+              if (!state.ai && !state.isAtExit)
               {
-                // System.out.println("Player " + state.playerId + " has changed to level: " + level.getTag());
-                state.setPosition(level.spawn.getPosition().x, level.spawn.getPosition().y);
-                state.isAtExit = false;
-              }
-              else
-              {
-                allFinishedLevelChange = false;
+                allFinishedLevel = false;
+                break;
               }
             }
 
-            if (allFinishedLevelChange)
+            if (allFinishedLevel && !doLevelChange)
             {
-              snapshotResponse.setLevelTag(null);
-              doLevelChange = false;
-              level.started = true;
-              // System.out.println("Level change is done");
+              levels.selectNextLevel();
+              level = levels.getLevel();
+              physics.setLevel(level);
+              snapshotResponse.setLevelTag(level.getTag());
+
+              doLevelChange = true;
+              System.out.println("Starting level change to: " + level.getTag());
+            }
+
+            if (doLevelChange)
+            {
+              boolean allFinishedLevelChange = true;
+
+              for (int i = 0; i < playerStates.size(); i++)
+              {
+                final PlayerMultiplayerState state = playerStates.get(i);
+
+                // Skip AI players
+                if (state.ai)
+                {
+                  state.setPosition(level.spawn.getPosition().x, level.spawn.getPosition().y);
+                  continue;
+                }
+
+                if (state.levelTag != null && state.levelTag.equalsIgnoreCase(level.getTag()))
+                {
+                  System.out.println("Player " + state.playerId + " has changed to level: " + level.getTag());
+                  state.setPosition(level.spawn.getPosition().x, level.spawn.getPosition().y);
+                  state.isAtExit = false;
+                }
+                else
+                {
+                  allFinishedLevelChange = false;
+                }
+              }
+
+              if (allFinishedLevelChange)
+              {
+                snapshotResponse.setLevelTag(null);
+                doLevelChange = false;
+                level.started = true;
+                System.out.println("Level change is done");
+              }
             }
           }
         }
@@ -205,6 +238,34 @@ public class MServer extends Thread
 
         clientPlayerInputRequestQueue.clear();
 
+        // Simulate AI players
+
+        for (int i = 0; i < playerStates.size(); i++)
+        {
+          final PlayerMultiplayerState state = playerStates.get(i);
+
+          if (state.ai && !doLevelChange && level.started)
+          {
+            final Player player = state.player;
+
+            if (player.state == Player.State.IDLE)
+            {
+              player.applyGravity = true;
+              player.setState(Player.State.JUMPING);
+              player.updateVelocityX(player.maxJumpVelocityX);
+              player.updateVelocityY(player.maxJumpVelocityY);
+            }
+            else if (player.state == Player.State.DEATH)
+            {
+              player.reset();
+              player.setPosition(level.spawn.getPosition());
+            }
+
+            physics.update(Globals.TIME_STEP_SECONDS);
+            state.setPosition(player.getPosition().x, player.getPosition().y);
+          }
+        }
+
         // Check whether players have hit the exit
 
         for (int i = 0; i < playerStates.size(); i++)
@@ -230,11 +291,11 @@ public class MServer extends Thread
         for (int i = 0; i < playerStates.size(); i++)
         {
           final PlayerMultiplayerState state = playerStates.get(i);
-          final Connection connection = state.connection;
-          sendResponse(connection, snapshotResponse);
 
-          // Reset properties which are not needed on every snapshot
-          state.playerName = null;
+          if (!state.ai)
+          {
+            sendResponse(state.connection, snapshotResponse);
+          }
         }
 
         // Reset the server snapshot

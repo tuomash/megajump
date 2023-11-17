@@ -46,8 +46,8 @@ public abstract class Entity
   Point2D.Float currentWaypoint;
   int waypointIndex;
 
-  final float maxVelocityX = 130.0f;
-  final float maxVelocityY = 140.0f;
+  public final float maxVelocityX = 130.0f;
+  public final float maxVelocityY = 140.0f;
   public float velocityX;
   public float velocityY;
   boolean drawBorder = false;
@@ -114,7 +114,7 @@ public abstract class Entity
     setPosition(x, y);
   }
 
-  void update(final float delta)
+  public void update(final float delta)
   {
     if (dead)
     {

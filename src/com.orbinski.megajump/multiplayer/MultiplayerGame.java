@@ -1,8 +1,12 @@
 package com.orbinski.megajump.multiplayer;
 
 import com.orbinski.megajump.Game;
+import com.orbinski.megajump.Globals;
 import com.orbinski.megajump.Player;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MultiplayerGame
 {
@@ -12,6 +16,8 @@ public class MultiplayerGame
   private ClientConnector connector;
 
   public boolean active;
+
+  private final List<Player> players = new ArrayList<>();
 
   private final Object lock = new Object();
   private final ClientPlayerInputRequest clientInputRequest = new ClientPlayerInputRequest();
@@ -24,7 +30,7 @@ public class MultiplayerGame
     this.game = game;
   }
 
-  public void update()
+  public void update(final float delta)
   {
     if (isActive())
     {
@@ -39,16 +45,67 @@ public class MultiplayerGame
         if (response.getLevelTag() != null && !game.level.getTag().equalsIgnoreCase(response.getLevelTag()))
         {
           game.loadLevel(response.getLevelTag());
+
+          for (int i = 0; i < players.size(); i++)
+          {
+            final Player player = players.get(i);
+            game.physics.addPlayer(player);
+          }
         }
 
-        final Player player = game.player;
-
-        // TODO: use player id to fetch
-        final PlayerMultiplayerState state = response.getPlayerStateList()[0];
-
-        if (state.playerName != null)
+        for (int i = 0; i < response.getPlayerStateList().length; i++)
         {
-          player.setName(state.playerName);
+          final PlayerMultiplayerState state = response.getPlayerStateList()[i];
+
+          if (state == null)
+          {
+            continue;
+          }
+
+          // Update local player
+          if (state.playerId == game.player.id)
+          {
+            final Player player = game.player;
+
+            if (state.playerName != null)
+            {
+              player.setName(state.playerName);
+            }
+          }
+          else
+          {
+            // TODO: drop non-existing players
+            Player player = null;
+
+            for (int z = 0; z < players.size(); z++)
+            {
+              final Player existing = players.get(z);
+
+              if (state.playerId == existing.id)
+              {
+                player = existing;
+                break;
+              }
+            }
+
+            if (player == null)
+            {
+              player = new Player();
+
+              if (state.playerName != null)
+              {
+                player.setName(state.playerName);
+              }
+
+              player.id = state.playerId;
+              players.add(player);
+              game.physics.addPlayer(player);
+            }
+
+            player.setPosition(state.getX(), state.getY());
+            player.update(Globals.TIME_STEP_SECONDS);
+            player.updatePlayerNameTextPosition();
+          }
         }
 
         // TODO: interpolate the positions of other players
@@ -138,5 +195,10 @@ public class MultiplayerGame
   public boolean isActive()
   {
     return active && client != null && client.isConnected();
+  }
+
+  public List<Player> getPlayers()
+  {
+    return players;
   }
 }

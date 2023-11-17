@@ -67,6 +67,7 @@ public class Physics
         {
           final Trampoline trampoline = trampolines.get(z);
 
+          // TODO: pull code from class to here
           if (trampoline.apply(player))
           {
             hit = true;
@@ -80,6 +81,7 @@ public class Physics
           {
             final Platform platform = platforms.get(z);
 
+            // TODO: pull code from class to here
             if (player.overlaps(platform))
             {
               hit = true;

@@ -109,7 +109,7 @@ public class Game
       return;
     }
 
-    multiplayer.update();
+    multiplayer.update(delta);
 
     // System.out.println("client: x " + player.getPosition().x + " y " + player.getPosition().y);
 
