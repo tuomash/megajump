@@ -4,12 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import static com.orbinski.megajump.Globals.*;
+import static com.orbinski.megajump.Globals.WORLD_HEIGHT;
+import static com.orbinski.megajump.Globals.WORLD_WIDTH;
 
 class Renderer
 {
@@ -333,8 +333,8 @@ class Renderer
 
         if (entity.interpolate)
         {
-          position =  entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
-                                                                        interpolationAlpha);
+          position = entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
+                                                                       interpolationAlpha);
         }
 
         shapeRenderer.addQuad(position.x,
@@ -365,8 +365,8 @@ class Renderer
 
         if (entity.interpolate)
         {
-          position =  entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
-                                                                        interpolationAlpha);
+          position = entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
+                                                                       interpolationAlpha);
         }
 
         spriteBatch.draw(entity.texture.texture,
@@ -394,6 +394,14 @@ class Renderer
     }
 
     shapeRenderer.dispose();
+  }
+
+  public static void project(final Vector2 world)
+  {
+    if (staticViewport != null)
+    {
+      staticViewport.project(world);
+    }
   }
 
   public static void unproject(final Vector2 screen)

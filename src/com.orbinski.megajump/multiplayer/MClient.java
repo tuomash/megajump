@@ -63,9 +63,11 @@ public class MClient
   {
     if (isConnected())
     {
+      // stop() closes the active connection
       client.stop();
     }
 
+    // close() closes the whole networking client
     client.close();
   }
 }

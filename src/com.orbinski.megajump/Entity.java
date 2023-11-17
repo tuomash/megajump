@@ -124,8 +124,7 @@ public abstract class Entity
 
   public void setPosition(final Vector2 position)
   {
-    setX(position.x);
-    setY(position.y);
+    setPosition(position.x, position.y);
   }
 
   public void setPosition(final float x, final float y)

@@ -357,6 +357,7 @@ public class Game
       level.player = player;
       level.reset();
       level.updateUI();
+      player.updatePlayerNameTextPosition();
 
       if (level.cleared)
       {

@@ -46,19 +46,17 @@ public class MultiplayerGame
         // TODO: use player id to fetch
         final PlayerMultiplayerState state = response.getPlayerStateList()[0];
 
-        if (player.name == null && state.playerName != null)
+        if (state.playerName != null)
         {
-          player.name = state.playerName;
+          player.setName(state.playerName);
         }
 
         // TODO: interpolate the positions of other players
       }
-    }
-  }
 
-  private ClientPlayerInputRequest getClientInputRequest()
-  {
-    return clientInputRequest;
+      // TODO: this is dumb solution, replace later
+      game.player.updatePlayerNameTextPosition();
+    }
   }
 
   public void addResponse(final ServerSnapshotResponse response)
@@ -87,8 +85,20 @@ public class MultiplayerGame
 
   public void connectToServer()
   {
-    connector = new ClientConnector(this);
-    connector.start();
+    if (connector == null)
+    {
+      connector = new ClientConnector(this);
+      connector.start();
+    }
+  }
+
+  public void clearClientConnector()
+  {
+    if (connector != null)
+    {
+      connector.interrupt();
+      connector = null;
+    }
   }
 
   public void setClient(final MClient client)
@@ -105,11 +115,12 @@ public class MultiplayerGame
     if (client != null)
     {
       client.shutdown();
-      client = null;
     }
 
+    client = null;
     active = false;
     game.loadLevel(spLevel);
+    spLevel = null;
   }
 
   public void sendRequests()

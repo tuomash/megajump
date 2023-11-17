@@ -29,14 +29,14 @@ public class ClientConnector extends Thread
     {
       client.start();
       client.connect(5000, "127.0.0.1", 54555, 54777);
+      game.setClient(new MClient(client, game));
     }
     catch (final Exception e)
     {
       // TODO: add error message to MultiplayerGame.java
       e.printStackTrace();
-      return;
     }
 
-    game.setClient(new MClient(client, game));
+    game.clearClientConnector();
   }
 }

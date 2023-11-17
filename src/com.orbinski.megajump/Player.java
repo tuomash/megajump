@@ -27,7 +27,8 @@ public class Player extends Entity
   }
 
   public int id = 1;
-  public String name = "Player";
+  private String name;
+  public final GameText playerNameText = new GameText();
 
   Direction direction;
   public State state;
@@ -43,6 +44,10 @@ public class Player extends Entity
   public Player()
   {
     super(-75.0f, -30.0f, 10.0f, 10.0f, true);
+
+    setName("Player");
+    playerNameText.visible = true;
+    playerNameText.font = Resources.font14White;
 
     movement = Movement.REGULAR;
     assistant = new JumpAssistant(this);
@@ -234,6 +239,41 @@ public class Player extends Entity
     }
 
     return overlaps;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public void setName(final String name)
+  {
+    this.name = name;
+    playerNameText.text = name;
+  }
+
+  @Override
+  public void setPosition(final float x, final float y)
+  {
+    setPosition(x, y, true);
+  }
+
+  public void setPosition(final float x, final float y, final boolean updateNamePosition)
+  {
+    super.setPosition(x, y);
+
+    if (updateNamePosition)
+    {
+      updatePlayerNameTextPosition();
+    }
+  }
+
+  public void updatePlayerNameTextPosition()
+  {
+    if (playerNameText != null)
+    {
+      playerNameText.setPosition(getPosition().x - 2.5f, getPosition().y + 5.0f);
+    }
   }
 
   @Override

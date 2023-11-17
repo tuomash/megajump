@@ -232,9 +232,12 @@ public class MServer extends Thread
           final PlayerMultiplayerState state = playerStates.get(i);
           final Connection connection = state.connection;
           sendResponse(connection, snapshotResponse);
+
+          // Reset properties which are not needed on every snapshot
+          state.playerName = null;
         }
 
-        // Clear the server snapshot
+        // Reset the server snapshot
 
         snapshotResponse.reset();
 

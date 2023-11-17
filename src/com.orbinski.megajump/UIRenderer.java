@@ -61,6 +61,7 @@ class UIRenderer
       }
       else if (game.isMultiplayer())
       {
+        addText(game.player.playerNameText);
         addText(UserInterface.levelNameText);
         addBar(UserInterface.jumpBar);
       }

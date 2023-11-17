@@ -29,6 +29,6 @@ public class PlayerMultiplayerState
   {
     this.x = x;
     this.y = y;
-    player.setPosition(x, y);
+    player.setPosition(x, y, false);
   }
 }
