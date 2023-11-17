@@ -166,7 +166,7 @@ public abstract class Entity
     return EntityUtils.overlaps(this, entity);
   }
 
-  boolean contains(final float x, final float y)
+  public boolean contains(final float x, final float y)
   {
     return EntityUtils.contains(this, x, y);
   }

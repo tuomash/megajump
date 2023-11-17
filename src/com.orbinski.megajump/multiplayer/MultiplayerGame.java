@@ -44,6 +44,11 @@ public class MultiplayerGame
         // TODO: use player id to fetch
         final PlayerMultiplayerState state = response.getPlayerStateList()[0];
 
+        if (player.name == null && state.playerName != null)
+        {
+          player.name = state.playerName;
+        }
+
         // TODO: interpolate the positions of other players
       }
     }

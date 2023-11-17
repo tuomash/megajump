@@ -168,38 +168,6 @@ public class Physics
     players.add(player);
   }
 
-  public boolean canAdd(final Player player)
-  {
-    for (int i = 0; i < players.size(); i++)
-    {
-      if (player.id == players.get(i).id)
-      {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  public void removePlayer(final Player player)
-  {
-    int indexToRemove = -1;
-
-    for (int i = 0; i < players.size(); i++)
-    {
-      if (player.id == players.get(i).id)
-      {
-        indexToRemove = i;
-        break;
-      }
-    }
-
-    if (indexToRemove != -1)
-    {
-      players.remove(indexToRemove);
-    }
-  }
-
   public List<Player> getPlayers()
   {
     return players;

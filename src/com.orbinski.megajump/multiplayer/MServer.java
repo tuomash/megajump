@@ -12,10 +12,9 @@ public class MServer extends Thread
 {
   final Server server;
   final ServerListener listener;
-  final Physics physics;
   final Levels levels;
 
-  private final List<Player> players = new ArrayList<>();
+  private final List<PlayerMultiplayerState> playerStates = new ArrayList<>();
 
   private final CircularFifoQueue<ClientPlayerAddRequest> clientPlayerAddRequestQueue = new CircularFifoQueue<>(10);
   private final CircularFifoQueue<ClientPlayerRemoveRequest> clientPlayerRemoveRequestQueue = new CircularFifoQueue<>(10);
@@ -32,12 +31,11 @@ public class MServer extends Thread
     server = new Server();
     listener = new ServerListener(this);
     server.addListener(listener);
-    physics = new Physics();
     levels = new Levels();
     snapshotResponse.countdownState = -1;
 
-    level = levels.get("platforms_2");
-    physics.setLevel(level);
+    levels.goToBeginning();
+    level = levels.getLevel();
     snapshotResponse.setLevelTag(level.getTag());
 
     server.getKryo().register(int[].class);
@@ -88,15 +86,15 @@ public class MServer extends Thread
 
         // Change to next level if all players are finished
 
-        if (!players.isEmpty())
+        if (!playerStates.isEmpty())
         {
           boolean allFinishedLevel = true;
 
-          for (int i = 0; i < players.size(); i++)
+          for (int i = 0; i < playerStates.size(); i++)
           {
-            final Player player = players.get(i);
+            final PlayerMultiplayerState state = playerStates.get(i);
 
-            if (player.state != Player.State.EXIT)
+            if (!state.isAtExit)
             {
               allFinishedLevel = false;
               break;
@@ -110,20 +108,22 @@ public class MServer extends Thread
             snapshotResponse.setLevelTag(level.getTag());
 
             doLevelChange = true;
+            System.out.println("Starting level change to: " + level.getTag());
           }
 
           if (doLevelChange)
           {
             boolean allFinishedLevelChange = true;
 
-            for (int i = 0; i < players.size(); i++)
+            for (int i = 0; i < playerStates.size(); i++)
             {
-              final Player player = players.get(i);
+              final PlayerMultiplayerState state = playerStates.get(i);
 
-              if (player.multiplayerState.levelTag.equalsIgnoreCase(level.getTag()))
+              if (state.levelTag != null && state.levelTag.equalsIgnoreCase(level.getTag()))
               {
-                player.reset();
-                player.setPosition(level.spawn.getPosition());
+                System.out.println("Player " + state.playerId + " has changed to level: " + level.getTag());
+                state.setPosition(level.spawn.getPosition().x, level.spawn.getPosition().y);
+                state.isAtExit = false;
               }
               else
               {
@@ -135,6 +135,8 @@ public class MServer extends Thread
             {
               snapshotResponse.setLevelTag(null);
               doLevelChange = false;
+              level.started = true;
+              System.out.println("Level change is done");
             }
           }
         }
@@ -178,17 +180,15 @@ public class MServer extends Thread
         for (int i = 0; i < clientPlayerInputRequestQueue.size(); i++)
         {
           final ClientPlayerInputRequest request = clientPlayerInputRequestQueue.get(i);
-          final Player player = getPlayer(request.playerId);
+          final PlayerMultiplayerState state = getPlayer(request.playerId);
 
-          if (player != null)
+          if (state != null)
           {
-            player.multiplayerState.levelTag = request.getLevelTag();
+            state.levelTag = request.getLevelTag();
 
-            if (!doLevelChange && level.started && player.state != Player.State.EXIT)
+            if (!doLevelChange && level.started && !state.isAtExit)
             {
-              player.setPosition(request.getX(), request.getY());
-              player.multiplayerState.x = player.getPosition().x;
-              player.multiplayerState.y = player.getPosition().y;
+              state.setPosition(request.getX(), request.getY());
             }
           }
         }
@@ -197,31 +197,30 @@ public class MServer extends Thread
 
         // Check whether players have hit the exit
 
-        for (int i = 0; i < players.size(); i++)
+        for (int i = 0; i < playerStates.size(); i++)
         {
-          final Player player = players.get(i);
+          final PlayerMultiplayerState state = playerStates.get(i);
 
-          if (level.exit != null && level.exit.overlaps(player))
+          if (level.exit != null && level.exit.overlaps(state.player))
           {
-            player.stop();
-            player.setState(Player.State.EXIT);
+            state.isAtExit = true;
           }
         }
 
         // Update player positions in the server snapshot
 
-        for (int i = 0; i < players.size(); i++)
+        for (int i = 0; i < playerStates.size(); i++)
         {
-          final Player player = players.get(i);
-          snapshotResponse.addPlayerState(player.multiplayerState);
+          final PlayerMultiplayerState state = playerStates.get(i);
+          snapshotResponse.addPlayerState(state);
         }
 
         // Send players the server snapshot
 
-        for (int i = 0; i < players.size(); i++)
+        for (int i = 0; i < playerStates.size(); i++)
         {
-          final Player player = players.get(i);
-          final Connection connection = player.connection;
+          final PlayerMultiplayerState state = playerStates.get(i);
+          final Connection connection = state.connection;
           sendResponse(connection, snapshotResponse);
         }
 
@@ -257,25 +256,21 @@ public class MServer extends Thread
   {
     if (canAdd(id))
     {
-      final Player player = new Player();
-      player.id = id;
-
-      if (physics.canAdd(player))
-      {
-        player.multiplayerState.playerId = player.id;
-        player.multiplayerState.name = "Player " + player.id;
-        player.connection = connection;
-        players.add(player);
-        physics.addPlayer(player);
-      }
+      final PlayerMultiplayerState state = new PlayerMultiplayerState();
+      state.connection = connection;
+      state.playerId = id;
+      state.player = new Player();
+      state.playerName = "Player " + state.playerId;
+      state.levelTag = level.getTag();
+      playerStates.add(state);
     }
   }
 
   public boolean canAdd(final int id)
   {
-    for (int i = 0; i < players.size(); i++)
+    for (int i = 0; i < playerStates.size(); i++)
     {
-      if (id == players.get(i).id)
+      if (id == playerStates.get(i).playerId)
       {
         return false;
       }
@@ -284,13 +279,13 @@ public class MServer extends Thread
     return true;
   }
 
-  public Player getPlayer(final int id)
+  public PlayerMultiplayerState getPlayer(final int id)
   {
-    for (int i = 0; i < players.size(); i++)
+    for (int i = 0; i < playerStates.size(); i++)
     {
-      final Player player = players.get(i);
+      final PlayerMultiplayerState player = playerStates.get(i);
 
-      if (id == player.id)
+      if (id == player.playerId)
       {
         return player;
       }
@@ -303,9 +298,9 @@ public class MServer extends Thread
   {
     int indexToRemove = -1;
 
-    for (int i = 0; i < players.size(); i++)
+    for (int i = 0; i < playerStates.size(); i++)
     {
-      if (id == players.get(i).id)
+      if (id == playerStates.get(i).playerId)
       {
         indexToRemove = i;
         break;
@@ -314,8 +309,7 @@ public class MServer extends Thread
 
     if (indexToRemove != -1)
     {
-      final Player player = players.remove(indexToRemove);
-      physics.removePlayer(player);
+      playerStates.remove(indexToRemove);
     }
   }
 

@@ -410,12 +410,12 @@ public class Levels
     return levelIndex;
   }
 
-  void goToBeginning()
+  public void goToBeginning()
   {
     levelIndex = 0;
   }
 
-  void goToEnd()
+  public void goToEnd()
   {
     levelIndex = levels.size() - 1;
   }

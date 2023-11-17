@@ -1,6 +1,5 @@
 package com.orbinski.megajump;
 
-import com.esotericsoftware.kryonet.Connection;
 import com.orbinski.megajump.multiplayer.PlayerMultiplayerState;
 
 public class Player extends Entity
@@ -39,7 +38,6 @@ public class Player extends Entity
 
   public final JumpAssistant assistant;
 
-  public Connection connection;
   public final PlayerMultiplayerState multiplayerState = new PlayerMultiplayerState();
 
   public Player()

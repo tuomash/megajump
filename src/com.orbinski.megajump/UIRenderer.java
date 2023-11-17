@@ -59,6 +59,11 @@ class UIRenderer
         addText(UserInterface.moveCameraXText);
         addText(UserInterface.moveCameraYText);
       }
+      else if (game.isMultiplayer())
+      {
+        addText(UserInterface.levelNameText);
+        addBar(UserInterface.jumpBar);
+      }
       else
       {
         if (Globals.watermark)

@@ -337,7 +337,7 @@ public class Game
 
   public boolean isMultiplayer()
   {
-    return mode == Mode.MULTIPLAYER;
+    return multiplayer.isActive();
   }
 
   void reset()
