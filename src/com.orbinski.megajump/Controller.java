@@ -338,9 +338,9 @@ class Controller
 
       // Level controls
 
-      if (input.isKeyJustPressed(Input.Keys.C))
+      if (input.isKeyJustPressed(Input.Keys.R))
       {
-        game.reset();
+        game.resetToStart();
       }
       else if (input.isKeyJustPressed(Input.Keys.N))
       {

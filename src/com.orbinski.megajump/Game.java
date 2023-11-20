@@ -100,6 +100,13 @@ public class Game
     }
 
     physics.update(delta);
+
+    for (int i = 0; i < physics.getPlayers().size(); i++)
+    {
+      final Player player1 = physics.getPlayers().get(i);
+      // System.out.println(player1.getName() + " vel x " + player.velocityX);
+      // System.out.println(player1.getName() + " vel y " + player.velocityY);
+    }
   }
 
   void update(final float delta)
@@ -264,6 +271,7 @@ public class Game
 
   void resetToStart()
   {
+    // TODO: only reset player and
     reset();
   }
 
@@ -340,7 +348,7 @@ public class Game
     return multiplayer.isActive();
   }
 
-  void reset()
+  public void reset()
   {
     player.reset();
     cameraState.reset();

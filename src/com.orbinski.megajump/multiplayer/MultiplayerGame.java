@@ -1,7 +1,6 @@
 package com.orbinski.megajump.multiplayer;
 
 import com.orbinski.megajump.Game;
-import com.orbinski.megajump.Globals;
 import com.orbinski.megajump.Player;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
@@ -52,6 +51,8 @@ public class MultiplayerGame
             game.physics.addPlayer(player);
           }
         }
+
+        game.level.started = response.levelStarted;
 
         // Update player states
 
@@ -108,7 +109,13 @@ public class MultiplayerGame
               player.setState(Player.State.valueOf(state.playerState));
             }
 
-            player.setPosition(state.getX(), state.getY());
+            if (state.updatePosition)
+            {
+              player.setPosition(state.getX(), state.getY());
+            }
+
+            player.velocityX = state.getVelocityX();
+            player.velocityY = state.getVelocityY();
             player.updateAnimationState(false);
             player.update(delta);
             player.updatePlayerNameTextPosition();

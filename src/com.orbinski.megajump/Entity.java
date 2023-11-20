@@ -21,7 +21,7 @@ public abstract class Entity
   private final Vector2 previousPosition = new Vector2();
   private final Vector2 bottomLeftCornerPosition = new Vector2();
   private final Vector2 previousBottomLeftCornerPosition = new Vector2();
-  boolean interpolate;
+  public boolean interpolate;
 
   private float width;
   private float widthOffset;

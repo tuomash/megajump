@@ -16,6 +16,9 @@ public class PlayerMultiplayerState
   public String playerName;
   private float x;
   private float y;
+  public boolean updatePosition;
+  private float velocityX;
+  private float velocityY;
   public String playerState;
 
   public float getX()
@@ -26,6 +29,22 @@ public class PlayerMultiplayerState
   public float getY()
   {
     return y;
+  }
+
+  public float getVelocityX()
+  {
+    return velocityX;
+  }
+
+  public float getVelocityY()
+  {
+    return velocityY;
+  }
+
+  public void setVelocity(final float x, final float y)
+  {
+    this.velocityX = x;
+    this.velocityY = y;
   }
 
   public void setPosition(final Vector2 position)

@@ -34,6 +34,7 @@ public class MServer extends Thread
     server.addListener(listener);
     levels = new Levels();
     physics = new Physics();
+    physics.local = false;
 
     snapshotResponse.countdownState = -1;
 
@@ -261,11 +262,13 @@ public class MServer extends Thread
             {
               player.reset();
               player.setPosition(level.spawn.getPosition());
+              state.updatePosition = true;
             }
 
             physics.update(Globals.TIME_STEP_SECONDS);
-            state.playerState = player.state.toString();
             state.setPosition(player.getPosition().x, player.getPosition().y);
+            state.setVelocity(player.velocityX, player.velocityY);
+            state.playerState = player.state.toString();
           }
         }
 
@@ -289,6 +292,8 @@ public class MServer extends Thread
           snapshotResponse.addPlayerState(state);
         }
 
+        snapshotResponse.levelStarted = level.started;
+
         // Send players the server snapshot
 
         for (int i = 0; i < playerStates.size(); i++)
@@ -304,6 +309,12 @@ public class MServer extends Thread
         // Reset the server snapshot
 
         snapshotResponse.reset();
+
+        for (int i = 0; i < playerStates.size(); i++)
+        {
+          final PlayerMultiplayerState state = playerStates.get(i);
+          state.updatePosition = false;
+        }
 
         // Calculate elapsed time
 

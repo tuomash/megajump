@@ -14,6 +14,7 @@ public class ServerSnapshotResponse extends Response
 
   private String levelTag;
   public int countdownState;
+  public boolean levelStarted;
 
   public PlayerMultiplayerState[] getPlayerStateList()
   {

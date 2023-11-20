@@ -12,6 +12,7 @@ public class Physics
   private final List<Platform> platforms = new ArrayList<>();
 
   public float delta;
+  public boolean local = true;
 
   public void update(final float delta)
   {
