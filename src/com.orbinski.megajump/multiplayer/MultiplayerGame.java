@@ -127,10 +127,7 @@ public class MultiplayerGame
   {
     synchronized (lock)
     {
-      if (!responses.isFull())
-      {
-        responses.add(response);
-      }
+      responses.add(response);
     }
   }
 
