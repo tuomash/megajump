@@ -350,7 +350,7 @@ class Renderer
       {
         Vector2 position = entity.getBottomLeftCornerPosition();
 
-        if (entity.interpolate)
+        if (entity.interpolate())
         {
           position = entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
                                                                        interpolationAlpha);
@@ -382,7 +382,7 @@ class Renderer
       {
         Vector2 position = entity.getBottomLeftCornerPosition();
 
-        if (entity.interpolate)
+        if (entity.interpolate())
         {
           position = entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
                                                                        interpolationAlpha);

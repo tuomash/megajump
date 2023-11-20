@@ -24,8 +24,8 @@ class Listener implements ApplicationListener
     controller = new Controller(game);
     renderer = new Renderer(game);
     uiRenderer = new UIRenderer(game);
-    loop = new SemiFixedTimestepLoop(game, controller, renderer, uiRenderer);
-    // loop = new FullyFixedTimestepLoop(game, controller, renderer, uiRenderer);
+    // loop = new SemiFixedTimestepLoop(game, controller, renderer, uiRenderer);
+    loop = new FullyFixedTimestepLoop(game, controller, renderer, uiRenderer);
   }
 
   @Override

@@ -416,6 +416,11 @@ public abstract class Entity
     this.animation = animation;
   }
 
+  public boolean interpolate()
+  {
+    return interpolate;
+  }
+
   @Override
   public boolean equals(final Object obj)
   {

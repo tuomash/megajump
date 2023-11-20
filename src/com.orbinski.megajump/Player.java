@@ -426,6 +426,11 @@ public class Player extends Entity
     return assistant.canJump();
   }
 
+  public boolean interpolate()
+  {
+    return interpolate && isMoving();
+  }
+
   public void reset()
   {
     assistant.reset();
