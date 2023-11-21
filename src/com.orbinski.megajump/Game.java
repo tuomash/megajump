@@ -34,6 +34,7 @@ public class Game implements GameInterface
     camera.update();
     player = new Player();
     players = new ArrayList<>();
+    players.add(player);
     levels = new Levels();
     cameraState = new CameraState();
     levelEditor = new LevelEditor();
@@ -89,7 +90,8 @@ public class Game implements GameInterface
     Audio.playBackgroundMusic();
   }
 
-  void updatePhysics(final float delta)
+  @Override
+  public void updatePhysics(final float delta)
   {
     if (help || paused)
     {
@@ -97,10 +99,10 @@ public class Game implements GameInterface
     }
 
     physics.update(delta);
-    multiplayer.updatePhysics(delta);
   }
 
-  void update(final float delta)
+  @Override
+  public void update(final float delta)
   {
     if (help || paused)
     {
@@ -146,13 +148,11 @@ public class Game implements GameInterface
       UserInterface.retryText.visible = true;
       level.finished = true;
     }
-
-    multiplayer.update(delta);
   }
 
-  void handleMultiplayer()
+  @Override
+  public void handleMultiplayer()
   {
-    multiplayer.sendRequests();
   }
 
   private void updateCameraState(final float delta)
@@ -426,9 +426,8 @@ public class Game implements GameInterface
 
     if (level != null)
     {
-      physics.getPlayers().clear();
-      physics.addPlayer(player);
-      physics.setLevel(level);
+      physics.players = players;
+      physics.level = level;
       level.player = player;
       level.reset();
       level.updateUI();

@@ -37,6 +37,7 @@ public class MultiplayerGame implements GameInterface
     reset();
   }
 
+  @Override
   public void updatePhysics(final float delta)
   {
     if (isActive())
@@ -45,6 +46,7 @@ public class MultiplayerGame implements GameInterface
     }
   }
 
+  @Override
   public void update(final float delta)
   {
     if (isActive())
@@ -106,7 +108,6 @@ public class MultiplayerGame implements GameInterface
               player = new Player();
               player.id = state.playerId;
               players.add(player);
-              physics.addPlayer(player);
             }
 
             if (state.playerName != null)
@@ -159,8 +160,6 @@ public class MultiplayerGame implements GameInterface
         }
       }
 
-      clientPlayer.update(delta);
-
       if (clientPlayer.canJump())
       {
         UserInterface.enableJumpBar();
@@ -169,6 +168,15 @@ public class MultiplayerGame implements GameInterface
       {
         UserInterface.disableJumpBar();
       }
+    }
+  }
+
+  @Override
+  public void handleMultiplayer()
+  {
+    if (isActive())
+    {
+      sendRequests();
     }
   }
 
@@ -229,7 +237,7 @@ public class MultiplayerGame implements GameInterface
     client = null;
     active = false;
     players.clear();
-    physics.getPlayers().clear();
+    physics.clear();
   }
 
   public void sendRequests()
@@ -277,7 +285,8 @@ public class MultiplayerGame implements GameInterface
 
     if (level != null)
     {
-      physics.setLevel(level);
+      physics.players = players;
+      physics.level = level;
       level.player = clientPlayer;
       level.started = false;
 
@@ -287,6 +296,8 @@ public class MultiplayerGame implements GameInterface
         player.setPosition(level.spawn.getPosition());
         player.updatePlayerNameTextPosition();
       }
+
+      UserInterface.updateLevelNameText(level.getName());
     }
 
     setCameraToPlayer();
@@ -306,6 +317,7 @@ public class MultiplayerGame implements GameInterface
   @Override
   public void toggleHelp()
   {
+    // TODO: implement multiplayer help
   }
 
   @Override
@@ -317,6 +329,7 @@ public class MultiplayerGame implements GameInterface
   @Override
   public void togglePaused()
   {
+    // No implementation in multiplayer
   }
 
   @Override
@@ -352,6 +365,7 @@ public class MultiplayerGame implements GameInterface
   @Override
   public void toggleLevelEditor()
   {
+    // No implementation in multiplayer
   }
 
   @Override
@@ -369,19 +383,28 @@ public class MultiplayerGame implements GameInterface
   @Override
   public void resetPlayerToStart()
   {
+    clientPlayer.reset();
+    cameraState.reset();
 
+    camera.position.x = 0.0f;
+    camera.position.y = 0.0f;
+
+    clientPlayer.setPosition(level.spawn.getPosition());
+    clientPlayer.updatePlayerNameTextPosition();
+
+    setCameraToPlayer();
   }
 
   @Override
   public void selectPreviousLevel()
   {
-
+    // No implementation in multiplayer
   }
 
   @Override
   public void selectNextLevel()
   {
-
+    // No implementation in multiplayer
   }
 
   @Override
@@ -440,5 +463,6 @@ public class MultiplayerGame implements GameInterface
   @Override
   public void createNewLevel()
   {
+    // No implementation in multiplayer
   }
 }

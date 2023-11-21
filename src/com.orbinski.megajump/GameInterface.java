@@ -6,6 +6,16 @@ import java.util.List;
 
 public interface GameInterface
 {
+  // Loop specific functions
+
+  void updatePhysics(float delta);
+
+  void update(float delta);
+
+  void handleMultiplayer();
+
+  // Game specific functions
+
   boolean isHelp();
 
   void toggleHelp();

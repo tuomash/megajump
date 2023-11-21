@@ -6,7 +6,7 @@ import static com.orbinski.megajump.Globals.*;
 
 public class ServerSnapshotResponse extends Response
 {
-  private PlayerMultiplayerState[] playerStateList = new PlayerMultiplayerState[MAX_PLAYER_COUNT];
+  private PlayerMultiplayerState[] playerStateList = new PlayerMultiplayerState[SERVER_MAX_PLAYER_COUNT];
   transient int playerStateListIndex = 0;
 
   private Message[] messages = new Message[SERVER_MAX_MESSAGES];

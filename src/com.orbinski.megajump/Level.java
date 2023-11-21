@@ -378,7 +378,7 @@ public class Level
     spawn.setPosition(x, y);
   }
 
-  String getName()
+  public String getName()
   {
     return name;
   }

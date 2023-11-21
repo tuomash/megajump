@@ -15,6 +15,7 @@ public class MServer extends Thread
   final Levels levels;
   final Physics physics;
 
+  private final List<Player> players = new ArrayList<>();
   private final List<PlayerMultiplayerState> playerStates = new ArrayList<>();
 
   private final CircularFifoQueue<ClientPlayerAddRequest> clientPlayerAddRequestQueue = new CircularFifoQueue<>(10);
@@ -39,7 +40,10 @@ public class MServer extends Thread
 
     levels.goToBeginning();
     level = levels.getLevel();
-    physics.setLevel(level);
+
+    physics.players = players;
+    physics.level = level;
+
     snapshotResponse.setLevelTag(level.getTag());
 
     server.getKryo().register(ClientPlayerInputRequest.class);
@@ -54,7 +58,6 @@ public class MServer extends Thread
     final PlayerMultiplayerState state = addPlayer(null, -1);
     state.playerName = "AI";
     state.ai = true;
-    physics.addPlayer(state.player);
   }
 
   @Override
@@ -127,7 +130,7 @@ public class MServer extends Thread
             {
               levels.selectNextLevel();
               level = levels.getLevel();
-              physics.setLevel(level);
+              physics.level = level;
               snapshotResponse.setLevelTag(level.getTag());
 
               doLevelChange = true;
@@ -352,6 +355,7 @@ public class MServer extends Thread
       state.playerName = "Player " + state.playerId;
       state.levelTag = level.getTag();
       playerStates.add(state);
+      players.add(state.player);
       return state;
     }
 
@@ -401,7 +405,22 @@ public class MServer extends Thread
 
     if (indexToRemove != -1)
     {
-      return playerStates.remove(indexToRemove);
+      playerStates.remove(indexToRemove);
+      indexToRemove = -1;
+
+      for (int i = 0; i < players.size(); i++)
+      {
+        if (players.get(i).id == id)
+        {
+          indexToRemove = i;
+          break;
+        }
+      }
+
+      if (indexToRemove != -1)
+      {
+        players.remove(indexToRemove);
+      }
     }
 
     return null;

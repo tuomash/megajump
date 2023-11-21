@@ -1,17 +1,12 @@
 package com.orbinski.megajump;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Physics
 {
-  private final List<Player> players = new ArrayList<>();
-  private Level level;
-  private Exit exit;
-  private final List<Trampoline> trampolines = new ArrayList<>();
-  private final List<Platform> platforms = new ArrayList<>();
-
-  public float delta;
+  public List<Player> players;
+  public Level level;
+  private float delta;
 
   public void update(final float delta)
   {
@@ -24,12 +19,12 @@ public class Physics
     else if (!level.started)
     {
       // Update moving exits even if the player hasn't started yet
-      updateEntity(exit);
+      updateEntity(level.exit);
       return;
     }
 
     // Do exit movement first
-    updateEntity(exit);
+    updateEntity(level.exit);
 
     // Then do player movement and collision detection
     updatePlayers();
@@ -37,6 +32,11 @@ public class Physics
 
   public void updatePlayers()
   {
+    if (players == null)
+    {
+      return;
+    }
+
     for (int i = 0; i < players.size(); i++)
     {
       final Player player = players.get(i);
@@ -45,7 +45,7 @@ public class Physics
       {
         updateEntity(players.get(i));
 
-        if (exit != null && exit.overlaps(player))
+        if (level.exit != null && level.exit.overlaps(player))
         {
           player.stop();
           player.setState(Player.State.EXIT);
@@ -63,9 +63,9 @@ public class Physics
 
         boolean hit = false;
 
-        for (int z = 0; z < trampolines.size(); z++)
+        for (int z = 0; z < level.trampolines.size(); z++)
         {
-          final Trampoline trampoline = trampolines.get(z);
+          final Trampoline trampoline = level.trampolines.get(z);
 
           // TODO: pull code from class to here
           if (trampoline.apply(player))
@@ -77,9 +77,9 @@ public class Physics
 
         if (!hit)
         {
-          for (int z = 0; z < platforms.size(); z++)
+          for (int z = 0; z < level.platforms.size(); z++)
           {
-            final Platform platform = platforms.get(z);
+            final Platform platform = level.platforms.get(z);
 
             // TODO: pull code from class to here
             if (player.overlaps(platform))
@@ -165,26 +165,10 @@ public class Physics
     }
   }
 
-  public void addPlayer(final Player player)
+  public void clear()
   {
-    players.add(player);
-  }
-
-  public List<Player> getPlayers()
-  {
-    return players;
-  }
-
-  public void setLevel(final Level level)
-  {
-    if (level != null)
-    {
-      this.level = level;
-      exit = level.exit;
-      trampolines.clear();
-      trampolines.addAll(level.trampolines);
-      platforms.clear();
-      platforms.addAll(level.platforms);
-    }
+    players = null;
+    level = null;
+    delta = 0.0f;
   }
 }

@@ -29,6 +29,7 @@ class FullyFixedTimestepLoop extends Loop
       frameTime = MAX_FRAME_TIME_SECONDS;
     }
 
+    game = gameObj.getGame();
     accumulator = accumulator + frameTime;
     controller.update();
 

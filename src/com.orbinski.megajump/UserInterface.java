@@ -224,7 +224,7 @@ public class UserInterface
     return textObj;
   }
 
-  static void updateLevelNameText(final String levelName)
+  public static void updateLevelNameText(final String levelName)
   {
     if (levelNameText != null)
     {

@@ -63,8 +63,7 @@ class Renderer
     addDecorations();
     addTrampolines();
     addPlatforms();
-    addPlayer();
-    addOtherPlayers();
+    addPlayers();
     addTeleports();
 
     addSpawn();
@@ -241,17 +240,7 @@ class Renderer
     }
   }
 
-  void addPlayer()
-  {
-    if (game.isLevelEditor())
-    {
-      return;
-    }
-
-    addPlayer(game.getPlayer());
-  }
-
-  void addOtherPlayers()
+  void addPlayers()
   {
     if (game.isLevelEditor())
     {
