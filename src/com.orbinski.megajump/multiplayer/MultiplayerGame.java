@@ -1,32 +1,48 @@
 package com.orbinski.megajump.multiplayer;
 
-import com.orbinski.megajump.Game;
-import com.orbinski.megajump.Player;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.orbinski.megajump.*;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiplayerGame
+public class MultiplayerGame implements GameInterface
 {
-  public final Game game;
-
-  private MClient client;
-  private ClientConnector connector;
-
-  public boolean active;
-
+  private final Player clientPlayer = new Player();
   private final List<Player> players = new ArrayList<>();
+  // TODO: feed multiplayer specific levels file
+  private final Levels levels = new Levels();
+  private final Physics physics = new Physics();
+  private final CameraState cameraState = new CameraState();
+  private final OrthographicCamera camera;
 
   private final Object lock = new Object();
   private final ClientPlayerInputRequest clientInputRequest = new ClientPlayerInputRequest();
   private final CircularFifoQueue<ServerSnapshotResponse> responses = new CircularFifoQueue<>(100);
 
-  private String spLevel;
+  private MClient client;
+  private ClientConnector connector;
 
-  public MultiplayerGame(final Game game)
+  public boolean active;
+  private Level level;
+
+  public MultiplayerGame(final OrthographicCamera camera)
   {
-    this.game = game;
+    this.camera = camera;
+
+    levels.goToBeginning();
+    level = levels.getLevel();
+    reset();
+  }
+
+  public void updatePhysics(final float delta)
+  {
+    if (isActive())
+    {
+      physics.update(delta);
+    }
   }
 
   public void update(final float delta)
@@ -41,23 +57,16 @@ public class MultiplayerGame
 
         // Load the level requested by the server
 
-        if (response.getLevelTag() != null && !game.level.getTag().equalsIgnoreCase(response.getLevelTag()))
+        if (response.getLevelTag() != null && !level.getTag().equalsIgnoreCase(response.getLevelTag()))
         {
-          game.loadLevel(response.getLevelTag());
-
-          for (int i = 0; i < players.size(); i++)
-          {
-            final Player player = players.get(i);
-            game.physics.addPlayer(player);
-            player.setPosition(game.level.spawn.getPosition());
-          }
+          loadLevel(response.getLevelTag());
         }
 
         // Set level as started when information comes from the server
 
-        game.level.started = response.levelStarted;
+        level.started = response.levelStarted;
 
-        // Update player states
+        // Apply new state received from the server
 
         for (int i = 0; i < response.getPlayerStateList().length; i++)
         {
@@ -69,13 +78,11 @@ public class MultiplayerGame
           }
 
           // Update local player
-          if (state.playerId == game.player.id)
+          if (state.playerId == clientPlayer.id)
           {
-            final Player player = game.player;
-
             if (state.playerName != null)
             {
-              player.setName(state.playerName);
+              clientPlayer.setName(state.playerName);
             }
           }
           else
@@ -99,7 +106,7 @@ public class MultiplayerGame
               player = new Player();
               player.id = state.playerId;
               players.add(player);
-              game.physics.addPlayer(player);
+              physics.addPlayer(player);
             }
 
             if (state.playerName != null)
@@ -119,17 +126,49 @@ public class MultiplayerGame
 
             player.velocityX = state.getVelocityX();
             player.velocityY = state.getVelocityY();
-            player.updateAnimationState(false);
-            player.update(delta);
-            player.updatePlayerNameTextPosition();
           }
         }
 
         // TODO: interpolate the positions of other players
       }
 
-      // TODO: this is a dumb solution, replace later
-      game.player.updatePlayerNameTextPosition();
+      for (int i = 0; i < players.size(); i++)
+      {
+        final Player player = players.get(i);
+        player.updateAnimationState(false);
+        player.update(delta);
+
+        // TODO: this is a dumb solution, replace later
+        player.updatePlayerNameTextPosition();
+      }
+
+      // TODO: implement proper camera following
+      if (clientPlayer.isMoving())
+      {
+        if (level.moveCameraX)
+        {
+          camera.position.x = camera.position.x + delta * clientPlayer.velocityX;
+        }
+
+        if (level.moveCameraY)
+        {
+          if (clientPlayer.getPosition().y > level.cameraFloor.y)
+          {
+            camera.position.y = camera.position.y + delta * clientPlayer.velocityY + delta * 1.5f;
+          }
+        }
+      }
+
+      clientPlayer.update(delta);
+
+      if (clientPlayer.canJump())
+      {
+        UserInterface.enableJumpBar();
+      }
+      else
+      {
+        UserInterface.disableJumpBar();
+      }
     }
   }
 
@@ -175,10 +214,9 @@ public class MultiplayerGame
   public void setClient(final MClient client)
   {
     this.client = client;
-    active = true;
 
-    // Store current singleplayer level so that we can go back to it after disconnecting
-    spLevel = game.level.getTag();
+    active = true;
+    players.add(clientPlayer);
   }
 
   public void disconnectFromServer()
@@ -190,20 +228,68 @@ public class MultiplayerGame
 
     client = null;
     active = false;
-    game.loadLevel(spLevel);
-    spLevel = null;
+    players.clear();
+    physics.getPlayers().clear();
   }
 
   public void sendRequests()
   {
     if (isActive())
     {
-      clientInputRequest.setX(game.player.getPosition().x);
-      clientInputRequest.setY(game.player.getPosition().y);
-      clientInputRequest.setLevelTag(game.level.getTag());
+      clientInputRequest.setX(clientPlayer.getPosition().x);
+      clientInputRequest.setY(clientPlayer.getPosition().y);
+      clientInputRequest.setLevelTag(level.getTag());
       client.requests.add(clientInputRequest);
       client.sendRequests();
     }
+  }
+
+  public void loadLevel(final String tag)
+  {
+    // Level is already loaded
+    if (level != null && level.getTag().equalsIgnoreCase(tag))
+    {
+      return;
+    }
+
+    final Level newLevel = levels.get(tag);
+
+    if (newLevel != null)
+    {
+      level = newLevel;
+      reset();
+    }
+  }
+
+  public void setCameraToPlayer()
+  {
+    camera.position.x = clientPlayer.getPosition().x + 69.0f;
+    camera.position.y = clientPlayer.getPosition().y + 30.0f;
+  }
+
+  public void reset()
+  {
+    clientPlayer.reset();
+    cameraState.reset();
+
+    camera.position.x = 0.0f;
+    camera.position.y = 0.0f;
+
+    if (level != null)
+    {
+      physics.setLevel(level);
+      level.player = clientPlayer;
+      level.started = false;
+
+      for (int i = 0; i < players.size(); i++)
+      {
+        final Player player = players.get(i);
+        player.setPosition(level.spawn.getPosition());
+        player.updatePlayerNameTextPosition();
+      }
+    }
+
+    setCameraToPlayer();
   }
 
   public boolean isActive()
@@ -211,8 +297,148 @@ public class MultiplayerGame
     return active && client != null && client.isConnected();
   }
 
+  @Override
+  public boolean isHelp()
+  {
+    return false;
+  }
+
+  @Override
+  public void toggleHelp()
+  {
+  }
+
+  @Override
+  public boolean isPaused()
+  {
+    return false;
+  }
+
+  @Override
+  public void togglePaused()
+  {
+  }
+
+  @Override
+  public CameraState getCameraState()
+  {
+    return cameraState;
+  }
+
+  @Override
+  public Player getPlayer()
+  {
+    return clientPlayer;
+  }
+
+  @Override
   public List<Player> getPlayers()
   {
     return players;
+  }
+
+  @Override
+  public Level getLevel()
+  {
+    return level;
+  }
+
+  @Override
+  public boolean isLevelEditor()
+  {
+    return false;
+  }
+
+  @Override
+  public void toggleLevelEditor()
+  {
+  }
+
+  @Override
+  public LevelEditor getLevelEditor()
+  {
+    return null;
+  }
+
+  @Override
+  public boolean isMultiplayer()
+  {
+    return true;
+  }
+
+  @Override
+  public void resetPlayerToStart()
+  {
+
+  }
+
+  @Override
+  public void selectPreviousLevel()
+  {
+
+  }
+
+  @Override
+  public void selectNextLevel()
+  {
+
+  }
+
+  @Override
+  public boolean isTargeting()
+  {
+    return clientPlayer.assistant.targeting;
+  }
+
+  @Override
+  public void setTargeting(final boolean targeting)
+  {
+    clientPlayer.assistant.targeting = targeting;
+
+    if (targeting)
+    {
+      cameraState.active = false;
+    }
+  }
+
+  @Override
+  public void updateAssistantPosition(final Vector2 newPosition)
+  {
+    clientPlayer.assistant.updateCursorPosition(newPosition);
+  }
+
+  @Override
+  public void jump()
+  {
+    clientPlayer.jump();
+  }
+
+  @Override
+  public void moveUp()
+  {
+    clientPlayer.moveUp();
+  }
+
+  @Override
+  public void moveLeft()
+  {
+    clientPlayer.moveLeft();
+  }
+
+  @Override
+  public void moveRight()
+  {
+    clientPlayer.moveRight();
+  }
+
+  @Override
+  public void moveDown()
+  {
+    clientPlayer.moveDown();
+  }
+
+  @Override
+  public void createNewLevel()
+  {
   }
 }

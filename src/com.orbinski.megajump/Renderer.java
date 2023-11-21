@@ -15,10 +15,12 @@ class Renderer
 {
   private static Viewport staticViewport;
 
-  final Game game;
+  final Game gameObj;
   final Viewport viewport;
   final SpriteBatch spriteBatch;
   final MShapeRenderer shapeRenderer;
+
+  GameInterface game;
 
   final Entity[] entities = new Entity[1000];
   int entityIndex = -1;
@@ -28,7 +30,7 @@ class Renderer
 
   Renderer(final Game game)
   {
-    this.game = game;
+    this.gameObj = game;
 
     viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, game.camera);
     staticViewport = viewport;
@@ -49,7 +51,9 @@ class Renderer
     spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
     shapeRenderer.update();
 
-    if (game.help || game.levelEditor.help)
+    game = gameObj.getGame();
+
+    if (game.isHelp() || (game.getLevelEditor() != null && game.getLevelEditor().help))
     {
       return;
     }
@@ -74,22 +78,22 @@ class Renderer
 
   void addExit()
   {
-    addEntity(game.level.exit);
+    addEntity(game.getLevel().exit);
   }
 
   void addBlocks()
   {
-    for (int i = 0; i < game.level.blocks.size(); i++)
+    for (int i = 0; i < game.getLevel().blocks.size(); i++)
     {
-      addEntity(game.level.blocks.get(i));
+      addEntity(game.getLevel().blocks.get(i));
     }
   }
 
   void addDecorations()
   {
-    for (int i = 0; i < game.level.decorations.size(); i++)
+    for (int i = 0; i < game.getLevel().decorations.size(); i++)
     {
-      addEntity(game.level.decorations.get(i));
+      addEntity(game.getLevel().decorations.get(i));
     }
   }
 
@@ -97,9 +101,9 @@ class Renderer
   {
     // TODO: use addEntity() when texture is available
 
-    for (int i = 0; i < game.level.trampolines.size(); i++)
+    for (int i = 0; i < game.getLevel().trampolines.size(); i++)
     {
-      final Trampoline trampoline = game.level.trampolines.get(i);
+      final Trampoline trampoline = game.getLevel().trampolines.get(i);
 
       shapeRenderer.addFilledQuad(trampoline.getBottomLeftCornerPosition().x,
                                   trampoline.getBottomLeftCornerPosition().y,
@@ -122,9 +126,9 @@ class Renderer
   {
     // TODO: use addEntity() when texture is available
 
-    for (int i = 0; i < game.level.platforms.size(); i++)
+    for (int i = 0; i < game.getLevel().platforms.size(); i++)
     {
-      final Platform platform = game.level.platforms.get(i);
+      final Platform platform = game.getLevel().platforms.get(i);
 
       shapeRenderer.addFilledQuad(platform.getBottomLeftCornerPosition().x,
                                   platform.getBottomLeftCornerPosition().y,
@@ -147,9 +151,9 @@ class Renderer
   {
     // TODO: use addEntity() when texture is available
 
-    for (int i = 0; i < game.level.teleports.size(); i++)
+    for (int i = 0; i < game.getLevel().teleports.size(); i++)
     {
-      final Teleport teleport = game.level.teleports.get(i);
+      final Teleport teleport = game.getLevel().teleports.get(i);
 
       shapeRenderer.addFilledQuad(teleport.getBottomLeftCornerPosition().x,
                                   teleport.getBottomLeftCornerPosition().y,
@@ -178,9 +182,9 @@ class Renderer
   {
     // TODO: use addEntity() when texture is available
 
-    if (game.levelEditor.active)
+    if (game.isLevelEditor())
     {
-      final Spawn spawn = game.levelEditor.level.spawn;
+      final Spawn spawn = game.getLevelEditor().level.spawn;
 
       shapeRenderer.addFilledQuad(spawn.getBottomLeftCornerPosition().x,
                                   spawn.getBottomLeftCornerPosition().y,
@@ -201,7 +205,7 @@ class Renderer
 
   void addLevelBorder()
   {
-    if (game.levelEditor.active)
+    if (game.isLevelEditor())
     {
       shapeRenderer.addQuad(0.0f - Level.MAX_DIMENSION_OFFSET,
                             0.0f - Level.MAX_DIMENSION_OFFSET,
@@ -213,9 +217,9 @@ class Renderer
 
   void addLevelCameraFloor()
   {
-    if (game.levelEditor.active)
+    if (game.isLevelEditor())
     {
-      final Level level = game.levelEditor.level;
+      final Level level = game.getLevelEditor().level;
       shapeRenderer.addLine(level.cameraFloor.x - Level.MAX_DIMENSION,
                             level.cameraFloor.y,
                             level.cameraFloor.x + Level.MAX_DIMENSION,
@@ -226,9 +230,9 @@ class Renderer
 
   void addLevelDeathPoint()
   {
-    if (game.levelEditor.active)
+    if (game.isLevelEditor())
     {
-      final Level level = game.levelEditor.level;
+      final Level level = game.getLevelEditor().level;
       shapeRenderer.addLine(level.deathPoint.x - Level.MAX_DIMENSION,
                             level.deathPoint.y,
                             level.deathPoint.x + Level.MAX_DIMENSION,
@@ -239,24 +243,24 @@ class Renderer
 
   void addPlayer()
   {
-    if (game.levelEditor.active)
+    if (game.isLevelEditor())
     {
       return;
     }
 
-    addPlayer(game.player);
+    addPlayer(game.getPlayer());
   }
 
   void addOtherPlayers()
   {
-    if (game.levelEditor.active || !game.multiplayer.isActive())
+    if (game.isLevelEditor())
     {
       return;
     }
 
-    for (int i = 0; i < game.multiplayer.getPlayers().size(); i++)
+    for (int i = 0; i < game.getPlayers().size(); i++)
     {
-      final Player player = game.multiplayer.getPlayers().get(i);
+      final Player player = game.getPlayers().get(i);
       addPlayer(player);
     }
   }

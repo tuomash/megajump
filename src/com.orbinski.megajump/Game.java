@@ -4,25 +4,24 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.orbinski.megajump.multiplayer.MultiplayerGame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.orbinski.megajump.Globals.*;
 
-public class Game
+public class Game implements GameInterface
 {
-  public enum Mode
-  {
-    SINGLEPLAYER,
-    MULTIPLAYER
-  }
-
   public final Physics physics;
   final OrthographicCamera camera;
   public final Player player;
+  public final List<Player> players;
   final Levels levels;
   final CameraState cameraState;
   final LevelEditor levelEditor;
   final MultiplayerGame multiplayer;
 
-  Mode mode = Mode.SINGLEPLAYER;
+  private GameInterface game;
+
   public Level level;
   Save save;
   boolean help;
@@ -34,10 +33,13 @@ public class Game
     camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
     camera.update();
     player = new Player();
+    players = new ArrayList<>();
     levels = new Levels();
     cameraState = new CameraState();
     levelEditor = new LevelEditor();
-    multiplayer = new MultiplayerGame(this);
+    multiplayer = new MultiplayerGame(camera);
+
+    game = this;
 
     if (Save.doesSaveFileExist())
     {
@@ -87,38 +89,23 @@ public class Game
     Audio.playBackgroundMusic();
   }
 
-  void handleMultiplayer()
-  {
-    multiplayer.sendRequests();
-  }
-
   void updatePhysics(final float delta)
   {
-    if (isSinglePlayer() && (help || paused))
+    if (help || paused)
     {
       return;
     }
 
     physics.update(delta);
-
-    for (int i = 0; i < physics.getPlayers().size(); i++)
-    {
-      final Player player1 = physics.getPlayers().get(i);
-      // System.out.println(player1.getName() + " vel x " + player.velocityX);
-      // System.out.println(player1.getName() + " vel y " + player.velocityY);
-    }
+    multiplayer.updatePhysics(delta);
   }
 
   void update(final float delta)
   {
-    if (isSinglePlayer() && (help || paused))
+    if (help || paused)
     {
       return;
     }
-
-    multiplayer.update(delta);
-
-    // System.out.println("client: x " + player.getPosition().x + " y " + player.getPosition().y);
 
     // TODO: implement proper camera following
     if (player.isMoving())
@@ -154,11 +141,18 @@ public class Game
       UserInterface.disableJumpBar();
     }
 
-    if (player.state == Player.State.DEATH && isSinglePlayer())
+    if (player.state == Player.State.DEATH)
     {
       UserInterface.retryText.visible = true;
       level.finished = true;
     }
+
+    multiplayer.update(delta);
+  }
+
+  void handleMultiplayer()
+  {
+    multiplayer.sendRequests();
   }
 
   private void updateCameraState(final float delta)
@@ -199,7 +193,8 @@ public class Game
      */
   }
 
-  void createNewLevel()
+  @Override
+  public void createNewLevel()
   {
     level = new Level();
     level.setName("New Level " + System.currentTimeMillis());
@@ -227,6 +222,7 @@ public class Game
     }
   }
 
+  @Override
   public void selectPreviousLevel()
   {
     levels.selectPreviousLevel();
@@ -235,6 +231,7 @@ public class Game
     reset();
   }
 
+  @Override
   public void selectNextLevel()
   {
     levels.selectNextLevel();
@@ -243,53 +240,50 @@ public class Game
     reset();
   }
 
-  void moveUp()
+  @Override
+  public void moveUp()
   {
     player.moveUp();
   }
 
-  void moveLeft()
+  @Override
+  public void moveLeft()
   {
     player.moveLeft();
   }
 
-  void moveRight()
+  @Override
+  public void moveRight()
   {
     player.moveRight();
   }
 
-  void moveDown()
+  @Override
+  public void moveDown()
   {
     player.moveDown();
   }
 
-  void jump()
+  @Override
+  public void jump()
   {
     player.jump();
     level.started = true;
   }
 
-  void resetPlayerToStart()
+  @Override
+  public void resetPlayerToStart()
   {
-    if (isSinglePlayer())
-    {
-      reset();
-    }
-    else
-    {
-      player.reset();
-      cameraState.reset();
-      player.setPosition(level.spawn.getPosition().x, level.spawn.getPosition().y);
-      setCameraToPlayer();
-    }
+    reset();
   }
 
-  boolean isTargeting()
+  @Override
+  public boolean isTargeting()
   {
     return player.assistant.targeting;
   }
 
-  void setTargeting(final boolean targeting)
+  public void setTargeting(final boolean targeting)
   {
     player.assistant.targeting = targeting;
 
@@ -299,7 +293,8 @@ public class Game
     }
   }
 
-  void updateAssistantPosition(final Vector2 newPosition)
+  @Override
+  public void updateAssistantPosition(final Vector2 newPosition)
   {
     player.assistant.updateCursorPosition(newPosition);
   }
@@ -328,7 +323,8 @@ public class Game
     }
   }
 
-  void toggleLevelEditor()
+  @Override
+  public void toggleLevelEditor()
   {
     levelEditor.level = level;
     levelEditor.active = !levelEditor.active;
@@ -340,21 +336,84 @@ public class Game
   public void connectToServer()
   {
     multiplayer.connectToServer();
+    game = multiplayer;
   }
 
   public void disconnectFromServer()
   {
     multiplayer.disconnectFromServer();
+    game = this;
   }
 
-  public boolean isSinglePlayer()
-  {
-    return !isMultiplayer();
-  }
-
+  @Override
   public boolean isMultiplayer()
   {
-    return multiplayer.isActive();
+    return false;
+  }
+
+  public GameInterface getGame()
+  {
+    return game;
+  }
+
+  @Override
+  public boolean isHelp()
+  {
+    return help;
+  }
+
+  @Override
+  public void toggleHelp()
+  {
+    help = !help;
+  }
+
+  @Override
+  public boolean isPaused()
+  {
+    return paused;
+  }
+
+  @Override
+  public void togglePaused()
+  {
+    paused = !paused;
+  }
+
+  @Override
+  public CameraState getCameraState()
+  {
+    return null;
+  }
+
+  @Override
+  public Player getPlayer()
+  {
+    return player;
+  }
+
+  @Override
+  public List<Player> getPlayers()
+  {
+    return players;
+  }
+
+  @Override
+  public Level getLevel()
+  {
+    return level;
+  }
+
+  @Override
+  public boolean isLevelEditor()
+  {
+    return levelEditor.active;
+  }
+
+  @Override
+  public LevelEditor getLevelEditor()
+  {
+    return levelEditor;
   }
 
   public void reset()
@@ -370,7 +429,6 @@ public class Game
       physics.getPlayers().clear();
       physics.addPlayer(player);
       physics.setLevel(level);
-      level.game = this;
       level.player = player;
       level.reset();
       level.updateUI();

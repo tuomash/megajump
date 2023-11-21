@@ -7,7 +7,7 @@ import java.util.List;
 
 import static com.orbinski.megajump.MathUtils.*;
 
-class UserInterface
+public class UserInterface
 {
   static Color DARK_RED = new Color(139.0f / 255.0f, 0.0f, 0.0f, 1.0f);
   static Color DARK_GREEN = new Color(8.0f / 255.0f, 144.0f / 255.0f, 0.0f, 1.0f);
@@ -304,7 +304,7 @@ class UserInterface
     }
   }
 
-  static void enableJumpBar()
+  public static void enableJumpBar()
   {
     if (jumpBar != null)
     {
@@ -312,7 +312,7 @@ class UserInterface
     }
   }
 
-  static void disableJumpBar()
+  public static void disableJumpBar()
   {
     if (jumpBar != null)
     {

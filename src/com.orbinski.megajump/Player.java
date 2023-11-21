@@ -421,7 +421,7 @@ public class Player extends Entity
     }
   }
 
-  boolean canJump()
+  public boolean canJump()
   {
     return assistant.canJump();
   }

@@ -155,7 +155,7 @@ public abstract class Entity
     velocityY = 0.0f;
   }
 
-  boolean isMoving()
+  public boolean isMoving()
   {
     return velocityX > 0.0f || velocityX < 0.0f || velocityY > 0.0f || velocityY < 0.0f;
   }

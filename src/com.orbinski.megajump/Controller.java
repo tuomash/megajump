@@ -8,7 +8,9 @@ import static com.badlogic.gdx.Gdx.*;
 
 class Controller
 {
-  final Game game;
+  private final Game gameObj;
+
+  GameInterface game;
 
   private final Vector2 mouse = new Vector2();
 
@@ -19,11 +21,13 @@ class Controller
 
   Controller(final Game game)
   {
-    this.game = game;
+    this.gameObj = game;
   }
 
   void update()
   {
+    game = gameObj.getGame();
+
     if (input.isKeyPressed(Input.Keys.ALT_LEFT) && input.isKeyJustPressed(Input.Keys.ENTER))
     {
       final Graphics.DisplayMode currentMode = graphics.getDisplayMode();
@@ -40,7 +44,7 @@ class Controller
       }
     }
 
-    if (game.levelEditor.active)
+    if (game.isLevelEditor())
     {
       handleEditorControls();
     }
@@ -54,14 +58,14 @@ class Controller
   {
     if (input.isKeyJustPressed(Input.Keys.F1))
     {
-      game.help = !game.help;
+      game.toggleHelp();
     }
     else if (input.isKeyJustPressed(Input.Keys.SPACE))
     {
-      game.paused = !game.paused;
+      game.togglePaused();
     }
 
-    if (game.help || game.paused)
+    if (game.isHelp() || game.isPaused())
     {
       return;
     }
@@ -101,7 +105,7 @@ class Controller
     // Transform to world coordinates
     Renderer.unproject(mouse);
 
-    if (!game.level.finished)
+    if (!game.getLevel().finished)
     {
       if (input.isTouched())
       {
@@ -163,7 +167,7 @@ class Controller
 
   void handleEditorControls()
   {
-    final LevelEditor editor = game.levelEditor;
+    final LevelEditor editor = game.getLevelEditor();
 
     // Set screen coordinates
     mouse.x = input.getX();
@@ -355,20 +359,20 @@ class Controller
 
       if (input.isKeyPressed(Input.Keys.W) || input.isKeyPressed(Input.Keys.UP))
       {
-        game.cameraState.moveUp();
+        game.getCameraState().moveUp();
       }
       else if (input.isKeyPressed(Input.Keys.S) || input.isKeyPressed(Input.Keys.DOWN))
       {
-        game.cameraState.moveDown();
+        game.getCameraState().moveDown();
       }
 
       if (input.isKeyPressed(Input.Keys.A) || input.isKeyPressed(Input.Keys.LEFT))
       {
-        game.cameraState.moveLeft();
+        game.getCameraState().moveLeft();
       }
       else if (input.isKeyPressed(Input.Keys.D) || input.isKeyPressed(Input.Keys.RIGHT))
       {
-        game.cameraState.moveRight();
+        game.getCameraState().moveRight();
       }
     }
   }

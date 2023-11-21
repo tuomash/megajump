@@ -8,18 +8,20 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 class UIRenderer
 {
-  final Game game;
+  final Game gameObj;
   final OrthographicCamera camera;
   final Viewport viewport;
   final SpriteBatch spriteBatch;
   final MShapeRenderer shapeRenderer;
+
+  GameInterface game;
 
   final Text[] texts = new Text[50];
   int textIndex = -1;
 
   UIRenderer(final Game game)
   {
-    this.game = game;
+    this.gameObj = game;
 
     camera = new OrthographicCamera();
     camera.update();
@@ -40,17 +42,19 @@ class UIRenderer
 
     textIndex = -1;
 
-    if (game.help)
+    game = gameObj.getGame();
+
+    if (game.isHelp())
     {
       addGameHelpTexts();
     }
-    else if (game.levelEditor.help)
+    else if (game.getLevelEditor() != null && game.getLevelEditor().help)
     {
       addEditorHelpTexts();
     }
     else if (!Globals.hideUI)
     {
-      if (game.levelEditor.active)
+      if (game.isLevelEditor())
       {
         addText(UserInterface.levelNameText);
         addText(UserInterface.unsavedChangesText);
@@ -61,9 +65,9 @@ class UIRenderer
       }
       else if (game.isMultiplayer())
       {
-        for (int i = 0; i < game.physics.getPlayers().size(); i++)
+        for (int i = 0; i < game.getPlayers().size(); i++)
         {
-          final Player player = game.physics.getPlayers().get(i);
+          final Player player = game.getPlayers().get(i);
           addText(player.playerNameText);
         }
 
@@ -77,7 +81,7 @@ class UIRenderer
           addText(UserInterface.waterMarkText);
         }
 
-        if (game.paused)
+        if (game.isPaused())
         {
           addText(UserInterface.pausedText);
         }
@@ -104,7 +108,7 @@ class UIRenderer
     }
 
     // Draw a red border to signal that level editor is active
-    if (game.levelEditor.active)
+    if (game.isLevelEditor())
     {
       shapeRenderer.addQuad(0.0f + 1,
               0.0f + 1,

@@ -3,7 +3,7 @@ package com.orbinski.megajump;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
-class LevelEditor implements InputProcessor
+public class LevelEditor implements InputProcessor
 {
   Level level;
   boolean active;

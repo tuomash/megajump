@@ -17,8 +17,7 @@ public class Level
     NONE
   }
 
-  Game game;
-  Player player;
+  public Player player;
 
   private String name = "Level";
   private String tag;
@@ -45,10 +44,10 @@ public class Level
   int silverTimeInMilliseconds;
   int bronzeTimeInMilliseconds;
 
-  boolean moveCameraX;
-  boolean moveCameraY;
+  public boolean moveCameraX;
+  public boolean moveCameraY;
 
-  Point2D.Float cameraFloor = new Point2D.Float();
+  public Point2D.Float cameraFloor = new Point2D.Float();
   Point2D.Float deathPoint = new Point2D.Float();
 
   private boolean saved = true;
@@ -432,11 +431,6 @@ public class Level
     }
   }
 
-  boolean isSaved()
-  {
-    return saved;
-  }
-
   void setSaved(final boolean saved)
   {
     this.saved = saved;
@@ -451,7 +445,7 @@ public class Level
     }
   }
 
-  void reset()
+  public void reset()
   {
     started = false;
     finished = false;

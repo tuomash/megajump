@@ -1,39 +1,39 @@
 package com.orbinski.megajump;
 
-class CameraState
+public class CameraState
 {
   private static final float SPEED = 75.0f;
 
   boolean moving;
-  boolean active = true;
+  public boolean active = true;
   float velocityX;
   float velocityY;
 
-  void moveUp()
+  public void moveUp()
   {
     moving = true;
     velocityY = SPEED;
   }
 
-  void moveLeft()
+  public void moveLeft()
   {
     moving = true;
     velocityX = -SPEED;
   }
 
-  void moveRight()
+  public void moveRight()
   {
     moving = true;
     velocityX = SPEED;
   }
 
-  void moveDown()
+  public void moveDown()
   {
     moving = true;
     velocityY = -SPEED;
   }
 
-  void reset()
+  public void reset()
   {
     moving = false;
     active = true;

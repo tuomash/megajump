@@ -8,7 +8,7 @@ public class JumpAssistant
   final Player player;
 
   private final Vector2 cursorPosition = new Vector2();
-  boolean targeting;
+  public boolean targeting;
 
   private float jumpElapsed;
   private final float jumpTarget = 1.25f;
@@ -16,7 +16,7 @@ public class JumpAssistant
 
   final Rectangle[] jumpCurve = new Rectangle[250];
 
-  JumpAssistant(final Player player)
+  public JumpAssistant(final Player player)
   {
     this.player = player;
 
@@ -26,7 +26,7 @@ public class JumpAssistant
     }
   }
 
-  void update(final float delta)
+  public void update(final float delta)
   {
     if (!canJump)
     {
@@ -45,7 +45,7 @@ public class JumpAssistant
     }
   }
 
-  void jump()
+  public void jump()
   {
     if (canJump())
     {
@@ -144,7 +144,7 @@ public class JumpAssistant
     return jumpVelocityY;
   }
 
-  void updateCursorPosition(final Vector2 newPosition)
+  public void updateCursorPosition(final Vector2 newPosition)
   {
     cursorPosition.x = newPosition.x;
     cursorPosition.y = newPosition.y;
