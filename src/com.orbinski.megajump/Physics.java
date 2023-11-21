@@ -67,9 +67,10 @@ public class Physics
         {
           final Trampoline trampoline = level.trampolines.get(z);
 
-          // TODO: pull code from class to here
-          if (trampoline.apply(player))
+          if (EntityUtils.overlaps(player.bottomSide, trampoline))
           {
+            player.velocityY = (Math.abs(player.velocityY) + 50.0f) * 0.60f;
+
             hit = true;
             break;
           }
@@ -81,10 +82,58 @@ public class Physics
           {
             final Platform platform = level.platforms.get(z);
 
-            // TODO: pull code from class to here
-            if (player.overlaps(platform))
+            if (player.velocityY < 0.0f && EntityUtils.overlaps(player.bottomSide, platform))
             {
               hit = true;
+              player.setY(platform.getPosition().y + platform.getHeightOffset() + 3.0f);
+              player.velocityY = 0.0f;
+              player.setLocation(Player.Location.PLATFORM);
+
+              if (player.state == Player.State.JUMPING)
+              {
+                player.setState(Player.State.LANDING);
+              }
+              else if (player.state == Player.State.LANDING && (player.animation == null || player.animation.isAtEnd()))
+              {
+                player.setState(Player.State.IDLE);
+              }
+
+              final float friction = 0.8f;
+
+              if (player.velocityX > friction)
+              {
+                player.velocityX = player.velocityX - friction;
+              }
+              else if (player.velocityX < -friction)
+              {
+                player.velocityX = player.velocityX + friction;
+              }
+              else
+              {
+                player.velocityX = 0.0f;
+              }
+            }
+            else if (player.velocityY > 0.0f && EntityUtils.overlaps(player.topSide, platform))
+            {
+              hit = true;
+              player.setY(platform.getPosition().y - platform.getHeightOffset() - 3.0f);
+              player.velocityY = 0.0f;
+            }
+            else if (player.velocityX < 0.0f && EntityUtils.overlaps(player.leftSide, platform))
+            {
+              hit = true;
+              player.setX(platform.getPosition().x + platform.getWidthOffset() + 1.8f);
+              player.velocityX = 0.0f;
+            }
+            else if (player.velocityX > 0.0f && EntityUtils.overlaps(player.rightSide, platform))
+            {
+              hit = true;
+              player.setX(platform.getPosition().x - platform.getWidthOffset() - 1.8f);
+              player.velocityX = 0.0f;
+            }
+
+            if (hit)
+            {
               break;
             }
           }

@@ -13,6 +13,7 @@ public class Player extends Entity
     IDLE,
     JUMPING,
     LANDING,
+    WALL_LANDING,
     EXIT,
     DEATH
   }
@@ -202,64 +203,6 @@ public class Player extends Entity
     {
       updateVelocityY(-0.5f);
     }
-  }
-
-  @Override
-  boolean overlaps(final Entity entity)
-  {
-    boolean overlaps = false;
-
-    if (velocityY < 0.0f && EntityUtils.overlaps(bottomSide, entity))
-    {
-      overlaps = true;
-      setY(entity.getPosition().y + entity.getHeightOffset() + 3.0f);
-      velocityY = 0.0f;
-      setLocation(Location.PLATFORM);
-
-      if (state == State.JUMPING)
-      {
-        setState(State.LANDING);
-      }
-      else if (state == State.LANDING && (animation == null || animation.isAtEnd()))
-      {
-        setState(State.IDLE);
-      }
-
-      final float friction = 0.8f;
-
-      if (velocityX > friction)
-      {
-        velocityX = velocityX - friction;
-      }
-      else if (velocityX < -friction)
-      {
-        velocityX = velocityX + friction;
-      }
-      else
-      {
-        velocityX = 0.0f;
-      }
-    }
-    else if (velocityY > 0.0f && EntityUtils.overlaps(topSide, entity))
-    {
-      overlaps = true;
-      setY(entity.getPosition().y - entity.getHeightOffset() - 3.0f);
-      velocityY = 0.0f;
-    }
-    else if (velocityX < 0.0f && EntityUtils.overlaps(leftSide, entity))
-    {
-      overlaps = true;
-      setX(entity.getPosition().x + entity.getWidthOffset() + 1.8f);
-      velocityX = 0.0f;
-    }
-    else if (velocityX > 0.0f && EntityUtils.overlaps(rightSide, entity))
-    {
-      overlaps = true;
-      setX(entity.getPosition().x - entity.getWidthOffset() - 1.8f);
-      velocityX = 0.0f;
-    }
-
-    return overlaps;
   }
 
   public String getName()

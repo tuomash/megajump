@@ -15,18 +15,6 @@ class Trampoline extends Entity
     super(wrapper);
   }
 
-  boolean apply(final Player player)
-  {
-    if (EntityUtils.overlaps(player.bottomSide, this))
-    {
-      player.velocityY = (Math.abs(player.velocityY) + 50.0f) * 0.60f;
-
-      return true;
-    }
-
-    return false;
-  }
-
   @Override
   boolean isTrampoline()
   {
