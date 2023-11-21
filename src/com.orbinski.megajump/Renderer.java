@@ -260,14 +260,13 @@ public class Renderer
 
     if (player.drawCollisions)
     {
-      /*
-      addQuad(player.collisionBox.x,
-              player.collisionBox.y,
-              player.collisionBox.width,
-              player.collisionBox.height,
-              Color.YELLOW);
-       */
+      shapeRenderer.addQuad(player.collisionBox.x,
+                            player.collisionBox.y,
+                            player.collisionBox.width,
+                            player.collisionBox.height,
+                            Color.YELLOW);
 
+      /*
       shapeRenderer.addQuad(player.topSide.x,
                             player.topSide.y,
                             player.topSide.width,
@@ -291,6 +290,7 @@ public class Renderer
                             player.bottomSide.width,
                             player.bottomSide.height,
                             Color.YELLOW);
+       */
     }
 
     final JumpAssistant assistant = player.assistant;

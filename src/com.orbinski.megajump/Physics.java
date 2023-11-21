@@ -2,6 +2,8 @@ package com.orbinski.megajump;
 
 import java.util.List;
 
+import static com.orbinski.megajump.Globals.*;
+
 public class Physics
 {
   public List<Player> players;
@@ -19,20 +21,20 @@ public class Physics
     else if (!level.started)
     {
       // Update moving exits even if the player hasn't started yet
-      updateEntity(level.exit);
+      applyMovement(level.exit);
       return;
     }
 
     // Do exit movement first
-    updateEntity(level.exit);
+    applyMovement(level.exit);
 
     // Then do player movement and collision detection
-    updatePlayers();
+    applyPlayerMovementAndDetectCollisions();
   }
 
-  public void updatePlayers()
+  public void applyPlayerMovementAndDetectCollisions()
   {
-    if (players == null)
+    if (players == null || players.isEmpty())
     {
       return;
     }
@@ -43,106 +45,14 @@ public class Physics
 
       if (player.isMoving() && player.state != Player.State.EXIT && player.state != Player.State.DEATH)
       {
-        updateEntity(players.get(i));
-
-        if (level.exit != null && level.exit.overlaps(player))
-        {
-          player.stop();
-          player.setState(Player.State.EXIT);
-          break;
-        }
-
-        if (player.getPosition().y < level.deathPoint.y)
-        {
-          player.stop();
-          player.setState(Player.State.DEATH);
-          break;
-        }
-
-        player.setLocation(Player.Location.NONE);
-
-        boolean hit = false;
-
-        for (int z = 0; z < level.trampolines.size(); z++)
-        {
-          final Trampoline trampoline = level.trampolines.get(z);
-
-          if (EntityUtils.overlaps(player.bottomSide, trampoline))
-          {
-            player.velocityY = (Math.abs(player.velocityY) + 50.0f) * 0.60f;
-
-            hit = true;
-            break;
-          }
-        }
-
-        if (!hit)
-        {
-          for (int z = 0; z < level.platforms.size(); z++)
-          {
-            final Platform platform = level.platforms.get(z);
-
-            if (player.velocityY < 0.0f && EntityUtils.overlaps(player.bottomSide, platform))
-            {
-              hit = true;
-              player.setY(platform.getPosition().y + platform.getHeightOffset() + 3.0f);
-              player.velocityY = 0.0f;
-              player.setLocation(Player.Location.PLATFORM);
-
-              if (player.state == Player.State.JUMPING)
-              {
-                player.setState(Player.State.LANDING);
-              }
-              else if (player.state == Player.State.LANDING && (player.animation == null || player.animation.isAtEnd()))
-              {
-                player.setState(Player.State.IDLE);
-              }
-
-              final float friction = 0.8f;
-
-              if (player.velocityX > friction)
-              {
-                player.velocityX = player.velocityX - friction;
-              }
-              else if (player.velocityX < -friction)
-              {
-                player.velocityX = player.velocityX + friction;
-              }
-              else
-              {
-                player.velocityX = 0.0f;
-              }
-            }
-            else if (player.velocityY > 0.0f && EntityUtils.overlaps(player.topSide, platform))
-            {
-              hit = true;
-              player.setY(platform.getPosition().y - platform.getHeightOffset() - 3.0f);
-              player.velocityY = 0.0f;
-            }
-            else if (player.velocityX < 0.0f && EntityUtils.overlaps(player.leftSide, platform))
-            {
-              hit = true;
-              player.setX(platform.getPosition().x + platform.getWidthOffset() + 1.8f);
-              player.velocityX = 0.0f;
-            }
-            else if (player.velocityX > 0.0f && EntityUtils.overlaps(player.rightSide, platform))
-            {
-              hit = true;
-              player.setX(platform.getPosition().x - platform.getWidthOffset() - 1.8f);
-              player.velocityX = 0.0f;
-            }
-
-            if (hit)
-            {
-              break;
-            }
-          }
-        }
+        applyMovement(player);
+        // detectCollisionsV1(player);
+        detectCollisionsV2(player);
       }
     }
   }
 
-  private void updateEntity(final Entity entity)
+  private void applyMovement(final Entity entity)
   {
     if (entity != null && !entity.dead)
     {
@@ -210,6 +120,214 @@ public class Physics
         {
           break;
         }
+      }
+    }
+  }
+
+  private void detectCollisionsV1(final Player player)
+  {
+    if (level.exit != null && level.exit.overlaps(player))
+    {
+      player.stop();
+      player.setState(Player.State.EXIT);
+      return;
+    }
+
+    if (player.getPosition().y < level.deathPoint.y)
+    {
+      player.stop();
+      player.setState(Player.State.DEATH);
+      return;
+    }
+
+    player.setLocation(Player.Location.NONE);
+
+    boolean hit = false;
+
+    for (int z = 0; z < level.trampolines.size(); z++)
+    {
+      final Trampoline trampoline = level.trampolines.get(z);
+
+      if (EntityUtils.overlaps(player.bottomSide, trampoline))
+      {
+        player.velocityY = (Math.abs(player.velocityY) + 50.0f) * 0.60f;
+
+        hit = true;
+        break;
+      }
+    }
+
+    if (!hit)
+    {
+      for (int z = 0; z < level.platforms.size(); z++)
+      {
+        final Platform platform = level.platforms.get(z);
+
+        if (player.velocityY < 0.0f && EntityUtils.overlaps(player.bottomSide, platform))
+        {
+          hit = true;
+          player.setY(platform.getPosition().y + platform.getHeightOffset() + 3.0f);
+          player.velocityY = 0.0f;
+          player.setLocation(Player.Location.PLATFORM);
+
+          if (player.state == Player.State.JUMPING)
+          {
+            player.setState(Player.State.LANDING);
+          }
+          else if (player.state == Player.State.LANDING && (player.animation == null || player.animation.isAtEnd()))
+          {
+            player.setState(Player.State.IDLE);
+          }
+
+          if (player.velocityX > FRICTION)
+          {
+            player.velocityX = player.velocityX - FRICTION;
+          }
+          else if (player.velocityX < -FRICTION)
+          {
+            player.velocityX = player.velocityX + FRICTION;
+          }
+          else
+          {
+            player.velocityX = 0.0f;
+          }
+        }
+        else if (player.velocityY > 0.0f && EntityUtils.overlaps(player.topSide, platform))
+        {
+          hit = true;
+          player.setY(platform.getPosition().y - platform.getHeightOffset() - 3.0f);
+          player.velocityY = 0.0f;
+        }
+        else if (player.velocityX < 0.0f && EntityUtils.overlaps(player.leftSide, platform))
+        {
+          hit = true;
+          player.setX(platform.getPosition().x + platform.getWidthOffset() + 1.8f);
+          player.velocityX = 0.0f;
+        }
+        else if (player.velocityX > 0.0f && EntityUtils.overlaps(player.rightSide, platform))
+        {
+          hit = true;
+          player.setX(platform.getPosition().x - platform.getWidthOffset() - 1.8f);
+          player.velocityX = 0.0f;
+        }
+
+        if (hit)
+        {
+          break;
+        }
+      }
+    }
+  }
+
+  private void detectCollisionsV2(final Player player)
+  {
+    if (level.exit != null && level.exit.overlaps(player))
+    {
+      player.stop();
+      player.setState(Player.State.EXIT);
+      return;
+    }
+
+    if (player.getPosition().y < level.deathPoint.y)
+    {
+      player.stop();
+      player.setState(Player.State.DEATH);
+      return;
+    }
+
+    player.setLocation(Player.Location.NONE);
+
+    for (int i = 0; i < level.trampolines.size(); i++)
+    {
+      final Trampoline trampoline = level.trampolines.get(i);
+
+      if (EntityUtils.overlaps(player, trampoline))
+      {
+        player.velocityY = (Math.abs(player.velocityY) + 50.0f) * 0.60f;
+        return;
+      }
+    }
+
+    for (int i = 0; i < level.platforms.size(); i++)
+    {
+      final Platform platform = level.platforms.get(i);
+      platform.collided = false;
+    }
+
+    // First check Y axis
+
+    for (int i = 0; i < level.platforms.size(); i++)
+    {
+      final Platform platform = level.platforms.get(i);
+
+      if (platform.collided)
+      {
+        continue;
+      }
+
+      if (player.velocityY < 0.0f && EntityUtils.overlaps(player, platform))
+      {
+        platform.collided = true;
+
+        player.setY(platform.getPosition().y + platform.getHeightOffset() + 4.0f);
+        player.velocityY = 0.0f;
+        player.setLocation(Player.Location.PLATFORM);
+
+        if (player.state == Player.State.JUMPING)
+        {
+          player.setState(Player.State.LANDING);
+        }
+        else if (player.state == Player.State.LANDING && (player.animation == null || player.animation.isAtEnd()))
+        {
+          player.setState(Player.State.IDLE);
+        }
+
+        if (player.velocityX > FRICTION)
+        {
+          player.velocityX = player.velocityX - FRICTION;
+        }
+        else if (player.velocityX < -FRICTION)
+        {
+          player.velocityX = player.velocityX + FRICTION;
+        }
+        else
+        {
+          player.velocityX = 0.0f;
+        }
+      }
+      else if (player.velocityY > 0.0f && EntityUtils.overlaps(player, platform))
+      {
+        platform.collided = true;
+
+        player.setY(platform.getPosition().y - platform.getHeightOffset() - 4.0f);
+        player.velocityY = 0.0f;
+      }
+    }
+
+    // Then check X axis
+
+    for (int i = 0; i < level.platforms.size(); i++)
+    {
+      final Platform platform = level.platforms.get(i);
+
+      if (platform.collided)
+      {
+        continue;
+      }
+
+      if (player.velocityX < 0.0f && EntityUtils.overlaps(player, platform))
+      {
+        platform.collided = true;
+
+        player.setX(platform.getPosition().x + platform.getWidthOffset() + 1.8f);
+        player.velocityX = 0.0f;
+      }
+      else if (player.velocityX > 0.0f && EntityUtils.overlaps(player, platform))
+      {
+        platform.collided = true;
+
+        player.setX(platform.getPosition().x - platform.getWidthOffset() - 1.8f);
+        player.velocityX = 0.0f;
       }
     }
   }

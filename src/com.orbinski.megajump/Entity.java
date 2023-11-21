@@ -31,6 +31,7 @@ public abstract class Entity
   Movement movement = Movement.NO_MOVEMENT;
 
   boolean drawCollisions = false;
+  boolean collided = false;
   Rectangle collisionBox;
   Rectangle topSide;
   Rectangle leftSide;

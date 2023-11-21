@@ -11,6 +11,7 @@ public class Globals
   public static final float MAX_FRAME_TIME_SECONDS = TIME_STEP_SECONDS * 20.0f;
 
   static final float GRAVITY = -60.0f;
+  static final float FRICTION = 0.8f;
 
   public static final int SERVER_MAX_PLAYER_COUNT = 4;
   public static final int SERVER_MAX_MESSAGES = 10;
