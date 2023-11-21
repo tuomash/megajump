@@ -34,7 +34,6 @@ public class MServer extends Thread
     server.addListener(listener);
     levels = new Levels();
     physics = new Physics();
-    physics.local = false;
 
     snapshotResponse.countdownState = -1;
 
@@ -132,7 +131,7 @@ public class MServer extends Thread
               snapshotResponse.setLevelTag(level.getTag());
 
               doLevelChange = true;
-              System.out.println("Starting level change to: " + level.getTag());
+              // System.out.println("Starting level change to: " + level.getTag());
             }
 
             if (doLevelChange)
@@ -154,7 +153,7 @@ public class MServer extends Thread
 
                 if (state.levelTag != null && state.levelTag.equalsIgnoreCase(level.getTag()))
                 {
-                  System.out.println("Player " + state.playerId + " has changed to level: " + level.getTag());
+                  // System.out.println("Player " + state.playerId + " has changed to level: " + level.getTag());
                   state.setPosition(level.spawn.getPosition().x, level.spawn.getPosition().y);
                   state.isAtExit = false;
                 }
@@ -169,7 +168,7 @@ public class MServer extends Thread
                 snapshotResponse.setLevelTag(null);
                 doLevelChange = false;
                 level.started = true;
-                System.out.println("Level change is done");
+                // System.out.println("Level change is done");
               }
             }
           }
@@ -309,6 +308,8 @@ public class MServer extends Thread
         // Reset the server snapshot
 
         snapshotResponse.reset();
+
+        // Set "updatePosition" properties to false in order to prevent them being sent all the time
 
         for (int i = 0; i < playerStates.size(); i++)
         {
