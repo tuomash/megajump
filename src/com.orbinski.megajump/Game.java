@@ -154,7 +154,7 @@ public class Game
       UserInterface.disableJumpBar();
     }
 
-    if (player.state == Player.State.DEATH)
+    if (player.state == Player.State.DEATH && isSinglePlayer())
     {
       UserInterface.retryText.visible = true;
       level.finished = true;
@@ -269,10 +269,19 @@ public class Game
     level.started = true;
   }
 
-  void resetToStart()
+  void resetPlayerToStart()
   {
-    // TODO: only reset player and
-    reset();
+    if (isSinglePlayer())
+    {
+      reset();
+    }
+    else
+    {
+      player.reset();
+      cameraState.reset();
+      player.setPosition(level.spawn.getPosition().x, level.spawn.getPosition().y);
+      setCameraToPlayer();
+    }
   }
 
   boolean isTargeting()
@@ -340,7 +349,7 @@ public class Game
 
   public boolean isSinglePlayer()
   {
-    return mode == Mode.SINGLEPLAYER;
+    return !isMultiplayer();
   }
 
   public boolean isMultiplayer()

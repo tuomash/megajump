@@ -49,8 +49,11 @@ public class MultiplayerGame
           {
             final Player player = players.get(i);
             game.physics.addPlayer(player);
+            player.setPosition(game.level.spawn.getPosition());
           }
         }
+
+        // Set level as started when information comes from the server
 
         game.level.started = response.levelStarted;
 

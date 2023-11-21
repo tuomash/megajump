@@ -78,16 +78,12 @@ class Controller
     // TODO: related to multiplayer testing
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_2))
     {
-    }
-    // TODO: related to multiplayer testing
-    else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_3))
-    {
       game.disconnectFromServer();
     }
 
     if (input.isKeyJustPressed(Input.Keys.R))
     {
-      game.resetToStart();
+      game.resetPlayerToStart();
     }
     else if (input.isKeyJustPressed(Input.Keys.P))
     {
@@ -340,7 +336,7 @@ class Controller
 
       if (input.isKeyJustPressed(Input.Keys.R))
       {
-        game.resetToStart();
+        game.resetPlayerToStart();
       }
       else if (input.isKeyJustPressed(Input.Keys.N))
       {
