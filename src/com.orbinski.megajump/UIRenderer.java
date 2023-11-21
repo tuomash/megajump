@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-class UIRenderer
+public class UIRenderer
 {
   final Game gameObj;
   final OrthographicCamera camera;
@@ -14,7 +14,7 @@ class UIRenderer
   final SpriteBatch spriteBatch;
   final MShapeRenderer shapeRenderer;
 
-  GameInterface game;
+  private GameInterface game;
 
   final Text[] texts = new Text[50];
   int textIndex = -1;

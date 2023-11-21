@@ -124,7 +124,7 @@ public class UserInterface
 
     if (width <= 1360 && height <= 768)
     {
-      waterMarkText.setPosition(20, height - 20);
+      waterMarkText.setPosition(width - 120, height - 20);
 
       pausedText.setPosition(20, 280);
 
@@ -153,7 +153,7 @@ public class UserInterface
     }
     else if (width <= 1920 && height <= 1080)
     {
-      waterMarkText.setPosition(20, height - 20);
+      waterMarkText.setPosition(width - 160, height - 20);
 
       pausedText.setPosition(20, 280);
 
@@ -182,7 +182,7 @@ public class UserInterface
     }
     else
     {
-      waterMarkText.setPosition(20, height - 20);
+      waterMarkText.setPosition(width - 200, height - 20);
 
       pausedText.setPosition(20, 280);
 

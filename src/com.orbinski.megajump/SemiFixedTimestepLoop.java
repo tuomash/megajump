@@ -2,20 +2,21 @@ package com.orbinski.megajump;
 
 import com.badlogic.gdx.Gdx;
 
-import static com.orbinski.megajump.Globals.*;
+import static com.orbinski.megajump.Globals.MAX_FRAME_TIME_SECONDS;
+import static com.orbinski.megajump.Globals.TIME_STEP_SECONDS;
 
 class SemiFixedTimestepLoop extends Loop
 {
-  SemiFixedTimestepLoop(final Game game,
-                        final Controller controller,
-                        final Renderer renderer,
-                        final UIRenderer uiRenderer)
+  public SemiFixedTimestepLoop(final Game game,
+                               final Controller controller,
+                               final Renderer renderer,
+                               final UIRenderer uiRenderer)
   {
     super(game, controller, renderer, uiRenderer);
   }
 
   @Override
-  void update()
+  public void update()
   {
     float frameTime = Gdx.graphics.getDeltaTime();
 

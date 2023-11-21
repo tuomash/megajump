@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import static com.orbinski.megajump.Globals.WORLD_HEIGHT;
 import static com.orbinski.megajump.Globals.WORLD_WIDTH;
 
-class Renderer
+public class Renderer
 {
   private static Viewport staticViewport;
 
@@ -20,7 +20,7 @@ class Renderer
   final SpriteBatch spriteBatch;
   final MShapeRenderer shapeRenderer;
 
-  GameInterface game;
+  private GameInterface game;
 
   final Entity[] entities = new Entity[1000];
   int entityIndex = -1;

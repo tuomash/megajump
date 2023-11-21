@@ -1,6 +1,6 @@
 package com.orbinski.megajump;
 
-abstract class Loop
+public abstract class Loop
 {
   final Game gameObj;
   final Controller controller;
@@ -9,10 +9,10 @@ abstract class Loop
 
   GameInterface game;
 
-  Loop(final Game game,
-       final Controller controller,
-       final Renderer renderer,
-       final UIRenderer uiRenderer)
+  public Loop(final Game game,
+              final Controller controller,
+              final Renderer renderer,
+              final UIRenderer uiRenderer)
   {
     this.gameObj = game;
     this.controller = controller;
@@ -20,5 +20,5 @@ abstract class Loop
     this.uiRenderer = uiRenderer;
   }
 
-  abstract void update();
+  public abstract void update();
 }

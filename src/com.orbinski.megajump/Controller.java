@@ -6,11 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 
 import static com.badlogic.gdx.Gdx.*;
 
-class Controller
+public class Controller
 {
   private final Game gameObj;
 
-  GameInterface game;
+  private GameInterface game;
 
   private final Vector2 mouse = new Vector2();
 
@@ -74,12 +74,12 @@ class Controller
     {
       game.toggleLevelEditor();
     }
-    // TODO: related to multiplayer testing
+    // TODO: remove these when a proper UI has been implemented
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_1))
     {
       game.connectToServer();
     }
-    // TODO: related to multiplayer testing
+    // TODO: remove these when a proper UI has been implemented
     else if (input.isKeyPressed(Input.Keys.CONTROL_LEFT) && input.isKeyJustPressed(Input.Keys.NUM_2))
     {
       game.disconnectFromServer();
