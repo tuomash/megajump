@@ -167,7 +167,6 @@ public class Player extends Entity
     {
       updateVelocityX(-0.5f, false);
     }
-    // TODO: this is tied to the animation length which means the game feel will change if the animation length changes
     else if (state == State.LANDING)
     {
       updateVelocityX(-0.2f, false);
@@ -185,7 +184,6 @@ public class Player extends Entity
     {
       updateVelocityX(0.5f, false);
     }
-    // TODO: this is tied to the animation length which means the game feel will change if the animation length changes
     else if (state == State.LANDING)
     {
       updateVelocityX(0.2f, false);
@@ -347,6 +345,7 @@ public class Player extends Entity
     return assistant.canJump();
   }
 
+  @Override
   public boolean interpolate()
   {
     return interpolate && isMoving();

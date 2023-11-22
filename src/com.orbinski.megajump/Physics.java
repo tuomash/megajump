@@ -319,10 +319,6 @@ public class Physics
           {
             player.setState(Player.State.LANDING);
           }
-          else if (player.state == Player.State.LANDING && (player.animation == null || player.animation.isAtEnd()))
-          {
-            player.setState(Player.State.IDLE);
-          }
 
           player.updateTouchedFor(delta);
 
@@ -339,6 +335,11 @@ public class Physics
             else
             {
               player.velocityX = 0.0f;
+
+              if (player.state == Player.State.LANDING)
+              {
+                player.setState(Player.State.IDLE);
+              }
             }
           }
 
