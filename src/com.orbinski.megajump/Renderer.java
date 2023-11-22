@@ -297,7 +297,7 @@ public class Renderer
 
         if (entity.interpolate())
         {
-          position = entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
+          position = entity.getPreviousBottomLeftCornerPosition().lerp(position,
                                                                        interpolationAlpha);
         }
 
@@ -345,7 +345,7 @@ public class Renderer
 
         if (entity.interpolate())
         {
-          position = entity.getPreviousBottomLeftCornerPosition().lerp(entity.getBottomLeftCornerPosition(),
+          position = entity.getPreviousBottomLeftCornerPosition().lerp(position,
                                                                        interpolationAlpha);
         }
 
