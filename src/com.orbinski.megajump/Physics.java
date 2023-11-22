@@ -289,7 +289,7 @@ public class Physics
 
         if (player.velocityY < 0.0f && EntityUtils.overlaps(player, platform))
         {
-          player.setY(platform.getPosition().y + platform.getHeightOffset() + 3.3f);
+          player.setY(platform.getPosition().y + platform.getHeightOffset() + 3.25f);
           player.velocityY = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
 
@@ -317,7 +317,7 @@ public class Physics
         }
         else if (player.velocityY > 0.0f && EntityUtils.overlaps(player, platform))
         {
-          player.setY(platform.getPosition().y - platform.getHeightOffset() - 3.3f);
+          player.setY(platform.getPosition().y - platform.getHeightOffset() - 3.25f);
           player.velocityY = 0.0f;
         }
       }
