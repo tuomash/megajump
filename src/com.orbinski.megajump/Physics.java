@@ -52,13 +52,19 @@ public class Physics
 
         final float distanceX = player.velocityX * delta;
         player.setX(player.getPosition().x + distanceX);
-        detectCollisions(player, true, false);
+        boolean xCollision = detectCollisions(player, true, false);
+        boolean yCollision = false;
 
         if (player.isMoving() && player.state != Player.State.EXIT && player.state != Player.State.DEATH)
         {
           final float distanceY = player.velocityY * delta;
           player.setY(player.getPosition().y + distanceY);
-          detectCollisions(player, false, true);
+          yCollision = detectCollisions(player, false, true);
+        }
+
+        if (!xCollision && !yCollision)
+        {
+          player.resetTouchedFor();
         }
       }
     }
@@ -233,20 +239,20 @@ public class Physics
   }
    */
 
-  private void detectCollisions(final Player player, final boolean xAxis, final boolean yAxis)
+  private boolean detectCollisions(final Player player, final boolean xAxis, final boolean yAxis)
   {
     if (level.exit != null && level.exit.overlaps(player))
     {
       player.stop();
       player.setState(Player.State.EXIT);
-      return;
+      return false;
     }
 
     if (player.getPosition().y < level.deathPoint.y)
     {
       player.stop();
       player.setState(Player.State.DEATH);
-      return;
+      return false;
     }
 
     player.setLocation(Player.Location.NONE);
@@ -258,11 +264,13 @@ public class Physics
       if (EntityUtils.overlaps(player, trampoline))
       {
         player.velocityY = (Math.abs(player.velocityY) + 50.0f) * 0.60f;
-        return;
+        return false;
       }
     }
 
-    if  (xAxis)
+    boolean collision = false;
+
+    if (xAxis)
     {
       final float adjustment = 2.25f;
 
@@ -272,13 +280,21 @@ public class Physics
 
         if (player.velocityX < 0.0f && EntityUtils.overlaps(player, platform))
         {
+          collision = true;
+
           player.setX(platform.getPosition().x + platform.getWidthOffset() + adjustment);
           player.velocityX = 0.0f;
+
+          break;
         }
         else if (player.velocityX > 0.0f && EntityUtils.overlaps(player, platform))
         {
+          collision = true;
+
           player.setX(platform.getPosition().x - platform.getWidthOffset() - adjustment);
           player.velocityX = 0.0f;
+
+          break;
         }
       }
     }
@@ -293,6 +309,8 @@ public class Physics
 
         if (player.velocityY < 0.0f && EntityUtils.overlaps(player, platform))
         {
+          collision = true;
+
           player.setY(platform.getPosition().y + platform.getHeightOffset() + adjustment);
           player.velocityY = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
@@ -306,26 +324,39 @@ public class Physics
             player.setState(Player.State.IDLE);
           }
 
-          if (player.velocityX > FRICTION)
+          player.updateTouchedFor(delta);
+
+          if (player.touchedFor > Globals.FRICTION_PLATFORM_APPLY_AFTER_SECONDS)
           {
-            player.velocityX = player.velocityX - FRICTION;
+            if (player.velocityX > FRICTION_PLATFORM)
+            {
+              player.velocityX = player.velocityX - FRICTION_PLATFORM;
+            }
+            else if (player.velocityX < -FRICTION_PLATFORM)
+            {
+              player.velocityX = player.velocityX + FRICTION_PLATFORM;
+            }
+            else
+            {
+              player.velocityX = 0.0f;
+            }
           }
-          else if (player.velocityX < -FRICTION)
-          {
-            player.velocityX = player.velocityX + FRICTION;
-          }
-          else
-          {
-            player.velocityX = 0.0f;
-          }
+
+          break;
         }
         else if (player.velocityY > 0.0f && EntityUtils.overlaps(player, platform))
         {
+          collision = true;
+
           player.setY(platform.getPosition().y - platform.getHeightOffset() - adjustment);
           player.velocityY = 0.0f;
+
+          break;
         }
       }
     }
+
+    return collision;
   }
 
   public void clear()

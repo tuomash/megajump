@@ -43,6 +43,9 @@ public class Player extends Entity
   private Animation landLeft;
   private Animation landRight;
 
+  float touchedFor;
+  int chainedJumps = 0;
+
   public Player()
   {
     super(-75.0f, -30.0f, 10.0f, 10.0f, true);
@@ -137,6 +140,11 @@ public class Player extends Entity
         texture = animation.getFrame().texture;
       }
     }
+  }
+
+  public void updateTouchedFor(final float delta)
+  {
+    touchedFor = touchedFor + delta;
   }
 
   public void jump()
@@ -342,8 +350,14 @@ public class Player extends Entity
     return interpolate && isMoving();
   }
 
+  public void resetTouchedFor()
+  {
+    touchedFor = 0.0f;
+  }
+
   public void reset()
   {
+    resetTouchedFor();
     assistant.reset();
     applyGravity = false;
     stop();

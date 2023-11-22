@@ -49,6 +49,15 @@ public class JumpAssistant
   {
     if (canJump())
     {
+      if (player.touchedFor > 0.0f && player.touchedFor < Globals.FRICTION_PLATFORM_APPLY_AFTER_SECONDS)
+      {
+        player.chainedJumps++;
+      }
+      else
+      {
+        player.chainedJumps = 0;
+      }
+
       player.applyGravity = true;
 
       if (UserInterface.retryText != null)
