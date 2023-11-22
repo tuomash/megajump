@@ -45,9 +45,21 @@ public class Physics
 
       if (player.isMoving() && player.state != Player.State.EXIT && player.state != Player.State.DEATH)
       {
-        applyMovement(player);
-        // detectCollisionsV1(player);
-        detectCollisionsV2(player);
+        if (player.applyGravity)
+        {
+          player.velocityY = player.velocityY + Globals.GRAVITY * delta;
+        }
+
+        final float distanceX = player.velocityX * delta;
+        player.setX(player.getPosition().x + distanceX);
+        detectCollisions(player, true, false);
+
+        if (player.isMoving() && player.state != Player.State.EXIT && player.state != Player.State.DEATH)
+        {
+          final float distanceY = player.velocityY * delta;
+          player.setY(player.getPosition().y + distanceY);
+          detectCollisions(player, false, true);
+        }
       }
     }
   }
@@ -124,6 +136,7 @@ public class Physics
     }
   }
 
+  /*
   private void detectCollisionsV1(final Player player)
   {
     if (level.exit != null && level.exit.overlaps(player))
@@ -218,8 +231,9 @@ public class Physics
       }
     }
   }
+   */
 
-  private void detectCollisionsV2(final Player player)
+  private void detectCollisions(final Player player, final boolean xAxis, final boolean yAxis)
   {
     if (level.exit != null && level.exit.overlaps(player))
     {
@@ -248,86 +262,64 @@ public class Physics
       }
     }
 
-    for (int i = 0; i < level.platforms.size(); i++)
+    if  (xAxis)
     {
-      final Platform platform = level.platforms.get(i);
-      platform.collided = false;
-    }
-
-    // First check Y axis
-
-    for (int i = 0; i < level.platforms.size(); i++)
-    {
-      final Platform platform = level.platforms.get(i);
-
-      if (platform.collided)
+      for (int i = 0; i < level.platforms.size(); i++)
       {
-        continue;
-      }
+        final Platform platform = level.platforms.get(i);
 
-      if (player.velocityY < 0.0f && EntityUtils.overlaps(player, platform))
-      {
-        platform.collided = true;
-
-        player.setY(platform.getPosition().y + platform.getHeightOffset() + 4.0f);
-        player.velocityY = 0.0f;
-        player.setLocation(Player.Location.PLATFORM);
-
-        if (player.state == Player.State.JUMPING)
+        if (player.velocityX < 0.0f && EntityUtils.overlaps(player, platform))
         {
-          player.setState(Player.State.LANDING);
+          player.setX(platform.getPosition().x + platform.getWidthOffset() + 2.8f);
+          player.velocityX = 0.0f;
         }
-        else if (player.state == Player.State.LANDING && (player.animation == null || player.animation.isAtEnd()))
+        else if (player.velocityX > 0.0f && EntityUtils.overlaps(player, platform))
         {
-          player.setState(Player.State.IDLE);
-        }
-
-        if (player.velocityX > FRICTION)
-        {
-          player.velocityX = player.velocityX - FRICTION;
-        }
-        else if (player.velocityX < -FRICTION)
-        {
-          player.velocityX = player.velocityX + FRICTION;
-        }
-        else
-        {
+          player.setX(platform.getPosition().x - platform.getWidthOffset() - 2.8f);
           player.velocityX = 0.0f;
         }
       }
-      else if (player.velocityY > 0.0f && EntityUtils.overlaps(player, platform))
-      {
-        platform.collided = true;
-
-        player.setY(platform.getPosition().y - platform.getHeightOffset() - 4.0f);
-        player.velocityY = 0.0f;
-      }
     }
 
-    // Then check X axis
-
-    for (int i = 0; i < level.platforms.size(); i++)
+    if (yAxis)
     {
-      final Platform platform = level.platforms.get(i);
-
-      if (platform.collided)
+      for (int i = 0; i < level.platforms.size(); i++)
       {
-        continue;
-      }
+        final Platform platform = level.platforms.get(i);
 
-      if (player.velocityX < 0.0f && EntityUtils.overlaps(player, platform))
-      {
-        platform.collided = true;
+        if (player.velocityY < 0.0f && EntityUtils.overlaps(player, platform))
+        {
+          player.setY(platform.getPosition().y + platform.getHeightOffset() + 3.3f);
+          player.velocityY = 0.0f;
+          player.setLocation(Player.Location.PLATFORM);
 
-        player.setX(platform.getPosition().x + platform.getWidthOffset() + 1.8f);
-        player.velocityX = 0.0f;
-      }
-      else if (player.velocityX > 0.0f && EntityUtils.overlaps(player, platform))
-      {
-        platform.collided = true;
+          if (player.state == Player.State.JUMPING)
+          {
+            player.setState(Player.State.LANDING);
+          }
+          else if (player.state == Player.State.LANDING && (player.animation == null || player.animation.isAtEnd()))
+          {
+            player.setState(Player.State.IDLE);
+          }
 
-        player.setX(platform.getPosition().x - platform.getWidthOffset() - 1.8f);
-        player.velocityX = 0.0f;
+          if (player.velocityX > FRICTION)
+          {
+            player.velocityX = player.velocityX - FRICTION;
+          }
+          else if (player.velocityX < -FRICTION)
+          {
+            player.velocityX = player.velocityX + FRICTION;
+          }
+          else
+          {
+            player.velocityX = 0.0f;
+          }
+        }
+        else if (player.velocityY > 0.0f && EntityUtils.overlaps(player, platform))
+        {
+          player.setY(platform.getPosition().y - platform.getHeightOffset() - 3.3f);
+          player.velocityY = 0.0f;
+        }
       }
     }
   }

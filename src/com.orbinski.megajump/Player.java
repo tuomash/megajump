@@ -54,17 +54,7 @@ public class Player extends Entity
     movement = Movement.REGULAR;
     assistant = new JumpAssistant(this);
     // drawBorder = true;
-    drawCollisions = true;
-
-    topSide.height = 0.5f;
-
-    leftSide.height = 5.25f;
-    leftSide.width = 0.5f;
-
-    rightSide.height = 5.25f;
-    rightSide.width = 0.5f;
-
-    bottomSide.height = 0.5f;
+    drawCollisionBox = true;
 
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
@@ -241,41 +231,19 @@ public class Player extends Entity
   }
 
   @Override
-  public void setX(final float x)
-  {
-    super.setX(x);
-    topSide.x = x - topSide.width * 0.5f;
-    leftSide.x = x - getWidthOffset() + leftSide.width + 2.75f;
-    rightSide.x = x + getWidthOffset() - rightSide.width - 3.25f;
-    bottomSide.x = x - bottomSide.width * 0.5f;
-    collisionBox.setX(x - collisionBox.width * 0.5f);
-  }
-
-  @Override
-  public void setY(final float y)
-  {
-    super.setY(y);
-    topSide.y = y + 2.5f;
-    leftSide.y = y - leftSide.height * 0.5f - 0.275f;
-    rightSide.y = y - rightSide.height * 0.5f - 0.275f;
-    bottomSide.y = getBottomLeftCornerPosition().y + 1.5f;
-    collisionBox.setY(y - collisionBox.height * 0.5f);
-  }
-
-  @Override
   void setWidth(final float width)
   {
     super.setWidth(width);
-    topSide.width = width * 0.55f;
-    bottomSide.width = width * 0.55f;
     collisionBox.setWidth(width * 0.55f);
+    collisionBoxWidthOffset = collisionBox.getWidth() / 2.0f;
   }
 
   @Override
   void setHeight(final float height)
   {
     super.setHeight(height);
-    collisionBox.setHeight(height * 0.8f);
+    collisionBox.setHeight(height * 0.65f);
+    collisionBoxHeightOffset = collisionBox.getHeight() / 2.0f;
   }
 
   boolean setDirection(final Direction direction)

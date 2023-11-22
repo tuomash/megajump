@@ -30,13 +30,12 @@ public abstract class Entity
 
   Movement movement = Movement.NO_MOVEMENT;
 
-  boolean drawCollisions = false;
-  boolean collided = false;
+  boolean drawCollisionBox = false;
   Rectangle collisionBox;
-  Rectangle topSide;
-  Rectangle leftSide;
-  Rectangle rightSide;
-  Rectangle bottomSide;
+  Vector2 collisionBoxPos;
+  Vector2 collisionBoxPrevPos;
+  float collisionBoxWidthOffset;
+  float collisionBoxHeightOffset;
 
   public boolean applyGravity = true;
 
@@ -104,10 +103,8 @@ public abstract class Entity
     if (collision)
     {
       collisionBox = new Rectangle();
-      topSide = new Rectangle();
-      leftSide = new Rectangle();
-      rightSide = new Rectangle();
-      bottomSide = new Rectangle();
+      collisionBoxPos = new Vector2();
+      collisionBoxPrevPos = new Vector2();
     }
 
     setWidth(width);
@@ -215,7 +212,9 @@ public abstract class Entity
 
     if (collisionBox != null)
     {
-      collisionBox.setX(bottomLeftCornerPosition.x);
+      collisionBoxPrevPos.x = collisionBox.x;
+      collisionBox.setX(x - collisionBoxWidthOffset);
+      collisionBoxPos.x = collisionBox.x;
     }
   }
 
@@ -237,7 +236,9 @@ public abstract class Entity
 
     if (collisionBox != null)
     {
-      collisionBox.setY(bottomLeftCornerPosition.y);
+      collisionBoxPrevPos.y = collisionBox.y;
+      collisionBox.setY(y - collisionBoxHeightOffset);
+      collisionBoxPos.y = collisionBox.y;
     }
   }
 
@@ -254,6 +255,7 @@ public abstract class Entity
     if (collisionBox != null)
     {
       collisionBox.setWidth(width);
+      collisionBoxWidthOffset = width / 2.0f;
     }
   }
 
@@ -275,6 +277,7 @@ public abstract class Entity
     if (collisionBox != null)
     {
       collisionBox.setHeight(height);
+      collisionBoxHeightOffset = height / 2.0f;
     }
   }
 

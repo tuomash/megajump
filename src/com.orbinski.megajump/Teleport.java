@@ -24,31 +24,13 @@ class Teleport extends Entity
 
   boolean overlaps(final Player player)
   {
-    boolean overlaps = false;
-
-    if (EntityUtils.overlaps(player.bottomSide, this))
-    {
-      overlaps = true;
-    }
-    else if (EntityUtils.overlaps(player.topSide, this))
-    {
-      overlaps = true;
-    }
-    else if (EntityUtils.overlaps(player.leftSide, this))
-    {
-      overlaps = true;
-    }
-    else if (EntityUtils.overlaps(player.rightSide, this))
-    {
-      overlaps = true;
-    }
-
-    if (overlaps && target != null)
+    if (EntityUtils.overlaps(player, this) && target != null)
     {
       player.setPosition(target.x, target.y);
+      return true;
     }
 
-    return overlaps;
+    return false;
   }
 
   void setTarget(final float x, final float y)

@@ -258,64 +258,13 @@ public class Renderer
   {
     addEntity(player);
 
-    if (player.drawCollisions)
+    if (player.assistant.targeting)
     {
-      shapeRenderer.addQuad(player.collisionBox.x,
-                            player.collisionBox.y,
-                            player.collisionBox.width,
-                            player.collisionBox.height,
-                            Color.YELLOW);
-
-      /*
-      shapeRenderer.addQuad(player.topSide.x,
-                            player.topSide.y,
-                            player.topSide.width,
-                            player.topSide.height,
-                            Color.YELLOW);
-
-      shapeRenderer.addQuad(player.leftSide.x,
-                            player.leftSide.y,
-                            player.leftSide.width,
-                            player.leftSide.height,
-                            Color.YELLOW);
-
-      shapeRenderer.addQuad(player.rightSide.x,
-                            player.rightSide.y,
-                            player.rightSide.width,
-                            player.rightSide.height,
-                            Color.YELLOW);
-
-      shapeRenderer.addQuad(player.bottomSide.x,
-                            player.bottomSide.y,
-                            player.bottomSide.width,
-                            player.bottomSide.height,
-                            Color.YELLOW);
-       */
-    }
-
-    final JumpAssistant assistant = player.assistant;
-
-    if (assistant.targeting)
-    {
-      /*
-      addQuad(assistant.cursorX,
-              assistant.cursorY,
-              assistant.cursorWidth,
-              assistant.cursorHeight,
-              Color.WHITE);
-
-      addLine(assistant.cursorX,
-              assistant.cursorY,
-              player.getX(),
-              player.getY(),
-              Color.WHITE);
-       */
-
       for (int z = 1; z < 120; z++)
       {
         if (z % 3 == 0)
         {
-          final Rectangle rectangle = assistant.jumpCurve[z];
+          final Rectangle rectangle = player.assistant.jumpCurve[z];
           shapeRenderer.addQuad(rectangle.x,
                                 rectangle.y,
                                 0.5f,
@@ -328,16 +277,19 @@ public class Renderer
 
   void addEntity(final Entity entity)
   {
-    if (entity != null && entity.texture != null)
+    if (entity != null)
     {
-      entityIndex++;
-
-      if (entityIndex >= entities.length)
+      if (entity.texture != null)
       {
-        entityIndex = entities.length - 1;
-      }
+        entityIndex++;
 
-      entities[entityIndex] = entity;
+        if (entityIndex >= entities.length)
+        {
+          entityIndex = entities.length - 1;
+        }
+
+        entities[entityIndex] = entity;
+      }
 
       if (entity.drawBorder || entity.selected)
       {
@@ -354,6 +306,22 @@ public class Renderer
                               entity.getWidth(),
                               entity.getHeight(),
                               Color.WHITE);
+      }
+
+      if (entity.drawCollisionBox)
+      {
+        Vector2 position = entity.collisionBoxPos;
+
+        if (entity.interpolate())
+        {
+          position = entity.collisionBoxPrevPos.lerp(position, interpolationAlpha);
+        }
+
+        shapeRenderer.addQuad(position.x,
+                              position.y,
+                              entity.collisionBox.width,
+                              entity.collisionBox.height,
+                              Color.YELLOW);
       }
     }
   }
