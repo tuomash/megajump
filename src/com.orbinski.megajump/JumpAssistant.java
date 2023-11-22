@@ -66,19 +66,21 @@ public class JumpAssistant
       }
 
       final float jumpVelocityX = calculateJumpVelocityX();
+      final float playerVelocityX = Math.abs(player.velocityX);
 
-      // Add jump x velocity existing velocity
+      // Add jump x velocity to existing velocity
       // Only add if max x velocity has not been reached
-      if (player.velocityX < player.maxVelocityX && player.velocityX > -player.maxVelocityX)
+      if (playerVelocityX < player.maxVelocityX)
       {
         player.updateVelocityX(jumpVelocityX);
       }
 
       final float jumpVelocityY = calculateJumpVelocityY();
+      final float playerVelocityY = Math.abs(player.velocityY);
 
-      // Add jump y velocity existing velocity
+      // Add jump y velocity to existing velocity
       // Only add if max y velocity has not been reached
-      if (player.velocityY < player.maxVelocityY && player.velocityY > -player.maxVelocityY)
+      if (playerVelocityY < player.maxVelocityY)
       {
         player.updateVelocityY(jumpVelocityY);
       }

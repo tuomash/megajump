@@ -167,9 +167,10 @@ public class Player extends Entity
     {
       updateVelocityX(-0.5f, false);
     }
+    // TODO: this is tied to the animation length which means the game feel will change if the animation length changes
     else if (state == State.LANDING)
     {
-      updateVelocityX(-0.15f);
+      updateVelocityX(-0.2f, false);
     }
 
     if (setDirection(Direction.LEFT))
@@ -184,9 +185,10 @@ public class Player extends Entity
     {
       updateVelocityX(0.5f, false);
     }
+    // TODO: this is tied to the animation length which means the game feel will change if the animation length changes
     else if (state == State.LANDING)
     {
-      updateVelocityX(0.15f);
+      updateVelocityX(0.2f, false);
     }
 
     if (setDirection(Direction.RIGHT))
