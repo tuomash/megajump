@@ -264,18 +264,20 @@ public class Physics
 
     if  (xAxis)
     {
+      final float adjustment = 2.25f;
+
       for (int i = 0; i < level.platforms.size(); i++)
       {
         final Platform platform = level.platforms.get(i);
 
         if (player.velocityX < 0.0f && EntityUtils.overlaps(player, platform))
         {
-          player.setX(platform.getPosition().x + platform.getWidthOffset() + 2.8f);
+          player.setX(platform.getPosition().x + platform.getWidthOffset() + adjustment);
           player.velocityX = 0.0f;
         }
         else if (player.velocityX > 0.0f && EntityUtils.overlaps(player, platform))
         {
-          player.setX(platform.getPosition().x - platform.getWidthOffset() - 2.8f);
+          player.setX(platform.getPosition().x - platform.getWidthOffset() - adjustment);
           player.velocityX = 0.0f;
         }
       }
@@ -283,13 +285,15 @@ public class Physics
 
     if (yAxis)
     {
+      final float adjustment = 3.25f;
+
       for (int i = 0; i < level.platforms.size(); i++)
       {
         final Platform platform = level.platforms.get(i);
 
         if (player.velocityY < 0.0f && EntityUtils.overlaps(player, platform))
         {
-          player.setY(platform.getPosition().y + platform.getHeightOffset() + 3.25f);
+          player.setY(platform.getPosition().y + platform.getHeightOffset() + adjustment);
           player.velocityY = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
 
@@ -317,7 +321,7 @@ public class Physics
         }
         else if (player.velocityY > 0.0f && EntityUtils.overlaps(player, platform))
         {
-          player.setY(platform.getPosition().y - platform.getHeightOffset() - 3.25f);
+          player.setY(platform.getPosition().y - platform.getHeightOffset() - adjustment);
           player.velocityY = 0.0f;
         }
       }

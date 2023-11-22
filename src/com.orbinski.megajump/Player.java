@@ -54,7 +54,7 @@ public class Player extends Entity
     movement = Movement.REGULAR;
     assistant = new JumpAssistant(this);
     // drawBorder = true;
-    drawCollisionBox = true;
+    // drawCollisionBox = true;
 
     setDirection(Direction.RIGHT);
     setState(State.IDLE);
@@ -234,7 +234,7 @@ public class Player extends Entity
   void setWidth(final float width)
   {
     super.setWidth(width);
-    collisionBox.setWidth(width * 0.55f);
+    collisionBox.setWidth(width * 0.45f);
     collisionBoxWidthOffset = collisionBox.getWidth() / 2.0f;
   }
 
