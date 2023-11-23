@@ -46,8 +46,6 @@ public abstract class Entity
   Point2D.Float currentWaypoint;
   int waypointIndex;
 
-  public final float maxVelocityX = 130.0f;
-  public final float maxVelocityY = 140.0f;
   public float velocityX;
   public float velocityY;
   boolean drawBorder = false;
@@ -288,28 +286,19 @@ public abstract class Entity
 
   public void updateVelocityX(final float input)
   {
-    updateVelocityX(input, true);
-  }
-
-  void updateVelocityX(final float input, final boolean clamp)
-  {
     velocityX = velocityX + input;
-
-    if (clamp)
-    {
-      velocityX = clampVelocityX(velocityX);
-    }
+    velocityX = clampVelocityX(velocityX);
   }
 
-  float clampVelocityX(final float input)
+  public float clampVelocityX(final float input)
   {
-    if (input > maxVelocityX)
+    if (input > Globals.MAX_VELOCITY_X)
     {
-      return maxVelocityX;
+      return Globals.MAX_VELOCITY_X;
     }
-    else if (input < -maxVelocityX)
+    else if (input < -Globals.MAX_VELOCITY_X)
     {
-      return -maxVelocityX;
+      return -Globals.MAX_VELOCITY_X;
     }
 
     return input;
@@ -321,15 +310,15 @@ public abstract class Entity
     velocityY = clampVelocityY(velocityY);
   }
 
-  float clampVelocityY(final float input)
+  public float clampVelocityY(final float input)
   {
-    if (input > maxVelocityY)
+    if (input > Globals.MAX_VELOCITY_Y)
     {
-      return maxVelocityY;
+      return Globals.MAX_VELOCITY_Y;
     }
-    else if (input < -maxVelocityY)
+    else if (input < -Globals.MAX_VELOCITY_Y)
     {
-      return -maxVelocityY;
+      return -Globals.MAX_VELOCITY_Y;
     }
 
     return input;

@@ -33,9 +33,6 @@ public class Player extends Entity
   public State state;
   private Location location;
 
-  public final float maxJumpVelocityX = 65.0f;
-  public final float maxJumpVelocityY = 75.0f;
-
   public final JumpAssistant assistant;
 
   private Animation idleLeft;
@@ -165,11 +162,11 @@ public class Player extends Entity
   {
     if (state == State.JUMPING)
     {
-      updateVelocityX(-0.5f, false);
+      updateVelocityX(-0.5f);
     }
     else if (state == State.LANDING)
     {
-      updateVelocityX(-0.2f, false);
+      updateVelocityX(-0.2f);
     }
 
     if (setDirection(Direction.LEFT))
@@ -182,11 +179,11 @@ public class Player extends Entity
   {
     if (state == State.JUMPING)
     {
-      updateVelocityX(0.5f, false);
+      updateVelocityX(0.5f);
     }
     else if (state == State.LANDING)
     {
-      updateVelocityX(0.2f, false);
+      updateVelocityX(0.2f);
     }
 
     if (setDirection(Direction.RIGHT))

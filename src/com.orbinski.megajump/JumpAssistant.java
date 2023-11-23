@@ -65,24 +65,36 @@ public class JumpAssistant
         UserInterface.retryText.visible = false;
       }
 
-      final float jumpVelocityX = calculateJumpVelocityX();
       final float playerVelocityX = Math.abs(player.velocityX);
 
-      // Add jump x velocity to existing velocity
-      // Only add if max x velocity has not been reached
-      if (playerVelocityX < player.maxVelocityX)
+      // Check if the player can "gain" x velocity from jumping
+      if (playerVelocityX < Globals.MAX_JUMP_VELOCITY_X)
       {
-        player.updateVelocityX(jumpVelocityX);
+        final float velocityCeilingX = Globals.MAX_JUMP_VELOCITY_X - playerVelocityX;
+        float newVelocityX = calculateJumpVelocityX();
+
+        if (newVelocityX > velocityCeilingX)
+        {
+          newVelocityX = velocityCeilingX;
+        }
+
+        player.updateVelocityX(newVelocityX);
       }
 
-      final float jumpVelocityY = calculateJumpVelocityY();
       final float playerVelocityY = Math.abs(player.velocityY);
 
-      // Add jump y velocity to existing velocity
-      // Only add if max y velocity has not been reached
-      if (playerVelocityY < player.maxVelocityY)
+      // Check if the player can "gain" y velocity from jumping
+      if (playerVelocityY < Globals.MAX_JUMP_VELOCITY_Y)
       {
-        player.updateVelocityY(jumpVelocityY);
+        final float velocityCeilingY = Globals.MAX_JUMP_VELOCITY_Y - playerVelocityY;
+        float newVelocityY = calculateJumpVelocityY();
+
+        if (newVelocityY > velocityCeilingY)
+        {
+          newVelocityY = velocityCeilingY;
+        }
+
+        player.updateVelocityY(newVelocityY);
       }
 
       if (player.velocityX > 0.0f)
@@ -111,12 +123,12 @@ public class JumpAssistant
     }
 
     final float percentageX = diffX / maxDiffX;
-    float jumpVelocityX = player.maxJumpVelocityX * percentageX;
+    float jumpVelocityX = Globals.MAX_ONE_JUMP_VELOCITY_X * percentageX;
 
     // Clamp max jump x velocity
-    if (jumpVelocityX > player.maxJumpVelocityX)
+    if (jumpVelocityX > Globals.MAX_ONE_JUMP_VELOCITY_X)
     {
-      jumpVelocityX = player.maxJumpVelocityX;
+      jumpVelocityX = Globals.MAX_ONE_JUMP_VELOCITY_X;
     }
 
     if (cursorPosition.x < player.getPosition().x)
@@ -139,12 +151,12 @@ public class JumpAssistant
     }
 
     final float percentageY = diffY / maxDiffY;
-    float jumpVelocityY = player.maxJumpVelocityY * percentageY;
+    float jumpVelocityY = Globals.MAX_ONE_JUMP_VELOCITY_Y * percentageY;
 
     // Clamp max jump y velocity
-    if (jumpVelocityY > player.maxJumpVelocityY)
+    if (jumpVelocityY > Globals.MAX_ONE_JUMP_VELOCITY_Y)
     {
-      jumpVelocityY = player.maxJumpVelocityY;
+      jumpVelocityY = Globals.MAX_ONE_JUMP_VELOCITY_Y;
     }
 
     if (cursorPosition.y < player.getPosition().y)

@@ -257,8 +257,8 @@ public class MServer extends Thread
             {
               player.applyGravity = true;
               player.setState(Player.State.JUMPING);
-              player.updateVelocityX(player.maxJumpVelocityX);
-              player.updateVelocityY(player.maxJumpVelocityY);
+              player.updateVelocityX(Globals.MAX_ONE_JUMP_VELOCITY_X);
+              player.updateVelocityY(Globals.MAX_ONE_JUMP_VELOCITY_Y);
             }
             else if (player.state == Player.State.DEATH)
             {
