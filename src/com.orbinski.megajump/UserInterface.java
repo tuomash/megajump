@@ -212,6 +212,34 @@ public class UserInterface
 
     jumpBar.setX(width - jumpBar.getWidth() - 20);
     jumpBar.setY(20);
+
+    // Help texts
+
+    {
+      final int x = 20;
+
+      int y = height - 20;
+
+      for (int i = 0; i < help.gameTexts.size(); i++)
+      {
+        final Text text = help.gameTexts.get(i);
+        text.setX(x);
+        text.setY(y);
+
+        y = y - 40;
+      }
+
+      y = height - 20;
+
+      for (int i = 0; i < help.editorTexts.size(); i++)
+      {
+        final Text text = help.editorTexts.get(i);
+        text.setX(x);
+        text.setY(y);
+
+        y = y - 40;
+      }
+    }
   }
 
   private static Text createText(final String text)

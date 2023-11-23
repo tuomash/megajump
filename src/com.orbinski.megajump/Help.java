@@ -3,62 +3,58 @@ package com.orbinski.megajump;
 import java.util.ArrayList;
 import java.util.List;
 
-class Help
+public class Help
 {
-  final List<Text> gameTexts = new ArrayList<>();
-  final List<Text> editorTexts = new ArrayList<>();
+  public final List<Text> gameTexts = new ArrayList<>();
+  public final List<Text> editorTexts = new ArrayList<>();
 
-  void create()
+  public void create()
   {
     // Game
 
-    addGame("Your objective is to get to the exit as fast as possible.", 20, 500);
-
-    addGame("Press R to restart the level", 20, 200);
-    addGame("Press N for next level and P for previous level", 20, 160);
-    addGame("Use WASD or arrow keys for aerial controls", 20, 120);
-    addGame("Press, drag and release mouse button 1 to jump", 20, 80);
-    addGame("Green platforms enable you to jump again", 20, 40);
+    addGame("Your objective is to get to the exit as fast as possible.");
+    addGame("");
+    addGame("Press R to restart the level");
+    addGame("Press N for next level and P for previous level");
+    addGame("Use WASD or arrow keys for aerial controls");
+    addGame("Press, drag and release mouse button 1 to jump");
+    addGame("Green platforms enable you to jump again");
 
     // Editor
 
-    addEditor("Press CTRL+E to toggle the level editor on/off", 20, 680);
-    addEditor("Press CTRL+O to run a custom command. Examples: set gold 10000, set silver 12000, set bronze 15000", 20, 640);
-    addEditor("Press CTRL+T to toggle level camera movement X on/off. Press CTRL+G to toggle level camera movement Y on/off.", 20, 600);
-    addEditor("Press CTRL+Y to raise and CTRL+H to lower death point", 20, 560);
-    addEditor("Press CTRL + up arrow to raise and CTRL + down arrow to lower camera floor", 20, 520);
-    addEditor("Press CTRL+U to increase and CTRL+J to decrease entity width", 20, 520);
-    addEditor("Press CTRL+I to increase and CTRL+K to decrease entity height", 20, 480);
-    addEditor("Press CTRL+X to delete an entity", 20, 440);
-    addEditor("Press CTRL+S to save changes", 20, 400);
-    addEditor("Press CTRL+R to rename a level", 20, 360);
-    addEditor("Press CTRL+N to create a new level", 20, 320);
-    addEditor("Press CTRL+1 to add a new platform", 20, 280);
-    addEditor("Press CTRL+2 to add a new trampoline", 20, 240);
-    addEditor("Press CTRL+3 to add a new decoration", 20, 200);
-    addEditor("Press LEFT SHIFT and mouse 1 to move entities", 20, 160);
-    addEditor("Press C to reset the level state", 20, 120);
-    addEditor("Use WASD or arrow keys to move the camera", 20, 80);
-    addEditor("Press N for next level and P for previous level", 20, 40);
+    addEditor("Press CTRL+E to toggle the level editor on/off");
+    addEditor("Press CTRL+O to run a custom command. Examples: set gold 10000, set silver 12000, set bronze 15000");
+    addEditor("Press CTRL+T to toggle level camera movement X on/off. Press CTRL+G to toggle level camera movement Y on/off.");
+    addEditor("Press CTRL+Y to raise and CTRL+H to lower death point");
+    addEditor("Press CTRL + up arrow to raise and CTRL + down arrow to lower camera floor");
+    addEditor("Press CTRL+U to increase and CTRL+J to decrease entity width");
+    addEditor("Press CTRL+I to increase and CTRL+K to decrease entity height");
+    addEditor("Press CTRL+X to delete an entity");
+    addEditor("Press CTRL+S to save changes");
+    addEditor("Press CTRL+R to rename a level");
+    addEditor("Press CTRL+N to create a new level");
+    addEditor("Press CTRL+1 to add a new platform");
+    addEditor("Press CTRL+2 to add a new trampoline");
+    addEditor("Press CTRL+3 to add a new decoration");
+    addEditor("Press LEFT SHIFT and mouse 1 to move entities");
+    addEditor("Press C to reset the level state");
+    addEditor("Use WASD or arrow keys to move the camera");
+    addEditor("Press N for next level and P for previous level");
   }
 
-  private void addGame(final String text, final int x, final int y)
+  private void addGame(final String text)
   {
     final Text textObj = new Text();
     textObj.text = text;
     textObj.font = Resources.font24White;
-    textObj.setX(x);
-    textObj.setY(y);
     gameTexts.add(textObj);
   }
 
-  private void addEditor(final String text, final int x, final int y)
+  private void addEditor(final String text)
   {
     final Text textObj = new Text();
     textObj.text = text;
     textObj.font = Resources.font24White;
-    textObj.setX(x);
-    textObj.setY(y);
     editorTexts.add(textObj);
   }
 }
