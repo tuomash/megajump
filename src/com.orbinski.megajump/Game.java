@@ -383,7 +383,7 @@ public class Game implements GameInterface
   @Override
   public CameraState getCameraState()
   {
-    return null;
+    return cameraState;
   }
 
   @Override
