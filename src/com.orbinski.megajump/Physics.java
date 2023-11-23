@@ -375,6 +375,7 @@ public class Physics
 
   private void detectWalljump(final Player player)
   {
+    // TODO: move to instance level
     final Vector2 originalPosition = new Vector2(player.getPosition());
     final float reach = 0.5f;
 
