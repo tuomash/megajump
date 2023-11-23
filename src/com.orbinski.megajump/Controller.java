@@ -225,6 +225,14 @@ public class Controller
       {
         editor.addDecoration(mouse.x, mouse.y);
       }
+      else if (input.isKeyJustPressed(Input.Keys.UP))
+      {
+        editor.raiseCameraFloor();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.DOWN))
+      {
+        editor.lowerCameraFloor();
+      }
       else if (input.isKeyJustPressed(Input.Keys.X))
       {
         editor.removeEntity();
