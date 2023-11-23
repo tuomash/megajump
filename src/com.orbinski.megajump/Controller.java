@@ -233,6 +233,10 @@ public class Controller
       {
         editor.lowerCameraFloor();
       }
+      else if (input.isKeyJustPressed(Input.Keys.C))
+      {
+        editor.copyEntity();
+      }
       else if (input.isKeyJustPressed(Input.Keys.X))
       {
         editor.removeEntity();

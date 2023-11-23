@@ -75,6 +75,22 @@ public class LevelEditor implements InputProcessor
     }
   }
 
+  void copyEntity()
+  {
+    if (entity != null)
+    {
+      if (entity instanceof Platform)
+      {
+        final Platform platform = (Platform) entity;
+        final Platform copy =  platform.copy();
+        copy.setPosition(copy.getPosition().x + 5.0f, copy.getPosition().y + 5.0f);
+        level.platforms.add(copy);
+
+        level.setSaved(false);
+      }
+    }
+  }
+
   void removeEntity()
   {
     if (entity != null)

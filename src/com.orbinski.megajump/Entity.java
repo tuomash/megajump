@@ -59,13 +59,13 @@ public abstract class Entity
   Animation animation;
   MTexture texture;
 
-  Entity()
+  public Entity()
   {
     setWidth(2.5f);
     setHeight(2.5f);
   }
 
-  Entity(final EntityWrapper wrapper)
+  public Entity(final EntityWrapper wrapper)
   {
     setWidth(wrapper.width);
     setHeight(wrapper.height);
@@ -83,20 +83,20 @@ public abstract class Entity
     }
   }
 
-  Entity(final float width, final float height)
+  public Entity(final float width, final float height)
   {
     setWidth(width);
     setHeight(height);
   }
 
-  Entity(final float x, final float y, final float width, final float height)
+  public Entity(final float x, final float y, final float width, final float height)
   {
     setWidth(width);
     setHeight(height);
     setPosition(x, y);
   }
 
-  Entity(final float x, final float y, final float width, final float height, final boolean collision)
+  public Entity(final float x, final float y, final float width, final float height, final boolean collision)
   {
     if (collision)
     {
@@ -108,6 +108,39 @@ public abstract class Entity
     setWidth(width);
     setHeight(height);
     setPosition(x, y);
+  }
+
+  protected void copyValues(final Entity copy)
+  {
+    copy.interpolate = interpolate;
+    copy.movement = movement;
+
+    if (collisionBox != null)
+    {
+      copy.collisionBox = new Rectangle();
+      copy.collisionBoxPos = new Vector2();
+      copy.collisionBoxPrevPos = new Vector2();
+    }
+
+    copy.applyGravity = applyGravity;
+    copy.applyWidthOffset = applyWidthOffset;
+    copy.applyHeightOffset = applyHeightOffset;
+
+    if (waypoints != null)
+    {
+      copy.waypoints = new ArrayList<>();
+
+      for (int i = 0; i < waypoints.size(); i++)
+      {
+        final Point2D.Float existing = waypoints.get(i);
+        final Point2D.Float point = new Point2D.Float(existing.x, existing.y);
+        copy.waypoints.add(point);
+      }
+    }
+
+    copy.setWidth(getWidth());
+    copy.setHeight(copy.getHeight());
+    copy.setPosition(getPosition());
   }
 
   public void update(final float delta)
