@@ -1,5 +1,7 @@
 package com.orbinski.megajump;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.List;
 
 import static com.orbinski.megajump.Globals.*;
@@ -43,29 +45,36 @@ public class Physics
     {
       final Player player = players.get(i);
 
-      if (player.isMoving() && player.state != Player.State.EXIT && player.state != Player.State.DEATH)
+      if (player.state != Player.State.EXIT && player.state != Player.State.DEATH)
       {
-        if (player.applyGravity)
+        player.setLocation(Player.Location.NONE);
+
+        if (player.isMoving())
         {
-          player.velocityY = player.velocityY + Globals.GRAVITY * delta;
+          if (player.applyGravity)
+          {
+            player.velocityY = player.velocityY + Globals.GRAVITY * delta;
+          }
+
+          final float distanceX = player.velocityX * delta;
+          player.setX(player.getPosition().x + distanceX);
+          boolean xCollision = detectCollisions(player, true, false);
+          boolean yCollision = false;
+
+          if (player.isMoving() && player.state != Player.State.EXIT && player.state != Player.State.DEATH)
+          {
+            final float distanceY = player.velocityY * delta;
+            player.setY(player.getPosition().y + distanceY);
+            yCollision = detectCollisions(player, false, true);
+          }
+
+          if (!xCollision && !yCollision)
+          {
+            player.resetTouchedFor();
+          }
         }
 
-        final float distanceX = player.velocityX * delta;
-        player.setX(player.getPosition().x + distanceX);
-        boolean xCollision = detectCollisions(player, true, false);
-        boolean yCollision = false;
-
-        if (player.isMoving() && player.state != Player.State.EXIT && player.state != Player.State.DEATH)
-        {
-          final float distanceY = player.velocityY * delta;
-          player.setY(player.getPosition().y + distanceY);
-          yCollision = detectCollisions(player, false, true);
-        }
-
-        if (!xCollision && !yCollision)
-        {
-          player.resetTouchedFor();
-        }
+        detectWalljump(player);
       }
     }
   }
@@ -255,8 +264,6 @@ public class Physics
       return false;
     }
 
-    player.setLocation(Player.Location.NONE);
-
     for (int i = 0; i < level.trampolines.size(); i++)
     {
       final Trampoline trampoline = level.trampolines.get(i);
@@ -284,6 +291,9 @@ public class Physics
 
           player.setX(platform.getPosition().x + platform.getWidthOffset() + adjustment);
           player.velocityX = 0.0f;
+          player.setLocation(Player.Location.PLATFORM);
+
+          player.updateTouchedFor(delta);
 
           break;
         }
@@ -293,6 +303,9 @@ public class Physics
 
           player.setX(platform.getPosition().x - platform.getWidthOffset() - adjustment);
           player.velocityX = 0.0f;
+          player.setLocation(Player.Location.PLATFORM);
+
+          player.updateTouchedFor(delta);
 
           break;
         }
@@ -358,6 +371,39 @@ public class Physics
     }
 
     return collision;
+  }
+
+  private void detectWalljump(final Player player)
+  {
+    final Vector2 originalPosition = new Vector2(player.getPosition());
+    final float reach = 0.5f;
+
+    for (int i = 0; i < level.platforms.size(); i++)
+    {
+      final Platform platform = level.platforms.get(i);
+      player.setPosition(player.getPosition().x + reach, player.getPosition().y);
+
+      if (EntityUtils.overlaps(player, platform))
+      {
+        player.setLocation(Player.Location.PLATFORM);
+        player.updateTouchedFor(delta);
+
+        break;
+      }
+
+      player.setPosition(originalPosition);
+      player.setPosition(player.getPosition().x - reach, player.getPosition().y);
+
+      if (EntityUtils.overlaps(player, platform))
+      {
+        player.setLocation(Player.Location.PLATFORM);
+        player.updateTouchedFor(delta);
+
+        break;
+      }
+    }
+
+    player.setPosition(originalPosition);
   }
 
   public void clear()

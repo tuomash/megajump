@@ -13,7 +13,7 @@ public class Player extends Entity
     IDLE,
     JUMPING,
     LANDING,
-    WALL_LANDING,
+    WALL_SLIDING,
     EXIT,
     DEATH
   }
