@@ -1,10 +1,10 @@
 package com.orbinski.megajump;
 
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.List;
 
-import static com.orbinski.megajump.Globals.*;
+import static com.orbinski.megajump.Globals.FRICTION_PLATFORM;
 
 public class Physics
 {
@@ -49,32 +49,34 @@ public class Physics
       {
         player.setLocation(Player.Location.NONE);
 
-        if (player.isMoving())
+        if (player.applyGravity)
         {
-          if (player.applyGravity)
-          {
-            player.velocityY = player.velocityY + Globals.GRAVITY * delta;
-          }
-
-          final float distanceX = player.velocityX * delta;
-          player.setX(player.getPosition().x + distanceX);
-          boolean xCollision = detectCollisions(player, true, false);
-          boolean yCollision = false;
-
-          if (player.isMoving() && player.state != Player.State.EXIT && player.state != Player.State.DEATH)
-          {
-            final float distanceY = player.velocityY * delta;
-            player.setY(player.getPosition().y + distanceY);
-            yCollision = detectCollisions(player, false, true);
-          }
-
-          if (!xCollision && !yCollision)
-          {
-            player.resetTouchedFor();
-          }
+          player.velocityY = player.velocityY + Globals.GRAVITY * delta;
         }
 
-        detectWalljump(player);
+        boolean xCollision = false;
+        boolean yCollision = false;
+
+        if (player.hasVelocityX())
+        {
+          final float distanceX = player.velocityX * delta;
+          player.setX(player.getPosition().x + distanceX);
+          xCollision = detectCollisions(player, true, false);
+        }
+
+        if (player.hasVelocityY() && player.state != Player.State.EXIT && player.state != Player.State.DEATH)
+        {
+          final float distanceY = player.velocityY * delta;
+          player.setY(player.getPosition().y + distanceY);
+          yCollision = detectCollisions(player, false, true);
+        }
+
+        final boolean detect = detectWalljump(player);
+
+        if (!xCollision && !yCollision && !detect)
+        {
+          player.resetTouchedFor();
+        }
       }
     }
   }
@@ -373,38 +375,45 @@ public class Physics
     return collision;
   }
 
-  private void detectWalljump(final Player player)
+  private boolean detectWalljump(final Player player)
   {
-    // TODO: move to instance level
-    final Vector2 originalPosition = new Vector2(player.getPosition());
-    final float reach = 0.5f;
+    final float reach = 1.0f;
+    final Rectangle rectangle1 = new Rectangle(player.collisionBox.x + reach,
+                                               player.collisionBox.y,
+                                               player.collisionBox.width,
+                                               player.collisionBox.height);
+    final Rectangle rectangle2 = new Rectangle(player.collisionBox.x - reach,
+                                               player.collisionBox.y,
+                                               player.collisionBox.width,
+                                               player.collisionBox.height);
+    boolean detect = false;
 
     for (int i = 0; i < level.platforms.size(); i++)
     {
       final Platform platform = level.platforms.get(i);
-      player.setPosition(player.getPosition().x + reach, player.getPosition().y);
 
-      if (EntityUtils.overlaps(player, platform))
+      if (EntityUtils.overlaps(rectangle1, platform))
       {
-        player.setLocation(Player.Location.PLATFORM);
-        player.updateTouchedFor(delta);
+        detect = true;
 
         break;
       }
 
-      player.setPosition(originalPosition);
-      player.setPosition(player.getPosition().x - reach, player.getPosition().y);
-
-      if (EntityUtils.overlaps(player, platform))
+      if (EntityUtils.overlaps(rectangle2, platform))
       {
-        player.setLocation(Player.Location.PLATFORM);
-        player.updateTouchedFor(delta);
+        detect = true;
 
         break;
       }
     }
 
-    player.setPosition(originalPosition);
+    if (detect)
+    {
+      player.setLocation(Player.Location.PLATFORM);
+      player.updateTouchedFor(delta);
+    }
+
+    return detect;
   }
 
   public void clear()

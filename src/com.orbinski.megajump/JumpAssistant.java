@@ -11,7 +11,7 @@ public class JumpAssistant
   public boolean targeting;
 
   private float jumpElapsed;
-  private final float jumpTarget = 1.25f;
+  private final float jumpTarget = 0.4f;
   private boolean canJump = true;
 
   final Rectangle[] jumpCurve = new Rectangle[250];

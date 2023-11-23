@@ -184,9 +184,19 @@ public abstract class Entity
     velocityY = 0.0f;
   }
 
+  public boolean hasVelocityX()
+  {
+    return velocityX > 0.0f || velocityX < 0.0f;
+  }
+
+  public boolean hasVelocityY()
+  {
+    return velocityY > 0.0f || velocityY < 0.0f;
+  }
+
   public boolean isMoving()
   {
-    return velocityX > 0.0f || velocityX < 0.0f || velocityY > 0.0f || velocityY < 0.0f;
+    return hasVelocityX() || hasVelocityY();
   }
 
   boolean overlaps(final Entity entity)
