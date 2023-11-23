@@ -83,22 +83,40 @@ public class LevelEditor implements InputProcessor
     }
   }
 
-  void increaseEntitySize()
+  void increaseEntityWidth()
   {
     if (entity != null)
     {
       entity.increaseWidth();
+
+      level.setSaved(false);
+    }
+  }
+
+  void decreaseEntityWidth()
+  {
+    if (entity != null)
+    {
+      entity.decreaseWidth();
+
+      level.setSaved(false);
+    }
+  }
+
+  void increaseEntityHeight()
+  {
+    if (entity != null)
+    {
       entity.increaseHeight();
 
       level.setSaved(false);
     }
   }
 
-  void decreaseEntitySize()
+  void decreaseEntityHeight()
   {
     if (entity != null)
     {
-      entity.decreaseWidth();
       entity.decreaseHeight();
 
       level.setSaved(false);

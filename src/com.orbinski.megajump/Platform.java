@@ -40,17 +40,15 @@ class Platform extends Entity
   @Override
   void increaseHeight()
   {
-    // setHeight(getHeight() + heightStep);
+    setHeight(getHeight() + heightStep);
   }
 
   @Override
   void decreaseHeight()
   {
-    /*
     if (getHeight() > heightStep)
     {
       setHeight(getHeight() - heightStep);
     }
-     */
   }
 }

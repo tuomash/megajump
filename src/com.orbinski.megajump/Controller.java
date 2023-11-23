@@ -231,19 +231,19 @@ public class Controller
       }
       else if (input.isKeyJustPressed(Input.Keys.I))
       {
-        editor.increaseEntitySize();
+        editor.increaseEntityHeight();
       }
       else if (input.isKeyJustPressed(Input.Keys.K))
       {
-        editor.decreaseEntitySize();
+        editor.decreaseEntityHeight();
       }
       else if (input.isKeyJustPressed(Input.Keys.U))
       {
-        editor.raiseCameraFloor();
+        editor.increaseEntityWidth();
       }
       else if (input.isKeyJustPressed(Input.Keys.J))
       {
-        editor.lowerCameraFloor();
+        editor.decreaseEntityWidth();
       }
       else if (input.isKeyJustPressed(Input.Keys.Y))
       {
