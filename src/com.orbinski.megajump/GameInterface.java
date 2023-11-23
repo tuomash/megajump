@@ -40,15 +40,12 @@ public interface GameInterface
 
   boolean isMultiplayer();
 
-  void connectToServer();
-
-  void disconnectFromServer();
-
   void resetPlayerToStart();
 
   void selectPreviousLevel();
 
   void selectNextLevel();
+
   boolean isTargeting();
 
   void setTargeting(boolean targeting);
@@ -66,4 +63,10 @@ public interface GameInterface
   void moveDown();
 
   void createNewLevel();
+
+  // Multiplayer specific functions
+
+  void connectToServer();
+
+  void disconnectFromServer();
 }

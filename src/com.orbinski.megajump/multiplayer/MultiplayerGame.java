@@ -16,6 +16,7 @@ public class MultiplayerGame implements GameInterface
   private final Levels levels = new Levels();
   private final Physics physics = new Physics();
   private final CameraState cameraState = new CameraState();
+  private final Game game;
   private final OrthographicCamera camera;
 
   private final Object lock = new Object();
@@ -28,8 +29,9 @@ public class MultiplayerGame implements GameInterface
   public boolean active;
   private Level level;
 
-  public MultiplayerGame(final OrthographicCamera camera)
+  public MultiplayerGame(final Game game, final OrthographicCamera camera)
   {
+    this.game = game;
     this.camera = camera;
 
     levels.goToBeginning();
@@ -225,19 +227,24 @@ public class MultiplayerGame implements GameInterface
 
     active = true;
     players.add(clientPlayer);
+    game.setToMultiplayer();
   }
 
   public void disconnectFromServer()
   {
-    if (client != null)
+    if (active)
     {
-      client.shutdown();
-    }
+      if (client != null)
+      {
+        client.shutdown();
+      }
 
-    client = null;
-    active = false;
-    players.clear();
-    physics.clear();
+      client = null;
+      active = false;
+      players.clear();
+      physics.clear();
+      game.setToSingleplayer();
+    }
   }
 
   public void sendRequests()

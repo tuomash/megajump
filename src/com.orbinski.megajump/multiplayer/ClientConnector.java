@@ -25,6 +25,8 @@ public class ClientConnector extends Thread
   @Override
   public void run()
   {
+    boolean connectionFailure = false;
+
     try
     {
       client.start();
@@ -35,6 +37,12 @@ public class ClientConnector extends Thread
     {
       // TODO: add error message to MultiplayerGame.java
       e.printStackTrace();
+      connectionFailure = true;
+    }
+
+    if (connectionFailure)
+    {
+      game.disconnectFromServer();
     }
 
     game.clearClientConnector();

@@ -38,7 +38,7 @@ public class Game implements GameInterface
     levels = new Levels();
     cameraState = new CameraState();
     levelEditor = new LevelEditor();
-    multiplayer = new MultiplayerGame(camera);
+    multiplayer = new MultiplayerGame(this, camera);
 
     game = this;
 
@@ -333,22 +333,32 @@ public class Game implements GameInterface
     reset();
   }
 
-  public void connectToServer()
+  public void setToSingleplayer()
   {
-    multiplayer.connectToServer();
-    game = multiplayer;
+    game = this;
   }
 
-  public void disconnectFromServer()
+  public void setToMultiplayer()
   {
-    multiplayer.disconnectFromServer();
-    game = this;
+    game = multiplayer;
   }
 
   @Override
   public boolean isMultiplayer()
   {
     return false;
+  }
+
+  @Override
+  public void connectToServer()
+  {
+    multiplayer.connectToServer();
+  }
+
+  @Override
+  public void disconnectFromServer()
+  {
+    multiplayer.disconnectFromServer();
   }
 
   public GameInterface getGame()
