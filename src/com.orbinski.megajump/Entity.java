@@ -298,6 +298,8 @@ public abstract class Entity
       collisionBox.setWidth(width);
       collisionBoxWidthOffset = width / 2.0f;
     }
+
+    setPosition(getPosition());
   }
 
   float getWidthOffset()
@@ -320,6 +322,8 @@ public abstract class Entity
       collisionBox.setHeight(height);
       collisionBoxHeightOffset = height / 2.0f;
     }
+
+    setPosition(getPosition());
   }
 
   float getHeightOffset()

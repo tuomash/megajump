@@ -37,7 +37,6 @@ class Platform extends Entity
   void increaseWidth()
   {
     setWidth(getWidth() + widthStep);
-    setPosition(getPosition());
   }
 
   @Override
@@ -46,7 +45,6 @@ class Platform extends Entity
     if (getWidth() > widthStep)
     {
       setWidth(getWidth() - widthStep);
-      setPosition(getPosition());
     }
   }
 
@@ -54,7 +52,6 @@ class Platform extends Entity
   void increaseHeight()
   {
     setHeight(getHeight() + heightStep);
-    setPosition(getPosition());
   }
 
   @Override
@@ -63,7 +60,6 @@ class Platform extends Entity
     if (getHeight() > heightStep)
     {
       setHeight(getHeight() - heightStep);
-      setPosition(getPosition());
     }
   }
 }
