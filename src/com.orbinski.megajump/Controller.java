@@ -225,11 +225,11 @@ public class Controller
       {
         editor.addDecoration(mouse.x, mouse.y);
       }
-      else if (input.isKeyJustPressed(Input.Keys.UP))
+      else if (input.isKeyJustPressed(Input.Keys.U))
       {
         editor.raiseCameraFloor();
       }
-      else if (input.isKeyJustPressed(Input.Keys.DOWN))
+      else if (input.isKeyJustPressed(Input.Keys.J))
       {
         editor.lowerCameraFloor();
       }
@@ -241,19 +241,19 @@ public class Controller
       {
         editor.removeEntity();
       }
-      else if (input.isKeyJustPressed(Input.Keys.I))
+      else if (input.isKeyJustPressed(Input.Keys.UP))
       {
         editor.increaseEntityHeight();
       }
-      else if (input.isKeyJustPressed(Input.Keys.K))
+      else if (input.isKeyJustPressed(Input.Keys.DOWN))
       {
         editor.decreaseEntityHeight();
       }
-      else if (input.isKeyJustPressed(Input.Keys.U))
+      else if (input.isKeyJustPressed(Input.Keys.RIGHT))
       {
         editor.increaseEntityWidth();
       }
-      else if (input.isKeyJustPressed(Input.Keys.J))
+      else if (input.isKeyJustPressed(Input.Keys.LEFT))
       {
         editor.decreaseEntityWidth();
       }

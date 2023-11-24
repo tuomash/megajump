@@ -16,3 +16,4 @@ platforms_3
 precision_1
 precision_2
 vertical_platforms_1
+point_of_interest

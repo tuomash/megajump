@@ -26,9 +26,9 @@ public class Help
     addEditor("Press CTRL+O to run a custom command. Examples: set gold 10000, set silver 12000, set bronze 15000");
     addEditor("Press CTRL+T to toggle level camera movement X on/off. Press CTRL+G to toggle level camera movement Y on/off.");
     addEditor("Press CTRL+Y to raise and CTRL+H to lower death point");
-    addEditor("Press CTRL + up arrow to raise and CTRL + down arrow to lower camera floor");
-    addEditor("Press CTRL+U to increase and CTRL+J to decrease entity width");
-    addEditor("Press CTRL+I to increase and CTRL+K to decrease entity height");
+    addEditor("Press CTRL+U to raise and CTRL+J to lower camera floor");
+    addEditor("Press CTRL + right arrow to increase and CTRL + left arrow to decrease entity width");
+    addEditor("Press CTRL + up arrow to increase and CTRL + down arrow to decrease entity height");
     addEditor("Press CTRL+X to delete an entity");
     addEditor("Press CTRL+S to save changes");
     addEditor("Press CTRL+R to rename a level");
