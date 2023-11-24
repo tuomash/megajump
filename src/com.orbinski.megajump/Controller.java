@@ -350,7 +350,11 @@ public class Controller
 
       // Level controls
 
-      if (input.isKeyJustPressed(Input.Keys.R))
+      if (input.isKeyJustPressed(Input.Keys.ESCAPE))
+      {
+        editor.clearEntity();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.R))
       {
         game.resetPlayerToStart();
       }
