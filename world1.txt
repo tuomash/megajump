@@ -16,5 +16,3 @@ platforms_3
 precision_1
 precision_2
 vertical_platforms_1
-test_of_elma
-towers_1
