@@ -284,8 +284,6 @@ public class Physics
 
     if (xAxis)
     {
-      final float adjustment = 2.25f;
-
       for (int i = 0; i < level.platforms.size(); i++)
       {
         final Platform platform = level.platforms.get(i);
@@ -294,7 +292,7 @@ public class Physics
         {
           collision = true;
 
-          player.setX(platform.getPosition().x + platform.getWidthOffset() + adjustment);
+          player.setX(platform.getPosition().x + platform.getWidthOffset() + player.collisionBoxWidthOffset);
           player.velocityX = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
 
@@ -306,7 +304,7 @@ public class Physics
         {
           collision = true;
 
-          player.setX(platform.getPosition().x - platform.getWidthOffset() - adjustment);
+          player.setX(platform.getPosition().x - platform.getWidthOffset() - player.collisionBoxWidthOffset);
           player.velocityX = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
 
@@ -319,8 +317,6 @@ public class Physics
 
     if (yAxis)
     {
-      final float adjustment = 3.25f;
-
       for (int i = 0; i < level.platforms.size(); i++)
       {
         final Platform platform = level.platforms.get(i);
@@ -329,7 +325,7 @@ public class Physics
         {
           collision = true;
 
-          player.setY(platform.getPosition().y + platform.getHeightOffset() + adjustment);
+          player.setY(platform.getPosition().y + platform.getHeightOffset() + player.collisionBoxHeightOffset);
           player.velocityY = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
 
@@ -367,7 +363,7 @@ public class Physics
         {
           collision = true;
 
-          player.setY(platform.getPosition().y - platform.getHeightOffset() - adjustment);
+          player.setY(platform.getPosition().y - platform.getHeightOffset() - player.collisionBoxHeightOffset);
           player.velocityY = 0.0f;
 
           break;

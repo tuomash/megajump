@@ -17,3 +17,6 @@ precision_1
 precision_2
 vertical_platforms_1
 point_of_interest
+towers_1
+behind_the_wall
+behind_the_wall_2
