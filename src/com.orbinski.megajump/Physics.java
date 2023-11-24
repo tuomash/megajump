@@ -319,7 +319,7 @@ public class Physics
 
     if (yAxis)
     {
-      final float adjustment = 3.26f;
+      final float adjustment = 3.25f;
 
       for (int i = 0; i < level.platforms.size(); i++)
       {
