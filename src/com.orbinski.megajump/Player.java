@@ -54,7 +54,7 @@ public class Player extends Entity
     movement = Movement.REGULAR;
     assistant = new JumpAssistant(this);
     // drawBorder = true;
-    drawCollisionBox = true;
+    // drawCollisionBox = true;
 
     setDirection(Direction.RIGHT);
     setState(State.IDLE);

@@ -8,6 +8,9 @@ import static com.orbinski.megajump.Globals.FRICTION_PLATFORM;
 
 public class Physics
 {
+  private final Rectangle rectangle1 = new Rectangle();
+  private final Rectangle rectangle2 = new Rectangle();
+
   public List<Player> players;
   public Level level;
   private float delta;
@@ -316,7 +319,7 @@ public class Physics
 
     if (yAxis)
     {
-      final float adjustment = 3.25f;
+      final float adjustment = 3.26f;
 
       for (int i = 0; i < level.platforms.size(); i++)
       {
@@ -378,14 +381,14 @@ public class Physics
   private boolean detectWalljump(final Player player)
   {
     final float reach = 1.0f;
-    final Rectangle rectangle1 = new Rectangle(player.collisionBox.x + reach,
-                                               player.collisionBox.y,
-                                               player.collisionBox.width,
-                                               player.collisionBox.height);
-    final Rectangle rectangle2 = new Rectangle(player.collisionBox.x - reach,
-                                               player.collisionBox.y,
-                                               player.collisionBox.width,
-                                               player.collisionBox.height);
+    rectangle1.set(player.collisionBox.x + reach,
+                   player.collisionBox.y,
+                   player.collisionBox.width,
+                   player.collisionBox.height);
+    rectangle2.set(player.collisionBox.x - reach,
+                   player.collisionBox.y,
+                   player.collisionBox.width,
+                   player.collisionBox.height);
     boolean detect = false;
 
     for (int i = 0; i < level.platforms.size(); i++)
