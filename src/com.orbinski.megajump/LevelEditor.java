@@ -122,9 +122,17 @@ public class LevelEditor implements InputProcessor
   {
     if (entity != null)
     {
+      final float prevWidth = entity.getWidth();
       entity.increaseWidth();
 
-      level.setSaved(false);
+      if (level.overlapsEntity(entity))
+      {
+        entity.setWidth(prevWidth);
+      }
+      else
+      {
+        level.setSaved(false);
+      }
     }
   }
 
@@ -142,9 +150,17 @@ public class LevelEditor implements InputProcessor
   {
     if (entity != null)
     {
+      final float prevHeight = entity.getHeight();
       entity.increaseHeight();
 
-      level.setSaved(false);
+      if (level.overlapsEntity(entity))
+      {
+        entity.setHeight(prevHeight);
+      }
+      else
+      {
+        level.setSaved(false);
+      }
     }
   }
 
