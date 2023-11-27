@@ -37,7 +37,7 @@ public class Help
     addEditor("Press CTRL+2 to add a new trampoline");
     addEditor("Press CTRL+3 to add a new decoration");
     addEditor("Press LEFT SHIFT and mouse 1 to move entities");
-    addEditor("Press C to reset the level state");
+    addEditor("Press C to reset the camera to player spawn");
     addEditor("Use WASD or arrow keys to move the camera");
     addEditor("Press N for next level and P for previous level");
   }

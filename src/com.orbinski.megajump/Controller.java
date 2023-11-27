@@ -358,7 +358,7 @@ public class Controller
       {
         editor.clearSelectionStatus();
       }
-      else if (input.isKeyJustPressed(Input.Keys.R))
+      else if (input.isKeyJustPressed(Input.Keys.C))
       {
         game.resetPlayerToStart();
       }
