@@ -29,9 +29,9 @@ public class ClientListener extends Listener
   {
     super.received(connection, object);
 
-    if (object instanceof ServerSnapshotResponse)
+    if (object instanceof ServerSnapshotResponse response)
     {
-      game.addResponse((ServerSnapshotResponse) object);
+      game.addResponse(response);
     }
   }
 

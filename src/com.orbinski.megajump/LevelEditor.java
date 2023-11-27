@@ -2,12 +2,14 @@ package com.orbinski.megajump;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 
 public class LevelEditor implements InputProcessor
 {
   Level level;
   boolean active;
   Entity entity;
+  Entity copySource;
   boolean input;
   StringBuilder inputBuilder = new StringBuilder();
   boolean help;
@@ -79,11 +81,18 @@ public class LevelEditor implements InputProcessor
   {
     if (entity != null)
     {
-      if (entity instanceof Platform)
+      copySource = entity;
+    }
+  }
+
+  void pasteEntity(final Vector2 position)
+  {
+    if (copySource != null)
+    {
+      if (copySource instanceof Platform platform)
       {
-        final Platform platform = (Platform) entity;
-        final Platform copy =  platform.copy();
-        copy.setPosition(copy.getPosition().x + 5.0f, copy.getPosition().y + 5.0f);
+        final Platform copy = platform.copy();
+        copy.setPosition(position);
         level.platforms.add(copy);
 
         level.setSaved(false);
@@ -186,7 +195,7 @@ public class LevelEditor implements InputProcessor
     return false;
   }
 
-  void clearEntity()
+  void clearSelectionStatus()
   {
     if (entity != null)
     {
@@ -194,6 +203,13 @@ public class LevelEditor implements InputProcessor
     }
 
     entity = null;
+
+    if (copySource != null)
+    {
+      copySource.selected = false;
+    }
+
+    copySource = null;
   }
 
   void enableInput()

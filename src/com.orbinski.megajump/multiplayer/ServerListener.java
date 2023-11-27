@@ -39,14 +39,12 @@ class ServerListener extends Listener
   {
     super.received(connection, object);
 
-    if (object instanceof ExampleRequest)
+    if (object instanceof ExampleRequest request)
     {
-      final ExampleRequest request = (ExampleRequest) object;
       // System.out.println(request.text);
     }
-    else if (object instanceof ClientPlayerInputRequest)
+    else if (object instanceof ClientPlayerInputRequest request)
     {
-      final ClientPlayerInputRequest request = (ClientPlayerInputRequest) object;
       request.connection = connection;
       request.playerId = connection.getID();
       server.addClientPlayerInputRequest(request);

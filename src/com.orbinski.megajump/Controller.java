@@ -237,6 +237,10 @@ public class Controller
       {
         editor.copyEntity();
       }
+      else if (input.isKeyJustPressed(Input.Keys.V))
+      {
+        editor.pasteEntity(mouse);
+      }
       else if (input.isKeyJustPressed(Input.Keys.X))
       {
         editor.removeEntity();
@@ -335,7 +339,7 @@ public class Controller
       }
       else
       {
-        editor.clearEntity();
+        editor.clearSelectionStatus();
       }
     }
     else
@@ -344,7 +348,7 @@ public class Controller
 
       if (input.isButtonJustPressed(Input.Buttons.LEFT))
       {
-        editor.clearEntity();
+        editor.clearSelectionStatus();
         editor.selectEntity(mouse.x, mouse.y);
       }
 
@@ -352,7 +356,7 @@ public class Controller
 
       if (input.isKeyJustPressed(Input.Keys.ESCAPE))
       {
-        editor.clearEntity();
+        editor.clearSelectionStatus();
       }
       else if (input.isKeyJustPressed(Input.Keys.R))
       {
