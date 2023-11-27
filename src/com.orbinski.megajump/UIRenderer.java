@@ -60,6 +60,7 @@ public class UIRenderer
         addText(UserInterface.unsavedChangesText);
         addText(UserInterface.newLevelNameText);
         addText(UserInterface.commandText);
+        addText(UserInterface.edgeScrollingText);
         addText(UserInterface.moveCameraXText);
         addText(UserInterface.moveCameraYText);
       }

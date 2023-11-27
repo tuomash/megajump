@@ -15,6 +15,7 @@ public class LevelEditor implements InputProcessor
   boolean help;
   boolean rename;
   boolean command;
+  boolean edgeScrolling = false;
 
   LevelEditor()
   {
@@ -354,6 +355,12 @@ public class LevelEditor implements InputProcessor
     }
 
     disableCommand();
+  }
+
+  public void toggleEdgeScrolling()
+  {
+    edgeScrolling = !edgeScrolling;
+    UserInterface.updateEdgeScrollingText(edgeScrolling);
   }
 
   @Override

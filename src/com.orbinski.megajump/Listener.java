@@ -35,6 +35,7 @@ class Listener implements ApplicationListener
     uiRenderer.viewport.update(width, height, true);
     screenWidth = width;
     screenHeight = height;
+    MScreen.layout(width, height);
     UserInterface.layout(width, height);
   }
 

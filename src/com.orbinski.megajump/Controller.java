@@ -170,8 +170,10 @@ public class Controller
     final LevelEditor editor = game.getLevelEditor();
 
     // Set screen coordinates
-    mouse.x = input.getX();
-    mouse.y = input.getY();
+    final float inputX = input.getX();
+    final float inputY = input.getY();
+    mouse.x = inputX;
+    mouse.y = inputY;
 
     // Transform to world coordinates
     Renderer.unproject(mouse);
@@ -212,6 +214,10 @@ public class Controller
       if (input.isKeyJustPressed(Input.Keys.E))
       {
         game.toggleLevelEditor();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.Z))
+      {
+        editor.toggleEdgeScrolling();
       }
       else if (input.isKeyJustPressed(Input.Keys.NUM_1))
       {
@@ -375,7 +381,7 @@ public class Controller
         editor.help = !editor.help;
       }
 
-      // Camera controls
+      // Camera keyboard controls
 
       if (input.isKeyPressed(Input.Keys.W) || input.isKeyPressed(Input.Keys.UP))
       {
@@ -393,6 +399,29 @@ public class Controller
       else if (input.isKeyPressed(Input.Keys.D) || input.isKeyPressed(Input.Keys.RIGHT))
       {
         game.getCameraState().moveRight();
+      }
+    }
+
+    // Camera edge scrolling
+
+    if (editor.edgeScrolling)
+    {
+      if (MScreen.isInLeftArea(inputX))
+      {
+        game.getCameraState().moveLeft();
+      }
+      else if (MScreen.isInRightArea(inputX))
+      {
+        game.getCameraState().moveRight();
+      }
+
+      if (MScreen.isInTopArea(inputY))
+      {
+        game.getCameraState().moveUp();
+      }
+      else if (MScreen.isInBottomArea(inputY))
+      {
+        game.getCameraState().moveDown();
       }
     }
   }

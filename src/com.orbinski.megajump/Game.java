@@ -328,6 +328,7 @@ public class Game implements GameInterface
   {
     levelEditor.level = level;
     levelEditor.active = !levelEditor.active;
+    UserInterface.updateEdgeScrollingText(levelEditor.edgeScrolling);
     UserInterface.updateMoveCameraXText(level.moveCameraX);
     UserInterface.updateMoveCameraYText(level.moveCameraY);
     reset();

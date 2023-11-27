@@ -37,6 +37,7 @@ public class UserInterface
   static Text unsavedChangesText;
   static Text newLevelNameText;
   static Text commandText;
+  static Text edgeScrollingText;
   static Text moveCameraXText;
   static Text moveCameraYText;
 
@@ -81,6 +82,7 @@ public class UserInterface
     commandText = createText("cmd: ");
     commandText.visible = false;
 
+    edgeScrollingText = createText("Edge scroll: ");
     moveCameraXText = createText("Move cam x: ");
     moveCameraYText = createText("Move cam y: ");
   }
@@ -148,6 +150,7 @@ public class UserInterface
       unsavedChangesText.setPosition(20, 40);
       newLevelNameText.setPosition(20, 20);
       commandText.setPosition(20, 20);
+      edgeScrollingText.setPosition(secondHelpX, 60);
       moveCameraXText.setPosition(secondHelpX, 40);
       moveCameraYText.setPosition(secondHelpX, 20);
     }
@@ -177,6 +180,7 @@ public class UserInterface
       unsavedChangesText.setPosition(20, 60);
       newLevelNameText.setPosition(20, 30);
       commandText.setPosition(20, 30);
+      edgeScrollingText.setPosition(secondHelpX, 90);
       moveCameraXText.setPosition(secondHelpX, 60);
       moveCameraYText.setPosition(secondHelpX, 30);
     }
@@ -206,6 +210,7 @@ public class UserInterface
       unsavedChangesText.setPosition(20, 80);
       newLevelNameText.setPosition(20, 40);
       commandText.setPosition(20, 40);
+      edgeScrollingText.setPosition(secondHelpX, 120);
       moveCameraXText.setPosition(secondHelpX, 80);
       moveCameraYText.setPosition(secondHelpX, 40);
     }
@@ -361,6 +366,14 @@ public class UserInterface
     if (commandText != null)
     {
       commandText.text = "cmd: " + cmd;
+    }
+  }
+
+  static void updateEdgeScrollingText(final boolean scroll)
+  {
+    if (edgeScrollingText != null)
+    {
+      edgeScrollingText.text = "Edge scroll: " + scroll;
     }
   }
 
