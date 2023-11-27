@@ -66,6 +66,7 @@ public class Renderer
     addPlayers();
     addTeleports();
 
+    // addGrid();
     addSpawn();
     addLevelBorder();
     addLevelCameraFloor();
@@ -173,6 +174,36 @@ public class Renderer
                               teleport.getWidth(),
                               teleport.getHeight(),
                               Color.WHITE);
+      }
+    }
+  }
+
+  void addGrid()
+  {
+    if (game.isLevelEditor())
+    {
+      float x = viewport.getCamera().position.x - WORLD_WIDTH / 2;
+      float y = viewport.getCamera().position.y + WORLD_HEIGHT / 2;
+      final float tileWidth = 2.0f;
+      final float tileHeight = 2.0f;
+      final int rows = (int) (WORLD_WIDTH / tileWidth) + 1;
+      final int columns = (int) (WORLD_HEIGHT / tileHeight) + 3;
+
+      for (int i = 0; i < columns; i++)
+      {
+        for (int z = 0; z < rows; z++)
+        {
+          shapeRenderer.addQuad(x,
+                                y,
+                                tileWidth,
+                                tileHeight,
+                                Color.DARK_GRAY);
+
+          x = x + tileWidth;
+        }
+
+        x = viewport.getCamera().position.x - WORLD_WIDTH / 2;
+        y = y - tileWidth;
       }
     }
   }
