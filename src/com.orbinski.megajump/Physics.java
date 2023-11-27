@@ -287,12 +287,14 @@ public class Physics
       for (int i = 0; i < level.platforms.size(); i++)
       {
         final Platform platform = level.platforms.get(i);
+        final float platformLeftX = platform.getPosition().x - platform.getWidthOffset();
+        final float platformRightX = platform.getPosition().x + platform.getWidthOffset();
 
-        if (player.velocityX < 0.0f && EntityUtils.overlaps(player, platform))
+        if (player.getPosition().x > platformRightX && player.velocityX < 0.0f && EntityUtils.overlaps(player, platform))
         {
           collision = true;
 
-          player.setX(platform.getPosition().x + platform.getWidthOffset() + player.collisionBoxWidthOffset);
+          player.setX(platformRightX + player.collisionBoxWidthOffset);
           player.velocityX = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
 
@@ -300,11 +302,11 @@ public class Physics
 
           break;
         }
-        else if (player.velocityX > 0.0f && EntityUtils.overlaps(player, platform))
+        else if (player.getPosition().x < platformLeftX && player.velocityX > 0.0f && EntityUtils.overlaps(player, platform))
         {
           collision = true;
 
-          player.setX(platform.getPosition().x - platform.getWidthOffset() - player.collisionBoxWidthOffset);
+          player.setX(platformLeftX - player.collisionBoxWidthOffset);
           player.velocityX = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
 
@@ -320,12 +322,14 @@ public class Physics
       for (int i = 0; i < level.platforms.size(); i++)
       {
         final Platform platform = level.platforms.get(i);
+        final float platformTopY = platform.getPosition().y + platform.getHeightOffset();
+        final float platformBottomY = platform.getPosition().y - platform.getHeightOffset();
 
-        if (player.velocityY < 0.0f && EntityUtils.overlaps(player, platform))
+        if (player.getPosition().y > platformTopY && player.velocityY < 0.0f && EntityUtils.overlaps(player, platform))
         {
           collision = true;
 
-          player.setY(platform.getPosition().y + platform.getHeightOffset() + player.collisionBoxHeightOffset);
+          player.setY(platformTopY + player.collisionBoxHeightOffset);
           player.velocityY = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
 
@@ -359,11 +363,11 @@ public class Physics
 
           break;
         }
-        else if (player.velocityY > 0.0f && EntityUtils.overlaps(player, platform))
+        else if (player.getPosition().y < platformBottomY && player.velocityY > 0.0f && EntityUtils.overlaps(player, platform))
         {
           collision = true;
 
-          player.setY(platform.getPosition().y - platform.getHeightOffset() - player.collisionBoxHeightOffset);
+          player.setY(platformBottomY - player.collisionBoxHeightOffset);
           player.velocityY = 0.0f;
 
           break;
