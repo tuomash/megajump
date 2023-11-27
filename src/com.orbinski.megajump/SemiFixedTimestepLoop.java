@@ -28,7 +28,7 @@ class SemiFixedTimestepLoop extends Loop
     // System.out.println("frame time: " + frameTime);
     game = gameObj.getGame();
     float frameTimeForPhysics = frameTime;
-    controller.update();
+    controller.update(frameTime);
 
     while (frameTimeForPhysics > 0.0f)
     {

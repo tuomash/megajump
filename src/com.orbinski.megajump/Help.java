@@ -38,6 +38,8 @@ public class Help
     addEditor("Press CTRL+2 to add a new trampoline");
     addEditor("Press CTRL+3 to add a new decoration");
     addEditor("Press LEFT SHIFT and mouse 1 to move entities");
+    addEditor("Press ALT + right arrow to increase and ALT + left arrow to decrease entity width FASTER");
+    addEditor("Press ALT + up arrow to increase and ALT + down arrow to decrease entity height FASTER");
     addEditor("Press C to reset the camera to player spawn");
     addEditor("Use WASD or arrow keys to move the camera");
     addEditor("Press N for next level and P for previous level");

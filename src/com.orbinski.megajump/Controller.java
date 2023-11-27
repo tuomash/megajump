@@ -19,13 +19,17 @@ public class Controller
   private int originalSelectionY = 0;
   final Vector2 changedSelection = new Vector2();
 
+  private float delta;
+  private float elapsed;
+
   Controller(final Game game)
   {
     this.gameObj = game;
   }
 
-  void update()
+  void update(final float delta)
   {
+    this.delta = delta;
     game = gameObj.getGame();
 
     if (input.isKeyPressed(Input.Keys.ALT_LEFT) && input.isKeyJustPressed(Input.Keys.ENTER))
@@ -346,6 +350,52 @@ public class Controller
       else
       {
         editor.clearSelectionStatus();
+      }
+    }
+    // Entity fast sizing controls
+    else if (input.isKeyPressed(Input.Keys.ALT_LEFT))
+    {
+      final float timeNeeded = 0.02f;
+
+      if (input.isKeyPressed(Input.Keys.UP))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.increaseEntityHeight();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyPressed(Input.Keys.DOWN))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.decreaseEntityHeight();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyPressed(Input.Keys.RIGHT))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.increaseEntityWidth();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyPressed(Input.Keys.LEFT))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.decreaseEntityWidth();
+          elapsed = 0.0f;
+        }
       }
     }
     else

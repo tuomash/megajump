@@ -32,7 +32,7 @@ public class FullyFixedTimestepLoop extends Loop
 
     game = gameObj.getGame();
     accumulator = accumulator + frameTime;
-    controller.update();
+    controller.update(frameTime);
 
     // int updates = 0;
 
