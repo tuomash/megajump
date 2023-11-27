@@ -255,7 +255,7 @@ public class Level
     return null;
   }
 
-  boolean overlapsEntity(final Entity entity)
+  public boolean overlapsEntity(final Entity entity)
   {
     if (exit != null && exit.overlaps(entity))
     {

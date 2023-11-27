@@ -24,7 +24,11 @@ public class LevelEditor implements InputProcessor
   void addPlatform(final float x, final float y)
   {
     final Platform platform = new Platform(x, y, 40.0f, 1.5f);
+    addPlatform(platform);
+  }
 
+  void addPlatform(final Platform platform)
+  {
     if (!level.overlapsEntity(platform))
     {
       level.platforms.add(platform);
@@ -73,7 +77,14 @@ public class LevelEditor implements InputProcessor
     {
       entity.setPosition(x, y);
 
-      level.setSaved(false);
+      if (level.overlapsEntity(entity))
+      {
+        entity.moveToPreviousPosition();
+      }
+      else
+      {
+        level.setSaved(false);
+      }
     }
   }
 
@@ -93,9 +104,7 @@ public class LevelEditor implements InputProcessor
       {
         final Platform copy = platform.copy();
         copy.setPosition(position);
-        level.platforms.add(copy);
-
-        level.setSaved(false);
+        addPlatform(copy);
       }
     }
   }
