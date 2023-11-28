@@ -2,6 +2,7 @@ package com.orbinski.megajump;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.orbinski.megajump.multiplayer.MultiplayerGame;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class Game implements GameInterface
   Save save;
   boolean help;
   boolean paused;
+
+  private Vector3 cameraTarget = new Vector3();
 
   Game()
   {
@@ -109,9 +112,12 @@ public class Game implements GameInterface
       return;
     }
 
+    camera.position.lerp(cameraTarget, 0.025f);
+
     // TODO: implement proper camera following
     if (player.isMoving())
     {
+      /*
       if (level.moveCameraX)
       {
         camera.position.x = camera.position.x + delta * player.velocityX;
@@ -124,6 +130,7 @@ public class Game implements GameInterface
           camera.position.y = camera.position.y + delta * player.velocityY + delta * 1.5f;
         }
       }
+       */
     }
     else if (cameraState.moving)
     {
@@ -299,6 +306,27 @@ public class Game implements GameInterface
   public void updateAssistantPosition(final Vector2 newPosition)
   {
     player.assistant.updateCursorPosition(newPosition);
+  }
+
+  @Override
+  public void updateCameraPosition(final Vector2 position)
+  {
+    final float max = 40.0f;
+
+    if (position.x < player.getPosition().x + max && position.x > player.getPosition().x - max)
+    {
+      cameraTarget.x = position.x;
+    }
+
+    if (position.y < player.getPosition().y + max && position.y > player.getPosition().y - max)
+    {
+      cameraTarget.y = position.y;
+    }
+
+    cameraTarget.z = camera.position.z;
+
+    // System.out.println("x: " + position.x);
+    // System.out.println("y: " + position.y);
   }
 
   void setCameraToPlayer()

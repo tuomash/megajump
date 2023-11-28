@@ -109,6 +109,8 @@ public class Controller
     // Transform to world coordinates
     Renderer.unproject(mouse);
 
+    game.updateCameraPosition(mouse);
+
     if (!game.getLevel().finished)
     {
       if (input.isTouched())

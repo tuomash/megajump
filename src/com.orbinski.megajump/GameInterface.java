@@ -50,7 +50,9 @@ public interface GameInterface
 
   void setTargeting(boolean targeting);
 
-  void updateAssistantPosition(Vector2 mouse);
+  void updateAssistantPosition(Vector2 position);
+
+  void updateCameraPosition(Vector2 position);
 
   void jump();
 
