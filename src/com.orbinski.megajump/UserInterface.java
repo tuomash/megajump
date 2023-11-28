@@ -1,6 +1,8 @@
 package com.orbinski.megajump;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ public class UserInterface
 {
   static Color DARK_RED = new Color(139.0f / 255.0f, 0.0f, 0.0f, 1.0f);
   static Color DARK_GREEN = new Color(8.0f / 255.0f, 144.0f / 255.0f, 0.0f, 1.0f);
+
+  private static final GlyphLayout glyphLayout = new GlyphLayout();
 
   static final Help help = new Help();
   private static final List<Text> texts = new ArrayList<>();
@@ -34,12 +38,15 @@ public class UserInterface
 
   static Bar jumpBar;
 
+  // Editor
+
   static Text unsavedChangesText;
   static Text newLevelNameText;
   static Text commandText;
   static Text edgeScrollingText;
   static Text moveCameraXText;
   static Text moveCameraYText;
+  static Caret caret;
 
   static void create()
   {
@@ -85,6 +92,8 @@ public class UserInterface
     edgeScrollingText = createText("Edge scroll: ");
     moveCameraXText = createText("Move cam x: ");
     moveCameraYText = createText("Move cam y: ");
+
+    caret = new Caret();
   }
 
   static void layout(final int width, final int height)
@@ -247,6 +256,14 @@ public class UserInterface
     }
   }
 
+  public static void update(final float delta)
+  {
+    if (caret != null)
+    {
+      caret.update(delta);
+    }
+  }
+
   private static Text createText(final String text)
   {
     final Text textObj = new Text();
@@ -358,6 +375,7 @@ public class UserInterface
     if (newLevelNameText != null)
     {
       newLevelNameText.text = "Rename level to: " + levelName;
+      updateCaretPosition();
     }
   }
 
@@ -366,6 +384,7 @@ public class UserInterface
     if (commandText != null)
     {
       commandText.text = "cmd: " + cmd;
+      updateCaretPosition();
     }
   }
 
@@ -390,6 +409,23 @@ public class UserInterface
     if (moveCameraYText != null)
     {
       moveCameraYText.text = "Move cam y: " + move;
+    }
+  }
+
+  static void updateCaretPosition()
+  {
+    if (caret != null && caret.visible)
+    {
+      if (newLevelNameText != null && newLevelNameText.visible)
+      {
+        glyphLayout.setText(newLevelNameText.font, newLevelNameText.text);
+        caret.setPosition(newLevelNameText.getX() + (int) glyphLayout.width + 5, newLevelNameText.getY() - 20);
+      }
+      else if (commandText != null && commandText.visible)
+      {
+        glyphLayout.setText(commandText.font, commandText.text);
+        caret.setPosition(commandText.getX() + (int) glyphLayout.width + 5, commandText.getY() - 20);
+      }
     }
   }
 }

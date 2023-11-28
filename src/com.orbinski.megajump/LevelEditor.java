@@ -245,6 +245,7 @@ public class LevelEditor implements InputProcessor
     UserInterface.levelNameText.visible = false;
     UserInterface.moveCameraXText.visible = false;
     UserInterface.moveCameraYText.visible = false;
+    UserInterface.caret.visible = true;
   }
 
   void disableInput()
@@ -253,6 +254,7 @@ public class LevelEditor implements InputProcessor
     UserInterface.levelNameText.visible = true;
     UserInterface.moveCameraXText.visible = true;
     UserInterface.moveCameraYText.visible = true;
+    UserInterface.caret.visible = false;
   }
 
   void removeCharacterFromInput()
@@ -260,7 +262,15 @@ public class LevelEditor implements InputProcessor
     if (input && !inputBuilder.isEmpty())
     {
       inputBuilder.setLength(inputBuilder.length() - 1);
-      UserInterface.updateNewLevelNameText(inputBuilder.toString());
+
+      if (UserInterface.newLevelNameText != null && UserInterface.newLevelNameText.visible)
+      {
+        UserInterface.updateNewLevelNameText(inputBuilder.toString());
+      }
+      else if (UserInterface.commandText != null && UserInterface.commandText.visible)
+      {
+        UserInterface.updateCommandText(inputBuilder.toString());
+      }
     }
   }
 
@@ -319,6 +329,7 @@ public class LevelEditor implements InputProcessor
     enableInput();
     command = true;
     UserInterface.commandText.visible = true;
+    UserInterface.updateCommandText("");
   }
 
   void disableCommand()

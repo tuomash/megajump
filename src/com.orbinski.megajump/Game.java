@@ -148,6 +148,8 @@ public class Game implements GameInterface
       UserInterface.retryText.visible = true;
       level.finished = true;
     }
+
+    UserInterface.update(delta);
   }
 
   @Override

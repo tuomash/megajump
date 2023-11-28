@@ -63,6 +63,7 @@ public class UIRenderer
         addText(UserInterface.edgeScrollingText);
         addText(UserInterface.moveCameraXText);
         addText(UserInterface.moveCameraYText);
+        addCaret(UserInterface.caret);
       }
       else if (game.isMultiplayer())
       {
@@ -170,6 +171,14 @@ public class UIRenderer
     if (bar != null && bar.visible)
     {
       shapeRenderer.addFilledQuad(bar.getX(), bar.getY(), bar.barWidth, bar.getHeight(), bar.color);
+    }
+  }
+
+  void addCaret(final Caret caret)
+  {
+    if (caret != null && caret.visible && caret.show)
+    {
+      shapeRenderer.addFilledQuad(caret.getX(), caret.getY(), caret.getWidth(), caret.getHeight(), caret.color);
     }
   }
 
