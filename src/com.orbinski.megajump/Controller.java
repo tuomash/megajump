@@ -397,6 +397,50 @@ public class Controller
           elapsed = 0.0f;
         }
       }
+      else if (input.isKeyPressed(Input.Keys.U))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.raiseCameraFloor();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyPressed(Input.Keys.J))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.lowerCameraFloor();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyPressed(Input.Keys.Y))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.raiseDeathPoint();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyPressed(Input.Keys.H))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.lowerDeathPoint();
+          elapsed = 0.0f;
+        }
+      }
+      else
+      {
+        elapsed = 0.0f;
+      }
     }
     else
     {
