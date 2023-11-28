@@ -63,6 +63,7 @@ public class UIRenderer
         addText(UserInterface.edgeScrollingText);
         addText(UserInterface.moveCameraXText);
         addText(UserInterface.moveCameraYText);
+        addText(UserInterface.zoomText);
         addCaret(UserInterface.caret);
       }
       else if (game.isMultiplayer())

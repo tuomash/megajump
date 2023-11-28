@@ -333,6 +333,7 @@ public class Game implements GameInterface
     UserInterface.updateEdgeScrollingText(levelEditor.edgeScrolling);
     UserInterface.updateMoveCameraXText(level.moveCameraX);
     UserInterface.updateMoveCameraYText(level.moveCameraY);
+    UserInterface.updateZoomText(camera.zoom);
     reset();
   }
 

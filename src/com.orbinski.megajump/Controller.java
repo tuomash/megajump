@@ -223,6 +223,14 @@ public class Controller
       {
         editor.toggleEdgeScrolling();
       }
+      else if (input.isKeyJustPressed(Input.Keys.NUM_9))
+      {
+        zoomIn();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.NUM_0))
+      {
+        zoomOut();
+      }
       else if (input.isKeyJustPressed(Input.Keys.NUM_1))
       {
         editor.addPlatform(mouse.x, mouse.y);
@@ -357,7 +365,27 @@ public class Controller
     {
       final float timeNeeded = 0.02f;
 
-      if (input.isKeyPressed(Input.Keys.UP))
+      if (input.isKeyJustPressed(Input.Keys.NUM_9))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          zoomIn();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyJustPressed(Input.Keys.NUM_0))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          zoomOut();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyPressed(Input.Keys.UP))
       {
         elapsed = elapsed + delta;
 
@@ -518,5 +546,29 @@ public class Controller
         game.getCameraState().moveDown();
       }
     }
+  }
+
+  private void zoomIn()
+  {
+    gameObj.camera.zoom = gameObj.camera.zoom - 0.5f;
+
+    if (gameObj.camera.zoom < 1.0f)
+    {
+      gameObj.camera.zoom = 1.0f;
+    }
+
+    UserInterface.updateZoomText(gameObj.camera.zoom);
+  }
+
+  private void zoomOut()
+  {
+    gameObj.camera.zoom = gameObj.camera.zoom + 0.5f;
+
+    if (gameObj.camera.zoom > 10.0f)
+    {
+      gameObj.camera.zoom = 10.0f;
+    }
+
+    UserInterface.updateZoomText(gameObj.camera.zoom);
   }
 }

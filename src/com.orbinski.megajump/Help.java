@@ -24,6 +24,7 @@ public class Help
 
     addEditor("Press CTRL+E to toggle the level editor on/off");
     addEditor("Press CTRL+Z to toggle edge scrolling on/off");
+    addEditor("Press CTRL+9 to zoom in and CTRL+0 to zoom out");
     addEditor("Press CTRL+O to run a custom command. Examples: set gold 10000, set silver 12000, set bronze 15000");
     addEditor("Press CTRL+T to toggle level camera movement X on/off. Press CTRL+G to toggle level camera movement Y on/off.");
     addEditor("Press CTRL+Y to raise and CTRL+H to lower death point");

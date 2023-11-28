@@ -46,6 +46,7 @@ public class UserInterface
   static Text edgeScrollingText;
   static Text moveCameraXText;
   static Text moveCameraYText;
+  static Text zoomText;
   static Caret caret;
 
   static void create()
@@ -92,6 +93,7 @@ public class UserInterface
     edgeScrollingText = createText("Edge scroll: ");
     moveCameraXText = createText("Move cam x: ");
     moveCameraYText = createText("Move cam y: ");
+    zoomText = createText("Zoom: ");
 
     caret = new Caret();
   }
@@ -159,9 +161,12 @@ public class UserInterface
       unsavedChangesText.setPosition(20, 40);
       newLevelNameText.setPosition(20, 20);
       commandText.setPosition(20, 20);
+
       edgeScrollingText.setPosition(secondHelpX, 60);
       moveCameraXText.setPosition(secondHelpX, 40);
       moveCameraYText.setPosition(secondHelpX, 20);
+
+      zoomText.setPosition(thirdHelpX, 20);
     }
     else if (width <= 1920 && height <= 1080)
     {
@@ -189,9 +194,12 @@ public class UserInterface
       unsavedChangesText.setPosition(20, 60);
       newLevelNameText.setPosition(20, 30);
       commandText.setPosition(20, 30);
+
       edgeScrollingText.setPosition(secondHelpX, 90);
       moveCameraXText.setPosition(secondHelpX, 60);
       moveCameraYText.setPosition(secondHelpX, 30);
+
+      zoomText.setPosition(thirdHelpX, 30);
     }
     else
     {
@@ -219,9 +227,12 @@ public class UserInterface
       unsavedChangesText.setPosition(20, 80);
       newLevelNameText.setPosition(20, 40);
       commandText.setPosition(20, 40);
+
       edgeScrollingText.setPosition(secondHelpX, 120);
       moveCameraXText.setPosition(secondHelpX, 80);
       moveCameraYText.setPosition(secondHelpX, 40);
+
+      zoomText.setPosition(thirdHelpX, 40);
     }
 
     jumpBar.setX(width - jumpBar.getWidth() - 20);
@@ -409,6 +420,14 @@ public class UserInterface
     if (moveCameraYText != null)
     {
       moveCameraYText.text = "Move cam y: " + move;
+    }
+  }
+
+  static void updateZoomText(final float zoom)
+  {
+    if (zoomText != null)
+    {
+      zoomText.text = "Zoom: " + zoom;
     }
   }
 
