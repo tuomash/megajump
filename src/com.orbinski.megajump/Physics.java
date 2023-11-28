@@ -76,6 +76,11 @@ public class Physics
 
         final boolean detect = detectWalljump(player);
 
+        if (player.state == Player.State.WALL_LANDING && (!detect || yCollision))
+        {
+          player.setState(Player.State.JUMPING);
+        }
+
         if (!xCollision && !yCollision && !detect)
         {
           player.resetTouchedFor();
@@ -156,103 +161,6 @@ public class Physics
     }
   }
 
-  /*
-  private void detectCollisionsV1(final Player player)
-  {
-    if (level.exit != null && level.exit.overlaps(player))
-    {
-      player.stop();
-      player.setState(Player.State.EXIT);
-      return;
-    }
-
-    if (player.getPosition().y < level.deathPoint.y)
-    {
-      player.stop();
-      player.setState(Player.State.DEATH);
-      return;
-    }
-
-    player.setLocation(Player.Location.NONE);
-
-    boolean hit = false;
-
-    for (int z = 0; z < level.trampolines.size(); z++)
-    {
-      final Trampoline trampoline = level.trampolines.get(z);
-
-      if (EntityUtils.overlaps(player.bottomSide, trampoline))
-      {
-        player.velocityY = (Math.abs(player.velocityY) + 50.0f) * 0.60f;
-
-        hit = true;
-        break;
-      }
-    }
-
-    if (!hit)
-    {
-      for (int z = 0; z < level.platforms.size(); z++)
-      {
-        final Platform platform = level.platforms.get(z);
-
-        if (player.velocityY < 0.0f && EntityUtils.overlaps(player.bottomSide, platform))
-        {
-          hit = true;
-          player.setY(platform.getPosition().y + platform.getHeightOffset() + 3.0f);
-          player.velocityY = 0.0f;
-          player.setLocation(Player.Location.PLATFORM);
-
-          if (player.state == Player.State.JUMPING)
-          {
-            player.setState(Player.State.LANDING);
-          }
-          else if (player.state == Player.State.LANDING && (player.animation == null || player.animation.isAtEnd()))
-          {
-            player.setState(Player.State.IDLE);
-          }
-
-          if (player.velocityX > FRICTION)
-          {
-            player.velocityX = player.velocityX - FRICTION;
-          }
-          else if (player.velocityX < -FRICTION)
-          {
-            player.velocityX = player.velocityX + FRICTION;
-          }
-          else
-          {
-            player.velocityX = 0.0f;
-          }
-        }
-        else if (player.velocityY > 0.0f && EntityUtils.overlaps(player.topSide, platform))
-        {
-          hit = true;
-          player.setY(platform.getPosition().y - platform.getHeightOffset() - 3.0f);
-          player.velocityY = 0.0f;
-        }
-        else if (player.velocityX < 0.0f && EntityUtils.overlaps(player.leftSide, platform))
-        {
-          hit = true;
-          player.setX(platform.getPosition().x + platform.getWidthOffset() + 1.8f);
-          player.velocityX = 0.0f;
-        }
-        else if (player.velocityX > 0.0f && EntityUtils.overlaps(player.rightSide, platform))
-        {
-          hit = true;
-          player.setX(platform.getPosition().x - platform.getWidthOffset() - 1.8f);
-          player.velocityX = 0.0f;
-        }
-
-        if (hit)
-        {
-          break;
-        }
-      }
-    }
-  }
-   */
-
   private boolean detectCollisions(final Player player, final boolean xAxis, final boolean yAxis)
   {
     if (level.exit != null && level.exit.overlaps(player))
@@ -298,6 +206,11 @@ public class Physics
           player.velocityX = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
 
+          if (player.direction == Player.Direction.LEFT)
+          {
+            player.setState(Player.State.WALL_LANDING);
+          }
+
           player.updateTouchedFor(delta);
 
           break;
@@ -309,6 +222,11 @@ public class Physics
           player.setX(platformLeftX - player.collisionBoxWidthOffset);
           player.velocityX = 0.0f;
           player.setLocation(Player.Location.PLATFORM);
+
+          if (player.direction == Player.Direction.RIGHT)
+          {
+            player.setState(Player.State.WALL_LANDING);
+          }
 
           player.updateTouchedFor(delta);
 

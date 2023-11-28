@@ -30,6 +30,9 @@ class Resources
   static List<MTexture> playerLandLeft;
   static List<MTexture> playerLandRight;
 
+  static List<MTexture> playerWallLandLeft;
+  static List<MTexture> playerWallLandRight;
+
   static BitmapFont font24White;
   static BitmapFont font24Red;
   static BitmapFont font18White;
@@ -141,6 +144,41 @@ class Resources
         texture.srcHeight = 48;
         playerLandRight.add(texture);
       }
+    }
+
+    {
+      playerWallLandLeft = new ArrayList<>();
+
+      final MTexture root = loadTexture("player-wall-land-left.png");
+
+      for (int i = 0; i < 5; i++)
+      {
+        final MTexture texture = root.copy();
+        texture.srcX = i * 48;
+        texture.srcWidth = 48;
+        texture.srcHeight = 48;
+        playerWallLandLeft.add(texture);
+      }
+
+      // Texture is flipped from "player-wall-land-right" version
+      Collections.reverse(playerWallLandLeft);
+    }
+
+    {
+      playerWallLandRight = new ArrayList<>();
+
+      final MTexture root = loadTexture("player-wall-land-right.png");
+
+      for (int i = 0; i < 5; i++)
+      {
+        final MTexture texture = root.copy();
+        texture.srcX = i * 48;
+        texture.srcWidth = 48;
+        texture.srcHeight = 48;
+        playerWallLandRight.add(texture);
+      }
+
+      Collections.reverse(playerWallLandRight);
     }
 
     font24White = generateFont("lunchds.ttf", 24, Color.WHITE);

@@ -6,6 +6,8 @@ class Animations
   static Animation playerIdleRight;
   static Animation playerLandLeft;
   static Animation playerLandRight;
+  static Animation playerWallLandLeft;
+  static Animation playerWallLandRight;
 
   public static void load()
   {
@@ -73,6 +75,38 @@ class Animations
       }
 
       playerLandRight = animation;
+    }
+
+    if (Resources.playerWallLandLeft != null)
+    {
+      final Animation animation = new Animation();
+      animation.groupId = 3;
+
+      for (int i = 0; i < Resources.playerWallLandLeft.size(); i++)
+      {
+        final AnimationFrame frame = new AnimationFrame();
+        frame.texture = Resources.playerWallLandLeft.get(i);
+        frame.length = 0.09f;
+        animation.frames.add(frame);
+      }
+
+      playerWallLandLeft = animation;
+    }
+
+    if (Resources.playerWallLandRight != null)
+    {
+      final Animation animation = new Animation();
+      animation.groupId = 3;
+
+      for (int i = 0; i < Resources.playerWallLandRight.size(); i++)
+      {
+        final AnimationFrame frame = new AnimationFrame();
+        frame.texture = Resources.playerWallLandRight.get(i);
+        frame.length = 0.09f;
+        animation.frames.add(frame);
+      }
+
+      playerWallLandRight = animation;
     }
   }
 }

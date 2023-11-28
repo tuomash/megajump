@@ -13,7 +13,7 @@ public class Player extends Entity
     IDLE,
     JUMPING,
     LANDING,
-    WALL_SLIDING,
+    WALL_LANDING,
     EXIT,
     DEATH
   }
@@ -30,6 +30,7 @@ public class Player extends Entity
   public final GameText playerNameText = new GameText();
 
   Direction direction;
+  private Direction previousDirection = Direction.LEFT;
   public State state;
   private Location location;
 
@@ -39,6 +40,8 @@ public class Player extends Entity
   private Animation idleRight;
   private Animation landLeft;
   private Animation landRight;
+  private Animation wallLandLeft;
+  private Animation wallLandRight;
 
   float touchedFor;
   int chainedJumps = 0;
@@ -78,6 +81,16 @@ public class Player extends Entity
     if (Animations.playerLandRight != null)
     {
       landRight = Animations.playerLandRight.copy();
+    }
+
+    if (Animations.playerWallLandLeft != null)
+    {
+      wallLandLeft = Animations.playerWallLandLeft.copy();
+    }
+
+    if (Animations.playerWallLandRight != null)
+    {
+      wallLandRight = Animations.playerWallLandRight.copy();
     }
   }
 
@@ -160,7 +173,7 @@ public class Player extends Entity
 
   public void moveLeft()
   {
-    if (state == State.JUMPING)
+    if (state == State.JUMPING || state == State.WALL_LANDING)
     {
       updateVelocityX(-0.5f);
     }
@@ -171,13 +184,20 @@ public class Player extends Entity
 
     if (setDirection(Direction.LEFT))
     {
-      updateAnimationState(false);
+      if (previousDirection != direction && state == State.WALL_LANDING)
+      {
+        // setState(State.JUMPING);
+      }
+      else
+      {
+        updateAnimationState(false);
+      }
     }
   }
 
   public void moveRight()
   {
-    if (state == State.JUMPING)
+    if (state == State.JUMPING || state == State.WALL_LANDING)
     {
       updateVelocityX(0.5f);
     }
@@ -188,7 +208,14 @@ public class Player extends Entity
 
     if (setDirection(Direction.RIGHT))
     {
-      updateAnimationState(false);
+      if (previousDirection != direction && state == State.WALL_LANDING)
+      {
+        // setState(State.JUMPING);
+      }
+      else
+      {
+        updateAnimationState(false);
+      }
     }
   }
 
@@ -255,6 +282,7 @@ public class Player extends Entity
   {
     if (direction != null && this.direction != direction)
     {
+      previousDirection = this.direction;
       this.direction = direction;
       return true;
     }
@@ -318,6 +346,20 @@ public class Player extends Entity
         else
         {
           setAnimation(landRight);
+        }
+
+        break;
+      }
+
+      case WALL_LANDING:
+      {
+        if (direction == Direction.LEFT)
+        {
+          setAnimation(wallLandLeft);
+        }
+        else
+        {
+          setAnimation(wallLandRight);
         }
 
         break;
