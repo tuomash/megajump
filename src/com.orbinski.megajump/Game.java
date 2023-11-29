@@ -126,25 +126,23 @@ public class Game implements GameInterface
     {
       // TODO: implement proper camera following
       final float maxCameraDistanceX = 69.0f;
-      final float maxCameraDistanceY = 30.0f;
-      final float maxCameraVelocity = 100.0f;
+      final float maxCameraVelocity = 75.0f;
 
       if (level.moveCameraX)
       {
         final float right = player.getPosition().x + maxCameraDistanceX;
         final float left = player.getPosition().x - maxCameraDistanceX;
-
         float cameraVelocity = 0.0f;
 
         if (player.velocityX > 0.0f)
         {
-          final float diff = (Math.abs(right) - Math.abs(camera.position.x));
+          final float diff = Math.abs((Math.abs(right) - Math.abs(camera.position.x)));
           final float percentage = diff / (maxCameraDistanceX * 2.0f);
           cameraVelocity = maxCameraVelocity * percentage;
         }
         else if (player.velocityX < 0.0f)
         {
-          final float diff = (Math.abs(left) - Math.abs(camera.position.x));
+          final float diff = Math.abs((Math.abs(left) - Math.abs(camera.position.x)));
           final float percentage = diff / (maxCameraDistanceX * 2.0f);
           cameraVelocity = -maxCameraVelocity * percentage;
         }
