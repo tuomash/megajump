@@ -438,9 +438,9 @@ public class MultiplayerGame implements GameInterface
   }
 
   @Override
-  public void updateCameraPosition(final Vector2 position)
+  public void updateCameraStartPosition(final Vector2 position)
   {
-    game.updateCameraPosition(position);
+    game.updateCameraStartPosition(position);
   }
 
   @Override

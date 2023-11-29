@@ -52,7 +52,7 @@ public interface GameInterface
 
   void updateAssistantPosition(Vector2 position);
 
-  void updateCameraPosition(Vector2 position);
+  void updateCameraStartPosition(Vector2 position);
 
   void jump();
 

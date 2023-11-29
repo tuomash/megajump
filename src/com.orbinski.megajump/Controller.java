@@ -109,7 +109,10 @@ public class Controller
     // Transform to world coordinates
     Renderer.unproject(mouse);
 
-    game.updateCameraPosition(mouse);
+    if (input.isKeyPressed(Input.Keys.SHIFT_LEFT))
+    {
+      game.updateCameraStartPosition(mouse);
+    }
 
     if (!game.getLevel().finished)
     {

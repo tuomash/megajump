@@ -28,7 +28,8 @@ public class Game implements GameInterface
   boolean help;
   boolean paused;
 
-  private Vector3 cameraTarget = new Vector3();
+  private final Vector3 cameraStartPosition = new Vector3();
+  private boolean lookForPosition = false;
 
   Game()
   {
@@ -112,29 +113,61 @@ public class Game implements GameInterface
       return;
     }
 
-    camera.position.lerp(cameraTarget, 0.025f);
-
-    // TODO: implement proper camera following
-    if (player.isMoving())
+    if (cameraState.moving)
     {
-      /*
+      updateCameraState(delta);
+    }
+    else if (!level.started && !player.assistant.targeting && lookForPosition)
+    {
+      camera.position.lerp(cameraStartPosition, 0.015f);
+      lookForPosition = false;
+    }
+    else
+    {
+      // TODO: implement proper camera following
+      final float maxCameraDistanceX = 69.0f;
+      final float maxCameraDistanceY = 30.0f;
+      final float maxCameraVelocity = 100.0f;
+
       if (level.moveCameraX)
       {
-        camera.position.x = camera.position.x + delta * player.velocityX;
+        final float right = player.getPosition().x + maxCameraDistanceX;
+        final float left = player.getPosition().x - maxCameraDistanceX;
+
+        float cameraVelocity = 0.0f;
+
+        if (player.velocityX > 0.0f)
+        {
+          final float diff = (Math.abs(right) - Math.abs(camera.position.x));
+          final float percentage = diff / (maxCameraDistanceX * 2.0f);
+          cameraVelocity = maxCameraVelocity * percentage;
+        }
+        else if (player.velocityX < 0.0f)
+        {
+          final float diff = (Math.abs(left) - Math.abs(camera.position.x));
+          final float percentage = diff / (maxCameraDistanceX * 2.0f);
+          cameraVelocity = -maxCameraVelocity * percentage;
+        }
+
+        camera.position.x = camera.position.x + delta * player.velocityX + delta * cameraVelocity;
+
+        if (camera.position.x > right)
+        {
+          camera.position.x = right;
+        }
+        else if (camera.position.x < left)
+        {
+          camera.position.x = left;
+        }
       }
 
       if (level.moveCameraY)
       {
         if (player.getPosition().y > level.cameraFloor.y)
         {
-          camera.position.y = camera.position.y + delta * player.velocityY + delta * 1.5f;
+          camera.position.y = camera.position.y + delta * player.velocityY;
         }
       }
-       */
-    }
-    else if (cameraState.moving)
-    {
-      updateCameraState(delta);
     }
 
     player.update(delta);
@@ -309,24 +342,26 @@ public class Game implements GameInterface
   }
 
   @Override
-  public void updateCameraPosition(final Vector2 position)
+  public void updateCameraStartPosition(final Vector2 position)
   {
-    final float max = 40.0f;
-
-    if (position.x < player.getPosition().x + max && position.x > player.getPosition().x - max)
+    if (!level.started && !player.assistant.targeting && level.moveCameraX && level.moveCameraY)
     {
-      cameraTarget.x = position.x;
+      final float maxDistanceX = 69.0f;
+      final float maxDistanceY = 30.0f;
+
+      if (position.x < player.getPosition().x + maxDistanceX && position.x > player.getPosition().x - maxDistanceX)
+      {
+        cameraStartPosition.x = position.x;
+      }
+
+      if (position.y < player.getPosition().y + maxDistanceY && position.y > player.getPosition().y - maxDistanceY)
+      {
+        cameraStartPosition.y = position.y;
+      }
+
+      cameraStartPosition.z = camera.position.z;
+      lookForPosition = true;
     }
-
-    if (position.y < player.getPosition().y + max && position.y > player.getPosition().y - max)
-    {
-      cameraTarget.y = position.y;
-    }
-
-    cameraTarget.z = camera.position.z;
-
-    // System.out.println("x: " + position.x);
-    // System.out.println("y: " + position.y);
   }
 
   void setCameraToPlayer()
