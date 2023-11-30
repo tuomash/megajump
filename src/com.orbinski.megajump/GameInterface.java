@@ -26,6 +26,8 @@ public interface GameInterface
 
   CameraState getCameraState();
 
+  CameraWindow getCameraWindow();
+
   Player getPlayer();
 
   List<Player> getPlayers();

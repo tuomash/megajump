@@ -66,6 +66,7 @@ public class Renderer
     addPlayers();
     addTeleports();
 
+    addCameraWindow();
     // addGrid();
     addSpawn();
     addLevelBorder();
@@ -175,6 +176,27 @@ public class Renderer
                               teleport.getHeight(),
                               Color.WHITE);
       }
+    }
+  }
+
+  void addCameraWindow()
+  {
+    if (game.getCameraWindow().render)
+    {
+      final CameraWindow window = game.getCameraWindow();
+      final float lineHeight = 30.0f;
+
+      shapeRenderer.addLine(window.positionLeft.x,
+                            window.positionLeft.y - lineHeight,
+                            window.positionLeft.x,
+                            window.positionLeft.y + lineHeight,
+                            Color.WHITE);
+
+      shapeRenderer.addLine(window.positionRight.x,
+                            window.positionRight.y - lineHeight,
+                            window.positionRight.x,
+                            window.positionRight.y + lineHeight,
+                            Color.WHITE);
     }
   }
 

@@ -346,6 +346,12 @@ public class MultiplayerGame implements GameInterface
   }
 
   @Override
+  public CameraWindow getCameraWindow()
+  {
+    return game.getCameraWindow();
+  }
+
+  @Override
   public Player getPlayer()
   {
     return clientPlayer;

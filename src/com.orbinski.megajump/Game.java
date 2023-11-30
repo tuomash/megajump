@@ -18,6 +18,7 @@ public class Game implements GameInterface
   public final List<Player> players;
   final Levels levels;
   final CameraState cameraState;
+  final CameraWindow cameraWindow;
   final LevelEditor levelEditor;
   final MultiplayerGame multiplayer;
 
@@ -41,6 +42,7 @@ public class Game implements GameInterface
     players.add(player);
     levels = new Levels();
     cameraState = new CameraState();
+    cameraWindow = new CameraWindow();
     levelEditor = new LevelEditor();
     multiplayer = new MultiplayerGame(this, camera);
 
@@ -122,7 +124,7 @@ public class Game implements GameInterface
       camera.position.lerp(cameraStartPosition, 0.015f);
       lookForPosition = false;
     }
-    else
+    else if (player.isMoving())
     {
       // TODO: implement proper camera following
       final float maxCameraDistanceX = 69.0f;
@@ -130,6 +132,9 @@ public class Game implements GameInterface
 
       if (level.moveCameraX)
       {
+        cameraWindow.moveX(player, camera, delta);
+
+        /*
         final float right = player.getPosition().x + maxCameraDistanceX;
         final float left = player.getPosition().x - maxCameraDistanceX;
         float cameraVelocity = 0.0f;
@@ -157,14 +162,17 @@ public class Game implements GameInterface
         {
           camera.position.x = left;
         }
+         */
       }
 
       if (level.moveCameraY)
       {
         if (player.getPosition().y > level.cameraFloor.y)
         {
-          camera.position.y = camera.position.y + delta * player.velocityY;
+          // camera.position.y = camera.position.y + delta * player.velocityY;
         }
+
+        cameraWindow.moveY(player, camera, delta);
       }
     }
 
@@ -366,6 +374,8 @@ public class Game implements GameInterface
   {
     camera.position.x = player.getPosition().x + 69.0f;
     camera.position.y = player.getPosition().y + 30.0f;
+
+    cameraWindow.setToLeft(player, camera);
   }
 
   void setCameraToPlayerTeleport()
@@ -459,6 +469,12 @@ public class Game implements GameInterface
   public CameraState getCameraState()
   {
     return cameraState;
+  }
+
+  @Override
+  public CameraWindow getCameraWindow()
+  {
+    return cameraWindow;
   }
 
   @Override
