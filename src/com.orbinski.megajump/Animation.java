@@ -13,6 +13,7 @@ class Animation
   int groupId;
   boolean loop;
   boolean playing = true;
+  boolean renderOffsetX;
 
   public Animation copy()
   {
@@ -25,6 +26,7 @@ class Animation
 
     copy.groupId = groupId;
     copy.loop = loop;
+    copy.renderOffsetX = renderOffsetX;
     return copy;
   }
 

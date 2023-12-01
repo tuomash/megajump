@@ -331,6 +331,11 @@ public abstract class Entity
     return heightOffset;
   }
 
+  public float getRenderOffsetX()
+  {
+    return 0.0f;
+  }
+
   public void updateVelocityX(final float input)
   {
     velocityX = velocityX + input;

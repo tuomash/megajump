@@ -436,7 +436,7 @@ public class Renderer
         }
 
         spriteBatch.draw(entity.texture.texture,
-                         position.x,
+                         position.x + entity.getRenderOffsetX(),
                          position.y,
                          entity.getWidth(),
                          entity.getHeight(),

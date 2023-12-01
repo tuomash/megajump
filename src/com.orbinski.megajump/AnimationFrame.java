@@ -1,6 +1,6 @@
 package com.orbinski.megajump;
 
-class AnimationFrame
+public class AnimationFrame
 {
   MTexture texture;
   float length;

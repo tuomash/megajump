@@ -81,6 +81,7 @@ class Animations
     {
       final Animation animation = new Animation();
       animation.groupId = 3;
+      animation.renderOffsetX = true;
 
       for (int i = 0; i < Resources.playerWallLandLeft.size(); i++)
       {
@@ -97,6 +98,7 @@ class Animations
     {
       final Animation animation = new Animation();
       animation.groupId = 3;
+      animation.renderOffsetX = true;
 
       for (int i = 0; i < Resources.playerWallLandRight.size(); i++)
       {

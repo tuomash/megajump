@@ -186,7 +186,7 @@ public class Player extends Entity
     {
       if (previousDirection != direction && state == State.WALL_LANDING)
       {
-        // setState(State.JUMPING);
+        setState(State.JUMPING);
       }
       else
       {
@@ -210,7 +210,7 @@ public class Player extends Entity
     {
       if (previousDirection != direction && state == State.WALL_LANDING)
       {
-        // setState(State.JUMPING);
+        setState(State.JUMPING);
       }
       else
       {
@@ -276,6 +276,24 @@ public class Player extends Entity
     super.setHeight(height);
     collisionBox.setHeight(height * 0.65f);
     collisionBoxHeightOffset = collisionBox.getHeight() / 2.0f;
+  }
+
+  @Override
+  public float getRenderOffsetX()
+  {
+    if (animation != null && animation.renderOffsetX)
+    {
+      if (direction == Direction.RIGHT)
+      {
+        return 1.0f;
+      }
+      else if (direction == Direction.LEFT)
+      {
+        return -1.0f;
+      }
+    }
+
+    return 0.0f;
   }
 
   boolean setDirection(final Direction direction)
