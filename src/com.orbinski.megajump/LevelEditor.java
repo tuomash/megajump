@@ -253,8 +253,10 @@ public class LevelEditor implements InputProcessor
     input = true;
     inputBuilder.setLength(0);
     UserInterface.levelNameText.visible = false;
+    UserInterface.edgeScrollingText.visible = false;
     UserInterface.moveCameraXText.visible = false;
     UserInterface.moveCameraYText.visible = false;
+    UserInterface.zoomText.visible = false;
     UserInterface.caret.visible = true;
   }
 
@@ -262,8 +264,10 @@ public class LevelEditor implements InputProcessor
   {
     input = false;
     UserInterface.levelNameText.visible = true;
+    UserInterface.edgeScrollingText.visible = true;
     UserInterface.moveCameraXText.visible = true;
     UserInterface.moveCameraYText.visible = true;
+    UserInterface.zoomText.visible = true;
     UserInterface.caret.visible = false;
   }
 
