@@ -126,33 +126,26 @@ public class Game implements GameInterface
     }
     else if (player.isMoving())
     {
-      // TODO: implement proper camera following
-      final float maxCameraDistanceX = 69.0f;
-      final float maxCameraVelocity = 75.0f;
+      final float right = player.getPosition().x + MAX_CAMERA_DISTANCE_RIGHT_X;
+      final float left = player.getPosition().x - MAX_CAMERA_DISTANCE_LEFT_X;
+      final float top = player.getPosition().y + MAX_CAMERA_DISTANCE_TOP_Y;
+      final float bottom = player.getPosition().y - MAX_CAMERA_DISTANCE_BOTTOM_Y;
+
+      cameraWindow.maxPositionTop.x = player.getPosition().x;
+      cameraWindow.maxPositionTop.y = top;
+
+      cameraWindow.maxPositionLeft.x = left;
+      cameraWindow.maxPositionLeft.y = player.getPosition().y;
+
+      cameraWindow.maxPositionRight.x = right;
+      cameraWindow.maxPositionRight.y = player.getPosition().y;
+
+      cameraWindow.maxPositionBottom.x = player.getPosition().x;
+      cameraWindow.maxPositionBottom.y = bottom;
 
       if (level.moveCameraX)
       {
-        cameraWindow.moveX(player, camera, delta);
-
-        /*
-        final float right = player.getPosition().x + maxCameraDistanceX;
-        final float left = player.getPosition().x - maxCameraDistanceX;
-        float cameraVelocity = 0.0f;
-
-        if (player.velocityX > 0.0f)
-        {
-          final float diff = Math.abs((Math.abs(right) - Math.abs(camera.position.x)));
-          final float percentage = diff / (maxCameraDistanceX * 2.0f);
-          cameraVelocity = maxCameraVelocity * percentage;
-        }
-        else if (player.velocityX < 0.0f)
-        {
-          final float diff = Math.abs((Math.abs(left) - Math.abs(camera.position.x)));
-          final float percentage = diff / (maxCameraDistanceX * 2.0f);
-          cameraVelocity = -maxCameraVelocity * percentage;
-        }
-
-        camera.position.x = camera.position.x + delta * player.velocityX + delta * cameraVelocity;
+        camera.position.x = camera.position.x + delta * (player.velocityX * 1.5f);
 
         if (camera.position.x > right)
         {
@@ -162,17 +155,23 @@ public class Game implements GameInterface
         {
           camera.position.x = left;
         }
-         */
       }
 
       if (level.moveCameraY)
       {
         if (player.getPosition().y > level.cameraFloor.y)
         {
-          // camera.position.y = camera.position.y + delta * player.velocityY;
-        }
+          camera.position.y = camera.position.y + delta * (player.velocityY * 1.5f);
 
-        cameraWindow.moveY(player, camera, delta);
+          if (camera.position.y > top)
+          {
+            camera.position.y = top;
+          }
+          else if (camera.position.y < bottom)
+          {
+            camera.position.y = bottom;
+          }
+        }
       }
     }
 
@@ -374,8 +373,6 @@ public class Game implements GameInterface
   {
     camera.position.x = player.getPosition().x + 69.0f;
     camera.position.y = player.getPosition().y + 30.0f;
-
-    cameraWindow.setToLeftSide(player, camera);
   }
 
   void setCameraToPlayerTeleport()

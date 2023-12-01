@@ -20,6 +20,11 @@ public class Globals
   public static final float FRICTION_PLATFORM = 0.8f;
   public static final float FRICTION_PLATFORM_APPLY_AFTER_SECONDS = 0.2f;
 
+  public static final float MAX_CAMERA_DISTANCE_TOP_Y = 10.0f;
+  public static final float MAX_CAMERA_DISTANCE_BOTTOM_Y = 25.0f;
+  public static final float MAX_CAMERA_DISTANCE_LEFT_X = 69.0f; // ;-)
+  public static final float MAX_CAMERA_DISTANCE_RIGHT_X = 69.0f; // ;-)
+
   public static final int SERVER_MAX_PLAYER_COUNT = 4;
   public static final int SERVER_MAX_MESSAGES = 10;
   public static final float SERVER_TICK_RATE_SECONDS = 1 / 60.0f;

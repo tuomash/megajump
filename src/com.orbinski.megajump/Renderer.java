@@ -184,19 +184,38 @@ public class Renderer
     if (game.getCameraWindow().render)
     {
       final CameraWindow window = game.getCameraWindow();
+      final float lineWidth = 100.0f;
       final float lineHeight = 30.0f;
 
-      shapeRenderer.addLine(window.positionLeft.x,
-                            window.positionLeft.y - lineHeight,
-                            window.positionLeft.x,
-                            window.positionLeft.y + lineHeight,
-                            Color.WHITE);
+      if (game.getLevel().moveCameraX)
+      {
+        shapeRenderer.addLine(window.maxPositionLeft.x,
+                              window.maxPositionLeft.y - lineHeight,
+                              window.maxPositionLeft.x,
+                              window.maxPositionLeft.y + lineHeight,
+                              Color.WHITE);
 
-      shapeRenderer.addLine(window.positionRight.x,
-                            window.positionRight.y - lineHeight,
-                            window.positionRight.x,
-                            window.positionRight.y + lineHeight,
-                            Color.WHITE);
+        shapeRenderer.addLine(window.maxPositionRight.x,
+                              window.maxPositionRight.y - lineHeight,
+                              window.maxPositionRight.x,
+                              window.maxPositionRight.y + lineHeight,
+                              Color.WHITE);
+      }
+
+      if (game.getLevel().moveCameraY)
+      {
+        shapeRenderer.addLine(window.maxPositionTop.x - lineWidth,
+                              window.maxPositionTop.y,
+                              window.maxPositionTop.x + lineWidth,
+                              window.maxPositionTop.y,
+                              Color.WHITE);
+
+        shapeRenderer.addLine(window.maxPositionBottom.x - lineWidth,
+                              window.maxPositionBottom.y,
+                              window.maxPositionBottom.x + lineWidth,
+                              window.maxPositionBottom.y,
+                              Color.WHITE);
+      }
     }
   }
 
