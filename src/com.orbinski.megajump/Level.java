@@ -266,6 +266,12 @@ public class Level
 
   public boolean overlapsEntity(final Entity entity)
   {
+    // Camera start position can be on top of other entities
+    if (entity.isCameraStartPosition())
+    {
+      return false;
+    }
+
     if (exit != null && exit.overlaps(entity))
     {
       return true;
