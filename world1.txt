@@ -10,4 +10,5 @@ platforms_2
 platforms_3
 on_a_pedestal
 vertical_platforms_1
+vertical_platforms_2
 corridor
