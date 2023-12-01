@@ -2,18 +2,18 @@ package com.orbinski.megajump;
 
 public class Spawn extends Entity
 {
-  Spawn(final float width, final float height)
+  public Spawn(final float width, final float height)
   {
     super(width, height);
   }
 
-  Spawn(final SpawnWrapper wrapper)
+  public Spawn(final SpawnWrapper wrapper)
   {
     super(wrapper);
   }
 
   @Override
-  boolean isSpawn()
+  public boolean isSpawn()
   {
     return true;
   }

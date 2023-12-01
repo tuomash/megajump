@@ -414,6 +414,11 @@ public abstract class Entity
     return false;
   }
 
+  boolean isCameraStartPosition()
+  {
+    return false;
+  }
+
   boolean isDecoration()
   {
     return false;

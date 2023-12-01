@@ -72,6 +72,7 @@ public class Renderer
     addLevelBorder();
     addLevelCameraCeiling();
     addLevelCameraFloor();
+    addLevelCameraStartPosition();
     addLevelDeathPoint();
 
     renderSprites();
@@ -310,6 +311,29 @@ public class Renderer
                             level.cameraFloor.x + Level.MAX_DIMENSION,
                             level.cameraFloor.y,
                             Color.YELLOW);
+    }
+  }
+
+  void addLevelCameraStartPosition()
+  {
+    if (game.isLevelEditor())
+    {
+      final CameraPosition cameraStartPosition = game.getLevelEditor().level.cameraStartPosition;
+
+      shapeRenderer.addFilledQuad(cameraStartPosition.getBottomLeftCornerPosition().x,
+                                  cameraStartPosition.getBottomLeftCornerPosition().y,
+                                  cameraStartPosition.getWidth(),
+                                  cameraStartPosition.getHeight(),
+                                  Color.GRAY);
+
+      if (cameraStartPosition.selected)
+      {
+        shapeRenderer.addQuad(cameraStartPosition.getBottomLeftCornerPosition().x,
+                              cameraStartPosition.getBottomLeftCornerPosition().y,
+                              cameraStartPosition.getWidth(),
+                              cameraStartPosition.getHeight(),
+                              Color.WHITE);
+      }
     }
   }
 

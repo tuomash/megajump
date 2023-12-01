@@ -1,20 +1,20 @@
 package com.orbinski.megajump;
 
-class SpawnWrapper extends EntityWrapper
+public class SpawnWrapper extends EntityWrapper
 {
   private static final long serialVersionUID = 1L;
 
-  SpawnWrapper()
+  public SpawnWrapper()
   {
     // Empty constructor is needed for deserialization
   }
 
-  SpawnWrapper(final Spawn spawn)
+  public SpawnWrapper(final Spawn spawn)
   {
     super(spawn);
   }
 
-  Spawn unwrap()
+  public Spawn unwrap()
   {
     return new Spawn(this);
   }

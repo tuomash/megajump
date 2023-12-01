@@ -49,7 +49,8 @@ public class Level
 
   public Point2D.Float cameraCeiling = new Point2D.Float();
   public Point2D.Float cameraFloor = new Point2D.Float();
-  Point2D.Float deathPoint = new Point2D.Float();
+  public Point2D.Float deathPoint = new Point2D.Float();
+  public CameraPosition cameraStartPosition = new CameraPosition(5.0f, 5.0f);
 
   private boolean saved = true;
 
@@ -64,6 +65,7 @@ public class Level
     cameraCeiling.setLocation(0.0f, 500.0f);
     cameraFloor.setLocation(0.0f, 15.0f);
     deathPoint.setLocation(0.0f, -70.0f);
+    cameraStartPosition.setPosition(-6.0f, 0.0f);
   }
 
   void update(final float delta)
@@ -194,6 +196,11 @@ public class Level
 
   Entity findEntity(final float x, final float y)
   {
+    if (cameraStartPosition.contains(x, y))
+    {
+      return cameraStartPosition;
+    }
+
     if (exit != null && exit.contains(x, y))
     {
       return exit;
@@ -315,7 +322,7 @@ public class Level
   boolean removeEntity(final Entity entity)
   {
     // Exit or spawn cannot be removed
-    if (entity.isExit() || entity.isSpawn())
+    if (entity.isExit() || entity.isSpawn() || entity.isCameraStartPosition())
     {
       return false;
     }

@@ -371,8 +371,8 @@ public class Game implements GameInterface
 
   void setCameraToPlayer()
   {
-    camera.position.x = player.getPosition().x + 69.0f;
-    camera.position.y = player.getPosition().y + 30.0f;
+    camera.position.x = level.cameraStartPosition.getPosition().x;
+    camera.position.y = level.cameraStartPosition.getPosition().y;
   }
 
   void setCameraToPlayerTeleport()

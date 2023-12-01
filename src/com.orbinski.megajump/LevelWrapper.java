@@ -27,6 +27,7 @@ class LevelWrapper implements Serializable
   Point2D.Float cameraCeiling;
   Point2D.Float cameraFloor;
   Point2D.Float deathPoint;
+  CameraPositionWrapper cameraStartPosition;
 
   LevelWrapper()
   {
@@ -52,6 +53,7 @@ class LevelWrapper implements Serializable
     cameraCeiling = new Point2D.Float();
     cameraFloor = new Point2D.Float();
     deathPoint = new Point2D.Float();
+    cameraStartPosition = new CameraPositionWrapper(level.cameraStartPosition);
 
     for (int i = 0; i < level.decorations.size(); i++)
     {
@@ -153,6 +155,11 @@ class LevelWrapper implements Serializable
     if (cameraFloor != null)
     {
       level.cameraFloor.setLocation(cameraFloor);
+    }
+
+    if (cameraStartPosition != null)
+    {
+      level.cameraStartPosition = cameraStartPosition.unwrap();
     }
 
     if (deathPoint != null)
