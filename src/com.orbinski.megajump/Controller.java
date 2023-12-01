@@ -361,7 +361,7 @@ public class Controller
           originalSelectionX = input.getX();
           originalSelectionY = input.getY();
         }
-        else
+        else if (editor.entity == null)
         {
           editor.selectEntity(mouse.x, mouse.y);
           originalSelectionX = input.getX();
