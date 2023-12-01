@@ -250,9 +250,17 @@ public class Controller
       }
       else if (input.isKeyJustPressed(Input.Keys.U))
       {
-        editor.raiseCameraFloor();
+        editor.raiseCameraCeiling();
       }
       else if (input.isKeyJustPressed(Input.Keys.J))
+      {
+        editor.lowerCameraCeiling();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.I))
+      {
+        editor.raiseCameraFloor();
+      }
+      else if (input.isKeyJustPressed(Input.Keys.K))
       {
         editor.lowerCameraFloor();
       }
@@ -436,11 +444,31 @@ public class Controller
 
         if (elapsed > timeNeeded)
         {
-          editor.raiseCameraFloor();
+          editor.raiseCameraCeiling();
           elapsed = 0.0f;
         }
       }
       else if (input.isKeyPressed(Input.Keys.J))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.lowerCameraCeiling();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyPressed(Input.Keys.I))
+      {
+        elapsed = elapsed + delta;
+
+        if (elapsed > timeNeeded)
+        {
+          editor.raiseCameraFloor();
+          elapsed = 0.0f;
+        }
+      }
+      else if (input.isKeyPressed(Input.Keys.K))
       {
         elapsed = elapsed + delta;
 

@@ -47,6 +47,7 @@ public class Level
   public boolean moveCameraX;
   public boolean moveCameraY;
 
+  public Point2D.Float cameraCeiling = new Point2D.Float();
   public Point2D.Float cameraFloor = new Point2D.Float();
   Point2D.Float deathPoint = new Point2D.Float();
 
@@ -60,6 +61,7 @@ public class Level
     bronzeTimeInMilliseconds = 15000;
     setExit(new Exit(-55.0f, -30.0f, 5.0f, 5.0f));
     setSpawn(-75.0f, -30.0f);
+    cameraCeiling.setLocation(0.0f, 500.0f);
     cameraFloor.setLocation(0.0f, 15.0f);
     deathPoint.setLocation(0.0f, -70.0f);
   }
@@ -347,6 +349,18 @@ public class Level
     }
 
     return removed;
+  }
+
+  void raiseCameraCeiling(final float amount)
+  {
+    cameraCeiling.y = cameraCeiling.y  + amount;
+    setSaved(false);
+  }
+
+  void lowerCameraCeiling(final float amount)
+  {
+    cameraCeiling.y = cameraCeiling.y - amount;
+    setSaved(false);
   }
 
   void raiseCameraFloor(final float amount)

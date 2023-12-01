@@ -70,6 +70,7 @@ public class Renderer
     // addGrid();
     addSpawn();
     addLevelBorder();
+    addLevelCameraCeiling();
     addLevelCameraFloor();
     addLevelDeathPoint();
 
@@ -283,6 +284,19 @@ public class Renderer
                             Level.MAX_DIMENSION,
                             Level.MAX_DIMENSION,
                             Color.WHITE);
+    }
+  }
+
+  void addLevelCameraCeiling()
+  {
+    if (game.isLevelEditor())
+    {
+      final Level level = game.getLevelEditor().level;
+      shapeRenderer.addLine(level.cameraCeiling.x - Level.MAX_DIMENSION,
+                            level.cameraCeiling.y,
+                            level.cameraCeiling.x + Level.MAX_DIMENSION,
+                            level.cameraCeiling.y,
+                            Color.ORANGE);
     }
   }
 

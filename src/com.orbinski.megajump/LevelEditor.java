@@ -174,6 +174,16 @@ public class LevelEditor implements InputProcessor
     }
   }
 
+  void raiseCameraCeiling()
+  {
+    level.raiseCameraCeiling(5.0f);
+  }
+
+  void lowerCameraCeiling()
+  {
+    level.lowerCameraCeiling(5.0f);
+  }
+
   void raiseCameraFloor()
   {
     level.raiseCameraFloor(5.0f);

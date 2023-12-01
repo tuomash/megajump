@@ -159,7 +159,7 @@ public class Game implements GameInterface
 
       if (level.moveCameraY)
       {
-        if (player.getPosition().y > level.cameraFloor.y)
+        if (player.getPosition().y < level.cameraCeiling.y && player.getPosition().y > level.cameraFloor.y)
         {
           camera.position.y = camera.position.y + delta * (player.velocityY * 1.5f);
 
@@ -403,6 +403,11 @@ public class Game implements GameInterface
     UserInterface.updateMoveCameraYText(level.moveCameraY);
     UserInterface.updateZoomText(camera.zoom);
     reset();
+
+    if (!levelEditor.active)
+    {
+      camera.zoom = 1.0f;
+    }
   }
 
   public void setToSingleplayer()

@@ -28,7 +28,8 @@ public class Help
     addEditor("Press CTRL+O to run a custom command. Examples: set gold 10000, set silver 12000, set bronze 15000");
     addEditor("Press CTRL+T to toggle level camera movement X on/off. Press CTRL+G to toggle level camera movement Y on/off.");
     addEditor("Press CTRL+Y to raise and CTRL+H to lower death point");
-    addEditor("Press CTRL+U to raise and CTRL+J to lower camera floor");
+    addEditor("Press CTRL+U to raise and CTRL+J to lower camera ceiling");
+    addEditor("Press CTRL+I to raise and CTRL+K to lower camera floor");
     addEditor("Press CTRL + right arrow to increase and CTRL + left arrow to decrease entity width");
     addEditor("Press CTRL + up arrow to increase and CTRL + down arrow to decrease entity height");
     addEditor("Press CTRL+X to delete an entity");
@@ -41,6 +42,8 @@ public class Help
     addEditor("Press LEFT SHIFT and mouse 1 to move entities");
     addEditor("Press ALT + right arrow to increase and ALT + left arrow to decrease entity width FASTER");
     addEditor("Press ALT + up arrow to increase and ALT + down arrow to decrease entity height FASTER");
+    addEditor("Press ALT+U to raise and ALT+J to lower camera ceiling FASTER");
+    addEditor("Press ALT+I to raise and ALT+K to lower camera floor FASTER");
     addEditor("Press C to reset the camera to player spawn");
     addEditor("Use WASD or arrow keys to move the camera");
     addEditor("Press N for next level and P for previous level");

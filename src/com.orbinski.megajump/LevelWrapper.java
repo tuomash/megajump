@@ -24,6 +24,7 @@ class LevelWrapper implements Serializable
   List<TeleportWrapper> teleports;
   boolean moveCameraX;
   boolean moveCameraY;
+  Point2D.Float cameraCeiling;
   Point2D.Float cameraFloor;
   Point2D.Float deathPoint;
 
@@ -48,6 +49,7 @@ class LevelWrapper implements Serializable
     teleports = new ArrayList<>();
     moveCameraX = level.moveCameraX;
     moveCameraY = level.moveCameraY;
+    cameraCeiling = new Point2D.Float();
     cameraFloor = new Point2D.Float();
     deathPoint = new Point2D.Float();
 
@@ -76,8 +78,9 @@ class LevelWrapper implements Serializable
       teleports.add(new TeleportWrapper(level.teleports.get(i)));
     }
 
-    cameraFloor.setLocation(level.cameraFloor.x, level.cameraFloor.y);
-    deathPoint.setLocation(level.deathPoint.x, level.deathPoint.y);
+    cameraCeiling.setLocation(level.cameraCeiling);
+    cameraFloor.setLocation(level.cameraFloor);
+    deathPoint.setLocation(level.deathPoint);
   }
 
   Level unwrap()
@@ -142,14 +145,19 @@ class LevelWrapper implements Serializable
     level.moveCameraX = moveCameraX;
     level.moveCameraY = moveCameraY;
 
+    if (cameraCeiling != null)
+    {
+      level.cameraCeiling.setLocation(cameraCeiling);
+    }
+
     if (cameraFloor != null)
     {
-      level.cameraFloor.setLocation(cameraFloor.x, cameraFloor.y);
+      level.cameraFloor.setLocation(cameraFloor);
     }
 
     if (deathPoint != null)
     {
-      level.deathPoint.setLocation(deathPoint.x, deathPoint.y);
+      level.deathPoint.setLocation(deathPoint);
     }
 
     return level;
