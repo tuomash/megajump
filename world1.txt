@@ -8,8 +8,8 @@ guiding_light
 platforms_1
 platforms_2
 platforms_3
+stair_climber
 on_a_pedestal
 vertical_platforms_1
 vertical_platforms_2
 corridor
-stair_climber
