@@ -12,4 +12,5 @@ stair_climber
 on_a_pedestal
 vertical_platforms_1
 vertical_platforms_2
+vertical_platforms_3
 corridor
