@@ -7,8 +7,8 @@ public class Globals
   public static final float WORLD_WIDTH = 200;
   public static final float WORLD_HEIGHT = 100;
 
-  public static final float TIME_STEP_SECONDS = 1 / 60.0f;
-  public static final float MAX_FRAME_TIME_SECONDS = TIME_STEP_SECONDS * 20.0f;
+  public static final float TIME_STEP_SECONDS = 1 / 120.0f;
+  public static final float MAX_FRAME_TIME_SECONDS = TIME_STEP_SECONDS * 40.0f;
 
   public static final float MAX_VELOCITY_X = 300.0f;
   public static final float MAX_VELOCITY_Y = 300.0f;
