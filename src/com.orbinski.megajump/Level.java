@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Level
 {
-  static float MAX_DIMENSION = 2000.0f;
+  static float MAX_DIMENSION = 3000.0f;
   static float MAX_DIMENSION_OFFSET = MAX_DIMENSION / 2.0f;
 
   enum Trophy

@@ -206,8 +206,8 @@ public class Game implements GameInterface
   {
     if (cameraState.moving && cameraState.active)
     {
-      camera.position.x = camera.position.x + delta * cameraState.velocityX;
-      camera.position.y = camera.position.y + delta * cameraState.velocityY;
+      camera.position.x = camera.position.x + delta * cameraState.velocityX * camera.zoom;
+      camera.position.y = camera.position.y + delta * cameraState.velocityY * camera.zoom;
       // System.out.println("camera x:" + camera.position.x);
       // System.out.println("camera y:" + camera.position.y);
 
