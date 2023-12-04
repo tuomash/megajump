@@ -17,7 +17,7 @@ public class Globals
   public static final float MAX_ONE_JUMP_VELOCITY_X = 65.0f;
   public static final float MAX_ONE_JUMP_VELOCITY_Y = 75.0f;
   public static final float GRAVITY = -60.0f;
-  public static final float FRICTION_PLATFORM = 0.8f;
+  public static final float FRICTION_PLATFORM = 1.6f;
   public static final float FRICTION_PLATFORM_APPLY_AFTER_SECONDS = 0.2f;
 
   public static final float MAX_CAMERA_DISTANCE_TOP_Y = 10.0f;
