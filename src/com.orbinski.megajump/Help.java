@@ -18,6 +18,7 @@ public class Help
     addGame("Press N for next level and P for previous level");
     addGame("Use WASD or arrow keys for aerial controls");
     addGame("Press, drag and release mouse button 1 to jump");
+    addGame("Press CTRL+E to toggle the level editor on/off");
     addGame("Green platforms enable you to jump again");
 
     // Editor
