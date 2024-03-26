@@ -4,7 +4,7 @@ APACHE LICENSE VERSION 2.0
 
 License information: http://www.apache.org/licenses/LICENSE-2.0
 
-Affected libraries:
+Llibraries:
 
 lib/support/ant-contrib-1.0b3.jar
 lib/commons-collections4-4.4.jar
@@ -32,7 +32,7 @@ BSD-3-CLAUSE LICENSE
 
 License information: https://opensource.org/license/bsd-3-clause
 
-Affected libraries:
+Libraries:
 
 lib/jsonbeans-0.7.jar
 lib/kryo-2.24.0.jar
@@ -65,7 +65,7 @@ GNU LESSER GENERAL PUBLIC LICENSE (LGPL), VERSION 2.1
 
 License information: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
 
-Affected libraries:
+Libraries:
 
 lib/jlayer-1.0.1-gdx.jar
 lib/jorbis-0.0.17.jar
@@ -74,11 +74,8 @@ lib/jorbis-0.0.17.jar
 
 PUBLIC DOMAIN
 
-Affected source code:
+Source code:
 
 src/com/kevinglass/*
 
 -------------------------------------------------------------------------------
-
-
-

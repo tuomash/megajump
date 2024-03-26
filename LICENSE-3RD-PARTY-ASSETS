@@ -1,15 +1,50 @@
-Graphics
+-------------------------------------------------------------------------------
 
-"LPC Windows & Doors" by bluecarrot16, Lanea Zimmerman (Sharm) and Daniel Armstrong (HughSpectrum), Casper Nilsson, Anamaris, Krusmira, Keith Karnage, Guido Bos, and Talosaurus. License: CC-BY-SA 3.0 / GPL 3.0+: https://opengameart.org/content/lpc-windows-doors
+CC0 1.0 Deed CC0 1.0 Universal
 
-"Lunchds TTF" font: https://fontsforyou.com/en/fonts/72570-lunchds.font
+License information: https://creativecommons.org/publicdomain/zero/1.0/
 
-"candles, oil lamp and eye with varied stands" by vk: https://opengameart.org/content/candles-oil-lamp-and-eye-with-varied-stands
+Assets:
 
-"Square Block Textures" by etqws3: https://opengameart.org/content/square-block-textures
+graphics/block.png ("Square Block Textures" by etqws3: https://opengameart.org/content/square-block-textures)
+graphics/candle.png ("candles, oil lamp and eye with varied stands" by vk: https://opengameart.org/content/candles-oil-lamp-and-eye-with-varied-stands)
 
-"FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack
+-------------------------------------------------------------------------------
 
-Music
+CC BY-SA 3.0 DEED ATTRIBUTION-SHAREALIKE 3.0 UNPORTED
 
-"Vitalezzz - Brute Force" by vitalezz: https://opengameart.org/content/brute-force
+License information: https://creativecommons.org/licenses/by-sa/3.0/
+
+Assets:
+
+graphics/door.png ("LPC Windows & Doors" by bluecarrot16, Lanea Zimmerman (Sharm) and Daniel Armstrong (HughSpectrum), Casper Nilsson, Anamaris, Krusmira, Keith Karnage, Guido Bos, and Talosaurus. License: CC-BY-SA 3.0 / GPL 3.0+: https://opengameart.org/content/lpc-windows-doors)
+
+-------------------------------------------------------------------------------
+
+CC BY 4.0 DEED ATTRIBUTION 4.0 INTERNATIONAL
+
+License information: https://creativecommons.org/licenses/by/4.0/
+
+Assets:
+
+graphics/player-air-spin-right.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+graphics/player-idle-left.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+graphics/player-idle-right.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+graphics/player-jump-left.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+graphics/player-jump-right.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+graphics/player-land-left.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+graphics/player-land-right.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+graphics/player-roll-right.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+graphics/player-wall-land-left.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+graphics/player-wall-land-right.png ("FREE-2D Pixel Art Character Asset Pack" by ZeggyGames: https://zegley.itch.io/2d-platformermetroidvania-asset-pack)
+music/brute_force_loop.mp3 ("Vitalezzz - Brute Force" by vitalezz: https://opengameart.org/content/brute-force)
+
+-------------------------------------------------------------------------------
+
+PUBLIC DOMAIN
+
+Assets:
+
+graphics/lunchds.ttf ("Lunchds TTF" font: https://fontsforyou.com/en/fonts/72570-lunchds.font)
+
+-------------------------------------------------------------------------------
