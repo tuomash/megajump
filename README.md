@@ -13,5 +13,5 @@ You can download the latest build from: https://curbyourcode.itch.io/megajump.
 - Set the project SDK to JDK 17 and the language level also to 17
 - Setup project dependencies: add the libraries under the "lib" folder to the project
 - Test compilation with "Build Project" at this point
-- Setup a run configuration: add a new "Application" run configuration where the target is: com.curbyourcode.megajump.Boot
+- Setup a run configuration: add a new "Application" run configuration where the target is: com.orbinski.megajump.Boot
 - Enjoy!
