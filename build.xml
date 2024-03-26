@@ -1,5 +1,5 @@
 <project name="megajump" default="build" basedir=".">
-    <description>Build file for Megajumpers.</description>
+    <description>Build file for Megajump.</description>
 
     <tstamp/>
 
