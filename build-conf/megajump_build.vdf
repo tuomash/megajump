@@ -1,7 +1,7 @@
 "AppBuild"
 {
-	"AppID" "1682370"
-	"Desc" "Evil Wizard Steam build"
+	"AppID" "123456789"
+	"Desc" "Megajump Steam build"
 
 	"ContentRoot" "..\..\..\..\..\dist\"
 	"BuildOutput" "..\..\..\..\..\dist-steam\"

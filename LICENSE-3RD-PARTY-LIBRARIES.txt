@@ -1,0 +1,78 @@
+-------------------------------------------------------------------------------
+
+APACHE LICENSE VERSION 2.0
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+- Apache Commons CLI library
+  * lib/commons-collections4-4.4.jar
+
+- libGDX
+  * lib/gdx-1.10.0.jar
+  * lib/gdx-backend-lwjgl-1.10.0.jar
+  * lib/gdx-box2d-1.10.0.jar
+  * lib/gdx-box2d-platform-1.10.0-natives-desktop.jar
+  * lib/gdx-controllers-core-2.2.2.jar
+  * lib/gdx-controllers-desktop-2.2.2.jar
+  * lib/gdx-freetype-1.10.0.jar
+  * lib/gdx-freetype-platform-1.10.0-natives-desktop.jar
+  * lib/gdx-platform-1.10.0-natives-desktop.jar
+  * lib/jamepad-2.0.20.0.jar
+  * lib/jinput-2.0.5.jar
+  * lib/jinput-platform-2.0.5-natives-windows.jar
+  * lib/jlayer-1.0.1-gdx.jar
+  * lib/jorbis-0.0.17.jar
+  * lib/jutils-1.0.0.jar
+  * lib/lwjgl-2.9.3.jar
+  * lib/lwjgl-platform-2.9.3-natives-windows.jar
+  * lib/lwjgl_util-2.9.3.jar
+
+-------------------------------------------------------------------------------
+BSD-3 CLAUSE LICENSE
+
+https://opensource.org/licenses/BSD-3-Clause
+
+- Launch4j
+  * lib/support/launch4j/*
+
+-------------------------------------------------------------------------------
+CREATIVE COMMONS ATTRIBUTION 3.0 UNPORTED
+
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+- data/audio/sfx/placeholder-footstep.wav
+  * Downloaded from https://freesound.org/
+
+- data/audio/sfx/placeholder-level-up.wav
+  * Downloaded from https://freesound.org/
+
+- data/audio/sfx/placeholder-loot.wav
+  * Downloaded from https://freesound.org/
+
+- data/audio/sfx/placeholder-menu-select.wav
+  * Downloaded from https://freesound.org/
+
+- data/audio/sfx/placeholder-pickup-item.wav
+  * Downloaded from https://freesound.org/
+
+- data/audio/sfx/placeholder-text.wav
+  * Downloaded from https://freesound.org/
+
+-------------------------------------------------------------------------------
+
+MIT LICENSE
+
+https://opensource.org/licenses/mit-license.html
+
+- LuaJ
+  * lib/luaj-jse-3.0.1.jar
+
+-------------------------------------------------------------------------------
+
+PUBLIC DOMAIN
+
+- Kevin Glass' Pathfinding Code
+  * src/com/kevinglass/*
+  * See http://www.cokeandcode.com.
+
+-------------------------------------------------------------------------------

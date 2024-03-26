@@ -1,8 +1,8 @@
 <launch4jConfig>
     <headerType>gui</headerType>
-    <errTitle>Orndorf's Megajump error</errTitle>
+    <errTitle>Megajump Error</errTitle>
     <chdir></chdir>
-    <supportUrl>https://curbyourcode.com</supportUrl>
+    <supportUrl>https://google.com</supportUrl>
     <stayAlive>false</stayAlive>
     <icon>megajump.ico</icon>
     <jre>
@@ -17,12 +17,12 @@
     <versionInfo>
         <fileVersion>0.1.0.0</fileVersion>
         <txtFileVersion>0.1.0b</txtFileVersion>
-        <fileDescription>Orndorf's Megajump executable</fileDescription>
-        <copyright>Copyright 2023 Curb Your Code Oy</copyright>
+        <fileDescription>Megajump executable</fileDescription>
+        <copyright>Copyright 2024 Megajump</copyright>
         <productVersion>0.1.0.0</productVersion>
         <txtProductVersion>0.1.0b</txtProductVersion>
-        <productName>Orndorf's Megajump</productName>
-        <companyName>Curb Your Code Oy</companyName>
+        <productName>Megajump</productName>
+        <companyName>Megajump</companyName>
         <internalName>Megajump</internalName>
         <originalFilename>Megajump.exe</originalFilename>
     </versionInfo>
