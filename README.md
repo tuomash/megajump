@@ -1,5 +1,7 @@
 # Megajump
 
+![Megajump](readme-title-picture.png "Megajump")
+
 Megajump is a platformer where the focus is on doing high velocity jumps and landing them. Get to the exit as fast as possible!
 
 You can download the latest build from: https://curbyourcode.itch.io/megajump.
