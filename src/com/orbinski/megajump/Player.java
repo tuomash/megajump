@@ -2,7 +2,7 @@ package com.orbinski.megajump;
 
 public class Player extends Entity
 {
-  enum Direction
+  public enum Direction
   {
     LEFT,
     RIGHT
@@ -18,11 +18,25 @@ public class Player extends Entity
     DEATH
   }
 
-  enum Location
+  public enum Location
   {
     START,
     NONE,
     PLATFORM
+  }
+
+  public enum VerticalMovement
+  {
+    UP,
+    DOWN,
+    NONE
+  }
+
+  public enum HorizontalMovement
+  {
+    LEFT,
+    RIGHT,
+    NONE
   }
 
   public int id = 1;
@@ -33,6 +47,8 @@ public class Player extends Entity
   private Direction previousDirection = Direction.LEFT;
   public State state;
   private Location location;
+  public VerticalMovement verticalMovement = VerticalMovement.NONE;
+  public HorizontalMovement horizontalMovement = HorizontalMovement.NONE;
 
   public final JumpAssistant assistant;
 
@@ -167,19 +183,21 @@ public class Player extends Entity
   {
     if (state == State.JUMPING)
     {
-      updateVelocityY(0.5f);
+      updateVelocityY(Globals.PLAYER_VELOCITY_JUMPING);
     }
+
+    verticalMovement = VerticalMovement.NONE;
   }
 
   public void moveLeft()
   {
     if (state == State.JUMPING || state == State.WALL_LANDING)
     {
-      updateVelocityX(-0.5f);
+      updateVelocityX(-Globals.PLAYER_VELOCITY_JUMPING);
     }
     else if (state == State.LANDING)
     {
-      updateVelocityX(-0.2f);
+      updateVelocityX(-Globals.PLAYER_VELOCITY_LANDING);
     }
 
     if (setDirection(Direction.LEFT))
@@ -193,17 +211,19 @@ public class Player extends Entity
         updateAnimationState(false);
       }
     }
+
+    horizontalMovement = HorizontalMovement.NONE;
   }
 
   public void moveRight()
   {
     if (state == State.JUMPING || state == State.WALL_LANDING)
     {
-      updateVelocityX(0.5f);
+      updateVelocityX(Globals.PLAYER_VELOCITY_JUMPING);
     }
     else if (state == State.LANDING)
     {
-      updateVelocityX(0.2f);
+      updateVelocityX(Globals.PLAYER_VELOCITY_LANDING);
     }
 
     if (setDirection(Direction.RIGHT))
@@ -217,14 +237,18 @@ public class Player extends Entity
         updateAnimationState(false);
       }
     }
+
+    horizontalMovement = HorizontalMovement.NONE;
   }
 
   public void moveDown()
   {
     if (state == State.JUMPING)
     {
-      updateVelocityY(-0.5f);
+      updateVelocityY(-Globals.PLAYER_VELOCITY_JUMPING);
     }
+
+    verticalMovement = VerticalMovement.NONE;
   }
 
   public String getName()

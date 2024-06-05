@@ -458,25 +458,25 @@ public class MultiplayerGame implements GameInterface
   @Override
   public void moveUp()
   {
-    clientPlayer.moveUp();
+    clientPlayer.verticalMovement = Player.VerticalMovement.UP;
   }
 
   @Override
   public void moveLeft()
   {
-    clientPlayer.moveLeft();
+    clientPlayer.horizontalMovement = Player.HorizontalMovement.LEFT;
   }
 
   @Override
   public void moveRight()
   {
-    clientPlayer.moveRight();
+    clientPlayer.horizontalMovement = Player.HorizontalMovement.RIGHT;
   }
 
   @Override
   public void moveDown()
   {
-    clientPlayer.moveDown();
+    clientPlayer.verticalMovement = Player.VerticalMovement.DOWN;
   }
 
   @Override

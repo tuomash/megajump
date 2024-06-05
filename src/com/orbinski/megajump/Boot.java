@@ -10,7 +10,7 @@ class Boot
     final Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
     config.setMaximized(true);
     config.setTitle("Megajump");
-    config.setForegroundFPS(60);
+    config.setForegroundFPS(120);
     config.setIdleFPS(30);
 
     for (int i = 0; i < args.length; i++)

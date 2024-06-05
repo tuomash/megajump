@@ -52,6 +52,26 @@ public class Physics
       {
         player.setLocation(Player.Location.NONE);
 
+        if (player.verticalMovement == Player.VerticalMovement.UP)
+        {
+          player.updateVelocityY(Globals.PLAYER_VELOCITY_JUMPING * delta);
+        }
+        else if (player.verticalMovement == Player.VerticalMovement.DOWN)
+        {
+          player.updateVelocityY(-Globals.PLAYER_VELOCITY_JUMPING * delta);
+        }
+
+        if (player.horizontalMovement == Player.HorizontalMovement.LEFT)
+        {
+          // TODO: fix velocity application
+          player.moveLeft();
+        }
+        else if (player.horizontalMovement == Player.HorizontalMovement.RIGHT)
+        {
+          // TODO: fix velocity application
+          player.moveRight();
+        }
+
         if (player.applyGravity)
         {
           player.velocityY = player.velocityY + Globals.GRAVITY * delta;

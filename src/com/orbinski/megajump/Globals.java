@@ -19,6 +19,8 @@ public class Globals
   public static final float GRAVITY = -60.0f;
   public static final float FRICTION_PLATFORM = 1.6f;
   public static final float FRICTION_PLATFORM_APPLY_AFTER_SECONDS = 0.2f;
+  public static final float PLAYER_VELOCITY_JUMPING = 0.5f;
+  public static final float PLAYER_VELOCITY_LANDING = 0.2f;
 
   public static final float MAX_CAMERA_DISTANCE_TOP_Y = 10.0f;
   public static final float MAX_CAMERA_DISTANCE_BOTTOM_Y = 25.0f;
