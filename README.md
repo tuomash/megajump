@@ -8,6 +8,12 @@ You can download the latest build from: https://curbyourcode.itch.io/megajump.
 
 Check out some gameplay here: https://www.youtube.com/watch?v=0Z7p4b1PllU.
 
+## Tech stack
+
+- Java 17
+- LibGDX
+- Ant
+
 ## Building and running on Windows with IntelliJ
 
 - Install Java JDK 17
