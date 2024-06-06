@@ -290,25 +290,25 @@ public class Game implements GameInterface
   @Override
   public void moveUp()
   {
-    player.verticalMovement = Player.VerticalMovement.UP;
+    player.setVerticalMovement(Player.VerticalMovement.UP);
   }
 
   @Override
   public void moveLeft()
   {
-    player.horizontalMovement = Player.HorizontalMovement.LEFT;
+    player.setHorizontalMovement(Player.HorizontalMovement.LEFT);
   }
 
   @Override
   public void moveRight()
   {
-    player.horizontalMovement = Player.HorizontalMovement.RIGHT;
+    player.setHorizontalMovement(Player.HorizontalMovement.RIGHT);
   }
 
   @Override
   public void moveDown()
   {
-    player.verticalMovement = Player.VerticalMovement.DOWN;
+    player.setVerticalMovement(Player.VerticalMovement.DOWN);
   }
 
   @Override

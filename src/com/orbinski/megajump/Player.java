@@ -75,8 +75,8 @@ public class Player extends Entity
     // drawBorder = true;
     // drawCollisionBox = true;
 
-    setDirection(Direction.RIGHT);
     setState(State.IDLE);
+    setDirection(Direction.RIGHT);
     setLocation(Location.START);
 
     if (Animations.playerIdleLeft != null)
@@ -179,76 +179,10 @@ public class Player extends Entity
     assistant.jump();
   }
 
-  public void moveUp()
+  public void clearMovement()
   {
-    if (state == State.JUMPING)
-    {
-      updateVelocityY(Globals.PLAYER_VELOCITY_JUMPING);
-    }
-
     verticalMovement = VerticalMovement.NONE;
-  }
-
-  public void moveLeft()
-  {
-    if (state == State.JUMPING || state == State.WALL_LANDING)
-    {
-      updateVelocityX(-Globals.PLAYER_VELOCITY_JUMPING);
-    }
-    else if (state == State.LANDING)
-    {
-      updateVelocityX(-Globals.PLAYER_VELOCITY_LANDING);
-    }
-
-    if (setDirection(Direction.LEFT))
-    {
-      if (previousDirection != direction && state == State.WALL_LANDING)
-      {
-        setState(State.JUMPING);
-      }
-      else
-      {
-        updateAnimationState(false);
-      }
-    }
-
     horizontalMovement = HorizontalMovement.NONE;
-  }
-
-  public void moveRight()
-  {
-    if (state == State.JUMPING || state == State.WALL_LANDING)
-    {
-      updateVelocityX(Globals.PLAYER_VELOCITY_JUMPING);
-    }
-    else if (state == State.LANDING)
-    {
-      updateVelocityX(Globals.PLAYER_VELOCITY_LANDING);
-    }
-
-    if (setDirection(Direction.RIGHT))
-    {
-      if (previousDirection != direction && state == State.WALL_LANDING)
-      {
-        setState(State.JUMPING);
-      }
-      else
-      {
-        updateAnimationState(false);
-      }
-    }
-
-    horizontalMovement = HorizontalMovement.NONE;
-  }
-
-  public void moveDown()
-  {
-    if (state == State.JUMPING)
-    {
-      updateVelocityY(-Globals.PLAYER_VELOCITY_JUMPING);
-    }
-
-    verticalMovement = VerticalMovement.NONE;
   }
 
   public String getName()
@@ -326,6 +260,16 @@ public class Player extends Entity
     {
       previousDirection = this.direction;
       this.direction = direction;
+
+      if (state == State.WALL_LANDING)
+      {
+        setState(State.JUMPING);
+      }
+      else
+      {
+        updateAnimationState(false);
+      }
+
       return true;
     }
 
@@ -356,67 +300,70 @@ public class Player extends Entity
 
   public void updateAnimationState(final boolean reset)
   {
-    switch (this.state)
+    if (this.state != null)
     {
-      case IDLE:
+      switch (this.state)
       {
-        if (direction == Direction.LEFT)
+        case IDLE:
         {
-          setAnimation(idleLeft);
-        }
-        else
-        {
-          setAnimation(idleRight);
+          if (direction == Direction.LEFT)
+          {
+            setAnimation(idleLeft);
+          }
+          else
+          {
+            setAnimation(idleRight);
+          }
+
+          break;
         }
 
-        break;
+        case JUMPING:
+        {
+          setAnimation(null);
+
+          break;
+        }
+
+        case LANDING:
+        {
+          if (direction == Direction.LEFT)
+          {
+            setAnimation(landLeft);
+          }
+          else
+          {
+            setAnimation(landRight);
+          }
+
+          break;
+        }
+
+        case WALL_LANDING:
+        {
+          if (direction == Direction.LEFT)
+          {
+            setAnimation(wallLandLeft);
+          }
+          else
+          {
+            setAnimation(wallLandRight);
+          }
+
+          break;
+        }
       }
 
-      case JUMPING:
+      if (animation != null)
       {
-        setAnimation(null);
-
-        break;
-      }
-
-      case LANDING:
-      {
-        if (direction == Direction.LEFT)
+        if (reset)
         {
-          setAnimation(landLeft);
+          animation.reset();
         }
-        else
+        else if (prevAnimation != null && animation.groupId == prevAnimation.groupId)
         {
-          setAnimation(landRight);
+          animation.mergeState(prevAnimation);
         }
-
-        break;
-      }
-
-      case WALL_LANDING:
-      {
-        if (direction == Direction.LEFT)
-        {
-          setAnimation(wallLandLeft);
-        }
-        else
-        {
-          setAnimation(wallLandRight);
-        }
-
-        break;
-      }
-    }
-
-    if (animation != null)
-    {
-      if (reset)
-      {
-        animation.reset();
-      }
-      else if (prevAnimation != null && animation.groupId == prevAnimation.groupId)
-      {
-        animation.mergeState(prevAnimation);
       }
     }
   }
@@ -435,6 +382,25 @@ public class Player extends Entity
   public void resetTouchedFor()
   {
     touchedFor = 0.0f;
+  }
+
+  public void setVerticalMovement(final VerticalMovement verticalMovement)
+  {
+    this.verticalMovement = verticalMovement;
+  }
+
+  public void setHorizontalMovement(final HorizontalMovement horizontalMovement)
+  {
+    this.horizontalMovement = horizontalMovement;
+
+    if (horizontalMovement == HorizontalMovement.LEFT)
+    {
+      setDirection(Player.Direction.LEFT);
+    }
+    else if (horizontalMovement == HorizontalMovement.RIGHT)
+    {
+      setDirection(Direction.RIGHT);
+    }
   }
 
   public void reset()

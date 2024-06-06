@@ -131,6 +131,8 @@ public class Controller
       }
     }
 
+    game.getPlayer().clearMovement();
+
     // Player aerial controls
     if (input.isKeyPressed(Input.Keys.W) || input.isKeyPressed(Input.Keys.UP))
     {

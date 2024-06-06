@@ -1,5 +1,6 @@
 package com.orbinski.megajump;
 
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
@@ -7,10 +8,13 @@ class Boot
 {
   public static void main(final String[] args)
   {
+    final Graphics.DisplayMode primaryDesktopMode = Lwjgl3ApplicationConfiguration.getDisplayMode();
+    System.out.println("config: primary desktop refresh rate: " + primaryDesktopMode.refreshRate);
+
     final Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
     config.setMaximized(true);
     config.setTitle("Megajump");
-    config.setForegroundFPS(120);
+    config.setForegroundFPS(primaryDesktopMode.refreshRate);
     config.setIdleFPS(30);
 
     for (int i = 0; i < args.length; i++)

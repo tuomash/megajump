@@ -54,22 +54,40 @@ public class Physics
 
         if (player.verticalMovement == Player.VerticalMovement.UP)
         {
-          player.updateVelocityY(Globals.PLAYER_VELOCITY_JUMPING * delta);
+          if (player.state == Player.State.JUMPING)
+          {
+            player.updateVelocityY(Globals.PLAYER_VELOCITY_JUMPING * delta);
+          }
         }
         else if (player.verticalMovement == Player.VerticalMovement.DOWN)
         {
-          player.updateVelocityY(-Globals.PLAYER_VELOCITY_JUMPING * delta);
+          if (player.state == Player.State.JUMPING)
+          {
+            player.updateVelocityY(-Globals.PLAYER_VELOCITY_JUMPING * delta);
+          }
         }
 
         if (player.horizontalMovement == Player.HorizontalMovement.LEFT)
         {
-          // TODO: fix velocity application
-          player.moveLeft();
+          if (player.state == Player.State.JUMPING || player.state == Player.State.WALL_LANDING)
+          {
+            player.updateVelocityX(-Globals.PLAYER_VELOCITY_JUMPING * delta);
+          }
+          else if (player.state == Player.State.LANDING)
+          {
+            player.updateVelocityX(-Globals.PLAYER_VELOCITY_LANDING * delta);
+          }
         }
         else if (player.horizontalMovement == Player.HorizontalMovement.RIGHT)
         {
-          // TODO: fix velocity application
-          player.moveRight();
+          if (player.state == Player.State.JUMPING || player.state == Player.State.WALL_LANDING)
+          {
+            player.updateVelocityX(Globals.PLAYER_VELOCITY_JUMPING * delta);
+          }
+          else if (player.state == Player.State.LANDING)
+          {
+            player.updateVelocityX(Globals.PLAYER_VELOCITY_LANDING * delta);
+          }
         }
 
         if (player.applyGravity)
