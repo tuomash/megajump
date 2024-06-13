@@ -18,6 +18,8 @@
     <property name="project.editor.name" value="MegajumpEditor"/>
     <property environment="env"/>
 
+    <property file="game.properties" prefix="game"/>
+
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
         <classpath>
             <pathelement location="${lib.support}/ant-contrib-1.0b3.jar"/>
@@ -64,6 +66,7 @@
         <mkdir dir="${dist}/sfx"/>
 
         <copy todir="${dist}">
+            <file name="game.properties"/>
             <file name="LICENSE"/>
             <file name="LICENSE-3RD-PARTY-ASSETS"/>
             <file name="LICENSE-3RD-PARTY-LIBRARIES"/>
@@ -120,7 +123,7 @@
                   jar="${dist}/${game.jar.name}"
                   outfile="${dist}/Megajump.exe"/>
 
-        <zip destfile="${dist-zip}/Megajump.zip" basedir="${dist}"/>
+        <zip destfile="${dist-zip}/Megajump-${game.version}.zip" basedir="${dist}"/>
     </target>
 
     <target name="push-to-steam" depends="build" description="Builds the game and pushes it to Steam.">
