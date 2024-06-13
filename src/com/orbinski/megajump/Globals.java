@@ -7,7 +7,7 @@ public class Globals
   public static final float WORLD_WIDTH = 200;
   public static final float WORLD_HEIGHT = 100;
 
-  public static final float TIME_STEP_SECONDS = 1 / 120.0f;
+  public static final float TIME_STEP_SECONDS = 1 / 60.0f;
   public static final float MAX_FRAME_TIME_SECONDS = TIME_STEP_SECONDS * 40.0f;
 
   public static final float MAX_VELOCITY_X = 300.0f;
@@ -17,7 +17,7 @@ public class Globals
   public static final float MAX_ONE_JUMP_VELOCITY_X = 65.0f;
   public static final float MAX_ONE_JUMP_VELOCITY_Y = 75.0f;
   public static final float GRAVITY = -60.0f;
-  public static final float FRICTION_PLATFORM = 1.6f;
+  public static final float FRICTION_PLATFORM = 0.8f;
   public static final float FRICTION_PLATFORM_APPLY_AFTER_SECONDS = 0.2f;
   public static final float PLAYER_VELOCITY_JUMPING = 35.0f;
   public static final float PLAYER_VELOCITY_LANDING = 20.0f;
